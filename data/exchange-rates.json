@@ -1,0 +1,18 @@
+{
+  "provider": "ExchangeRate-API",
+  "attributionUrl": "https://www.exchangerate-api.com",
+  "base": "CNY",
+  "updatedAt": "Mon, 13 Jul 2026 00:02:31 +0000",
+  "rates": {
+    "CNY": 1,
+    "USD": 0.147494,
+    "JPY": 23.899394,
+    "HKD": 1.156546,
+    "TWD": 4.723666,
+    "TRY": 6.906077,
+    "PHP": 9.057971,
+    "PKR": 40.948364,
+    "CAD": 0.208952,
+    "SGD": 0.190685
+  }
+}
