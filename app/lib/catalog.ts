@@ -6,7 +6,7 @@ export type RegionSnapshot = {
   region: string;
   status: string;
   itemCount: number;
-  sample: IapItem[];
+  items: IapItem[];
 };
 
 export type AppSnapshot = {
@@ -28,7 +28,15 @@ export type PlanDefinition = {
   occurrence?: number;
 };
 
-export const apps = snapshot as AppSnapshot[];
+type ValidationSnapshot = {
+  generatedAt: string;
+  source: string;
+  regions: string[];
+  apps: AppSnapshot[];
+};
+
+const validationSnapshot = snapshot as ValidationSnapshot;
+export const apps = validationSnapshot.apps;
 
 export const regionMeta: Record<string, { name: string; flag: string; currency: string }> = {
   cn: { name: "中国", flag: "🇨🇳", currency: "CNY" },
@@ -45,10 +53,12 @@ export const regionMeta: Record<string, { name: string; flag: string; currency: 
 
 export const planDefinitions: Record<string, PlanDefinition[]> = {
   "6448311069": [
-    { id: "plus-monthly", label: "ChatGPT Plus", period: "月付", aliases: ["ChatGPT Plus"] },
+    { id: "plus-monthly", label: "ChatGPT Plus", period: "月付", aliases: ["ChatGPT Plus"], occurrence: 0 },
+    { id: "plus-annual", label: "ChatGPT Plus", period: "年付", aliases: ["ChatGPT Plus"], occurrence: 1 },
     { id: "go-monthly", label: "ChatGPT Go", period: "月付", aliases: ["ChatGPT Go"] },
     { id: "pro-5x", label: "ChatGPT Pro 5x", period: "月付", aliases: ["ChatGPT Pro 5x"] },
     { id: "pro-20x", label: "ChatGPT Pro 20x", period: "月付", aliases: ["ChatGPT Pro 20x"] },
+    { id: "credits-100", label: "100 Credits", period: "一次性", aliases: ["100 Credits"] },
   ],
   "6473753684": [
     { id: "pro-monthly", label: "Claude Pro", period: "月付", aliases: ["Claude Pro - Monthly"] },
@@ -92,7 +102,15 @@ export const planDefinitions: Record<string, PlanDefinition[]> = {
   ],
 };
 
-export const dataUpdatedAt = "2026-07-13";
+export const dataUpdatedAt = new Intl.DateTimeFormat("zh-CN", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date(validationSnapshot.generatedAt));
+export const dataGeneratedAt = validationSnapshot.generatedAt;
+export const dataSource = validationSnapshot.source;
+export const dataSourceUrl = "https://apps.apple.com";
 export const rateUpdatedAt = exchangeRates.updatedAt;
 export const rateProvider = exchangeRates.provider;
 export const rateAttributionUrl = exchangeRates.attributionUrl;
@@ -107,7 +125,7 @@ function parseAmount(text: string, currency: string) {
 }
 
 export function findPlanItem(region: RegionSnapshot, plan: PlanDefinition) {
-  const matches = region.sample.filter((item) => plan.aliases.includes(item.name));
+  const matches = region.items.filter((item) => plan.aliases.includes(item.name));
   return matches[plan.occurrence ?? 0] ?? null;
 }
 
@@ -126,4 +144,16 @@ export function getApp(id: string) {
 
 export function getVerifiedRegionCount(app: AppSnapshot) {
   return app.regions.filter((region) => region.status.startsWith("ok-") && region.itemCount > 0).length;
+}
+
+export function getPublicItemRange(app: AppSnapshot) {
+  const counts = app.regions
+    .filter((region) => region.status.startsWith("ok-") && region.itemCount > 0)
+    .map((region) => region.itemCount);
+  if (!counts.length) return { min: 0, max: 0 };
+  return { min: Math.min(...counts), max: Math.max(...counts) };
+}
+
+export function getRegionStoreUrl(appId: string, regionCode: string) {
+  return `https://apps.apple.com/${regionCode}/app/id${appId}`;
 }

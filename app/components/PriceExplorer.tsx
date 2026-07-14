@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   findPlanItem,
+  getRegionStoreUrl,
   regionMeta,
   toCny,
   type AppSnapshot,
@@ -17,11 +18,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     if (!selectedPlan) return [];
     return app.regions.map((region) => {
       const item = findPlanItem(region, selectedPlan);
-      return {
-        region,
-        item,
-        cny: item ? toCny(item.price, region.region) : null,
-      };
+      return { region, item, cny: item ? toCny(item.price, region.region) : null };
     });
   }, [app, selectedPlan]);
 
@@ -60,16 +57,17 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
           </button>
         ))}
       </div>
+      <p className="plan-explanation">同名项目按 Apple 商品页中的独立价格项区分月付、年付；当前只排名所选套餐与周期。</p>
 
       <div className="price-summary-grid">
         <div className="lowest-card">
           <span className="summary-label">参考折算最低</span>
           <strong>{lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据"}</strong>
-          <p>{lowest ? `${regionMeta[lowest.region.region].flag} ${regionMeta[lowest.region.region].name}` : "当前套餐可比地区不足"}</p>
+          <p>{lowest ? `${regionMeta[lowest.region.region].flag} ${regionMeta[lowest.region.region].name} · ${selectedPlan.period}` : "当前套餐可比地区不足"}</p>
         </div>
         <div className="summary-mini-card">
           <span>有效地区</span>
-          <strong>{ranked.length}<small>/10</small></strong>
+          <strong>{ranked.length}<small>/{app.regions.length}</small></strong>
         </div>
         <div className="summary-mini-card">
           <span>最高差幅</span>
@@ -83,6 +81,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
             <tr>
               <th>排名</th>
               <th>地区</th>
+              <th>地区公开项目</th>
               <th>Apple 当前标价</th>
               <th>人民币参考</th>
               <th>状态</th>
@@ -94,22 +93,25 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               return (
                 <tr key={row.region.region}>
                   <td><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
-                  <td><span className="region-name"><b>{meta.flag}</b>{meta.name}</span></td>
+                  <td><a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer" title={`打开${meta.name} App Store`}><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a></td>
+                  <td><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price">¥{row.cny?.toFixed(2)}</td>
-                  <td>{index === 0 ? <span className="best-pill">参考最低</span> : <span className="verified-pill">已验证</span>}</td>
+                  <td>{index === 0 ? <span className="best-pill">参考最低</span> : <span className="verified-pill">Apple 已验证</span>}</td>
                 </tr>
               );
             })}
             {rows.filter((row) => !row.item).map((row) => {
               const meta = regionMeta[row.region.region];
               const unavailable = row.region.status === "error:HTTP 404";
+              const verified = row.region.status.startsWith("ok-");
               return (
                 <tr className="muted-row" key={row.region.region}>
                   <td>—</td>
-                  <td><span className="region-name"><b>{meta.flag}</b>{meta.name}</span></td>
-                  <td colSpan={2}>{unavailable ? "该地区未上架或当前不可用" : "未确认到同一套餐"}</td>
-                  <td><span className="unavailable-pill">{unavailable ? "不可用" : "不排名"}</span></td>
+                  <td>{verified ? <a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer"><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
+                  <td><span className="store-count">{row.region.itemCount} 项</span></td>
+                  <td colSpan={2}>{unavailable ? "该地区未上架或当前不可用" : verified ? `该地区公开的 ${row.region.itemCount} 项中未发现此套餐` : "本次抓取失败，暂不排名"}</td>
+                  <td><span className="unavailable-pill">{unavailable ? "不可用" : verified ? "未提供" : "待复核"}</span></td>
                 </tr>
               );
             })}

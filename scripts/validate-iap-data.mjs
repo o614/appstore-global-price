@@ -140,22 +140,27 @@ for (const app of resolvedApps) {
   results.push({ ...app, regions });
 }
 
-const summary = results.map((app) => ({
-  query: app.query,
-  id: app.id,
-  matchedName: app.name,
-  developer: app.developer,
-  icon: app.icon,
-  category: app.category,
-  storeUrl: app.storeUrl,
-  error: app.error,
-  regions: app.regions?.map((region) => ({
-    region: region.region,
-    status: region.status,
-    itemCount: region.items.length,
-    sample: region.items.slice(0, 5),
+const summary = {
+  generatedAt: new Date().toISOString(),
+  source: "Apple public App Store product pages",
+  regions: REGIONS,
+  apps: results.map((app) => ({
+    query: app.query,
+    id: app.id,
+    matchedName: app.name,
+    developer: app.developer,
+    icon: app.icon,
+    category: app.category,
+    storeUrl: app.storeUrl,
+    error: app.error,
+    regions: app.regions?.map((region) => ({
+      region: region.region,
+      status: region.status,
+      itemCount: region.items.length,
+      items: region.items,
+    })),
   })),
-}));
+};
 
 const serialized = JSON.stringify(summary, null, 2);
 const outputFlagIndex = process.argv.indexOf("--output");

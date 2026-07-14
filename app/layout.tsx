@@ -11,9 +11,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const rawHost = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const host = /^[a-z0-9.-]+(?::\d+)?$/i.test(rawHost) ? rawHost : "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const image = `${protocol}://${host}/og.png`;
+  const image = `${protocol}://${host}/og-v2.png`;
   const title = "App Store 全球价格";
-  const description = "同一个套餐，全球公开价格一次看清。";
+  const description = "区分月付与年付，查看不同地区真实公开套餐数量和 Apple 原币标价。";
   return {
     title,
     description,

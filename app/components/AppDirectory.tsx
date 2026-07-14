@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import type { AppSnapshot } from "../lib/catalog";
 
-type CardData = AppSnapshot & { verifiedCount: number; planCount: number };
+type CardData = AppSnapshot & { verifiedCount: number; planCount: number; itemRange: { min: number; max: number } };
 
 export function AppDirectory({ apps }: { apps: CardData[] }) {
   const [query, setQuery] = useState("");
@@ -49,8 +49,9 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
                 <p>{app.developer}</p>
                 <div className="app-card-meta">
                   <span>{app.category ?? "App"}</span>
-                  <span>{app.verifiedCount}/10 地区已验证</span>
-                  <span>{app.planCount} 个套餐</span>
+                  <span>{app.verifiedCount}/{app.regions.length} 地区已验证</span>
+                  <span>{app.itemRange.min === app.itemRange.max ? `${app.itemRange.max} 项/地区` : `${app.itemRange.min}–${app.itemRange.max} 项/地区`}</span>
+                  <span>{app.planCount} 个可识别套餐</span>
                 </div>
               </div>
               <span className="card-arrow" aria-hidden="true">↗</span>

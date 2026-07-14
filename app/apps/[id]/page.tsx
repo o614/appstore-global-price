@@ -5,6 +5,7 @@ import {
   apps,
   dataUpdatedAt,
   getApp,
+  getPublicItemRange,
   getVerifiedRegionCount,
   planDefinitions,
   rateAttributionUrl,
@@ -32,6 +33,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
   if (!app) notFound();
   const plans = planDefinitions[id] ?? [];
   const verifiedCount = getVerifiedRegionCount(app);
+  const itemRange = getPublicItemRange(app);
 
   return (
     <main className="detail-page">
@@ -47,7 +49,8 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
           <p>{app.developer}</p>
           <div className="detail-badges">
             <span>App ID {app.id}</span>
-            <span>{verifiedCount}/10 地区已验证</span>
+            <span>{verifiedCount}/{app.regions.length} 地区已验证</span>
+            <span>{itemRange.min === itemRange.max ? `${itemRange.max} 项公开内购/地区` : `${itemRange.min}–${itemRange.max} 项公开内购/地区`}</span>
             <span>数据 {dataUpdatedAt}</span>
           </div>
         </div>
@@ -63,9 +66,9 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
       </section>
 
       <section className="detail-notes">
-        <article><span>Apple 标价</span><p>原币金额来自对应地区 Apple 商品页的当前公开内容。</p></article>
+        <article><span>Apple 标价</span><p>原币金额和地区项目数量来自对应国家 Apple 商品页；点击国家名称可打开原页面。</p></article>
         <article><span>人民币参考</span><p>按 {new Date(rateUpdatedAt).toLocaleDateString("zh-CN")} 日汇率折算，由 <a href={rateAttributionUrl}>{rateProvider}</a> 提供。</p></article>
-        <article><span>购买提醒</span><p>地区账户、付款方式、税费和优惠资格可能影响最终结算。</p></article>
+        <article><span>套餐匹配</span><p>同名月付、年付按独立价格项分别匹配；地区缺少该项时不会参与排名。</p></article>
       </section>
     </main>
   );
