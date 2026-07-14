@@ -54,7 +54,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
             <span>数据 {dataUpdatedAt}</span>
           </div>
         </div>
-        <a className="store-button" href={app.storeUrl} target="_blank" rel="noreferrer">打开 App Store ↗</a>
+        <a className="store-button" href="#comparison">选择地区打开 ↓</a>
       </section>
 
       <section className="comparison-section" id="comparison">
@@ -66,7 +66,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
       </section>
 
       <section className="detail-notes">
-        <article><span>Apple 标价</span><p>原币金额和地区项目数量来自对应国家 Apple 商品页；点击国家名称可打开原页面。</p></article>
+        <article><span>Apple 标价</span><p>原币金额和地区项目数量来自对应国家 Apple 商品页；点击地区名称会先按设备显示安全跳转方式。</p></article>
         <article><span>人民币参考</span><p>按 {new Date(rateUpdatedAt).toLocaleDateString("zh-CN")} 日汇率折算，由 <a href={rateAttributionUrl}>{rateProvider}</a> 提供。</p></article>
         <article><span>套餐匹配</span><p>同名月付、年付按独立价格项分别匹配；地区缺少该项时不会参与排名。</p></article>
       </section>

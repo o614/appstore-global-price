@@ -51,6 +51,19 @@ export const regionMeta: Record<string, { name: string; flag: string; currency: 
   sg: { name: "新加坡", flag: "🇸🇬", currency: "SGD" },
 };
 
+const regionStorefrontIds: Record<string, number> = {
+  cn: 143465,
+  us: 143441,
+  jp: 143462,
+  hk: 143463,
+  tw: 143470,
+  tr: 143480,
+  ph: 143474,
+  pk: 143477,
+  ca: 143455,
+  sg: 143464,
+};
+
 export const planDefinitions: Record<string, PlanDefinition[]> = {
   "6448311069": [
     { id: "plus-monthly", label: "ChatGPT Plus", period: "月付", aliases: ["ChatGPT Plus"], occurrence: 0 },
@@ -156,4 +169,14 @@ export function getPublicItemRange(app: AppSnapshot) {
 
 export function getRegionStoreUrl(appId: string, regionCode: string) {
   return `https://apps.apple.com/${regionCode}/app/id${appId}`;
+}
+
+export function getRegionStoreAppUrl(appId: string, regionCode: string) {
+  return `itms-apps://apps.apple.com/${regionCode}/app/id${appId}`;
+}
+
+export function getRegionSwitchUrl(regionCode: string) {
+  const storefrontId = regionStorefrontIds[regionCode];
+  if (!storefrontId) return null;
+  return `itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/resetAndRedirect?dsf=${storefrontId}&cc=${regionCode}`;
 }

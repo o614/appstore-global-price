@@ -4,7 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   dataUpdatedAt,
   findPlanItem,
+  getRegionStoreAppUrl,
   getRegionStoreUrl,
+  getRegionSwitchUrl,
   regionMeta,
   toCny,
   type AppSnapshot,
@@ -14,19 +16,31 @@ import {
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [selectedStoreRegion, setSelectedStoreRegion] = useState<string | null>(null);
+  const [deviceKind, setDeviceKind] = useState<"unknown" | "ios" | "mac" | "other">("unknown");
+  const [isWechat, setIsWechat] = useState(false);
   const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
 
   useEffect(() => {
     const planId = new URL(window.location.href).searchParams.get("plan");
     if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
+    const userAgent = navigator.userAgent;
+    const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    if (/iPhone|iPad|iPod/i.test(userAgent) || isiPadDesktopMode) setDeviceKind("ios");
+    else if (/Macintosh|Mac OS X/i.test(userAgent)) setDeviceKind("mac");
+    else setDeviceKind("other");
+    setIsWechat(/MicroMessenger/i.test(userAgent));
   }, [plans]);
 
   useEffect(() => {
-    if (!isShareOpen) return;
+    if (!isShareOpen && !selectedStoreRegion) return;
     const previousOverflow = document.body.style.overflow;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsShareOpen(false);
+      if (event.key === "Escape") {
+        setIsShareOpen(false);
+        setSelectedStoreRegion(null);
+      }
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
@@ -34,7 +48,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [isShareOpen]);
+  }, [isShareOpen, selectedStoreRegion]);
 
   const rows = useMemo(() => {
     if (!selectedPlan) return [];
@@ -105,6 +119,11 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     await copyText(getShareUrl(), "链接已复制");
   }
 
+  function showStoreOptions(regionCode: string) {
+    setShareFeedback("");
+    setSelectedStoreRegion(regionCode);
+  }
+
   if (!plans.length) {
     return (
       <div className="no-iap-panel">
@@ -172,7 +191,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               return (
                 <tr key={row.region.region}>
                   <td className="col-rank"><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
-                  <td className="col-region"><a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer" title={`打开${meta.name} App Store`}><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a></td>
+                  <td className="col-region"><button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><b>{meta.flag}</b><span>{meta.name}<small>查看跳转方式 ↗</small></span></button></td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
@@ -187,7 +206,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               return (
                 <tr className="muted-row" key={row.region.region}>
                   <td className="col-rank">—</td>
-                  <td className="col-region">{verified ? <a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer"><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
+                  <td className="col-region">{verified ? <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><b>{meta.flag}</b><span>{meta.name}<small>查看跳转方式 ↗</small></span></button> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="col-original muted-detail">{unavailable ? "该地区未上架" : verified ? "公开项目中未发现此套餐" : "本次抓取失败"}</td>
                   <td className="col-cny"><span className="unavailable-pill">{unavailable ? "不可用" : verified ? "未提供" : "待复核"}</span></td>
@@ -198,6 +217,68 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
           </tbody>
         </table>
       </div>
+
+      {selectedStoreRegion && (() => {
+        const meta = regionMeta[selectedStoreRegion];
+        const switchUrl = getRegionSwitchUrl(selectedStoreRegion);
+        const webUrl = getRegionStoreUrl(app.id, selectedStoreRegion);
+        const appUrl = getRegionStoreAppUrl(app.id, selectedStoreRegion);
+        return (
+          <div className="share-dialog-backdrop" onMouseDown={() => setSelectedStoreRegion(null)}>
+            <section className="share-dialog store-jump-dialog" role="dialog" aria-modal="true" aria-labelledby="store-jump-title" onMouseDown={(event) => event.stopPropagation()}>
+              <div className="share-dialog-header">
+                <div>
+                  <span>跳转前确认</span>
+                  <h2 id="store-jump-title">前往{meta.flag} {meta.name}区 App Store</h2>
+                </div>
+                <button type="button" className="share-dialog-close" onClick={() => setSelectedStoreRegion(null)} aria-label="关闭跳转提示">×</button>
+              </div>
+
+              <div className="store-redirect-warning">
+                <strong>大陆网络会改写网页商店地区</strong>
+                <p>直接打开 <code>apps.apple.com/{selectedStoreRegion}/…</code> 仍可能被重定向到中国大陆商店，因此这里不会直接跳转。</p>
+              </div>
+
+              {isWechat && <div className="store-browser-warning">检测到微信内置浏览器：请先用右上角“在 Safari 中打开”，再执行换区。</div>}
+
+              {deviceKind === "ios" ? (
+                <div className="store-device-panel">
+                  <div className="store-device-heading"><span>已识别 iPhone / iPad</span><strong>建议按顺序完成两步</strong></div>
+                  <ol><li>调用你的换区链接，将 App Store 切换为{meta.name}区。</li><li>切换完成后回到本页，再打开 {app.matchedName} 的地区商品页。</li></ol>
+                  <div className="store-jump-actions">
+                    {switchUrl && <a className="store-jump-primary" href={switchUrl}>1　切换到{meta.name}区商店</a>}
+                    <a href={appUrl}>2　打开 {app.matchedName}</a>
+                    {switchUrl && <button type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
+                  </div>
+                </div>
+              ) : deviceKind === "mac" ? (
+                <div className="store-device-panel mac-panel">
+                  <div className="store-device-heading"><span>已识别 Mac</span><strong>不自动调用换区深链</strong></div>
+                  <p>该深链在 Mac App Store 上兼容性不稳定，可能无反应或报错。建议把换区链接发到 iPhone / iPad 操作。</p>
+                  <div className="store-jump-actions compact">
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
+                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}>复制应用网页</button>
+                    <a href={webUrl} target="_blank" rel="noreferrer">尝试打开网页</a>
+                  </div>
+                </div>
+              ) : (
+                <div className="store-device-panel other-panel">
+                  <div className="store-device-heading"><span>未识别为 iPhone / iPad</span><strong>当前设备无法可靠切换 App Store</strong></div>
+                  <p>可复制换区链接到 iPhone / iPad 的 Safari 中打开；网页入口可能仍被重定向到中国大陆商店。</p>
+                  <div className="store-jump-actions compact">
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
+                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}>复制应用网页</button>
+                    <a href={webUrl} target="_blank" rel="noreferrer">尝试打开网页</a>
+                  </div>
+                </div>
+              )}
+
+              <p className="store-jump-footnote">设备类型只在当前浏览器本地判断，不申请权限，也不会上传。Apple 的换区接口只能执行商店切换，不能可靠附带指定应用，所以 iPhone / iPad 采用两步操作。</p>
+              <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>
+            </section>
+          </div>
+        );
+      })()}
 
       {isShareOpen && (
         <div className="share-dialog-backdrop" onMouseDown={() => setIsShareOpen(false)}>

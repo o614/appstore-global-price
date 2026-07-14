@@ -40,7 +40,8 @@ test("server-renders an app comparison detail page", async () => {
   assert.match(html, /年付/);
   assert.match(html, /100 Credits/);
   assert.match(html, /分享当前比价/);
+  assert.match(html, /查看跳转方式/);
   assert.match(html, /col-rank/);
   assert.match(html, /col-cny/);
-  assert.match(html, /https:\/\/apps\.apple\.com\/us\/app\/id6448311069/);
+  assert.match(html, /点击地区名称会先按设备显示安全跳转方式/);
 });
