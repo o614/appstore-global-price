@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://appstore-global-price.pages.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 const title = "App Store 全球价格";
 const description = "区分月付与年付，查看不同地区真实公开套餐数量和 Apple 原币标价。";
 
