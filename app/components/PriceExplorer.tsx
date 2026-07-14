@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
+  dataUpdatedAt,
   findPlanItem,
   getRegionStoreUrl,
   regionMeta,
@@ -12,7 +13,28 @@ import {
 
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
+
+  useEffect(() => {
+    const planId = new URL(window.location.href).searchParams.get("plan");
+    if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
+  }, [plans]);
+
+  useEffect(() => {
+    if (!isShareOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsShareOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isShareOpen]);
 
   const rows = useMemo(() => {
     if (!selectedPlan) return [];
@@ -30,6 +52,58 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   const saving = lowest && highest && highest.cny
     ? Math.round((1 - (lowest.cny ?? 0) / highest.cny) * 100)
     : null;
+
+  function getShareUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("plan", selectedPlan.id);
+    url.hash = "comparison";
+    return url.toString();
+  }
+
+  function getShareText() {
+    const lowestText = lowest
+      ? `${regionMeta[lowest.region.region].name}，约 ¥${lowest.cny?.toFixed(2)}`
+      : "暂无完整数据";
+    const savingText = saving === null ? "" : `，地区最高价差约 ${saving}%`;
+    return `${app.matchedName} · ${selectedPlan.label}（${selectedPlan.period}）\n参考最低：${lowestText}${savingText}\n数据：Apple 公开商品页，更新于 ${dataUpdatedAt}\n${getShareUrl()}`;
+  }
+
+  async function copyText(text: string, feedback: string) {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+      setShareFeedback(feedback);
+      window.setTimeout(() => setShareFeedback(""), 1800);
+    } catch {
+      setShareFeedback("复制失败，请稍后重试");
+    }
+  }
+
+  async function shareResult() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${app.matchedName} 全球价格`,
+          text: `${selectedPlan.label}（${selectedPlan.period}）全球价格对比`,
+          url: getShareUrl(),
+        });
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+      }
+    }
+    await copyText(getShareUrl(), "链接已复制");
+  }
 
   if (!plans.length) {
     return (
@@ -57,7 +131,12 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
           </button>
         ))}
       </div>
-      <p className="plan-explanation">同名项目按 Apple 商品页中的独立价格项区分月付、年付；当前只排名所选套餐与周期。</p>
+      <div className="comparison-toolbar">
+        <p className="plan-explanation">同名项目按 Apple 商品页中的独立价格项区分月付、年付；当前只排名所选套餐与周期。</p>
+        <button className="share-result-button" type="button" onClick={() => setIsShareOpen(true)}>
+          <span aria-hidden="true">↗</span> 分享当前比价
+        </button>
+      </div>
 
       <div className="price-summary-grid">
         <div className="lowest-card">
@@ -79,12 +158,12 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
         <table className="price-table">
           <thead>
             <tr>
-              <th>排名</th>
-              <th>地区</th>
-              <th>地区公开项目</th>
-              <th>Apple 当前标价</th>
-              <th>人民币参考</th>
-              <th>状态</th>
+              <th className="col-rank">排名</th>
+              <th className="col-region">地区</th>
+              <th className="col-items">地区公开项目</th>
+              <th className="col-original">Apple 当前标价</th>
+              <th className="col-cny">人民币参考</th>
+              <th className="col-status">状态</th>
             </tr>
           </thead>
           <tbody>
@@ -92,12 +171,12 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               const meta = regionMeta[row.region.region];
               return (
                 <tr key={row.region.region}>
-                  <td><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
-                  <td><a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer" title={`打开${meta.name} App Store`}><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a></td>
-                  <td><span className="store-count">{row.region.itemCount} 项</span></td>
-                  <td className="original-price">{row.item?.price} <small>{meta.currency}</small></td>
-                  <td className="cny-price">¥{row.cny?.toFixed(2)}</td>
-                  <td>{index === 0 ? <span className="best-pill">参考最低</span> : <span className="verified-pill">Apple 已验证</span>}</td>
+                  <td className="col-rank"><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
+                  <td className="col-region"><a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer" title={`打开${meta.name} App Store`}><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a></td>
+                  <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
+                  <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
+                  <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
+                  <td className="col-status">{index === 0 ? <span className="best-pill">参考最低</span> : <span className="verified-pill">Apple 已验证</span>}</td>
                 </tr>
               );
             })}
@@ -107,17 +186,60 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               const verified = row.region.status.startsWith("ok-");
               return (
                 <tr className="muted-row" key={row.region.region}>
-                  <td>—</td>
-                  <td>{verified ? <a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer"><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
-                  <td><span className="store-count">{row.region.itemCount} 项</span></td>
-                  <td colSpan={2}>{unavailable ? "该地区未上架或当前不可用" : verified ? `该地区公开的 ${row.region.itemCount} 项中未发现此套餐` : "本次抓取失败，暂不排名"}</td>
-                  <td><span className="unavailable-pill">{unavailable ? "不可用" : verified ? "未提供" : "待复核"}</span></td>
+                  <td className="col-rank">—</td>
+                  <td className="col-region">{verified ? <a className="region-name region-store-link" href={getRegionStoreUrl(app.id, row.region.region)} target="_blank" rel="noreferrer"><b>{meta.flag}</b><span>{meta.name}<small>打开商店 ↗</small></span></a> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
+                  <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
+                  <td className="col-original muted-detail">{unavailable ? "该地区未上架" : verified ? "公开项目中未发现此套餐" : "本次抓取失败"}</td>
+                  <td className="col-cny"><span className="unavailable-pill">{unavailable ? "不可用" : verified ? "未提供" : "待复核"}</span></td>
+                  <td className="col-status"><span className="unavailable-pill">{unavailable ? "未上架" : verified ? "未参与排名" : "等待复核"}</span></td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
+
+      {isShareOpen && (
+        <div className="share-dialog-backdrop" onMouseDown={() => setIsShareOpen(false)}>
+          <section className="share-dialog" role="dialog" aria-modal="true" aria-labelledby="share-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
+            <div className="share-dialog-header">
+              <div>
+                <span>分享当前结果</span>
+                <h2 id="share-dialog-title">把这一组价格发给朋友</h2>
+              </div>
+              <button type="button" className="share-dialog-close" onClick={() => setIsShareOpen(false)} aria-label="关闭分享弹窗">×</button>
+            </div>
+
+            <div className="share-result-card">
+              <div className="share-card-brand"><span className="brand-mark">AP</span><small>App Store 全球价格</small></div>
+              <div className="share-card-app">
+                {app.icon && <img src={app.icon} alt="" />}
+                <div><strong>{app.matchedName}</strong><span>{selectedPlan.label} · {selectedPlan.period}</span></div>
+              </div>
+              <div className="share-card-lowest">
+                <span>参考折算最低</span>
+                <strong>{lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据"}</strong>
+                <small>{lowest ? `${regionMeta[lowest.region.region].flag} ${regionMeta[lowest.region.region].name}` : "当前套餐可比地区不足"}</small>
+              </div>
+              <ol className="share-card-ranking">
+                {ranked.slice(0, 3).map((row, index) => {
+                  const meta = regionMeta[row.region.region];
+                  return <li key={row.region.region}><span>{index + 1} · {meta.flag} {meta.name}</span><b>{row.item?.price}</b><em>¥{row.cny?.toFixed(2)}</em></li>;
+                })}
+              </ol>
+              <p>{ranked.length} 个地区可比{saving === null ? "" : ` · 最高价差约 ${saving}%`} · 数据更新 {dataUpdatedAt}</p>
+            </div>
+
+            <p className="share-dialog-note">分享内容会保留当前套餐和周期；人民币为汇率参考，实际扣款以对应地区 App Store 为准。</p>
+            <div className="share-dialog-actions">
+              <button type="button" className="share-primary" onClick={shareResult}>系统分享</button>
+              <button type="button" onClick={() => copyText(getShareText(), "结果与链接已复制")}>复制结果</button>
+              <button type="button" onClick={() => copyText(getShareUrl(), "链接已复制")}>复制链接</button>
+            </div>
+            <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

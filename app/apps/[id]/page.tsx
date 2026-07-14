@@ -57,7 +57,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         <a className="store-button" href={app.storeUrl} target="_blank" rel="noreferrer">打开 App Store ↗</a>
       </section>
 
-      <section className="comparison-section">
+      <section className="comparison-section" id="comparison">
         <div className="section-heading detail-section-heading">
           <div><span className="eyebrow">全球公开价格</span><h2>选择一个套餐进行比较</h2></div>
           <span className="truth-note"><i /> 仅对已确认的同一套餐排名</span>
