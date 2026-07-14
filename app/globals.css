@@ -281,7 +281,10 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 .store-jump-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .store-jump-actions a, .store-jump-actions button { display: flex; align-items: center; justify-content: center; min-height: 42px; padding: 10px 11px; border: 1px solid #d2d8d1; border-radius: 10px; color: #424a44; background: #f9faf7; font-size: 9px; font-weight: 750; text-align: center; cursor: pointer; }
 .store-jump-actions a:nth-child(2) { border-color: #adc4b1; color: #215a2e; background: #edf8ef; }
-.store-jump-actions .store-jump-primary { grid-column: 1 / -1; border-color: #1c251e; color: white; background: #1c251e; }
+.store-jump-actions .store-jump-primary { grid-column: 1 / -1; flex-direction: column; gap: 3px; border-color: #1c251e; color: white; background: #1c251e; }
+.store-jump-primary strong { font-size: 10px; }
+.store-jump-primary small { color: #aed2b3; font-size: 8px; font-weight: 500; }
+.store-jump-actions.ios-actions { grid-template-columns: repeat(3, 1fr); }
 .store-jump-actions.compact { grid-template-columns: repeat(3, 1fr); }
 .store-jump-actions.compact .store-jump-primary { grid-column: auto; }
 .store-jump-actions.compact a:nth-child(2) { border-color: #d2d8d1; color: #424a44; background: #f9faf7; }

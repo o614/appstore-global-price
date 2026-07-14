@@ -124,6 +124,26 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     setSelectedStoreRegion(regionCode);
   }
 
+  function copyAppNameAndSwitch(switchUrl: string) {
+    const textarea = document.createElement("textarea");
+    let copied = false;
+    try {
+      textarea.value = app.query;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    } finally {
+      textarea.remove();
+    }
+    if (!copied && navigator.clipboard?.writeText) void navigator.clipboard.writeText(app.query);
+    window.location.href = switchUrl;
+  }
+
   if (!plans.length) {
     return (
       <div className="no-iap-panel">
@@ -243,12 +263,13 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
               {deviceKind === "ios" ? (
                 <div className="store-device-panel">
-                  <div className="store-device-heading"><span>已识别 iPhone / iPad</span><strong>建议按顺序完成两步</strong></div>
-                  <ol><li>调用你的换区链接，将 App Store 切换为{meta.name}区。</li><li>切换完成后回到本页，再打开 {app.matchedName} 的地区商品页。</li></ol>
-                  <div className="store-jump-actions">
-                    {switchUrl && <a className="store-jump-primary" href={switchUrl}>1　切换到{meta.name}区商店</a>}
-                    <a href={appUrl}>2　打开 {app.matchedName}</a>
-                    {switchUrl && <button type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
+                  <div className="store-device-heading"><span>已识别 iPhone / iPad</span><strong>复制名称并切换商店</strong></div>
+                  <ol><li>点击主按钮，网站会先复制“{app.query}”，再将 App Store 切换为{meta.name}区。</li><li>换区完成后进入 App Store 搜索，直接粘贴应用名称即可。</li></ol>
+                  <div className="store-jump-actions ios-actions">
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>换区后前往搜索粘贴</small></button>}
+                    <button type="button" onClick={() => copyText(app.query, `${app.query} 已复制`)}>仅复制应用名</button>
+                    {switchUrl && <a href={switchUrl}>仅切换地区</a>}
+                    <a href={appUrl}>切换后打开应用</a>
                   </div>
                 </div>
               ) : deviceKind === "mac" ? (
@@ -273,7 +294,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 </div>
               )}
 
-              <p className="store-jump-footnote">设备类型只在当前浏览器本地判断，不申请权限，也不会上传。Apple 的换区接口只能执行商店切换，不能可靠附带指定应用，所以 iPhone / iPad 采用两步操作。</p>
+              <p className="store-jump-footnote">设备类型只在当前浏览器本地判断，不申请权限，也不会上传。Apple 的换区接口不能可靠附带应用页或搜索页，因此主按钮采用“先复制应用名，再换区”的稳定方式。</p>
               <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>
             </section>
           </div>
