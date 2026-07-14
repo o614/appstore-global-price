@@ -67,7 +67,7 @@ jobs:
         if: success()
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
-          SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://appstore-global-price.pages.dev' }}
         run: node scripts/notify-bark.mjs --event published --summary .tmp/price-diff.json --url "${SITE_URL:-${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}}"
 
       - name: 任务失败时发送 Bark
