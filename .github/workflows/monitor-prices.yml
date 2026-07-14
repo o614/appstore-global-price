@@ -1,0 +1,87 @@
+name: 检测 App Store 价格变化
+
+on:
+  schedule:
+    - cron: "17 2,8,14,20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: appstore-price-data
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 读取当前数据
+        uses: actions/checkout@v4
+
+      - name: 使用 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 抓取候选快照
+        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot.json
+
+      - name: 校验候选快照
+        run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot.json --previous data/validation-snapshot.json
+
+      - name: 比较价格变化
+        id: compare
+        run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot.json --json .tmp/price-diff.json --markdown .tmp/price-diff.md --github-output "$GITHUB_OUTPUT"
+
+      - name: 写入任务摘要
+        if: steps.compare.outputs.changed == 'true'
+        run: cat .tmp/price-diff.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 检查是否已经提醒过
+        if: steps.compare.outputs.changed == 'true'
+        id: notification-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .tmp/notification-cache
+          key: price-change-${{ steps.compare.outputs.fingerprint }}
+
+      - name: 发送 Bark 变化提醒
+        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true'
+        id: bark
+        env:
+          BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
+          PUBLISH_URL: ${{ github.server_url }}/${{ github.repository }}/actions/workflows/publish-prices.yml
+        run: node scripts/notify-bark.mjs --event change --summary .tmp/price-diff.json --url "$PUBLISH_URL" --github-output "$GITHUB_OUTPUT"
+
+      - name: 标记本次变化已经提醒
+        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true' && steps.bark.outputs.sent == 'true'
+        run: |
+          mkdir -p .tmp/notification-cache
+          echo "${{ steps.compare.outputs.fingerprint }}" > .tmp/notification-cache/fingerprint
+
+      - name: 保存提醒去重标记
+        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true' && steps.bark.outputs.sent == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .tmp/notification-cache
+          key: price-change-${{ steps.compare.outputs.fingerprint }}
+
+      - name: 保存变化详情
+        if: steps.compare.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-change-${{ steps.compare.outputs.fingerprint }}
+          path: |
+            .tmp/price-diff.md
+            .tmp/price-diff.json
+            .tmp/price-snapshot.json
+          retention-days: 7
+
+      - name: 任务失败时发送 Bark
+        if: failure()
+        env:
+          BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/notify-bark.mjs --event failure --url "$RUN_URL"

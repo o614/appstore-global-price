@@ -23,14 +23,17 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
 
   useEffect(() => {
-    const planId = new URL(window.location.href).searchParams.get("plan");
-    if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
-    const userAgent = navigator.userAgent;
-    const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-    if (/iPhone|iPad|iPod/i.test(userAgent) || isiPadDesktopMode) setDeviceKind("ios");
-    else if (/Macintosh|Mac OS X/i.test(userAgent)) setDeviceKind("mac");
-    else setDeviceKind("other");
-    setIsWechat(/MicroMessenger/i.test(userAgent));
+    const timer = window.setTimeout(() => {
+      const planId = new URL(window.location.href).searchParams.get("plan");
+      if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
+      const userAgent = navigator.userAgent;
+      const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+      if (/iPhone|iPad|iPod/i.test(userAgent) || isiPadDesktopMode) setDeviceKind("ios");
+      else if (/Macintosh|Mac OS X/i.test(userAgent)) setDeviceKind("mac");
+      else setDeviceKind("other");
+      setIsWechat(/MicroMessenger/i.test(userAgent));
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [plans]);
 
   useEffect(() => {
@@ -141,7 +144,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       textarea.remove();
     }
     if (!copied && navigator.clipboard?.writeText) void navigator.clipboard.writeText(app.query);
-    window.location.href = switchUrl;
+    window.location.assign(switchUrl);
   }
 
   if (!plans.length) {

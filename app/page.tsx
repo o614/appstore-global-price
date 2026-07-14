@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AppDirectory } from "./components/AppDirectory";
 import {
   apps,
@@ -39,10 +40,10 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="App Store 全球价格首页">
+        <Link className="brand" href="/" aria-label="App Store 全球价格首页">
           <span className="brand-mark">AP</span>
           <span><strong>App Store</strong><small>全球价格</small></span>
-        </a>
+        </Link>
         <nav>
           <a href="#apps">应用目录</a>
           <a href="#method">数据说明</a>
@@ -57,7 +58,7 @@ export default function Home() {
           <p>把同一个 App 的内购与订阅放进一张可信、可解释的全球价格表。原币标价优先，人民币仅作参考。</p>
           <div className="hero-actions">
             <a href="#apps" className="primary-button">开始比较 <span>→</span></a>
-            <a href="/apps/6448311069" className="text-button">查看 ChatGPT 示例</a>
+            <Link href="/apps/6448311069" className="text-button">查看 ChatGPT 示例</Link>
           </div>
           <div className="hero-stats">
             <div><strong>{apps.length}</strong><span>首批应用</span></div>
@@ -70,7 +71,7 @@ export default function Home() {
           <div className="featured-app">
             <img src={chatgpt.icon} alt="" />
             <div><span>首版示例</span><h2>ChatGPT Plus</h2><p>月付套餐 · 全球公开价格</p></div>
-            <a href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价">↗</a>
+            <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价">↗</Link>
           </div>
           <div className="price-spotlight">
             <span>参考折算最低</span>
@@ -83,7 +84,7 @@ export default function Home() {
               return <a href={getRegionStoreUrl(chatgpt.id, row.region.region)} target="_blank" rel="noreferrer" key={row.region.region}><span>{meta.flag} {meta.name}</span><b>¥{row.cny?.toFixed(2)}</b></a>;
             })}
           </div>
-          <a className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看月付、年付和地区套餐差异 <span>→</span></a>
+          <Link className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看月付、年付和地区套餐差异 <span>→</span></Link>
         </article>
       </section>
 

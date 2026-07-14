@@ -1,0 +1,15 @@
+{
+  "regions": ["cn", "us", "jp", "hk", "tw", "tr", "ph", "pk", "ca", "sg"],
+  "apps": [
+    { "query": "ChatGPT", "id": "6448311069" },
+    { "query": "Claude by Anthropic", "id": "6473753684" },
+    { "query": "Google Gemini", "id": "6477489729" },
+    { "query": "Grok AI", "id": "6670324846" },
+    { "query": "Telegram Messenger", "id": "686449807" },
+    { "query": "YouTube", "id": "544007664" },
+    { "query": "X", "id": "333903271" },
+    { "query": "Google One", "id": "1451784328" },
+    { "query": "百度网盘", "id": "547166701" },
+    { "query": "Spotify", "id": "324684580", "allowAllEmpty": true }
+  ]
+}

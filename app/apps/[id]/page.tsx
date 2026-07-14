@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PriceExplorer } from "../../components/PriceExplorer";
 import {
@@ -12,6 +13,8 @@ import {
   rateProvider,
   rateUpdatedAt,
 } from "../../lib/catalog";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return apps.map((app) => ({ id: app.id }));
@@ -38,8 +41,8 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
   return (
     <main className="detail-page">
       <header className="site-header detail-header">
-        <a className="brand" href="/"><span className="brand-mark">AP</span><span><strong>App Store</strong><small>全球价格</small></span></a>
-        <a className="back-link" href="/#apps">← 返回应用目录</a>
+        <Link className="brand" href="/"><span className="brand-mark">AP</span><span><strong>App Store</strong><small>全球价格</small></span></Link>
+        <Link className="back-link" href="/#apps">← 返回应用目录</Link>
       </header>
 
       <section className="app-hero">
