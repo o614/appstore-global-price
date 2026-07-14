@@ -59,7 +59,12 @@ for (const appId of appIds) {
     }
     const oldItems = oldRegion.items ?? [];
     const newItems = newRegion.items ?? [];
-    const itemsChanged = JSON.stringify(oldItems) !== JSON.stringify(newItems);
+    const removed = subtract(oldItems, newItems);
+    const added = subtract(newItems, oldItems);
+    // Apple occasionally reorders the same products on the storefront page.
+    // Treat the lists as multisets so a presentation-only reorder does not
+    // generate a new fingerprint or a noisy Bark notification.
+    const itemsChanged = removed.length > 0 || added.length > 0;
     const availabilityChanged = availability(oldRegion.status) !== availability(newRegion.status);
     if (!itemsChanged && !availabilityChanged) continue;
     changes.push({
@@ -71,8 +76,8 @@ for (const appId of appIds) {
       afterCount: newItems.length,
       beforeAvailability: availability(oldRegion.status),
       afterAvailability: availability(newRegion.status),
-      removed: subtract(oldItems, newItems),
-      added: subtract(newItems, oldItems),
+      removed,
+      added,
     });
   }
 }

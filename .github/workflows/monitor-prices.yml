@@ -18,10 +18,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: 读取当前数据
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 使用 Node.js 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
 
@@ -42,7 +42,7 @@ jobs:
       - name: 检查是否已经提醒过
         if: steps.compare.outputs.changed == 'true'
         id: notification-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: .tmp/notification-cache
           key: price-change-${{ steps.compare.outputs.fingerprint }}
@@ -63,14 +63,14 @@ jobs:
 
       - name: 保存提醒去重标记
         if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true' && steps.bark.outputs.sent == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: .tmp/notification-cache
           key: price-change-${{ steps.compare.outputs.fingerprint }}
 
       - name: 保存变化详情
         if: steps.compare.outputs.changed == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: price-change-${{ steps.compare.outputs.fingerprint }}
           path: |

@@ -16,10 +16,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: 读取当前数据
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 使用 Node.js 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
