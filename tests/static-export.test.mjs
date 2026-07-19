@@ -9,18 +9,15 @@ async function readPage(path) {
 
 test("exports the price comparison homepage as static HTML", async () => {
   const html = await readPage("/index.html");
-  const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
-  const regions = snapshot.apps.flatMap((app) => app.regions);
-  const verified = regions.filter((region) => region.status.startsWith("ok-") && region.itemCount > 0).length;
   assert.match(html, /<title>App Store 全球价格<\/title>/);
   assert.match(html, /先看清价格/);
   assert.match(html, /ChatGPT Plus/);
   assert.match(html, /应用与订阅服务/);
-  assert.match(html, /按官方项目展示/);
-  assert.match(html, /价格覆盖/);
-  assert.match(html, new RegExp(`${verified}/${regions.length} 组地区价格已验证`));
+  assert.match(html, /浏览应用/);
+  assert.match(html, /覆盖 17 个应用与服务、20 个地区/);
+  assert.match(html, /未上架或未公开价格的地区不参与排名/);
   assert.match(html, /<strong>20<\/strong><span>比价地区<\/span>/);
-  assert.match(html, /待复核/);
+  assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
 });
 
@@ -36,7 +33,7 @@ test("exports every configured app detail route", async () => {
   assert.match(html, /6448311069/);
   assert.match(html, /选择套餐，查看各地区价格/);
   assert.match(html, /同套餐、同周期比较/);
-  assert.match(html, /分享当前比价/);
+  assert.match(html, /分享比价/);
   assert.match(html, /查看跳转方式/);
 
   const netflixHtml = await readPage("/apps/363590051/index.html");
@@ -65,7 +62,7 @@ test("exports every configured app detail route", async () => {
   const iCloudHtml = await readPage("/apps/apple-icloud-plus/index.html");
   assert.match(iCloudHtml, /iCloud\+ 50 GB/);
   assert.match(iCloudHtml, /iCloud\+ 12 TB/);
-  assert.match(iCloudHtml, /20\/20 地区可比价/);
+  assert.match(iCloudHtml, /20\/20 地区/);
 
   const oneHtml = await readPage("/apps/apple-one/index.html");
   assert.match(oneHtml, /Apple One 个人方案/);

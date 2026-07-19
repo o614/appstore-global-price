@@ -182,7 +182,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       <div className="comparison-toolbar">
         <p className="plan-explanation">月付、年付与一次性购买分别排名。</p>
         <button className="share-result-button" type="button" onClick={() => setIsShareOpen(true)}>
-          <span aria-hidden="true">↗</span> 分享当前比价
+          <span className="share-button-icon" aria-hidden="true">↑</span> 分享比价
         </button>
       </div>
 

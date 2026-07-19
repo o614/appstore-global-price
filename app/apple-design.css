@@ -40,7 +40,7 @@ button, a, input { -webkit-tap-highlight-color: transparent; }
 button, a { touch-action: manipulation; }
 
 .primary-button,
-.text-button,
+.secondary-button,
 .app-card,
 .mini-regions a,
 .plan-chip,
@@ -61,7 +61,7 @@ button, a { touch-action: manipulation; }
 }
 
 .primary-button:active,
-.text-button:active,
+.secondary-button:active,
 .app-card:active,
 .mini-regions a:active,
 .plan-chip:active,
@@ -155,17 +155,17 @@ button, a { touch-action: manipulation; }
 }
 
 .primary-button {
-  min-height: 44px;
-  padding: 0 19px;
-  border-radius: 999px;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 12px;
   color: #fff;
   background: var(--blue);
   box-shadow: none;
 }
 
 .primary-button:hover { background: #0077ed; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.2); }
-.text-button { color: var(--blue); }
-.text-button:hover { color: #0077ed; }
+.secondary-button { border-color: rgba(0, 0, 0, 0.1); color: #1d1d1f; background: rgba(255,255,255,.8); }
+.secondary-button:hover { border-color: rgba(0, 113, 227, 0.22); color: var(--blue); background: #fff; }
 
 .hero-stats { gap: 38px; margin-top: 56px; }
 .hero-stats strong { font-variant-numeric: tabular-nums; }
@@ -217,8 +217,7 @@ button, a { touch-action: manipulation; }
 .region-flag-compact { width: 20px; height: 14px; }
 .region-flag-regular { width: 24px; height: 18px; }
 
-.data-health,
-.data-proof {
+.coverage-note {
   border-color: rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.74);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.045);
@@ -226,9 +225,7 @@ button, a { touch-action: manipulation; }
   -webkit-backdrop-filter: blur(18px);
 }
 
-.data-health { border-radius: 24px; }
-.data-health-metrics .health-verified dd,
-.data-health-metrics .health-clear dd { color: #248a3d; }
+.coverage-note { border-radius: 20px; }
 
 .directory, .method-section { padding-top: 110px; padding-bottom: 110px; }
 .section-heading h2, .method-copy h2 { letter-spacing: -0.045em; text-wrap: balance; }
@@ -285,7 +282,7 @@ button, a { touch-action: manipulation; }
 
 .app-title-row h1 { font-size: clamp(31px, 4vw, 42px); font-weight: 700; }
 .app-title-row span { background: #f0f0f2; }
-.detail-badges span { border-color: rgba(0, 0, 0, 0.085); border-radius: 9px; }
+.detail-badges > .detail-meta-badge { border-color: rgba(0, 0, 0, 0.09); background: rgba(255,255,255,.76); }
 
 .store-button {
   min-height: 44px;
@@ -320,15 +317,22 @@ button, a { touch-action: manipulation; }
 .plan-chip.active span { color: rgba(255, 255, 255, 0.75); }
 
 .share-result-button {
-  min-height: 38px;
-  border-color: rgba(0, 0, 0, 0.1);
-  border-radius: 999px;
-  color: var(--blue);
-  background: rgba(255, 255, 255, 0.78);
+  min-height: 42px;
+  border: 0;
+  border-radius: 12px;
+  color: #1d1d1f;
+  background: #e8e8ed;
 }
 
-.share-result-button:hover { border-color: rgba(0, 113, 227, 0.28); color: #0077ed; background: #fff; }
+.share-result-button:hover { color: #1d1d1f; background: #dedee3; }
 .share-result-button span { color: inherit; }
+
+.detail-notes {
+  border-color: rgba(0, 0, 0, 0.075);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.035);
+}
+.detail-notes article + article { border-color: rgba(0, 0, 0, 0.075); }
 
 .lowest-card,
 .summary-mini-card {
@@ -413,7 +417,7 @@ button, a { touch-action: manipulation; }
   .hero-stats strong { font-size: 20px; }
   .hero-price-card { padding: 17px; border-radius: 24px; }
 
-  .data-health { border-radius: 20px; }
+  .coverage-note { border-radius: 18px; }
   .directory, .method-section { padding-top: 82px; padding-bottom: 82px; }
   .app-card { border-radius: 17px; }
 
@@ -471,8 +475,7 @@ button, a { touch-action: manipulation; }
 @media (prefers-reduced-transparency: reduce) {
   .site-header,
   .hero-price-card,
-  .data-health,
-  .data-proof,
+  .coverage-note,
   .app-hero,
   .share-dialog { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .share-dialog-backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -480,6 +483,6 @@ button, a { touch-action: manipulation; }
 
 @media (prefers-contrast: more) {
   :root { --line: rgba(0, 0, 0, 0.24); }
-  .site-header, .hero-price-card, .data-health, .data-proof, .app-card, .app-hero, .price-table-wrap, .price-table tr { border-color: rgba(0, 0, 0, 0.28); }
+  .site-header, .hero-price-card, .coverage-note, .app-card, .app-hero, .price-table-wrap, .price-table tr { border-color: rgba(0, 0, 0, 0.28); }
   .muted-row, .muted-detail, .hero-copy > p, .method-copy p { color: #4b4b50; }
 }

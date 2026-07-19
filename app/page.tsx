@@ -9,7 +9,6 @@ import {
   dataUpdatedAt,
   findPlanItem,
   getAppCoverage,
-  getCatalogCoverage,
   getPlansForApp,
   getRegionStoreUrl,
   getVerifiedRegionCount,
@@ -41,7 +40,6 @@ export default function Home() {
   const featuredLowest = featuredRows[0];
   const verifiedStorePages = cardApps.reduce((total, app) => total + app.verifiedCount, 0);
   const regionCount = Object.keys(regionMeta).length;
-  const catalogCoverage = getCatalogCoverage();
 
   return (
     <main>
@@ -63,8 +61,8 @@ export default function Home() {
           <h1>先看清价格，<br />再决定在哪个区买。</h1>
           <p>比较同一 App 或订阅服务在不同地区的 Apple 官方价格。保留原币标价，人民币金额仅供参考。</p>
           <div className="hero-actions">
-            <a href="#apps" className="primary-button">开始比较 <span>→</span></a>
-            <Link href="/apps/6448311069" className="text-button">查看 ChatGPT 示例</Link>
+            <a href="#apps" className="primary-button">浏览应用 <span aria-hidden="true">→</span></a>
+            <Link href="/apps/6448311069" className="secondary-button">查看 ChatGPT 示例</Link>
           </div>
           <div className="hero-stats">
             <div><strong>{apps.length}</strong><span>应用与服务</span></div>
@@ -94,24 +92,12 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="data-health" aria-labelledby="data-health-title">
-        <div className="data-health-summary">
-          <span className="eyebrow">价格覆盖</span>
-          <strong id="data-health-title">{catalogCoverage.verified}/{catalogCoverage.total} 组地区价格已验证</strong>
-          <p>未上架或未公开价格的地区不会参与排名。</p>
+      <section className="coverage-note" aria-labelledby="coverage-note-title">
+        <div>
+          <span className="eyebrow">比较范围</span>
+          <strong id="coverage-note-title">覆盖 {apps.length} 个应用与服务、{regionCount} 个地区</strong>
         </div>
-        <dl className="data-health-metrics">
-          <div className="health-verified"><dt>已验证价格</dt><dd>{catalogCoverage.verified}</dd></div>
-          <div><dt>地区未上架</dt><dd>{catalogCoverage.unavailable}</dd></div>
-          <div><dt>未公开价格</dt><dd>{catalogCoverage.notPublic}</dd></div>
-          <div className={catalogCoverage.review > 0 ? "health-review" : "health-clear"}><dt>待复核</dt><dd>{catalogCoverage.review}</dd></div>
-        </dl>
-      </section>
-
-      <section className="data-proof" aria-label="数据真实性说明">
-        <div><strong>Apple 官方标价</strong><span>价格来自 App Store 或 Apple 官方服务页面</span></div>
-        <div><strong>按官方项目展示</strong><span>不同地区公开的套餐可能不同，不做人工补齐</span></div>
-        <div><strong>人民币仅供参考</strong><span>最终金额以对应地区 Apple 结算页为准</span></div>
+        <p>仅展示 Apple 已公开的价格；未上架或未公开价格的地区不参与排名。人民币金额仅供参考。</p>
       </section>
 
       <AppDirectory apps={cardApps} />

@@ -58,10 +58,10 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
           <div className="app-title-row"><h1>{app.matchedName}</h1><span>{app.category}</span></div>
           <p>{app.developer}</p>
           <div className="detail-badges">
-            <span>{app.priceSource === "app-store" || !app.priceSource ? "App ID" : "服务 ID"} {app.id}</span>
-            <span>{verifiedCount}/{app.regions.length} 地区可比价</span>
-            {plans.length > 0 && <span>{plans.length} 个套餐</span>}
-            {coverage.review > 0 && <span>{coverage.review} 地区待复核</span>}
+            <span className="detail-meta-badge detail-id-badge">{app.priceSource === "app-store" || !app.priceSource ? "App ID" : "服务 ID"} <b>{app.id}</b></span>
+            <span className="detail-meta-badge">{verifiedCount}/{app.regions.length} 地区</span>
+            {plans.length > 0 && <span className="detail-meta-badge">{plans.length} 个套餐</span>}
+            {coverage.review > 0 && <span className="detail-meta-badge review-badge">{coverage.review} 地区待复核</span>}
             <DataFreshness generatedAt={dataGeneratedAt} displayDate={dataUpdatedAt} />
           </div>
         </div>
