@@ -1,0 +1,84 @@
+{
+  "6448311069": [
+    { "id": "plus-monthly", "label": "ChatGPT Plus", "period": "月付", "aliases": ["ChatGPT Plus"], "occurrence": 0 },
+    { "id": "plus-annual", "label": "ChatGPT Plus", "period": "年付", "aliases": ["ChatGPT Plus"], "occurrence": 1 },
+    { "id": "go-monthly", "label": "ChatGPT Go", "period": "月付", "aliases": ["ChatGPT Go"] },
+    { "id": "pro-5x", "label": "ChatGPT Pro 5x", "period": "月付", "aliases": ["ChatGPT Pro 5x"] },
+    { "id": "pro-20x", "label": "ChatGPT Pro 20x", "period": "月付", "aliases": ["ChatGPT Pro 20x"] },
+    { "id": "credits-100", "label": "100 Credits", "period": "一次性", "aliases": ["100 Credits"] }
+  ],
+  "6473753684": [
+    { "id": "pro-monthly", "label": "Claude Pro", "period": "月付", "aliases": ["Claude Pro - Monthly"] },
+    { "id": "max-5x", "label": "Claude Max 5x", "period": "月付", "aliases": ["Claude Max 5x - Monthly"] },
+    { "id": "max-20x", "label": "Claude Max 20x", "period": "月付", "aliases": ["Claude Max 20x - Monthly"] },
+    { "id": "pro-annual", "label": "Claude Pro", "period": "年付", "aliases": ["Claude Pro - Annual"] },
+    { "id": "usage-20", "label": "Claude Usage Credits 20", "period": "一次性", "aliases": ["Usage Credits (20)"] },
+    { "id": "usage-50", "label": "Claude Usage Credits 50", "period": "一次性", "aliases": ["Usage Credits (50)"] },
+    { "id": "usage-250", "label": "Claude Usage Credits 250", "period": "一次性", "aliases": ["Usage Credits (250)"] }
+  ],
+  "6477489729": [
+    { "id": "ai-pro", "label": "Google AI Pro", "period": "月付", "aliases": ["Google AI Pro (5 TB)"] },
+    { "id": "ai-plus", "label": "Google AI Plus", "period": "月付", "aliases": ["Google AI Plus (400 GB)", "Google AI Plus (200GB)", "Google AI Plus (2 TB)"] },
+    { "id": "ai-ultra", "label": "Google AI Ultra", "period": "月付", "aliases": ["Google AI Ultra (30 TB)"] }
+  ],
+  "6670324846": [
+    { "id": "supergrok", "label": "SuperGrok", "period": "月付", "aliases": ["SuperGrok"] },
+    { "id": "supergrok-lite", "label": "SuperGrok Lite", "period": "月付", "aliases": ["SuperGrok Lite"] },
+    { "id": "supergrok-heavy", "label": "SuperGrok Heavy", "period": "月付", "aliases": ["SuperGrok Heavy"] }
+  ],
+  "686449807": [
+    { "id": "premium", "label": "Telegram Premium", "period": "公开套餐", "aliases": ["Telegram Premium"] },
+    { "id": "stars-100", "label": "Telegram Stars 100", "period": "一次性", "aliases": ["100 Telegram Stars"] },
+    { "id": "stars-500", "label": "Telegram Stars 500", "period": "一次性", "aliases": ["500 Telegram Stars"] }
+  ],
+  "544007664": [
+    { "id": "premium", "label": "YouTube Premium", "period": "公开套餐", "aliases": ["YouTube Premium"] },
+    { "id": "family", "label": "YouTube Premium Family", "period": "公开套餐", "aliases": ["YouTube Premium Family", "Youtube Premium Family"] }
+  ],
+  "333903271": [
+    { "id": "premium-monthly", "label": "X Premium", "period": "月付", "aliases": ["X Premium (Monthly)"] },
+    { "id": "basic-monthly", "label": "X Premium Basic", "period": "月付", "aliases": ["X Premium Basic (Monthly)"] },
+    { "id": "plus-monthly", "label": "X Premium Plus", "period": "月付", "aliases": ["X Premium Plus (Monthly)"] },
+    { "id": "premium-annual", "label": "X Premium", "period": "年付", "aliases": ["X Premium (Annual)"] }
+  ],
+  "1451784328": [
+    { "id": "100gb-monthly", "label": "Google One 100 GB", "period": "月付", "aliases": ["100 GB", "100 GB Month"] },
+    { "id": "200gb-monthly", "label": "Google One 200 GB", "period": "月付", "aliases": ["200 GB", "200 GB Month"] },
+    { "id": "ai-plus-2tb", "label": "Google AI Plus 2 TB", "period": "月付", "aliases": ["Google AI Plus (2 TB)"] }
+  ],
+  "547166701": [
+    { "id": "svip-auto", "label": "百度网盘超级会员", "period": "自动续费月付", "aliases": ["百度网盘自动续费超级会员（1个月）", "百度网盘超级会员(1个月-自动续费)"] },
+    { "id": "svip-first", "label": "百度网盘超级会员首充", "period": "月付", "aliases": ["百度网盘超级会员(1个月-自动续费)(首充)"] }
+  ],
+  "1108187390": [
+    { "id": "individual", "label": "Apple Music 个人方案", "period": "月付", "aliases": ["Apple Music Individual"] },
+    { "id": "family", "label": "Apple Music 家庭方案", "period": "月付", "aliases": ["Apple Music Family"] },
+    { "id": "student", "label": "Apple Music 学生方案", "period": "月付", "aliases": ["Apple Music Student"] }
+  ],
+  "apple-icloud-plus": [
+    { "id": "50gb", "label": "iCloud+ 50 GB", "period": "月付", "aliases": ["iCloud+ 50 GB"] },
+    { "id": "200gb", "label": "iCloud+ 200 GB", "period": "月付", "aliases": ["iCloud+ 200 GB"] },
+    { "id": "2tb", "label": "iCloud+ 2 TB", "period": "月付", "aliases": ["iCloud+ 2 TB"] },
+    { "id": "6tb", "label": "iCloud+ 6 TB", "period": "月付", "aliases": ["iCloud+ 6 TB"] },
+    { "id": "12tb", "label": "iCloud+ 12 TB", "period": "月付", "aliases": ["iCloud+ 12 TB"] }
+  ],
+  "apple-one": [
+    { "id": "individual", "label": "Apple One 个人方案", "period": "月付", "aliases": ["Apple One Individual"] },
+    { "id": "family", "label": "Apple One 家庭方案", "period": "月付", "aliases": ["Apple One Family"] },
+    { "id": "premier", "label": "Apple One Premier", "period": "月付", "aliases": ["Apple One Premier"] }
+  ],
+  "apple-tv-plus": [
+    { "id": "monthly", "label": "Apple TV+", "period": "月付", "aliases": ["Apple TV+ Monthly"] }
+  ],
+  "apple-arcade": [
+    { "id": "monthly", "label": "Apple Arcade", "period": "月付", "aliases": ["Apple Arcade Monthly"] },
+    { "id": "annual", "label": "Apple Arcade", "period": "年付", "aliases": ["Apple Arcade Annual"] }
+  ],
+  "apple-fitness-plus": [
+    { "id": "monthly", "label": "Apple Fitness+", "period": "月付", "aliases": ["Apple Fitness+ Monthly"] },
+    { "id": "annual", "label": "Apple Fitness+", "period": "年付", "aliases": ["Apple Fitness+ Annual"] }
+  ],
+  "apple-news-plus": [
+    { "id": "monthly", "label": "Apple News+", "period": "月付", "aliases": ["Apple News+ Monthly"] }
+  ]
+}

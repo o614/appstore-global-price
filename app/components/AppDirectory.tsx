@@ -1,9 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { AppSnapshot } from "../lib/catalog";
+import type { AppSnapshot, CoverageSummary } from "../lib/catalog";
+import { AppArtwork } from "./AppArtwork";
 
-type CardData = AppSnapshot & { verifiedCount: number; planCount: number; itemRange: { min: number; max: number } };
+type CardData = AppSnapshot & {
+  coverage: CoverageSummary;
+  planCount: number;
+};
 
 export function AppDirectory({ apps }: { apps: CardData[] }) {
   const [query, setQuery] = useState("");
@@ -19,8 +23,8 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
     <section className="directory" id="apps">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">首批验证目录</span>
-          <h2>从你真正会订阅的应用开始</h2>
+          <span className="eyebrow">应用与订阅服务</span>
+          <h2>选择应用，查看全球价格</h2>
         </div>
         <label className="catalog-search">
           <span aria-hidden="true">⌕</span>
@@ -35,23 +39,25 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
 
       <div className="app-grid">
         {filtered.map((app) => {
-          const available = app.planCount > 0;
+          const available = app.planCount > 0 && app.coverage.verified > 0;
+          const needsReview = app.coverage.review > 0;
+          const statusLabel = available ? "可比价" : needsReview ? "待复核" : "价格未公开";
           return (
             <a className="app-card" href={`/apps/${app.id}`} key={app.id}>
-              <img src={app.icon} alt="" className="app-icon" loading="lazy" />
+              <AppArtwork app={app} className="app-icon" size={58} />
               <div className="app-card-copy">
                 <div className="app-card-title-row">
                   <h3>{app.matchedName}</h3>
-                  <span className={available ? "status-dot ready" : "status-dot limited"}>
-                    {available ? "可比价" : "未公开内购"}
+                  <span className={available ? "status-dot ready" : needsReview ? "status-dot review" : "status-dot limited"}>
+                    {statusLabel}
                   </span>
                 </div>
                 <p>{app.developer}</p>
                 <div className="app-card-meta">
                   <span>{app.category ?? "App"}</span>
-                  <span>{app.verifiedCount}/{app.regions.length} 地区已验证</span>
-                  <span>{app.itemRange.min === app.itemRange.max ? `${app.itemRange.max} 项/地区` : `${app.itemRange.min}–${app.itemRange.max} 项/地区`}</span>
-                  <span>{app.planCount} 个可识别套餐</span>
+                  <span>{app.coverage.verified}/{app.coverage.total} 地区</span>
+                  {available && <span>{app.planCount} 个套餐</span>}
+                  {app.coverage.review > 0 && <span className="meta-review">{app.coverage.review} 地区待复核</span>}
                 </div>
               </div>
               <span className="card-arrow" aria-hidden="true">↗</span>
@@ -59,7 +65,7 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
           );
         })}
       </div>
-      {!filtered.length && <p className="empty-state">暂未收录这个应用，第一版会逐步扩大目录。</p>}
+      {!filtered.length && <p className="empty-state">没有找到相关应用。</p>}
     </section>
   );
 }

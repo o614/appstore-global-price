@@ -8,10 +8,13 @@ function option(name, fallback = null) {
 
 const snapshotPath = resolve(option("--snapshot", "data/validation-snapshot.json"));
 const configPath = resolve(option("--config", "data/catalog-config.json"));
+const regionsPath = resolve(option("--regions", "data/regions.json"));
 const previousOption = option("--previous");
 const previousPath = previousOption ? resolve(previousOption) : null;
 const snapshot = JSON.parse(await readFile(snapshotPath, "utf8"));
 const config = JSON.parse(await readFile(configPath, "utf8"));
+const regionData = JSON.parse(await readFile(regionsPath, "utf8"));
+const expectedRegions = regionData.regions?.map((region) => region.code) ?? [];
 const previous = previousPath ? JSON.parse(await readFile(previousPath, "utf8")) : null;
 const errors = [];
 
@@ -20,24 +23,27 @@ function populatedCount(value) {
 }
 
 if (!snapshot.generatedAt || Number.isNaN(Date.parse(snapshot.generatedAt))) errors.push("generatedAt is invalid");
-if (snapshot.source !== "Apple public App Store product pages") errors.push("source is unexpected");
+if (snapshot.source !== "Apple public App Store product and service pricing pages") errors.push("source is unexpected");
 
 const expectedIds = config.apps.map((app) => app.id);
 const actualIds = snapshot.apps?.map((app) => app.id) ?? [];
 if (JSON.stringify(expectedIds) !== JSON.stringify(actualIds)) {
   errors.push(`App IDs do not match configuration: expected ${expectedIds.join(", ")}`);
 }
-if (JSON.stringify(config.regions) !== JSON.stringify(snapshot.regions)) errors.push("Top-level regions do not match configuration");
+if (expectedRegions.length !== 20) errors.push(`Expected exactly 20 fixed regions, received ${expectedRegions.length}`);
+if (new Set(expectedRegions).size !== expectedRegions.length) errors.push("Region codes are not unique");
+if (JSON.stringify(expectedRegions) !== JSON.stringify(snapshot.regions)) errors.push("Top-level regions do not match configuration");
 
 for (const entry of config.apps) {
   const app = snapshot.apps?.find((candidate) => candidate.id === entry.id);
   if (!app) continue;
-  if (!app.matchedName || !app.developer || !app.icon) errors.push(`${entry.id} metadata is incomplete`);
+  if (!app.matchedName || !app.developer || (app.priceSource !== "apple-service" && !app.icon)) errors.push(`${entry.id} metadata is incomplete`);
+  if (app.priceSource !== (entry.priceSource ?? "app-store")) errors.push(`${app.matchedName} priceSource does not match configuration`);
   const regionCodes = app.regions?.map((region) => region.region) ?? [];
-  if (JSON.stringify(config.regions) !== JSON.stringify(regionCodes)) errors.push(`${app.matchedName} regions do not match configuration`);
+  if (JSON.stringify(expectedRegions) !== JSON.stringify(regionCodes)) errors.push(`${app.matchedName} regions do not match configuration`);
 
   for (const region of app.regions ?? []) {
-    const allowedEmpty = region.status === "iap-section-missing" || region.status === "error:HTTP 404";
+    const allowedEmpty = region.status === "iap-section-missing" || region.status === "official-price-page-missing" || region.status === "error:HTTP 404";
     const allowedPopulated = typeof region.status === "string" && region.status.startsWith("ok-");
     if (!allowedEmpty && !allowedPopulated) errors.push(`${app.matchedName}/${region.region} has unsafe status: ${region.status}`);
     if (!Array.isArray(region.items) || region.itemCount !== region.items?.length) {
