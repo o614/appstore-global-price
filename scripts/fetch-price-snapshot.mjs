@@ -1,5 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { extractAppleMusicPlans, getAppleMusicPageUrl } from "./apple-music-prices.mjs";
+import { extractAppleServicePlans, getAppleServicePageUrl } from "./apple-service-prices.mjs";
 
 const START_MARKER = '<script type="application/json" id="serialized-server-data">';
 const END_MARKER = "</script>";
@@ -11,18 +13,47 @@ function option(name, fallback) {
 }
 
 const configPath = resolve(option("--config", "data/catalog-config.json"));
+const regionsPath = resolve(option("--regions", "data/regions.json"));
 const outputPath = resolve(option("--output", ".tmp/price-snapshot.json"));
+const reuseOption = option("--reuse");
+const reusePath = reuseOption ? resolve(reuseOption) : null;
 const concurrency = Number(option("--concurrency", "6"));
+const appStoreIntervalMs = Number(option("--app-store-interval", "300"));
 const config = JSON.parse(await readFile(configPath, "utf8"));
+const regionData = JSON.parse(await readFile(regionsPath, "utf8"));
+const regionCodes = regionData.regions?.map((region) => region.code) ?? [];
+const reuseSnapshot = reusePath ? JSON.parse(await readFile(reusePath, "utf8")) : null;
 
 function delay(milliseconds) {
   return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 }
 
-async function request(url, { timeoutMs = 15_000, retries = 2, acceptedStatuses = [] } = {}) {
+const nextRequestAt = new Map();
+
+async function throttle(url) {
+  const host = new URL(url).host;
+  const interval = host === "apps.apple.com" ? appStoreIntervalMs : host === "itunes.apple.com" ? 120 : 0;
+  if (!interval) return;
+  const now = Date.now();
+  const scheduledAt = Math.max(now, nextRequestAt.get(host) ?? 0);
+  nextRequestAt.set(host, scheduledAt + interval);
+  if (scheduledAt > now) await delay(scheduledAt - now);
+}
+
+function retryAfterMilliseconds(response) {
+  const value = response.headers.get("retry-after");
+  if (!value) return 0;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds)) return Math.max(0, seconds * 1000);
+  const date = Date.parse(value);
+  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
+}
+
+async function request(url, { timeoutMs = 15_000, retries = 4, acceptedStatuses = [] } = {}) {
   let lastError;
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
+      await throttle(url);
       const response = await fetch(url, {
         headers: { "accept-language": "en-US,en;q=0.9", "user-agent": USER_AGENT },
         signal: AbortSignal.timeout(timeoutMs),
@@ -31,10 +62,15 @@ async function request(url, { timeoutMs = 15_000, retries = 2, acceptedStatuses 
       const error = new Error(`HTTP ${response.status}`);
       if (response.status !== 429 && response.status < 500) throw error;
       lastError = error;
+      if (attempt < retries) {
+        const retryAfter = retryAfterMilliseconds(response);
+        await delay(Math.max(retryAfter, 2_000 * 2 ** attempt) + Math.floor(Math.random() * 500));
+        continue;
+      }
     } catch (error) {
       lastError = error;
     }
-    if (attempt < retries) await delay(500 * 2 ** attempt + Math.floor(Math.random() * 250));
+    if (attempt < retries) await delay(750 * 2 ** attempt + Math.floor(Math.random() * 250));
   }
   throw lastError;
 }
@@ -103,6 +139,15 @@ function extractIap(html) {
 }
 
 async function fetchMetadata(entry) {
+  if (entry.metadata) {
+    return {
+      query: entry.query,
+      id: entry.id,
+      ...entry.metadata,
+      priceSource: entry.priceSource,
+      service: entry.service,
+    };
+  }
   const url = new URL("https://itunes.apple.com/lookup");
   url.searchParams.set("id", entry.id);
   url.searchParams.set("country", "us");
@@ -118,10 +163,29 @@ async function fetchMetadata(entry) {
     icon: result.artworkUrl512 || result.artworkUrl100,
     category: result.primaryGenreName,
     storeUrl: result.trackViewUrl,
+    priceSource: entry.priceSource ?? "app-store",
   };
 }
 
-async function inspectRegion(appId, region) {
+const pageRequests = new Map();
+
+function cachedPage(url) {
+  if (!pageRequests.has(url)) pageRequests.set(url, request(url, { acceptedStatuses: [404] }));
+  return pageRequests.get(url);
+}
+
+function redirectedAwayFromPricePage(response, requestedUrl) {
+  const requestedPath = new URL(requestedUrl).pathname.replace(/\/+$/u, "") || "/";
+  const responsePath = new URL(response.url).pathname.replace(/\/+$/u, "") || "/";
+  return requestedPath !== responsePath;
+}
+
+function isAppleRedirectShell(html) {
+  return /<title[^>]*>\s*Apple\s*-\s*Redirect\s*<\/title>/iu.test(html)
+    || /['"]s-channel['"]\s*:\s*['"]redirects['"]/iu.test(html);
+}
+
+async function inspectAppStoreRegion(appId, region) {
   const url = `https://apps.apple.com/${region}/app/id${appId}?l=en`;
   try {
     const response = await request(url, { acceptedStatuses: [404] });
@@ -133,28 +197,88 @@ async function inspectRegion(appId, region) {
   }
 }
 
-if (!Array.isArray(config.apps) || !Array.isArray(config.regions) || !config.apps.length || !config.regions.length) {
-  throw new Error("Catalog configuration must contain non-empty apps and regions arrays");
+async function inspectAppleMusicRegion(region) {
+  const url = getAppleMusicPageUrl(region);
+  try {
+    const response = await request(url, { acceptedStatuses: [404] });
+    if (response.status === 404 || redirectedAwayFromPricePage(response, url)) {
+      return { region, status: "official-price-page-missing", itemCount: 0, items: [] };
+    }
+    const html = await response.text();
+    if (isAppleRedirectShell(html)) return { region, status: "official-price-page-missing", itemCount: 0, items: [] };
+    const items = extractAppleMusicPlans(html, region);
+    const status = items.length >= 2 ? "ok-apple-music-page" : "error:apple-music-plans-missing";
+    return { region, status, itemCount: items.length, items };
+  } catch (error) {
+    return { region, status: `error:${error.message}`, itemCount: 0, items: [] };
+  }
 }
+
+async function inspectAppleServiceRegion(app, region) {
+  const url = getAppleServicePageUrl(region, app.service);
+  try {
+    const response = await cachedPage(url);
+    if (response.status === 404 || redirectedAwayFromPricePage(response, url)) {
+      return { region, status: "official-price-page-missing", itemCount: 0, items: [] };
+    }
+    const html = await response.clone().text();
+    if (isAppleRedirectShell(html)) return { region, status: "official-price-page-missing", itemCount: 0, items: [] };
+    const items = extractAppleServicePlans(html, region, app.service);
+    const expectedMinimum = app.service === "icloud-plus"
+      ? 5
+      : app.service === "apple-one" || app.service === "apple-fitness-plus"
+        ? 2
+        : 1;
+    const status = items.length >= expectedMinimum ? `ok-${app.service}-page` : `error:${app.service}-plans-missing`;
+    return { region, status, itemCount: items.length, items };
+  } catch (error) {
+    return { region, status: `error:${error.message}`, itemCount: 0, items: [] };
+  }
+}
+
+async function inspectRegion(app, region) {
+  if (app.priceSource === "apple-music") return inspectAppleMusicRegion(region);
+  if (app.priceSource === "apple-service") return inspectAppleServiceRegion(app, region);
+  return inspectAppStoreRegion(app.id, region);
+}
+
+function reusableRegion(appId, regionCode) {
+  const region = reuseSnapshot?.apps
+    ?.find((app) => app.id === appId)
+    ?.regions?.find((candidate) => candidate.region === regionCode);
+  if (!region) return null;
+  const safeEmpty = ["iap-section-missing", "official-price-page-missing", "error:HTTP 404"].includes(region.status);
+  const safePopulated = region.status?.startsWith("ok-") && region.itemCount > 0;
+  return safeEmpty || safePopulated ? region : null;
+}
+
+if (!Array.isArray(config.apps) || !config.apps.length || !regionCodes.length) {
+  throw new Error("Catalog and region configuration must contain non-empty arrays");
+}
+if (new Set(regionCodes).size !== regionCodes.length) throw new Error("Region codes must be unique");
 if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 20) {
   throw new Error("Concurrency must be an integer between 1 and 20");
 }
+if (!Number.isFinite(appStoreIntervalMs) || appStoreIntervalMs < 0 || appStoreIntervalMs > 10_000) {
+  throw new Error("App Store interval must be between 0 and 10000 milliseconds");
+}
 
-console.log(`Resolving ${config.apps.length} fixed App IDs...`);
+console.log(`Resolving ${config.apps.length} fixed catalog entries...`);
 const apps = await mapLimit(config.apps, Math.min(concurrency, 4), fetchMetadata);
-const regionTasks = apps.flatMap((app) => config.regions.map((region) => ({ appId: app.id, region })));
-console.log(`Fetching ${regionTasks.length} App Store region pages with concurrency ${concurrency}...`);
-const regionResults = await mapLimit(regionTasks, concurrency, ({ appId, region }) => inspectRegion(appId, region));
+const regionTasks = apps.flatMap((app) => regionCodes.map((region) => ({ app, region })));
+const reusableCount = regionTasks.filter(({ app, region }) => reusableRegion(app.id, region)).length;
+console.log(`Fetching ${regionTasks.length - reusableCount} Apple public price pages with concurrency ${concurrency}${reusableCount ? `; reusing ${reusableCount} verified rows` : ""}...`);
+const regionResults = await mapLimit(regionTasks, concurrency, ({ app, region }) => reusableRegion(app.id, region) ?? inspectRegion(app, region));
 
 const regionsByApp = new Map(apps.map((app) => [app.id, []]));
 for (let index = 0; index < regionTasks.length; index += 1) {
-  regionsByApp.get(regionTasks[index].appId).push(regionResults[index]);
+  regionsByApp.get(regionTasks[index].app.id).push(regionResults[index]);
 }
 
 const snapshot = {
   generatedAt: new Date().toISOString(),
-  source: "Apple public App Store product pages",
-  regions: config.regions,
+  source: "Apple public App Store product and service pricing pages",
+  regions: regionCodes,
   apps: apps.map((app) => ({ ...app, regions: regionsByApp.get(app.id) })),
 };
 

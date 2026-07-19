@@ -10,8 +10,9 @@
     "build": "next build",
     "test": "npm run build && node --test",
     "lint": "eslint app scripts tests --ignore-pattern out --ignore-pattern .next --ignore-pattern dist --ignore-pattern .tmp",
-    "data:fetch": "node scripts/fetch-price-snapshot.mjs --output data/validation-snapshot.json",
-    "data:check": "node scripts/validate-price-snapshot.mjs --snapshot data/validation-snapshot.json"
+    "data:fetch": "node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot.json",
+    "data:check": "node scripts/validate-price-snapshot.mjs --snapshot data/validation-snapshot.json",
+    "data:update": "node scripts/update-price-data.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

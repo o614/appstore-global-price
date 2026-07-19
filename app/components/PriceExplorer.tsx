@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   dataUpdatedAt,
   findPlanItem,
+  getPriceSourceCopy,
+  getRegionEvidenceState,
+  getRegionPriceSourceUrl,
   getRegionStoreAppUrl,
   getRegionStoreUrl,
   getRegionSwitchUrl,
@@ -12,6 +15,8 @@ import {
   type AppSnapshot,
   type PlanDefinition,
 } from "../lib/catalog";
+import { AppArtwork } from "./AppArtwork";
+import { RegionFlag } from "./RegionFlag";
 
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
@@ -21,6 +26,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   const [isWechat, setIsWechat] = useState(false);
   const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
+  const sourceCopy = getPriceSourceCopy(app);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -82,7 +88,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       ? `${regionMeta[lowest.region.region].name}，约 ¥${lowest.cny?.toFixed(2)}`
       : "暂无完整数据";
     const savingText = saving === null ? "" : `，地区最高价差约 ${saving}%`;
-    return `${app.matchedName} · ${selectedPlan.label}（${selectedPlan.period}）\n参考最低：${lowestText}${savingText}\n数据：Apple 公开商品页，更新于 ${dataUpdatedAt}\n${getShareUrl()}`;
+    return `${app.matchedName} · ${selectedPlan.label}（${selectedPlan.period}）\n参考最低：${lowestText}${savingText}\n数据：${sourceCopy.noun}，更新于 ${dataUpdatedAt}\n${getShareUrl()}`;
   }
 
   async function copyText(text: string, feedback: string) {
@@ -151,8 +157,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     return (
       <div className="no-iap-panel">
         <span className="no-iap-mark">—</span>
-        <h2>Apple 商品页暂未公开内购项目</h2>
-        <p>这不代表应用没有付费服务，只表示当前公开页面没有可用于比较的 App Store 内购价格。</p>
+        <h2>{sourceCopy.missing}</h2>
+        <p>这不代表应用没有付费服务，只表示当前 Apple 官方公开页面没有可用于比较的价格。</p>
       </div>
     );
   }
@@ -174,7 +180,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
         ))}
       </div>
       <div className="comparison-toolbar">
-        <p className="plan-explanation">同名项目按 Apple 商品页中的独立价格项区分月付、年付；当前只排名所选套餐与周期。</p>
+        <p className="plan-explanation">月付、年付与一次性购买分别排名。</p>
         <button className="share-result-button" type="button" onClick={() => setIsShareOpen(true)}>
           <span aria-hidden="true">↗</span> 分享当前比价
         </button>
@@ -184,7 +190,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
         <div className="lowest-card">
           <span className="summary-label">参考折算最低</span>
           <strong>{lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据"}</strong>
-          <p>{lowest ? `${regionMeta[lowest.region.region].flag} ${regionMeta[lowest.region.region].name} · ${selectedPlan.period}` : "当前套餐可比地区不足"}</p>
+          <p>{lowest ? <><RegionFlag code={lowest.region.region} name={regionMeta[lowest.region.region].name} />{regionMeta[lowest.region.region].name} · {selectedPlan.period}</> : "当前套餐可比地区不足"}</p>
         </div>
         <div className="summary-mini-card">
           <span>有效地区</span>
@@ -211,10 +217,13 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
           <tbody>
             {ranked.map((row, index) => {
               const meta = regionMeta[row.region.region];
+              const sourceUrl = getRegionPriceSourceUrl(app, row.region.region);
               return (
                 <tr key={row.region.region}>
                   <td className="col-rank"><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
-                  <td className="col-region"><button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><b>{meta.flag}</b><span>{meta.name}<small>查看跳转方式 ↗</small></span></button></td>
+                  <td className="col-region">{app.priceSource !== "app-store" && sourceUrl
+                    ? <a className="region-name region-store-link" href={sourceUrl} target="_blank" rel="noreferrer" title={`查看${meta.name} Apple 官方方案`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 ↗</small></span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 ↗</small></span></button>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
@@ -224,16 +233,46 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
             })}
             {rows.filter((row) => !row.item).map((row) => {
               const meta = regionMeta[row.region.region];
-              const unavailable = row.region.status === "error:HTTP 404";
-              const verified = row.region.status.startsWith("ok-");
+              const evidenceState = getRegionEvidenceState(row.region);
+              const sourceUrl = getRegionPriceSourceUrl(app, row.region.region);
+              const isOfficialPriceMissing = row.region.status === "official-price-page-missing";
+              const canOpenStore = Boolean(sourceUrl) && !isOfficialPriceMissing && (evidenceState === "verified" || evidenceState === "not-public");
+              const detail = isOfficialPriceMissing
+                ? "Apple 未提供该地区公开订阅价页面"
+                : evidenceState === "unavailable"
+                ? "该应用未在此地区上架"
+                : evidenceState === "not-public"
+                  ? "Apple 商品页未公开内购项目"
+                  : evidenceState === "verified"
+                    ? "公开项目中未发现此套餐"
+                    : "价格待确认";
+              const shortStatus = evidenceState === "unavailable"
+                ? "不可用"
+                : evidenceState === "not-public"
+                  ? "未公开"
+                  : evidenceState === "verified"
+                    ? "未提供"
+                    : "待复核";
+              const rankStatus = isOfficialPriceMissing
+                ? "无公开价格"
+                : evidenceState === "unavailable"
+                ? "未上架"
+                : evidenceState === "not-public"
+                  ? "无公开内购"
+                  : evidenceState === "verified"
+                    ? "未参与排名"
+                    : "等待复核";
+              const statusClass = evidenceState === "review" ? "review-pill" : evidenceState === "not-public" ? "not-public-pill" : "unavailable-pill";
               return (
                 <tr className="muted-row" key={row.region.region}>
                   <td className="col-rank">—</td>
-                  <td className="col-region">{verified ? <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><b>{meta.flag}</b><span>{meta.name}<small>查看跳转方式 ↗</small></span></button> : <span className="region-name"><b>{meta.flag}</b>{meta.name}</span>}</td>
+                  <td className="col-region">{canOpenStore ? (app.priceSource !== "app-store"
+                    ? <a className="region-name region-store-link" href={sourceUrl ?? undefined} target="_blank" rel="noreferrer"><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 ↗</small></span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 ↗</small></span></button>) : <span className="region-name"><RegionFlag code={row.region.region} name={meta.name} size="regular" />{meta.name}</span>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
-                  <td className="col-original muted-detail">{unavailable ? "该地区未上架" : verified ? "公开项目中未发现此套餐" : "本次抓取失败"}</td>
-                  <td className="col-cny"><span className="unavailable-pill">{unavailable ? "不可用" : verified ? "未提供" : "待复核"}</span></td>
-                  <td className="col-status"><span className="unavailable-pill">{unavailable ? "未上架" : verified ? "未参与排名" : "等待复核"}</span></td>
+                  <td className="col-original muted-detail">{detail}</td>
+                  <td className="col-cny"><span className={statusClass}>{shortStatus}</span></td>
+                  <td className="col-status"><span className={statusClass}>{rankStatus}</span></td>
                 </tr>
               );
             })}
@@ -252,7 +291,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               <div className="share-dialog-header">
                 <div>
                   <span>跳转前确认</span>
-                  <h2 id="store-jump-title">前往{meta.flag} {meta.name}区 App Store</h2>
+                  <h2 id="store-jump-title"><RegionFlag code={selectedStoreRegion} name={meta.name} size="regular" />前往 {meta.name}区 App Store</h2>
                 </div>
                 <button type="button" className="share-dialog-close" onClick={() => setSelectedStoreRegion(null)} aria-label="关闭跳转提示">×</button>
               </div>
@@ -318,18 +357,18 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
             <div className="share-result-card">
               <div className="share-card-brand"><span className="brand-mark">AP</span><small>App Store 全球价格</small></div>
               <div className="share-card-app">
-                {app.icon && <img src={app.icon} alt="" />}
+                <AppArtwork app={app} className="share-app-artwork" size={44} />
                 <div><strong>{app.matchedName}</strong><span>{selectedPlan.label} · {selectedPlan.period}</span></div>
               </div>
               <div className="share-card-lowest">
                 <span>参考折算最低</span>
                 <strong>{lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据"}</strong>
-                <small>{lowest ? `${regionMeta[lowest.region.region].flag} ${regionMeta[lowest.region.region].name}` : "当前套餐可比地区不足"}</small>
+                <small>{lowest ? <><RegionFlag code={lowest.region.region} name={regionMeta[lowest.region.region].name} />{regionMeta[lowest.region.region].name}</> : "当前套餐可比地区不足"}</small>
               </div>
               <ol className="share-card-ranking">
                 {ranked.slice(0, 3).map((row, index) => {
                   const meta = regionMeta[row.region.region];
-                  return <li key={row.region.region}><span>{index + 1} · {meta.flag} {meta.name}</span><b>{row.item?.price}</b><em>¥{row.cny?.toFixed(2)}</em></li>;
+                  return <li key={row.region.region}><span>{index + 1} · <RegionFlag code={row.region.region} name={meta.name} />{meta.name}</span><b>{row.item?.price}</b><em>¥{row.cny?.toFixed(2)}</em></li>;
                 })}
               </ol>
               <p>{ranked.length} 个地区可比{saving === null ? "" : ` · 最高价差约 ${saving}%`} · 数据更新 {dataUpdatedAt}</p>

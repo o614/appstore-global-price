@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./apple-design.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 const title = "App Store 全球价格";
-const description = "区分月付与年付，查看不同地区真实公开套餐数量和 Apple 原币标价。";
+const description = "比较同一 App 或订阅服务在 20 个地区的 Apple 官方标价，区分月付、年付与一次性购买。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
+  alternates: { canonical: "/" },
   openGraph: {
     title,
     description,
