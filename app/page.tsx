@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRightLine, ExternalLinkLine } from "@mingcute/react";
 import { AppDirectory } from "./components/AppDirectory";
+import { BrandMark } from "./components/BrandMark";
 import { DataFreshness } from "./components/DataFreshness";
 import { RegionFlag } from "./components/RegionFlag";
 import {
@@ -45,7 +47,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <Link className="brand" href="/" aria-label="App Store 全球价格首页">
-          <span className="brand-mark">AP</span>
+          <BrandMark />
           <span><strong>App Store</strong><small>全球价格</small></span>
         </Link>
         <nav>
@@ -62,7 +64,7 @@ export default function Home() {
           <h1>先看清价格，<br />再决定在哪个区买。</h1>
           <p>比较同一 App 或订阅服务在不同地区的 Apple 官方价格。保留原币标价，人民币金额仅供参考。</p>
           <div className="hero-actions">
-            <a href="#apps" className="primary-button">浏览应用 <span aria-hidden="true">→</span></a>
+            <a href="#apps" className="primary-button">浏览应用 <ArrowRightLine className="ui-icon" aria-hidden="true" /></a>
             <Link href="/apps/6448311069" className="secondary-button">查看 ChatGPT 示例</Link>
           </div>
           <div className="hero-stats">
@@ -76,7 +78,7 @@ export default function Home() {
           <div className="featured-app">
             <Image src={chatgpt.icon ?? "/og.png"} alt="" width={58} height={58} priority />
             <div><span>热门对比</span><h2>ChatGPT Plus</h2><p>月付套餐 · {regionCount} 个地区</p></div>
-            <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价">↗</Link>
+            <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价"><ExternalLinkLine className="ui-icon" aria-hidden="true" /></Link>
           </div>
           <div className="price-spotlight">
             <span>参考折算最低</span>
@@ -89,7 +91,7 @@ export default function Home() {
               return <a href={getRegionStoreUrl(chatgpt.id, row.region.region)} target="_blank" rel="noreferrer" key={row.region.region}><span><RegionFlag code={row.region.region} name={meta.name} />{meta.name}</span><b>¥{row.cny?.toFixed(2)}</b></a>;
             })}
           </div>
-          <Link className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看月付、年付和地区套餐差异 <span>→</span></Link>
+          <Link className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看月付、年付和地区套餐差异 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
         </article>
       </section>
 
@@ -117,7 +119,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="brand footer-brand"><span className="brand-mark">AP</span><span><strong>App Store</strong><small>全球价格</small></span></div>
+        <div className="brand footer-brand"><BrandMark /><span><strong>App Store</strong><small>全球价格</small></span></div>
         <p>应用价格验证于 {dataUpdatedAt} · 汇率由 <a href={rateAttributionUrl} target="_blank" rel="noreferrer">{rateProvider}</a> 提供</p>
         <p>价格、购买资格和税费以对应地区 Apple 结算页为准。</p>
       </footer>

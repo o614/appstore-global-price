@@ -2,6 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
+  CloseLine,
+  CopyLine,
+  ExternalLinkLine,
+  InformationLine,
+  LinkLine,
+  ShareForwardLine,
+  WarningLine,
+} from "@mingcute/react";
+import {
   dataUpdatedAt,
   findPlanItem,
   getPriceSourceCopy,
@@ -16,6 +25,7 @@ import {
   type PlanDefinition,
 } from "../lib/catalog";
 import { AppArtwork } from "./AppArtwork";
+import { BrandMark } from "./BrandMark";
 import { RegionFlag } from "./RegionFlag";
 
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
@@ -156,7 +166,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   if (!plans.length) {
     return (
       <div className="no-iap-panel">
-        <span className="no-iap-mark">—</span>
+        <span className="no-iap-mark"><InformationLine className="ui-icon" aria-hidden="true" /></span>
         <h2>{sourceCopy.missing}</h2>
         <p>这不代表应用没有付费服务，只表示当前 Apple 官方公开页面没有可用于比较的价格。</p>
       </div>
@@ -182,7 +192,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       <div className="comparison-toolbar">
         <p className="plan-explanation">月付、年付与一次性购买分别排名。</p>
         <button className="share-result-button" type="button" onClick={() => setIsShareOpen(true)}>
-          <span className="share-button-icon" aria-hidden="true">↑</span> 分享比价
+          <ShareForwardLine className="ui-icon" aria-hidden="true" />分享比价
         </button>
       </div>
 
@@ -222,8 +232,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 <tr key={row.region.region}>
                   <td className="col-rank"><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
                   <td className="col-region">{app.priceSource !== "app-store" && sourceUrl
-                    ? <a className="region-name region-store-link" href={sourceUrl} target="_blank" rel="noreferrer" title={`查看${meta.name} Apple 官方方案`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 ↗</small></span></a>
-                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 ↗</small></span></button>}</td>
+                    ? <a className="region-name region-store-link" href={sourceUrl} target="_blank" rel="noreferrer" title={`查看${meta.name} Apple 官方方案`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></button>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
@@ -267,8 +277,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 <tr className="muted-row" key={row.region.region}>
                   <td className="col-rank">—</td>
                   <td className="col-region">{canOpenStore ? (app.priceSource !== "app-store"
-                    ? <a className="region-name region-store-link" href={sourceUrl ?? undefined} target="_blank" rel="noreferrer"><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 ↗</small></span></a>
-                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 ↗</small></span></button>) : <span className="region-name"><RegionFlag code={row.region.region} name={meta.name} size="regular" />{meta.name}</span>}</td>
+                    ? <a className="region-name region-store-link" href={sourceUrl ?? undefined} target="_blank" rel="noreferrer"><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></button>) : <span className="region-name"><RegionFlag code={row.region.region} name={meta.name} size="regular" />{meta.name}</span>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="col-original muted-detail">{detail}</td>
                   <td className="col-cny"><span className={statusClass}>{shortStatus}</span></td>
@@ -293,15 +303,15 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <span>跳转前确认</span>
                   <h2 id="store-jump-title"><RegionFlag code={selectedStoreRegion} name={meta.name} size="regular" />前往 {meta.name}区 App Store</h2>
                 </div>
-                <button type="button" className="share-dialog-close" onClick={() => setSelectedStoreRegion(null)} aria-label="关闭跳转提示">×</button>
+                <button type="button" className="share-dialog-close" onClick={() => setSelectedStoreRegion(null)} aria-label="关闭跳转提示"><CloseLine className="ui-icon" aria-hidden="true" /></button>
               </div>
 
               <div className="store-redirect-warning">
-                <strong>大陆网络会改写网页商店地区</strong>
+                <strong><WarningLine className="ui-icon" aria-hidden="true" />大陆网络会改写网页商店地区</strong>
                 <p>直接打开 <code>apps.apple.com/{selectedStoreRegion}/…</code> 仍可能被重定向到中国大陆商店，因此这里不会直接跳转。</p>
               </div>
 
-              {isWechat && <div className="store-browser-warning">检测到微信内置浏览器：请先用右上角“在 Safari 中打开”，再执行换区。</div>}
+              {isWechat && <div className="store-browser-warning"><WarningLine className="ui-icon" aria-hidden="true" />检测到微信内置浏览器：请先用右上角“在 Safari 中打开”，再执行换区。</div>}
 
               {deviceKind === "ios" ? (
                 <div className="store-device-panel">
@@ -309,9 +319,9 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <ol><li>点击主按钮，网站会先复制“{app.query}”，再将 App Store 切换为{meta.name}区。</li><li>换区完成后进入 App Store 搜索，直接粘贴应用名称即可。</li></ol>
                   <div className="store-jump-actions ios-actions">
                     {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>换区后前往搜索粘贴</small></button>}
-                    <button type="button" onClick={() => copyText(app.query, `${app.query} 已复制`)}>仅复制应用名</button>
-                    {switchUrl && <a href={switchUrl}>仅切换地区</a>}
-                    <a href={appUrl}>切换后打开应用</a>
+                    <button type="button" onClick={() => copyText(app.query, `${app.query} 已复制`)}><CopyLine className="ui-icon" aria-hidden="true" />仅复制应用名</button>
+                    {switchUrl && <a href={switchUrl}><ExternalLinkLine className="ui-icon" aria-hidden="true" />仅切换地区</a>}
+                    <a href={appUrl}><ExternalLinkLine className="ui-icon" aria-hidden="true" />切换后打开应用</a>
                   </div>
                 </div>
               ) : deviceKind === "mac" ? (
@@ -319,9 +329,9 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <div className="store-device-heading"><span>已识别 Mac</span><strong>不自动调用换区深链</strong></div>
                   <p>该深链在 Mac App Store 上兼容性不稳定，可能无反应或报错。建议把换区链接发到 iPhone / iPad 操作。</p>
                   <div className="store-jump-actions compact">
-                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
-                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}>复制应用网页</button>
-                    <a href={webUrl} target="_blank" rel="noreferrer">尝试打开网页</a>
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制换区链接</button>}
+                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制应用网页</button>
+                    <a href={webUrl} target="_blank" rel="noreferrer"><ExternalLinkLine className="ui-icon" aria-hidden="true" />尝试打开网页</a>
                   </div>
                 </div>
               ) : (
@@ -329,9 +339,9 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <div className="store-device-heading"><span>未识别为 iPhone / iPad</span><strong>当前设备无法可靠切换 App Store</strong></div>
                   <p>可复制换区链接到 iPhone / iPad 的 Safari 中打开；网页入口可能仍被重定向到中国大陆商店。</p>
                   <div className="store-jump-actions compact">
-                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}>复制换区链接</button>}
-                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}>复制应用网页</button>
-                    <a href={webUrl} target="_blank" rel="noreferrer">尝试打开网页</a>
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制换区链接</button>}
+                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制应用网页</button>
+                    <a href={webUrl} target="_blank" rel="noreferrer"><ExternalLinkLine className="ui-icon" aria-hidden="true" />尝试打开网页</a>
                   </div>
                 </div>
               )}
@@ -351,11 +361,11 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 <span>分享当前结果</span>
                 <h2 id="share-dialog-title">把这一组价格发给朋友</h2>
               </div>
-              <button type="button" className="share-dialog-close" onClick={() => setIsShareOpen(false)} aria-label="关闭分享弹窗">×</button>
+              <button type="button" className="share-dialog-close" onClick={() => setIsShareOpen(false)} aria-label="关闭分享弹窗"><CloseLine className="ui-icon" aria-hidden="true" /></button>
             </div>
 
             <div className="share-result-card">
-              <div className="share-card-brand"><span className="brand-mark">AP</span><small>App Store 全球价格</small></div>
+              <div className="share-card-brand"><BrandMark /><small>App Store 全球价格</small></div>
               <div className="share-card-app">
                 <AppArtwork app={app} className="share-app-artwork" size={44} />
                 <div><strong>{app.matchedName}</strong><span>{selectedPlan.label} · {selectedPlan.period}</span></div>
@@ -374,11 +384,11 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               <p>{ranked.length} 个地区可比{saving === null ? "" : ` · 最高价差约 ${saving}%`} · 数据更新 {dataUpdatedAt}</p>
             </div>
 
-            <p className="share-dialog-note">分享内容会保留当前套餐和周期；人民币为汇率参考，实际扣款以对应地区 App Store 为准。</p>
+            <p className="share-dialog-note"><InformationLine className="ui-icon" aria-hidden="true" />分享内容会保留当前套餐和周期；人民币为汇率参考，实际扣款以对应地区 App Store 为准。</p>
             <div className="share-dialog-actions">
-              <button type="button" className="share-primary" onClick={shareResult}>系统分享</button>
-              <button type="button" onClick={() => copyText(getShareText(), "结果与链接已复制")}>复制结果</button>
-              <button type="button" onClick={() => copyText(getShareUrl(), "链接已复制")}>复制链接</button>
+              <button type="button" className="share-primary" onClick={shareResult}><ShareForwardLine className="ui-icon" aria-hidden="true" />系统分享</button>
+              <button type="button" onClick={() => copyText(getShareText(), "结果与链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制结果</button>
+              <button type="button" onClick={() => copyText(getShareUrl(), "链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制链接</button>
             </div>
             <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>
           </section>

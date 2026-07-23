@@ -98,11 +98,9 @@ button, a { touch-action: manipulation; }
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  color: #fff;
-  background: #1d1d1f;
+  color: #000;
+  background: #ffe60f;
   box-shadow: none;
-  font-size: 11px;
-  letter-spacing: -0.02em;
 }
 
 .brand strong { font-size: 14px; font-weight: 650; }
@@ -119,10 +117,7 @@ button, a { touch-action: manipulation; }
   font-size: 10px;
 }
 
-.live-badge i, .truth-note i {
-  background: #34c759;
-  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.12);
-}
+.freshness-icon, .truth-note .ui-icon { color: #248a3d; }
 
 .hero {
   min-height: 720px;
@@ -325,7 +320,7 @@ button, a { touch-action: manipulation; }
 }
 
 .share-result-button:hover { color: #1d1d1f; background: #dedee3; }
-.share-result-button span { color: inherit; }
+.share-result-button .ui-icon { color: inherit; }
 
 .detail-notes {
   border-color: rgba(0, 0, 0, 0.075);
@@ -489,9 +484,9 @@ button, a { touch-action: manipulation; }
 
 .site-header nav a[aria-current="page"] { color: var(--blue); font-weight: 650; }
 .change-log-hero { text-wrap: balance; }
-.change-log-legend i.legend-adjusted { background: var(--blue); }
-.change-log-legend i.legend-added { background: #34c759; }
-.change-log-legend i.legend-removed { background: #ff9f0a; }
+.change-log-legend .legend-adjusted { color: var(--blue); }
+.change-log-legend .legend-added { color: #248a3d; }
+.change-log-legend .legend-removed { color: #9a6700; }
 .change-log-section,
 .change-log-empty {
   border: 1px solid rgba(0, 0, 0, 0.075);
@@ -521,7 +516,7 @@ button, a { touch-action: manipulation; }
 .evidence-official-price-unpublished { color: #5e5e63; background: #ececf0; }
 .evidence-parse-failed { color: #b42318; background: #ffebe9; }
 .change-log-empty { background: linear-gradient(135deg, rgba(238,247,255,.94), rgba(255,255,255,.84) 72%); }
-.empty-log-mark { color: rgba(0, 113, 227, 0.22); }
+.empty-log-mark { color: rgba(0, 113, 227, 0.34); }
 .change-log-empty > a {
   border-radius: 999px;
   color: #fff;

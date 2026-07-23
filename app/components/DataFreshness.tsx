@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { History2Line } from "@mingcute/react";
 
 type FreshnessTone = "snapshot" | "fresh" | "aging" | "stale";
 
@@ -65,7 +66,7 @@ export function DataFreshness({ generatedAt, displayDate }: { generatedAt: strin
       title={view.description}
       aria-label={view.description}
     >
-      <i aria-hidden="true" />
+      <History2Line className="ui-icon freshness-icon" aria-hidden="true" />
       {view.label}
     </time>
   );

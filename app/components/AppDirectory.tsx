@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ExternalLinkLine, SearchLine } from "@mingcute/react";
 import type { AppSnapshot, CoverageSummary } from "../lib/catalog";
 import { AppArtwork } from "./AppArtwork";
 
@@ -27,7 +28,7 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
           <h2>选择应用，查看全球价格</h2>
         </div>
         <label className="catalog-search">
-          <span aria-hidden="true">⌕</span>
+          <SearchLine className="ui-icon" aria-hidden="true" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -60,7 +61,7 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
                   {app.coverage.review > 0 && <span className="meta-review">{app.coverage.review} 地区待复核</span>}
                 </div>
               </div>
-              <span className="card-arrow" aria-hidden="true">↗</span>
+              <ExternalLinkLine className="card-arrow ui-icon" aria-hidden="true" />
             </a>
           );
         })}

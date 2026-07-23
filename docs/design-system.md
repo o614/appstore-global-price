@@ -8,7 +8,7 @@
 - **domain**：可信价格数据产品。原币标价是主数据，人民币是参考；数据来源、更新时间和不可比原因必须清晰。
 - **craft**：价格使用等宽数字；国旗保持固定比例、轻圆角与边界；点击按下立即反馈；手机端不隐藏原币价格。
 - **design**：系统字体、Apple 中性灰、`#0071e3` 单一交互强调色。白色半透明表面只用于建立层级，不把每段内容都做成卡片。
-- **components**：`RegionFlag` 负责所有地区旗帜，`AppArtwork` 负责所有应用图标，`DataFreshness` 负责快照状态，`PriceExplorer` 负责套餐和地区比较。
+- **components**：`RegionFlag` 负责所有地区旗帜，`AppArtwork` 负责所有应用图标，`BrandMark` 负责站点 Logo，`DataFreshness` 负责快照状态，`PriceExplorer` 负责套餐和地区比较。
 - **template**：首页负责发现与信任说明，详情页负责单一应用的套餐选择、双币价格和官方来源跳转。
 - **evaluator**：先检查数据是否真实完整，再检查可读性、触控反馈、响应式、减少动态/透明度和高对比度；装饰性像素不能压过价格判断。
 
@@ -22,6 +22,13 @@
 ## 国旗规范
 
 实际价格数据区域统一使用本地 PNG，不使用 Emoji。文件路径为 `/flags/{code}.png`，紧凑尺寸 20×14，表格尺寸 24×18，`object-fit: cover`、3px 圆角和极轻阴影。该方案参考 appstoreprice.org 的真实价格表做法，并消除不同系统 Emoji 画法差异。
+
+## 图标规范
+
+- 搜索、分享、箭头、外链、关闭、复制、说明和状态等界面图标统一使用 `@mingcute/react` 的 MingCute 线性图标，不使用 Unicode 符号或临时手绘 SVG。
+- 站点 Logo 统一通过 `BrandMark` 输出：`#FFE60F` 黄底、黑色 MingCute `SaleFill`；浏览器图标使用相同图形。
+- 应用与 Apple 服务仍展示官方品牌图，地区仍使用本地国旗，二者不替换为 MingCute 通用图标。
+- 常规界面图标统一使用 `.ui-icon` 尺寸和 `currentColor`，由所在按钮或文本控制颜色。
 
 ## 禁止项
 

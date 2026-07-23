@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  AddCircleLine,
+  ArrowLeftLine,
+  ArrowRightLine,
+  Delete2Line,
+  History2Line,
+  InformationLine,
+  TransferHorizontalLine,
+} from "@mingcute/react";
 import changeLogData from "../../data/price-change-log.json";
+import { BrandMark } from "../components/BrandMark";
 import { RegionFlag } from "../components/RegionFlag";
 import { apps, dataGeneratedAt, regionMeta } from "../lib/catalog";
 
@@ -42,7 +52,6 @@ type PriceChange = RegionPriceChange | CatalogChange;
 type ChangeLogEntry = {
   id: string;
   publishedAt: string;
-  checkedAt?: string;
   changeCount: number;
   changes: PriceChange[];
 };
@@ -92,7 +101,7 @@ function ChangeDetails({ change }: { change: PriceChange }) {
       {stateChanged ? (
         <div className="change-state-row">
           <span className={`evidence-state evidence-${change.beforeState}`}>{stateLabels[change.beforeState!]}</span>
-          <span aria-hidden="true">→</span>
+          <ArrowRightLine className="ui-icon transition-icon" aria-hidden="true" />
           <span className={`evidence-state evidence-${change.afterState}`}>{stateLabels[change.afterState!]}</span>
         </div>
       ) : null}
@@ -105,7 +114,7 @@ function ChangeDetails({ change }: { change: PriceChange }) {
               <strong>{update.name}</strong>
               <span className="price-transition">
                 <del>{update.beforePrice}</del>
-                <span aria-hidden="true">→</span>
+                <ArrowRightLine className="ui-icon transition-icon" aria-hidden="true" />
                 <b>{update.afterPrice}</b>
               </span>
             </div>
@@ -125,19 +134,19 @@ function ChangeDetails({ change }: { change: PriceChange }) {
 }
 
 export default function ChangesPage() {
-  const entries = changeLog.entries.filter((entry) => entry.changes.length > 0);
+  const entries = changeLog.entries.filter((entry) => entry.changes.length > 0).slice(0, 30);
 
   return (
     <main className="change-log-page">
       <header className="site-header detail-header">
         <Link className="brand" href="/" aria-label="App Store 全球价格首页">
-          <span className="brand-mark">AP</span>
+          <BrandMark />
           <span><strong>App Store</strong><small>全球价格</small></span>
         </Link>
         <nav>
           <Link href="/#apps">应用目录</Link>
           <Link href="/changes/" aria-current="page">价格日志</Link>
-          <Link className="back-link" href="/">返回首页</Link>
+          <Link className="back-link" href="/"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回首页</Link>
         </nav>
       </header>
 
@@ -146,9 +155,9 @@ export default function ChangesPage() {
         <h1>每一次价格变化，<br />都有记录。</h1>
         <p>这里只记录已经通过校验并发布到网站的变化。Bark 提醒的是候选变化，确认发布后才会出现在这里。</p>
         <div className="change-log-legend" aria-label="日志类型说明">
-          <span><i className="legend-adjusted" />同一套餐调价</span>
-          <span><i className="legend-added" />新增套餐</span>
-          <span><i className="legend-removed" />移除套餐</span>
+          <span><TransferHorizontalLine className="legend-adjusted ui-icon" aria-hidden="true" />同一套餐调价</span>
+          <span><AddCircleLine className="legend-added ui-icon" aria-hidden="true" />新增套餐</span>
+          <span><Delete2Line className="legend-removed ui-icon" aria-hidden="true" />移除套餐</span>
         </div>
       </section>
 
@@ -159,7 +168,7 @@ export default function ChangesPage() {
               <span className="eyebrow">已发布记录</span>
               <h2 id="change-log-title">最近的价格变动</h2>
             </div>
-            <p>共 {entries.length} 次发布记录</p>
+            <p>展示最近 {entries.length} 次发布记录</p>
           </div>
           <div className="change-log-list">
             {entries.map((entry) => (
@@ -197,20 +206,20 @@ export default function ChangesPage() {
         </section>
       ) : (
         <section className="change-log-empty" aria-labelledby="empty-log-title">
-          <span className="empty-log-mark" aria-hidden="true">00</span>
+          <History2Line className="empty-log-mark" aria-hidden="true" />
           <div>
             <span className="eyebrow">等待第一条记录</span>
             <h2 id="empty-log-title">暂时还没有已发布的价格变动。</h2>
             <p>从下一次正式价格更新开始，这里会自动记录应用、地区、套餐以及调价前后的原币金额，不补写未经验证的历史。</p>
           </div>
-          <Link href="/#apps">查看当前价格</Link>
+          <Link href="/#apps">查看当前价格 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
         </section>
       )}
 
       <section className="change-log-note">
-        <h2>状态变化也会被单独记录</h2>
+        <h2><InformationLine className="ui-icon" aria-hidden="true" />状态变化也会被单独记录</h2>
         <p>“服务不可用”“官方价格未公开”和“解析失败”代表不同情况。系统不会猜测国家页面，也不会用其他地区的价格补齐。</p>
-        <span>当前价格数据生成于 {formatPublishedAt(dataGeneratedAt)}</span>
+        <span>只保留最近 30 次正式发布记录 · 当前价格数据生成于 {formatPublishedAt(dataGeneratedAt)}</span>
       </section>
     </main>
   );
