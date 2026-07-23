@@ -95,9 +95,20 @@ test("exports every configured app detail route", async () => {
   }
 });
 
+test("exports a public log for confirmed price changes", async () => {
+  const html = await readPage("/changes/index.html");
+  assert.match(html, /价格变动日志/);
+  assert.match(html, /每一次价格变化/);
+  assert.match(html, /Bark 提醒的是候选变化/);
+  assert.match(html, /暂时还没有已发布的价格变动/);
+  assert.match(html, /服务不可用/);
+  assert.match(html, /官方价格未公开/);
+  assert.match(html, /解析失败/);
+});
+
 test("keeps gift-card and recharge guidance out of the published site", async () => {
   const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
-  const pages = ["/index.html", ...snapshot.apps.map((app) => `/apps/${app.id}/index.html`)];
+  const pages = ["/index.html", "/changes/index.html", ...snapshot.apps.map((app) => `/apps/${app.id}/index.html`)];
   for (const page of pages) {
     const html = await readPage(page);
     assert.doesNotMatch(html, /礼品卡|充值渠道|SEAGM|gift\s*card/iu, page);
@@ -112,6 +123,7 @@ test("exports crawler discovery files for the public site", async () => {
   assert.match(robots, /Allow: \/(?:\r?\n|$)/);
   assert.match(robots, /Sitemap: https:\/\/price\.290935\.xyz\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz\/changes\/<\/loc>/);
   for (const app of snapshot.apps) {
     assert.match(sitemap, new RegExp(`<loc>https://price\\.290935\\.xyz/apps/${app.id}/</loc>`));
   }

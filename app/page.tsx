@@ -51,6 +51,7 @@ export default function Home() {
         <nav>
           <a href="#apps">应用目录</a>
           <a href="#method">数据说明</a>
+          <Link href="/changes/">价格日志</Link>
           <DataFreshness generatedAt={dataGeneratedAt} displayDate={dataUpdatedAt} />
         </nav>
       </header>

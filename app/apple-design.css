@@ -486,3 +486,61 @@ button, a { touch-action: manipulation; }
   .site-header, .hero-price-card, .coverage-note, .app-card, .app-hero, .price-table-wrap, .price-table tr { border-color: rgba(0, 0, 0, 0.28); }
   .muted-row, .muted-detail, .hero-copy > p, .method-copy p { color: #4b4b50; }
 }
+
+.site-header nav a[aria-current="page"] { color: var(--blue); font-weight: 650; }
+.change-log-hero { text-wrap: balance; }
+.change-log-legend i.legend-adjusted { background: var(--blue); }
+.change-log-legend i.legend-added { background: #34c759; }
+.change-log-legend i.legend-removed { background: #ff9f0a; }
+.change-log-section,
+.change-log-empty {
+  border: 1px solid rgba(0, 0, 0, 0.075);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.change-log-section { padding: 0 34px; }
+.change-log-heading,
+.change-entry + .change-entry,
+.change-row + .change-row,
+.change-log-list { border-color: rgba(0, 0, 0, 0.075); }
+.change-row-heading a { color: var(--blue); }
+.change-kind,
+.evidence-state {
+  min-height: 22px;
+  padding: 0 7px;
+  border-radius: 7px;
+}
+.kind-adjusted { color: #0066cc; background: #e5f2ff; }
+.kind-added { color: #248a3d; background: #e8f7ec; }
+.kind-removed { color: #9a6700; background: #fff5d6; }
+.evidence-verified { color: #248a3d; background: #e8f7ec; }
+.evidence-service-unavailable { color: #8a6500; background: #fff5d6; }
+.evidence-official-price-unpublished { color: #5e5e63; background: #ececf0; }
+.evidence-parse-failed { color: #b42318; background: #ffebe9; }
+.change-log-empty { background: linear-gradient(135deg, rgba(238,247,255,.94), rgba(255,255,255,.84) 72%); }
+.empty-log-mark { color: rgba(0, 113, 227, 0.22); }
+.change-log-empty > a {
+  border-radius: 999px;
+  color: #fff;
+  background: var(--blue);
+}
+.change-log-empty > a:hover { background: #0077ed; }
+.change-log-note { margin-top: 44px; border-color: rgba(0, 0, 0, 0.075); }
+
+@media (max-width: 760px) {
+  .change-log-section { padding: 0 20px; border-radius: 22px; }
+  .change-log-empty { border-radius: 22px; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .change-log-section,
+  .change-log-empty { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+@media (prefers-contrast: more) {
+  .change-log-section,
+  .change-log-empty { border-color: rgba(0, 0, 0, 0.28); }
+}

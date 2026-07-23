@@ -32,9 +32,13 @@ if (event === "change") {
       continue;
     }
     const details = [];
-    if (change.beforeCount !== change.afterCount) details.push(`套餐 ${change.beforeCount}→${change.afterCount}`);
-    if (change.removed?.length) details.push(`移除 ${change.removed.length} 项`);
-    if (change.added?.length) details.push(`新增 ${change.added.length} 项`);
+    if (change.beforeState !== change.afterState) details.push(`状态 ${change.beforeState}→${change.afterState}`);
+    for (const item of change.updated?.slice(0, 2) ?? []) details.push(`${item.name} ${item.beforePrice}→${item.afterPrice}`);
+    if ((change.updated?.length ?? 0) > 2) details.push(`另有 ${change.updated.length - 2} 个套餐调价`);
+    for (const item of change.added?.slice(0, 1) ?? []) details.push(`新增 ${item.name} ${item.price}`);
+    if ((change.added?.length ?? 0) > 1) details.push(`另新增 ${change.added.length - 1} 项`);
+    for (const item of change.removed?.slice(0, 1) ?? []) details.push(`移除 ${item.name} ${item.price}`);
+    if ((change.removed?.length ?? 0) > 1) details.push(`另移除 ${change.removed.length - 1} 项`);
     lines.push(`${change.appName} / ${change.region.toUpperCase()}：${details.join("，") || "内容变化"}`);
   }
   if ((summary?.changes?.length ?? 0) > 8) lines.push(`另有 ${(summary.changes.length - 8)} 处变化`);

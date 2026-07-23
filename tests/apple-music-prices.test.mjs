@@ -19,6 +19,20 @@ test("extracts Apple Music plan prices from official plan cards", () => {
   ]);
 });
 
+test("ignores introductory offers when Apple also publishes the recurring price", () => {
+  const html = [
+    planCard("individual", "Get 3 months for $1.99/month, then $11.99/month"),
+    planCard("family", "New subscriber offer: $4.99/month"),
+    planCard("family", "$19.99/month"),
+    planCard("student", "$6.99/month"),
+  ].join("");
+  assert.deepEqual(extractAppleMusicPlans(html, "us"), [
+    { name: "Apple Music Individual", price: "$11.99" },
+    { name: "Apple Music Family", price: "$19.99" },
+    { name: "Apple Music Student", price: "$6.99" },
+  ]);
+});
+
 test("uses the official FAQ as the student-price fallback", () => {
   const html = [
     planCard("individual", "RMB&nbsp;12/月"),

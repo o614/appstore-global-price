@@ -31,8 +31,41 @@ function subtract(left, right) {
   });
 }
 
-function availability(status) {
-  return status === "error:HTTP 404" ? "unavailable" : "available";
+function evidenceState(region) {
+  const status = region?.status ?? "";
+  if (status.startsWith("ok-") && region.itemCount > 0) return "verified";
+  if (status === "service-unavailable" || status === "error:HTTP 404") return "service-unavailable";
+  if (status === "official-price-unpublished"
+    || status === "official-price-page-missing"
+    || status === "iap-section-missing"
+    || (status.startsWith("ok-") && region.itemCount === 0)) return "official-price-unpublished";
+  return "parse-failed";
+}
+
+function classifyItemChanges(removed, added) {
+  const addedByName = new Map();
+  for (let index = 0; index < added.length; index += 1) {
+    const queue = addedByName.get(added[index].name) ?? [];
+    queue.push(index);
+    addedByName.set(added[index].name, queue);
+  }
+  const pairedAdded = new Set();
+  const updated = [];
+  const remainingRemoved = [];
+  for (const item of removed) {
+    const addedIndex = addedByName.get(item.name)?.shift();
+    if (addedIndex === undefined) {
+      remainingRemoved.push(item);
+      continue;
+    }
+    pairedAdded.add(addedIndex);
+    updated.push({ name: item.name, beforePrice: item.price, afterPrice: added[addedIndex].price });
+  }
+  return {
+    updated,
+    removed: remainingRemoved,
+    added: added.filter((_, index) => !pairedAdded.has(index)),
+  };
 }
 
 const changes = [];
@@ -59,14 +92,17 @@ for (const appId of appIds) {
     }
     const oldItems = oldRegion.items ?? [];
     const newItems = newRegion.items ?? [];
-    const removed = subtract(oldItems, newItems);
-    const added = subtract(newItems, oldItems);
+    const beforeState = evidenceState(oldRegion);
+    const afterState = evidenceState(newRegion);
+    const rawRemoved = beforeState === "verified" && afterState === "verified" ? subtract(oldItems, newItems) : [];
+    const rawAdded = beforeState === "verified" && afterState === "verified" ? subtract(newItems, oldItems) : [];
+    const { updated, removed, added } = classifyItemChanges(rawRemoved, rawAdded);
     // Apple occasionally reorders the same products on the storefront page.
     // Treat the lists as multisets so a presentation-only reorder does not
     // generate a new fingerprint or a noisy Bark notification.
-    const itemsChanged = removed.length > 0 || added.length > 0;
-    const availabilityChanged = availability(oldRegion.status) !== availability(newRegion.status);
-    if (!itemsChanged && !availabilityChanged) continue;
+    const itemsChanged = updated.length > 0 || removed.length > 0 || added.length > 0;
+    const stateChanged = beforeState !== afterState;
+    if (!itemsChanged && !stateChanged) continue;
     changes.push({
       type: "region-items-changed",
       appId,
@@ -74,8 +110,11 @@ for (const appId of appIds) {
       region: regionCode,
       beforeCount: oldItems.length,
       afterCount: newItems.length,
-      beforeAvailability: availability(oldRegion.status),
-      afterAvailability: availability(newRegion.status),
+      beforeState,
+      afterState,
+      beforeStatus: oldRegion.status,
+      afterStatus: newRegion.status,
+      updated,
       removed,
       added,
     });
@@ -103,7 +142,8 @@ const markdown = changes.length
         if (change.type !== "region-items-changed") return [`- **${change.appName}**：${change.type}`];
         const details = [];
         if (change.beforeCount !== change.afterCount) details.push(`套餐 ${change.beforeCount} → ${change.afterCount}`);
-        if (change.beforeAvailability !== change.afterAvailability) details.push(`可用状态 ${change.beforeAvailability} → ${change.afterAvailability}`);
+        if (change.beforeState !== change.afterState) details.push(`状态 ${change.beforeState} → ${change.afterState}`);
+        for (const item of change.updated) details.push(`「${item.name}」${item.beforePrice} → ${item.afterPrice}`);
         for (const item of change.removed) details.push(`移除「${item.name} · ${item.price}」`);
         for (const item of change.added) details.push(`新增「${item.name} · ${item.price}」`);
         return [`- **${change.appName} / ${change.region.toUpperCase()}**：${details.join("；") || "项目顺序变化"}`];

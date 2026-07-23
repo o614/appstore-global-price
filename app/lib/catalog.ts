@@ -111,8 +111,13 @@ export function getApp(id: string) {
 
 export function getRegionEvidenceState(region: RegionSnapshot): RegionEvidenceState {
   if (region.status.startsWith("ok-") && region.itemCount > 0) return "verified";
-  if (region.status === "error:HTTP 404") return "unavailable";
-  if (region.status === "iap-section-missing" || region.status === "official-price-page-missing" || (region.status.startsWith("ok-") && region.itemCount === 0)) {
+  if (region.status === "service-unavailable" || region.status === "error:HTTP 404") return "unavailable";
+  if (
+    region.status === "official-price-unpublished"
+    || region.status === "iap-section-missing"
+    || region.status === "official-price-page-missing"
+    || (region.status.startsWith("ok-") && region.itemCount === 0)
+  ) {
     return "not-public";
   }
   return "review";

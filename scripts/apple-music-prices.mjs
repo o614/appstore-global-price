@@ -37,14 +37,26 @@ function planHeadlines(html, planId) {
     .map((headline) => plainText(headline[1]));
 }
 
+function isPromotionalMusicHeadline(headline) {
+  return /\b(?:free|trial|offer|new subscriber)s?\b|oferta|prueba|essai|gratuit|kostenlos|aktion|新規|無料|限时|限時|優惠|优惠|\b\d+\s*(?:months?|meses|mois|monate)\b/iu.test(headline);
+}
+
 export function getAppleMusicPageUrl(region) {
   return getApplePageUrl(region, "apple-music");
 }
 
 export function extractAppleMusicPlans(html, region) {
-  const matches = PLANS.map((plan) => planHeadlines(html, plan.id)
-    .flatMap((headline) => regionalPrices(headline, region))
-    .at(0) ?? null);
+  const matches = PLANS.map((plan) => {
+    const options = planHeadlines(html, plan.id)
+      .map((headline) => ({ headline, candidates: regionalPrices(headline, region) }))
+      .filter((option) => option.candidates.length > 0);
+    // Apple may put an introductory offer before the normal recurring price,
+    // or temporarily render a promotional card beside the regular card.
+    // The public comparison tracks the recurring price, not the campaign.
+    return options.find((option) => option.candidates.length > 1)?.candidates.at(-1)
+      ?? options.find((option) => !isPromotionalMusicHeadline(option.headline))?.candidates.at(-1)
+      ?? null;
+  });
 
   // The mainland China page omits the student card but publishes its price in
   // the official pricing FAQ. Use the highest official price below Individual
