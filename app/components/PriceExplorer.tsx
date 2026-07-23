@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   CloseLine,
-  CopyLine,
   ExternalLinkLine,
   InformationLine,
   LinkLine,
+  PicLine,
   ShareForwardLine,
   WarningLine,
 } from "@mingcute/react";
@@ -16,7 +16,6 @@ import {
   getPriceSourceCopy,
   getRegionEvidenceState,
   getRegionPriceSourceUrl,
-  getRegionStoreAppUrl,
   getRegionStoreUrl,
   getRegionSwitchUrl,
   regionMeta,
@@ -26,14 +25,64 @@ import {
 } from "../lib/catalog";
 import { AppArtwork } from "./AppArtwork";
 import { BrandMark } from "./BrandMark";
+import { usePriceShare } from "./PriceShareContext";
 import { RegionFlag } from "./RegionFlag";
+
+function detectDeviceKind(): "ios" | "other" {
+  const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent) || isiPadDesktopMode ? "ios" : "other";
+}
+
+function roundedRect(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number,
+) {
+  const safeRadius = Math.min(radius, width / 2, height / 2);
+  context.beginPath();
+  context.moveTo(x + safeRadius, y);
+  context.arcTo(x + width, y, x + width, y + height, safeRadius);
+  context.arcTo(x + width, y + height, x, y + height, safeRadius);
+  context.arcTo(x, y + height, x, y, safeRadius);
+  context.arcTo(x, y, x + width, y, safeRadius);
+  context.closePath();
+}
+
+function fitCanvasText(context: CanvasRenderingContext2D, value: string, maxWidth: number) {
+  if (context.measureText(value).width <= maxWidth) return value;
+  let result = value;
+  while (result.length > 1 && context.measureText(`${result}…`).width > maxWidth) {
+    result = result.slice(0, -1);
+  }
+  return `${result}…`;
+}
+
+function canvasToBlob(canvas: HTMLCanvasElement) {
+  return new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+      else reject(new Error("Unable to create share image"));
+    }, "image/png");
+  });
+}
+
+function loadCanvasImage(src: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error(`Unable to load ${src}`));
+    image.src = src;
+  });
+}
 
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
-  const [isShareOpen, setIsShareOpen] = useState(false);
+  const { isShareOpen, closeShare } = usePriceShare();
   const [selectedStoreRegion, setSelectedStoreRegion] = useState<string | null>(null);
-  const [deviceKind, setDeviceKind] = useState<"unknown" | "ios" | "mac" | "other">("unknown");
-  const [isWechat, setIsWechat] = useState(false);
+  const [deviceKind, setDeviceKind] = useState<"unknown" | "ios" | "other">("unknown");
   const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
   const sourceCopy = getPriceSourceCopy(app);
@@ -42,12 +91,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     const timer = window.setTimeout(() => {
       const planId = new URL(window.location.href).searchParams.get("plan");
       if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
-      const userAgent = navigator.userAgent;
-      const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-      if (/iPhone|iPad|iPod/i.test(userAgent) || isiPadDesktopMode) setDeviceKind("ios");
-      else if (/Macintosh|Mac OS X/i.test(userAgent)) setDeviceKind("mac");
-      else setDeviceKind("other");
-      setIsWechat(/MicroMessenger/i.test(userAgent));
     }, 0);
     return () => window.clearTimeout(timer);
   }, [plans]);
@@ -57,7 +100,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     const previousOverflow = document.body.style.overflow;
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsShareOpen(false);
+        closeShare();
         setSelectedStoreRegion(null);
       }
     };
@@ -67,7 +110,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [isShareOpen, selectedStoreRegion]);
+  }, [closeShare, isShareOpen, selectedStoreRegion]);
 
   const rows = useMemo(() => {
     if (!selectedPlan) return [];
@@ -91,14 +134,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     url.searchParams.set("plan", selectedPlan.id);
     url.hash = "comparison";
     return url.toString();
-  }
-
-  function getShareText() {
-    const lowestText = lowest
-      ? `${regionMeta[lowest.region.region].name}，约 ¥${lowest.cny?.toFixed(2)}`
-      : "暂无完整数据";
-    const savingText = saving === null ? "" : `，地区最高价差约 ${saving}%`;
-    return `${app.matchedName} · ${selectedPlan.label}（${selectedPlan.period}）\n参考最低：${lowestText}${savingText}\n数据：${sourceCopy.noun}，更新于 ${dataUpdatedAt}\n${getShareUrl()}`;
   }
 
   async function copyText(text: string, feedback: string) {
@@ -138,8 +173,150 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     await copyText(getShareUrl(), "链接已复制");
   }
 
+  async function shareImage() {
+    setShareFeedback("正在生成图片…");
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1350;
+      const context = canvas.getContext("2d");
+      if (!context) throw new Error("Canvas is unavailable");
+
+      const gradient = context.createLinearGradient(0, 0, 1080, 1350);
+      gradient.addColorStop(0, "#f7f7f9");
+      gradient.addColorStop(1, "#eceff4");
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      context.fillStyle = "#ffffff";
+      roundedRect(context, 64, 64, 952, 1222, 48);
+      context.fill();
+
+      try {
+        const brandIcon = await loadCanvasImage("/icon.svg");
+        context.drawImage(brandIcon, 112, 112, 92, 92);
+      } catch {
+        context.fillStyle = "#ffe60f";
+        roundedRect(context, 112, 112, 92, 92, 23);
+        context.fill();
+      }
+
+      context.fillStyle = "#18181b";
+      context.font = '600 36px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText("App Store 全球价格", 228, 157);
+      context.fillStyle = "#77777d";
+      context.font = '400 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText("比较 20 个地区的 Apple 官方价格", 228, 195);
+
+      context.strokeStyle = "#e7e7eb";
+      context.lineWidth = 2;
+      context.beginPath();
+      context.moveTo(112, 246);
+      context.lineTo(968, 246);
+      context.stroke();
+
+      context.fillStyle = "#77777d";
+      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText("当前比价", 112, 312);
+      context.fillStyle = "#18181b";
+      context.font = '650 52px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText(fitCanvasText(context, app.matchedName, 856), 112, 378);
+      context.fillStyle = "#55555b";
+      context.font = '500 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText(fitCanvasText(context, `${selectedPlan.label} · ${selectedPlan.period}`, 856), 112, 428);
+
+      context.fillStyle = "#f3f8ff";
+      roundedRect(context, 112, 482, 856, 236, 34);
+      context.fill();
+      context.fillStyle = "#68717c";
+      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText("参考折算最低", 154, 545);
+      context.fillStyle = "#15171a";
+      context.font = '650 76px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText(lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据", 154, 642);
+      context.fillStyle = "#4f5965";
+      context.font = '500 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      const lowestRegion = lowest ? regionMeta[lowest.region.region].name : "当前套餐可比地区不足";
+      context.fillText(`${lowestRegion}${lowest ? ` · ${ranked.length} 个地区可比` : ""}`, 154, 687);
+
+      context.fillStyle = "#77777d";
+      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText("价格前三", 112, 786);
+
+      ranked.slice(0, 3).forEach((row, index) => {
+        const meta = regionMeta[row.region.region];
+        const top = 822 + index * 112;
+        context.fillStyle = index === 0 ? "#ffe60f" : "#f1f1f3";
+        context.beginPath();
+        context.arc(142, top + 39, 24, 0, Math.PI * 2);
+        context.fill();
+        context.fillStyle = "#36363a";
+        context.font = '600 23px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.textAlign = "center";
+        context.fillText(String(index + 1), 142, top + 48);
+        context.textAlign = "left";
+        context.fillStyle = "#202024";
+        context.font = '600 31px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.fillText(meta.name, 188, top + 35);
+        context.fillStyle = "#77777d";
+        context.font = '500 23px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.fillText(`${row.item?.price} ${meta.currency}`, 188, top + 69);
+        context.fillStyle = "#202024";
+        context.font = '600 32px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.textAlign = "right";
+        context.fillText(`¥${row.cny?.toFixed(2)}`, 930, top + 54);
+        context.textAlign = "left";
+      });
+
+      context.strokeStyle = "#e7e7eb";
+      context.beginPath();
+      context.moveTo(112, 1185);
+      context.lineTo(968, 1185);
+      context.stroke();
+      context.fillStyle = "#74747a";
+      context.font = '400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.fillText(`价格快照 ${dataUpdatedAt} · 人民币仅供参考`, 112, 1234);
+      context.textAlign = "right";
+      context.fillText(new URL(getShareUrl()).host, 968, 1234);
+      context.textAlign = "left";
+
+      const blob = await canvasToBlob(canvas);
+      const fileName = `${app.matchedName}-${selectedPlan.label}-全球价格.png`.replace(/[\\/:*?"<>|]/g, "-");
+      const file = new File([blob], fileName, { type: "image/png" });
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({
+            title: `${app.matchedName} 全球价格`,
+            text: `${selectedPlan.label}（${selectedPlan.period}）价格对比`,
+            files: [file],
+          });
+          setShareFeedback("图片已生成");
+          return;
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "AbortError") {
+            setShareFeedback("");
+            return;
+          }
+        }
+      }
+
+      const downloadUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = downloadUrl;
+      anchor.download = fileName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+      setShareFeedback("图片已生成并下载");
+    } catch {
+      setShareFeedback("图片生成失败，请稍后重试");
+    }
+  }
+
   function showStoreOptions(regionCode: string) {
     setShareFeedback("");
+    setDeviceKind(detectDeviceKind());
     setSelectedStoreRegion(regionCode);
   }
 
@@ -191,9 +368,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       </div>
       <div className="comparison-toolbar">
         <p className="plan-explanation">月付、年付与一次性购买分别排名。</p>
-        <button className="share-result-button" type="button" onClick={() => setIsShareOpen(true)}>
-          <ShareForwardLine className="ui-icon" aria-hidden="true" />分享比价
-        </button>
       </div>
 
       <div className="price-summary-grid">
@@ -294,59 +468,43 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
         const meta = regionMeta[selectedStoreRegion];
         const switchUrl = getRegionSwitchUrl(selectedStoreRegion);
         const webUrl = getRegionStoreUrl(app.id, selectedStoreRegion);
-        const appUrl = getRegionStoreAppUrl(app.id, selectedStoreRegion);
         return (
           <div className="share-dialog-backdrop" onMouseDown={() => setSelectedStoreRegion(null)}>
             <section className="share-dialog store-jump-dialog" role="dialog" aria-modal="true" aria-labelledby="store-jump-title" onMouseDown={(event) => event.stopPropagation()}>
               <div className="share-dialog-header">
                 <div>
-                  <span>跳转前确认</span>
-                  <h2 id="store-jump-title"><RegionFlag code={selectedStoreRegion} name={meta.name} size="regular" />前往 {meta.name}区 App Store</h2>
+                  <span>打开地区商店</span>
+                  <h2 id="store-jump-title"><RegionFlag code={selectedStoreRegion} name={meta.name} size="regular" />{meta.name}区 App Store</h2>
                 </div>
                 <button type="button" className="share-dialog-close" onClick={() => setSelectedStoreRegion(null)} aria-label="关闭跳转提示"><CloseLine className="ui-icon" aria-hidden="true" /></button>
               </div>
 
-              <div className="store-redirect-warning">
-                <strong><WarningLine className="ui-icon" aria-hidden="true" />大陆网络会改写网页商店地区</strong>
-                <p>直接打开 <code>apps.apple.com/{selectedStoreRegion}/…</code> 仍可能被重定向到中国大陆商店，因此这里不会直接跳转。</p>
+              <div className="store-account-warning">
+                <WarningLine className="ui-icon" aria-hidden="true" />
+                <div>
+                  <strong>请先准备对应地区的 Apple ID</strong>
+                  <p>安装应用或订阅套餐前，需要登录可用的{meta.name}区 Apple ID。</p>
+                </div>
               </div>
-
-              {isWechat && <div className="store-browser-warning"><WarningLine className="ui-icon" aria-hidden="true" />检测到微信内置浏览器：请先用右上角“在 Safari 中打开”，再执行换区。</div>}
 
               {deviceKind === "ios" ? (
                 <div className="store-device-panel">
-                  <div className="store-device-heading"><span>已识别 iPhone / iPad</span><strong>复制名称并切换商店</strong></div>
-                  <ol><li>点击主按钮，网站会先复制“{app.query}”，再将 App Store 切换为{meta.name}区。</li><li>换区完成后进入 App Store 搜索，直接粘贴应用名称即可。</li></ol>
-                  <div className="store-jump-actions ios-actions">
-                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>换区后前往搜索粘贴</small></button>}
-                    <button type="button" onClick={() => copyText(app.query, `${app.query} 已复制`)}><CopyLine className="ui-icon" aria-hidden="true" />仅复制应用名</button>
-                    {switchUrl && <a href={switchUrl}><ExternalLinkLine className="ui-icon" aria-hidden="true" />仅切换地区</a>}
-                    <a href={appUrl}><ExternalLinkLine className="ui-icon" aria-hidden="true" />切换后打开应用</a>
+                  <p>已识别为 iPhone / iPad。点击后会复制应用名称，并打开 Apple 的地区切换页。</p>
+                  <div className="store-jump-actions single">
+                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>切换完成后在 App Store 粘贴搜索</small></button>}
                   </div>
                 </div>
-              ) : deviceKind === "mac" ? (
-                <div className="store-device-panel mac-panel">
-                  <div className="store-device-heading"><span>已识别 Mac</span><strong>不自动调用换区深链</strong></div>
-                  <p>该深链在 Mac App Store 上兼容性不稳定，可能无反应或报错。建议把换区链接发到 iPhone / iPad 操作。</p>
-                  <div className="store-jump-actions compact">
-                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制换区链接</button>}
-                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制应用网页</button>
-                    <a href={webUrl} target="_blank" rel="noreferrer"><ExternalLinkLine className="ui-icon" aria-hidden="true" />尝试打开网页</a>
+              ) : deviceKind === "other" ? (
+                <div className="store-device-panel">
+                  <p>当前设备不直接切换 App Store，可复制这个地区的应用链接。</p>
+                  <div className="store-jump-actions single">
+                    <button className="store-jump-primary" type="button" onClick={() => copyText(webUrl, "应用链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制应用链接</button>
                   </div>
                 </div>
               ) : (
-                <div className="store-device-panel other-panel">
-                  <div className="store-device-heading"><span>未识别为 iPhone / iPad</span><strong>当前设备无法可靠切换 App Store</strong></div>
-                  <p>可复制换区链接到 iPhone / iPad 的 Safari 中打开；网页入口可能仍被重定向到中国大陆商店。</p>
-                  <div className="store-jump-actions compact">
-                    {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyText(switchUrl, "换区链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制换区链接</button>}
-                    <button type="button" onClick={() => copyText(webUrl, "应用网页链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制应用网页</button>
-                    <a href={webUrl} target="_blank" rel="noreferrer"><ExternalLinkLine className="ui-icon" aria-hidden="true" />尝试打开网页</a>
-                  </div>
-                </div>
+                <div className="store-device-panel"><p>正在识别当前设备…</p></div>
               )}
 
-              <p className="store-jump-footnote">设备类型只在当前浏览器本地判断，不申请权限，也不会上传。Apple 的换区接口不能可靠附带应用页或搜索页，因此主按钮采用“先复制应用名，再换区”的稳定方式。</p>
               <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>
             </section>
           </div>
@@ -354,14 +512,14 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       })()}
 
       {isShareOpen && (
-        <div className="share-dialog-backdrop" onMouseDown={() => setIsShareOpen(false)}>
+        <div className="share-dialog-backdrop" onMouseDown={closeShare}>
           <section className="share-dialog" role="dialog" aria-modal="true" aria-labelledby="share-dialog-title" onMouseDown={(event) => event.stopPropagation()}>
             <div className="share-dialog-header">
               <div>
                 <span>分享当前结果</span>
                 <h2 id="share-dialog-title">把这一组价格发给朋友</h2>
               </div>
-              <button type="button" className="share-dialog-close" onClick={() => setIsShareOpen(false)} aria-label="关闭分享弹窗"><CloseLine className="ui-icon" aria-hidden="true" /></button>
+              <button type="button" className="share-dialog-close" onClick={closeShare} aria-label="关闭分享弹窗"><CloseLine className="ui-icon" aria-hidden="true" /></button>
             </div>
 
             <div className="share-result-card">
@@ -387,7 +545,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
             <p className="share-dialog-note"><InformationLine className="ui-icon" aria-hidden="true" />分享内容会保留当前套餐和周期；人民币为汇率参考，实际扣款以对应地区 App Store 为准。</p>
             <div className="share-dialog-actions">
               <button type="button" className="share-primary" onClick={shareResult}><ShareForwardLine className="ui-icon" aria-hidden="true" />系统分享</button>
-              <button type="button" onClick={() => copyText(getShareText(), "结果与链接已复制")}><CopyLine className="ui-icon" aria-hidden="true" />复制结果</button>
+              <button type="button" onClick={shareImage}><PicLine className="ui-icon" aria-hidden="true" />分享图片</button>
               <button type="button" onClick={() => copyText(getShareUrl(), "链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制链接</button>
             </div>
             <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>

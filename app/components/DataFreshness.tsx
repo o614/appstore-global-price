@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { History2Line } from "@mingcute/react";
 
-type FreshnessTone = "snapshot" | "fresh" | "aging" | "stale";
+type FreshnessTone = "snapshot" | "stale";
 
 type FreshnessView = {
   tone: FreshnessTone;
@@ -29,32 +29,14 @@ export function DataFreshness({ generatedAt, displayDate }: { generatedAt: strin
   const ageDays = currentDay >= 0 && generatedDay !== null ? Math.max(0, currentDay - generatedDay) : null;
   let view: FreshnessView = {
     tone: "snapshot",
-    label: `Apple 快照 ${displayDate}`,
+    label: `价格快照 ${displayDate}`,
     description: `Apple 价格更新于 ${displayDate}`,
   };
 
-  if (ageDays === 0) {
-    view = {
-      tone: "fresh",
-      label: `今日已更新 ${displayDate}`,
-      description: `Apple 价格已于今日更新，日期 ${displayDate}`,
-    };
-  } else if (ageDays !== null && ageDays <= 2) {
-    view = {
-      tone: "fresh",
-      label: `${ageDays} 天前更新`,
-      description: `Apple 价格更新于 ${displayDate}，距今 ${ageDays} 天`,
-    };
-  } else if (ageDays !== null && ageDays <= 7) {
-    view = {
-      tone: "aging",
-      label: `数据 ${ageDays} 天前`,
-      description: `Apple 价格更新于 ${displayDate}，建议购买前重新核对`,
-    };
-  } else if (ageDays !== null) {
+  if (ageDays !== null && ageDays > 7) {
     view = {
       tone: "stale",
-      label: `数据待更新 · ${ageDays} 天`,
+      label: `数据待更新 · ${displayDate}`,
       description: `Apple 价格更新于 ${displayDate}，已超过 7 天，建议购买前重新核对`,
     };
   }

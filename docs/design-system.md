@@ -26,7 +26,7 @@
 ## 图标规范
 
 - 搜索、分享、箭头、外链、关闭、复制、说明和状态等界面图标统一使用 `@mingcute/react` 的 MingCute 线性图标，不使用 Unicode 符号或临时手绘 SVG。
-- 站点 Logo 统一通过 `BrandMark` 输出：`#FFE60F` 黄底、黑色 MingCute `SaleFill`；浏览器图标使用相同图形。
+- 站点 Logo 统一通过 `BrandMark` 输出：`#FFE60F` 黄底、深灰黄色 MingCute `SaleLine`；浏览器与添加到主屏幕图标使用相同图形。
 - 应用与 Apple 服务仍展示官方品牌图，地区仍使用本地国旗，二者不替换为 MingCute 通用图标。
 - 常规界面图标统一使用 `.ui-icon` 尺寸和 `currentColor`，由所在按钮或文本控制颜色。
 

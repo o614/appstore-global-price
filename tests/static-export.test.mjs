@@ -17,6 +17,8 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /覆盖 17 个应用与服务、20 个地区/);
   assert.match(html, /未上架或未公开价格的地区不参与排名/);
   assert.match(html, /<strong>20<\/strong><span>比价地区<\/span>/);
+  assert.match(html, /© 2026 App Store 全球价格/);
+  assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
 });
@@ -99,11 +101,25 @@ test("exports a public log for confirmed price changes", async () => {
   const html = await readPage("/changes/index.html");
   assert.match(html, /价格变动日志/);
   assert.match(html, /每一次价格变化/);
-  assert.match(html, /Bark 提醒的是候选变化/);
+  assert.match(html, /已经验证并发布的价格变化/);
+  assert.doesNotMatch(html, /Bark/i);
   assert.match(html, /暂时还没有已发布的价格变动/);
   assert.match(html, /服务不可用/);
   assert.match(html, /官方价格未公开/);
   assert.match(html, /解析失败/);
+});
+
+test("exports installable app metadata and home-screen icons", async () => {
+  const manifest = JSON.parse(await readFile(new URL("../out/manifest.webmanifest", import.meta.url), "utf8"));
+  assert.equal(manifest.name, "App Store 全球价格");
+  assert.equal(manifest.short_name, "全球价格");
+  assert.equal(manifest.display, "standalone");
+  assert.equal(manifest.theme_color, "#f5f5f7");
+  assert.ok(manifest.icons.some((icon) => icon.src === "/icons/app-icon-192.png"));
+  assert.ok(manifest.icons.some((icon) => icon.src === "/icons/app-icon-512.png" && icon.purpose === "maskable"));
+  await stat(new URL("../out/apple-icon.png", import.meta.url));
+  await stat(new URL("../out/icons/app-icon-192.png", import.meta.url));
+  await stat(new URL("../out/icons/app-icon-512.png", import.meta.url));
 });
 
 test("keeps gift-card and recharge guidance out of the published site", async () => {

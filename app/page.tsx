@@ -5,6 +5,7 @@ import { AppDirectory } from "./components/AppDirectory";
 import { BrandMark } from "./components/BrandMark";
 import { DataFreshness } from "./components/DataFreshness";
 import { RegionFlag } from "./components/RegionFlag";
+import { SiteFooter } from "./components/SiteFooter";
 import {
   apps,
   dataGeneratedAt,
@@ -14,8 +15,6 @@ import {
   getPlansForApp,
   getRegionStoreUrl,
   getVerifiedRegionCount,
-  rateAttributionUrl,
-  rateProvider,
   regionMeta,
   toCny,
 } from "./lib/catalog";
@@ -118,11 +117,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <div className="brand footer-brand"><BrandMark /><span><strong>App Store</strong><small>全球价格</small></span></div>
-        <p>应用价格验证于 {dataUpdatedAt} · 汇率由 <a href={rateAttributionUrl} target="_blank" rel="noreferrer">{rateProvider}</a> 提供</p>
-        <p>价格、购买资格和税费以对应地区 Apple 结算页为准。</p>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

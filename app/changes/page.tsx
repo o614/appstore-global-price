@@ -12,6 +12,7 @@ import {
 import changeLogData from "../../data/price-change-log.json";
 import { BrandMark } from "../components/BrandMark";
 import { RegionFlag } from "../components/RegionFlag";
+import { SiteFooter } from "../components/SiteFooter";
 import { apps, dataGeneratedAt, regionMeta } from "../lib/catalog";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
@@ -153,7 +154,7 @@ export default function ChangesPage() {
       <section className="change-log-hero">
         <span className="eyebrow">PRICE CHANGE LOG</span>
         <h1>每一次价格变化，<br />都有记录。</h1>
-        <p>这里只记录已经通过校验并发布到网站的变化。Bark 提醒的是候选变化，确认发布后才会出现在这里。</p>
+        <p>这里展示已经验证并发布的价格变化，方便查看套餐调价、新增与移除记录。</p>
         <div className="change-log-legend" aria-label="日志类型说明">
           <span><TransferHorizontalLine className="legend-adjusted ui-icon" aria-hidden="true" />同一套餐调价</span>
           <span><AddCircleLine className="legend-added ui-icon" aria-hidden="true" />新增套餐</span>
@@ -221,6 +222,7 @@ export default function ChangesPage() {
         <p>“服务不可用”“官方价格未公开”和“解析失败”代表不同情况。系统不会猜测国家页面，也不会用其他地区的价格补齐。</p>
         <span>只保留最近 30 次正式发布记录 · 当前价格数据生成于 {formatPublishedAt(dataGeneratedAt)}</span>
       </section>
+      <SiteFooter />
     </main>
   );
 }
