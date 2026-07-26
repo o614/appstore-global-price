@@ -108,7 +108,7 @@ export default function Home() {
           <span className="eyebrow">地区选择</span>
           <strong id="coverage-note-title">为什么固定这 20 个地区</strong>
         </div>
-        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
+        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；确认并核验过能购买和使用 Apple Gift Card；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
       </section>
 
       <AppDirectory apps={cardApps} />
