@@ -361,9 +361,20 @@ button, a { touch-action: manipulation; }
 
 .share-dialog-header > div > span { color: var(--blue); }
 .share-dialog-close { border: 0; background: #e8e8ed; }
-.share-result-card { background: linear-gradient(145deg, #171719, #29292d); }
-.share-result-card::after { background: rgba(0, 113, 227, 0.22); }
-.share-card-lowest span, .share-card-ranking em { color: #80c5ff; }
+.share-result-card {
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: linear-gradient(145deg, #f8f8fa, #edf1f6);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+}
+.share-result-card::after { background: rgba(0, 113, 227, 0.09); }
+.share-card-brand small, .share-card-app span { color: #6e6e73; }
+.share-card-app img { box-shadow: 0 7px 15px rgba(0, 0, 0, 0.12); }
+.share-card-lowest { background: #eef7ff; }
+.share-card-lowest span, .share-card-ranking em { color: #0066cc; }
+.share-card-lowest small { color: #515157; }
+.share-card-ranking li { border: 1px solid rgba(0, 0, 0, 0.055); background: rgba(255, 255, 255, 0.72); }
+.share-result-card > p { color: #6e6e73; }
 .share-feedback { color: var(--blue); }
 .share-dialog-actions .share-primary,
 .store-jump-actions .store-jump-primary { border-color: var(--blue); background: var(--blue); }

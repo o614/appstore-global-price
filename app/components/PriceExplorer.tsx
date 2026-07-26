@@ -78,6 +78,34 @@ function loadCanvasImage(src: string) {
   });
 }
 
+function getQuickChartQrUrl(value: string) {
+  const url = new URL("https://quickchart.io/qr");
+  url.search = new URLSearchParams({
+    text: value,
+    size: "320",
+    margin: "2",
+    dark: "18181b",
+    light: "ffffff",
+    ecLevel: "M",
+  }).toString();
+  return url.toString();
+}
+
+async function loadQuickChartQr(value: string) {
+  const response = await fetch(getQuickChartQrUrl(value), {
+    credentials: "omit",
+    mode: "cors",
+    referrerPolicy: "no-referrer",
+  });
+  if (!response.ok) throw new Error(`QuickChart returned ${response.status}`);
+  const objectUrl = URL.createObjectURL(await response.blob());
+  try {
+    return await loadCanvasImage(objectUrl);
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+}
+
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
   const { isShareOpen, closeShare } = usePriceShare();
@@ -176,6 +204,14 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   async function shareImage() {
     setShareFeedback("正在生成图片…");
     try {
+      const shareUrl = getShareUrl();
+      let qrCode: HTMLImageElement | null = null;
+      try {
+        qrCode = await loadQuickChartQr(shareUrl);
+      } catch {
+        // QuickChart 暂时不可用时，仍然生成不带二维码的完整分享图。
+      }
+
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
       canvas.height = 1350;
@@ -270,14 +306,22 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
       context.strokeStyle = "#e7e7eb";
       context.beginPath();
-      context.moveTo(112, 1185);
-      context.lineTo(968, 1185);
+      context.moveTo(112, 1128);
+      context.lineTo(968, 1128);
       context.stroke();
+
       context.fillStyle = "#74747a";
       context.font = '400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      context.fillText(`价格快照 ${dataUpdatedAt} · 人民币仅供参考`, 112, 1234);
-      context.textAlign = "right";
-      context.fillText(new URL(getShareUrl()).host, 968, 1234);
+      context.fillText("扫码查看完整地区价格", 112, 1171);
+      context.fillText(new URL(shareUrl).host, 112, 1213);
+      context.fillText(`价格快照 ${dataUpdatedAt} · 人民币仅供参考`, 112, 1255);
+
+      if (qrCode) {
+        context.fillStyle = "#ffffff";
+        roundedRect(context, 808, 1134, 160, 144, 20);
+        context.fill();
+        context.drawImage(qrCode, 820, 1142, 136, 136);
+      }
       context.textAlign = "left";
 
       const blob = await canvasToBlob(canvas);

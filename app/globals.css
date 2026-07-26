@@ -162,16 +162,27 @@ button, input { font: inherit; }
 .method-grid p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
 .method-grid p a { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
-footer { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 36px 0 48px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 18px 30px; align-items: start; }
-.footer-copy { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
-footer p { margin: 0; color: var(--muted); text-align: right; font-size: 10px; }
-.footer-data-status { display: flex; align-items: center; justify-content: flex-end; gap: 3px; }
-footer a { text-decoration: underline; }
-.footer-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; }
+footer { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 44px 0 48px; border-top: 1px solid var(--line); }
+.footer-main { display: grid; grid-template-columns: minmax(220px, 1fr) 2fr; gap: 60px; }
+.footer-intro { max-width: 280px; }
+.footer-intro > p { margin-top: 18px; line-height: 1.7; }
+.footer-links { display: grid; grid-template-columns: repeat(3, minmax(130px, 1fr)); gap: 36px; }
+.footer-links section { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.footer-links h2 { margin: 0 0 4px; color: var(--ink); font-size: 11px; }
+.footer-links a, .footer-links span, .footer-links strong { color: var(--muted); font-size: 10px; line-height: 1.55; }
+.footer-links a { text-decoration: none; }
+.footer-links a:hover { color: var(--ink); }
+.footer-links strong { color: #3f4541; font-weight: 700; }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--line); }
+footer p { margin: 0; color: var(--muted); font-size: 10px; }
+.footer-bottom > p + p::before { content: "·"; margin-right: 14px; color: #b7bbb8; }
+.footer-data-status { display: flex; align-items: center; gap: 3px; }
+.footer-data-status a { text-decoration: underline; text-underline-offset: 2px; }
+.footer-copyright { margin-left: auto; opacity: .82; }
 .footer-status-link { display: inline-flex; align-items: center; gap: 6px; color: #555b57; font-size: 10px; font-weight: 650; text-decoration: none; }
 .footer-status-link:hover { color: var(--ink); }
 .footer-status-indicator { width: 6px; height: 6px; border-radius: 999px; background: #30a46c; box-shadow: 0 0 0 3px rgba(48,164,108,.12); }
-.site-share-control { min-height: 27px; display: flex; align-items: center; justify-content: flex-end; gap: 9px; }
+.site-share-control { min-height: 24px; display: flex; align-items: center; gap: 9px; }
 .site-share-button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 0; border: 0; color: #555b57; background: transparent; font-size: 10px; font-weight: 650; cursor: pointer; }
 .site-share-button:hover { color: var(--ink); }
 .site-share-control small { color: var(--green-dark); font-size: 9px; }
@@ -376,13 +387,12 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
   .app-card { grid-template-columns: 52px 1fr; padding: 15px; }
   .app-icon { width: 52px; height: 52px; }
   .card-arrow { display: none; }
-  footer { grid-template-columns: 1fr; }
-  .footer-brand { margin-bottom: 16px; }
-  .footer-copy { align-items: flex-start; }
-  footer p { text-align: left; }
-  .footer-data-status { justify-content: flex-start; }
-  .footer-actions { justify-content: flex-start; }
-  .site-share-control { justify-content: flex-start; }
+  .footer-main { grid-template-columns: 1fr; gap: 34px; }
+  .footer-intro { max-width: none; }
+  .footer-links { grid-template-columns: 1fr 1fr; gap: 30px 24px; }
+  .footer-bottom { align-items: flex-start; flex-direction: column; }
+  .footer-bottom > p + p::before { content: none; }
+  .footer-copyright { margin-left: 0; padding-top: 5px; }
   .detail-header { margin-bottom: 24px; }
   .app-hero { grid-template-columns: 66px 1fr; padding: 18px; border-radius: 18px; }
   .app-hero-icon { width: 66px; height: 66px; border-radius: 16px; }
@@ -413,6 +423,7 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 }
 
 @media (max-width: 390px) {
+  .footer-links { grid-template-columns: 1fr; }
   .price-table .col-rank { width: 42px; }
   .price-table .col-cny { width: 96px; }
   .price-table th, .price-table td { padding-left: 8px; padding-right: 8px; }

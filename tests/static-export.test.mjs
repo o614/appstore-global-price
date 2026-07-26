@@ -22,6 +22,12 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /价格日志/);
   assert.match(html, /© 2026 App Store 全球价格/);
   assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
+  assert.match(html, /href="https:\/\/290935\.xyz\/"[^>]*>博客 · 290935\.xyz<\/a>/);
+  assert.match(html, /公众号：不要艾特我/);
+  assert.match(html, /href="https:\/\/linux\.do\/u\/d\.to\/summary"[^>]*>LINUX DO<\/a>/);
+  assert.match(html, /href="https:\/\/www\.zhihu\.com\/people\/ehpass"[^>]*>知乎<\/a>/);
+  assert.match(html, /注册、充值、订阅一站式服务/);
+  assert.match(html, /微信：ehpass/);
   assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
