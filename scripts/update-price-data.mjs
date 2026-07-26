@@ -12,6 +12,9 @@ const candidateLog = resolve(temporaryDirectory, "price-change-log.json");
 const publishedSnapshot = resolve(root, "data", "validation-snapshot.json");
 const publishedRates = resolve(root, "data", "exchange-rates.json");
 const publishedLog = resolve(root, "data", "price-change-log.json");
+const reuseCurrent = process.argv.includes("--reuse-current");
+const appBatchSizeIndex = process.argv.indexOf("--app-batch-size");
+const appBatchSize = appBatchSizeIndex === -1 ? null : process.argv[appBatchSizeIndex + 1];
 
 function run(script, args) {
   return new Promise((resolveRun, rejectRun) => {
@@ -31,7 +34,10 @@ await mkdir(temporaryDirectory, { recursive: true });
 
 try {
   console.log("1/5 Fetching a candidate Apple price snapshot…");
-  await run("scripts/fetch-price-snapshot.mjs", ["--output", candidateSnapshot]);
+  const fetchArgs = ["--output", candidateSnapshot];
+  if (reuseCurrent) fetchArgs.push("--reuse", publishedSnapshot);
+  if (appBatchSize) fetchArgs.push("--app-batch-size", appBatchSize);
+  await run("scripts/fetch-price-snapshot.mjs", fetchArgs);
 
   console.log("2/5 Validating the candidate against the current published snapshot…");
   await run("scripts/validate-price-snapshot.mjs", [

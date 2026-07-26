@@ -511,7 +511,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       {selectedStoreRegion && (() => {
         const meta = regionMeta[selectedStoreRegion];
         const switchUrl = getRegionSwitchUrl(selectedStoreRegion);
-        const webUrl = getRegionStoreUrl(app.id, selectedStoreRegion);
+        const webUrl = getRegionStoreUrl(app.id, selectedStoreRegion, app.regionalAppIds);
         return (
           <div className="share-dialog-backdrop" onMouseDown={() => setSelectedStoreRegion(null)}>
             <section className="share-dialog store-jump-dialog" role="dialog" aria-modal="true" aria-labelledby="store-jump-title" onMouseDown={(event) => event.stopPropagation()}>

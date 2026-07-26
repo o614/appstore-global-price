@@ -26,6 +26,18 @@
     { "id": "supergrok-lite", "label": "SuperGrok Lite", "period": "月付", "aliases": ["SuperGrok Lite"] },
     { "id": "supergrok-heavy", "label": "SuperGrok Heavy", "period": "月付", "aliases": ["SuperGrok Heavy"] }
   ],
+  "6474233312": [
+    { "id": "andante-monthly", "label": "Andante", "period": "月付", "aliases": ["Andante"] },
+    { "id": "moderato-monthly", "label": "Moderato", "period": "月付", "aliases": ["Moderato"] },
+    { "id": "allegretto-monthly", "label": "Allegretto", "period": "月付", "aliases": ["Allegretto"] },
+    { "id": "allegro-monthly", "label": "Allegro", "period": "月付", "aliases": ["Allegro"] },
+    { "id": "vivace-monthly", "label": "Vivace", "period": "月付", "aliases": ["Vivace"] },
+    { "id": "andante-annual", "label": "Andante", "period": "年付", "aliases": ["Andante 年卡"] },
+    { "id": "moderato-annual", "label": "Moderato", "period": "年付", "aliases": ["Moderato Annual Pass", "Moderato 年卡"] },
+    { "id": "allegretto-annual", "label": "Allegretto", "period": "年付", "aliases": ["Allegretto Annual Pass", "Allegretto 年卡"] },
+    { "id": "allegro-annual", "label": "Allegro", "period": "年付", "aliases": ["Allegro Annual Pass", "Allegro 年卡"] },
+    { "id": "vivace-annual", "label": "Vivace", "period": "年付", "aliases": ["Vivace Annual Pass"] }
+  ],
   "686449807": [
     { "id": "premium", "label": "Telegram Premium", "period": "公开套餐", "aliases": ["Telegram Premium"] },
     { "id": "stars-100", "label": "Telegram Stars 100", "period": "一次性", "aliases": ["100 Telegram Stars"] },
@@ -40,15 +52,6 @@
     { "id": "basic-monthly", "label": "X Premium Basic", "period": "月付", "aliases": ["X Premium Basic (Monthly)"] },
     { "id": "plus-monthly", "label": "X Premium Plus", "period": "月付", "aliases": ["X Premium Plus (Monthly)"] },
     { "id": "premium-annual", "label": "X Premium", "period": "年付", "aliases": ["X Premium (Annual)"] }
-  ],
-  "1451784328": [
-    { "id": "100gb-monthly", "label": "Google One 100 GB", "period": "月付", "aliases": ["100 GB", "100 GB Month"] },
-    { "id": "200gb-monthly", "label": "Google One 200 GB", "period": "月付", "aliases": ["200 GB", "200 GB Month"] },
-    { "id": "ai-plus-2tb", "label": "Google AI Plus 2 TB", "period": "月付", "aliases": ["Google AI Plus (2 TB)"] }
-  ],
-  "547166701": [
-    { "id": "svip-auto", "label": "百度网盘超级会员", "period": "自动续费月付", "aliases": ["百度网盘自动续费超级会员（1个月）", "百度网盘超级会员(1个月-自动续费)"] },
-    { "id": "svip-first", "label": "百度网盘超级会员首充", "period": "月付", "aliases": ["百度网盘超级会员(1个月-自动续费)(首充)"] }
   ],
   "1108187390": [
     { "id": "individual", "label": "Apple Music 个人方案", "period": "月付", "aliases": ["Apple Music Individual"] },

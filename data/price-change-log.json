@@ -2,6 +2,286 @@
   "version": 1,
   "entries": [
     {
+      "id": "dc46e241dbc6d95ff7dc",
+      "publishedAt": "2026-07-26T06:10:18.601Z",
+      "changeCount": 14,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "cn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "¥10.00"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "¥5.50"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "$0.99"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "$0.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "HK$ 8.00"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "HK$ 8.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "NT$30.00"
+            },
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "NT$120.00"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "NT$30.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "S$ 0.98"
+            },
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "S$ 5.98"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "¥150"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "¥150"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "£0.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "3,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "$0.99"
+            },
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "$4.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "₺49,99"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "₺39,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "$5.99"
+            },
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "$1.99"
+            },
+            {
+              "name": "Get Kimi charged !",
+              "price": "$9.99"
+            }
+          ]
+        },
+        {
+          "type": "app-removed",
+          "appId": "6737597349",
+          "appName": "DeepSeek - AI Assistant"
+        },
+        {
+          "type": "app-removed",
+          "appId": "530168168",
+          "appName": "Paramount+"
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "376510438",
+          "appName": "Hulu: Stream TV shows & movies",
+          "region": "jp",
+          "beforeState": "service-unavailable",
+          "afterState": "verified"
+        }
+      ]
+    },
+    {
+      "id": "8030449622a66d3a0c2f",
+      "publishedAt": "2026-07-26T05:38:48.201Z",
+      "changeCount": 10,
+      "changes": [
+        {
+          "type": "app-removed",
+          "appId": "1451784328",
+          "appName": "Google One"
+        },
+        {
+          "type": "app-removed",
+          "appId": "547166701",
+          "appName": "百度网盘"
+        },
+        {
+          "type": "app-added",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live"
+        },
+        {
+          "type": "app-added",
+          "appId": "6737597349",
+          "appName": "DeepSeek - AI Assistant"
+        },
+        {
+          "type": "app-added",
+          "appId": "835599320",
+          "appName": "TikTok - Videos, Shop & LIVE"
+        },
+        {
+          "type": "app-added",
+          "appId": "1666653815",
+          "appName": "HBO Max: Stream Movies & TV"
+        },
+        {
+          "type": "app-added",
+          "appId": "530168168",
+          "appName": "Paramount+"
+        },
+        {
+          "type": "app-added",
+          "appId": "1446075923",
+          "appName": "Disney+"
+        },
+        {
+          "type": "app-added",
+          "appId": "376510438",
+          "appName": "Hulu: Stream TV shows & movies"
+        },
+        {
+          "type": "app-added",
+          "appId": "317469184",
+          "appName": "ESPN: Live Sports & Scores"
+        }
+      ]
+    },
+    {
       "id": "c78ef99fe074a51df653",
       "publishedAt": "2026-07-26T02:39:16.266Z",
       "changeCount": 21,

@@ -106,7 +106,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         <section className="app-hero">
           <AppArtwork app={app} alt={`${app.matchedName} 图标`} className="app-hero-icon" size={104} priority />
           <div className="app-hero-copy">
-            <div className="app-title-row"><h1>{app.matchedName}</h1><span>{app.category}</span></div>
+            <div className="app-title-row"><h1>{app.matchedName}</h1></div>
             <p>{app.developer}</p>
             <div className="detail-badges">
               <span className="detail-meta-badge detail-id-badge"><Numbers09SortAscendingLine className="ui-icon" aria-hidden="true" />{app.priceSource === "app-store" || !app.priceSource ? "App ID" : "服务 ID"} <b>{app.id}</b></span>
