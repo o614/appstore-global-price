@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T08:10:07.782Z",
+  "generatedAt": "2026-07-26T10:18:05.717Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3159,6 +3159,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3184,8 +3185,7 @@
               "name": "ChatGPT Plus",
               "price": "$200.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "hk",
@@ -3196,6 +3196,7 @@
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3217,12 +3218,12 @@
               "name": "ChatGPT Plus",
               "price": "NT$6,990.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Go",
@@ -3244,12 +3245,12 @@
               "name": "ChatGPT Plus",
               "price": "4.999.000đ"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3271,12 +3272,12 @@
               "name": "ChatGPT Plus",
               "price": "S$ 299.98"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3287,23 +3288,23 @@
               "price": "¥1,400"
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "¥16,800"
-            },
-            {
               "name": "ChatGPT Pro 20x",
               "price": "¥30,000"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "price": "¥16,800"
             },
             {
               "name": "ChatGPT Plus",
               "price": "¥30,000"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3325,12 +3326,12 @@
               "name": "ChatGPT Plus",
               "price": "￦299,000"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3352,12 +3353,12 @@
               "name": "ChatGPT Plus",
               "price": "฿6,990.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3379,12 +3380,12 @@
               "name": "ChatGPT Plus",
               "price": "£200.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3406,12 +3407,12 @@
               "name": "ChatGPT Plus",
               "price": "229,00 €"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3433,12 +3434,12 @@
               "name": "ChatGPT Plus",
               "price": "229,00 €"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3460,12 +3461,12 @@
               "name": "ChatGPT Plus",
               "price": "$249.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3487,12 +3488,12 @@
               "name": "ChatGPT Plus",
               "price": "₺9.999,99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3514,12 +3515,12 @@
               "name": "ChatGPT Plus",
               "price": "$300.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Go",
@@ -3541,12 +3542,12 @@
               "name": "ChatGPT Plus",
               "price": "₱ 9,990.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3568,12 +3569,12 @@
               "name": "ChatGPT Plus",
               "price": "₦ 299,900.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Go",
@@ -3595,12 +3596,12 @@
               "name": "ChatGPT Plus",
               "price": "₹ 19,900"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3622,12 +3623,12 @@
               "name": "ChatGPT Plus",
               "price": "R$ 999,90"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ChatGPT Go",
@@ -3649,8 +3650,7 @@
               "name": "ChatGPT Plus",
               "price": "Rp 3,499juta"
             }
-          ],
-          "itemCount": 5
+          ]
         }
       ]
     },
@@ -3674,27 +3674,8 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
-            {
-              "name": "Claude Pro - Monthly",
-              "price": "$20.00"
-            },
-            {
-              "name": "Claude Max 5x - Monthly",
-              "price": "$124.99"
-            },
-            {
-              "name": "Claude Max 20x - Monthly",
-              "price": "$249.99"
-            },
-            {
-              "name": "Claude Pro - Annual",
-              "price": "$214.99"
-            },
-            {
-              "name": "Usage Credits (20)",
-              "price": "$28.00"
-            },
             {
               "name": "Usage Credits (250)",
               "price": "$279.00"
@@ -3702,9 +3683,28 @@
             {
               "name": "Usage Credits (50)",
               "price": "$63.00"
+            },
+            {
+              "name": "Usage Credits (20)",
+              "price": "$28.00"
+            },
+            {
+              "name": "Claude Max 20x - Monthly",
+              "price": "$249.99"
+            },
+            {
+              "name": "Claude Max 5x - Monthly",
+              "price": "$124.99"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "price": "$214.99"
+            },
+            {
+              "name": "Claude Pro - Monthly",
+              "price": "$20.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "hk",
@@ -3715,6 +3715,7 @@
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3744,12 +3745,12 @@
               "name": "Usage Credits (20)",
               "price": "NT$990.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3779,12 +3780,12 @@
               "name": "Usage Credits (20)",
               "price": "899.000đ"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3814,12 +3815,12 @@
               "name": "Usage Credits (20)",
               "price": "S$ 39.98"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3837,12 +3838,12 @@
               "name": "Claude Max 20x - Monthly",
               "price": "¥40,000"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3872,12 +3873,12 @@
               "name": "Usage Credits (20)",
               "price": "￦44,000"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3907,12 +3908,12 @@
               "name": "Usage Credits (20)",
               "price": "฿999.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3942,12 +3943,12 @@
               "name": "Usage Credits (20)",
               "price": "£29.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -3977,12 +3978,12 @@
               "name": "Usage Credits (20)",
               "price": "29,00 €"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4012,12 +4013,12 @@
               "name": "Usage Credits (20)",
               "price": "29,00 €"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4047,12 +4048,12 @@
               "name": "Usage Credits (20)",
               "price": "$39.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4082,12 +4083,12 @@
               "name": "Usage Credits (20)",
               "price": "₺1.499,99"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4117,12 +4118,12 @@
               "name": "Usage Credits (20)",
               "price": "$45.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4152,12 +4153,12 @@
               "name": "Usage Credits (20)",
               "price": "₱ 1,790.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4187,29 +4188,13 @@
               "name": "Usage Credits (20)",
               "price": "₦ 49,900.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
-            {
-              "name": "Claude Pro - Monthly",
-              "price": "₹ 1,999"
-            },
-            {
-              "name": "Claude Max 5x - Monthly",
-              "price": "₹ 12,900"
-            },
-            {
-              "name": "Claude Pro - Annual",
-              "price": "₹ 19,900"
-            },
-            {
-              "name": "Claude Max 20x - Monthly",
-              "price": "₹ 24,900"
-            },
             {
               "name": "Usage Credits (250)",
               "price": "₹ 29,900"
@@ -4221,17 +4206,37 @@
             {
               "name": "Usage Credits (20)",
               "price": "₹ 2,999"
+            },
+            {
+              "name": "Claude Max 20x - Monthly",
+              "price": "₹ 24,900"
+            },
+            {
+              "name": "Claude Max 5x - Monthly",
+              "price": "₹ 12,900"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "price": "₹ 19,900"
+            },
+            {
+              "name": "Claude Pro - Monthly",
+              "price": "₹ 1,999"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
               "price": "R$ 129,90"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "price": "R$ 1.299,90"
             },
             {
               "name": "Claude Max 5x - Monthly",
@@ -4242,27 +4247,23 @@
               "price": "R$ 1.499,90"
             },
             {
-              "name": "Claude Pro - Annual",
-              "price": "R$ 1.299,90"
-            },
-            {
-              "name": "Usage Credits (250)",
-              "price": "R$ 1.999,90"
+              "name": "Usage Credits (20)",
+              "price": "R$ 199,90"
             },
             {
               "name": "Usage Credits (50)",
               "price": "R$ 399,90"
             },
             {
-              "name": "Usage Credits (20)",
-              "price": "R$ 199,90"
+              "name": "Usage Credits (250)",
+              "price": "R$ 1.999,90"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Claude Pro - Monthly",
@@ -4292,8 +4293,7 @@
               "name": "Usage Credits (20)",
               "price": "Rp 499ribu"
             }
-          ],
-          "itemCount": 7
+          ]
         }
       ]
     },
@@ -4317,6 +4317,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4334,12 +4335,12 @@
               "name": "100 GB",
               "price": "$1.99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4361,12 +4362,12 @@
               "name": "Google AI Ultra (30 TB)",
               "price": "HK$ 1,588.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4388,12 +4389,12 @@
               "name": "100 GB",
               "price": "NT$60.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4411,12 +4412,12 @@
               "name": "200 GB",
               "price": "69.000đ"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4442,12 +4443,12 @@
               "name": "Google AI Pro (5 TB)",
               "price": "S$ 289.98"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4464,21 +4465,29 @@
             {
               "name": "Google AI Ultra (30 TB)",
               "price": "¥32,000"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "¥7,200"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "￦75,000"
-            },
             {
               "name": "Google AI Pro (5 TB)",
               "price": "￦29,000"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "￦7,500"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "￦75,000"
             },
             {
               "name": "Google AI Pro (5 TB)",
@@ -4487,17 +4496,13 @@
             {
               "name": "Google AI Ultra (30 TB)",
               "price": "￦300,000"
-            },
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "￦7,500"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4515,12 +4520,12 @@
               "name": "200 GB",
               "price": "฿99.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4537,13 +4542,17 @@
             {
               "name": "100 GB",
               "price": "£1.79"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "£44.99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4561,12 +4570,12 @@
               "name": "Google AI Ultra (30 TB)",
               "price": "219,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4584,24 +4593,24 @@
               "name": "Google AI Plus (2 TB)",
               "price": "9,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$69.99"
+            },
             {
               "name": "Google AI Pro (5 TB)",
               "price": "$26.99"
             },
             {
-              "name": "Google AI Plus (200GB)",
-              "price": "$6.99"
-            },
-            {
-              "name": "100 GB",
-              "price": "$2.79"
+              "name": "Google AI Pro (5 TB)",
+              "price": "$269.99"
             },
             {
               "name": "Google AI Ultra (30 TB)",
@@ -4609,14 +4618,14 @@
             },
             {
               "name": "Google AI Plus (200GB)",
-              "price": "$69.99"
+              "price": "$6.99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4638,12 +4647,12 @@
               "name": "100 GB",
               "price": "₺49,99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4665,12 +4674,12 @@
               "name": "Google AI Plus (400 GB)",
               "price": "$79.99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4688,12 +4697,12 @@
               "name": "Google AI Ultra (30 TB)",
               "price": "₱ 11,900.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4711,12 +4720,12 @@
               "name": "200 GB",
               "price": "₦ 2,900.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4731,19 +4740,19 @@
               "price": "₹ 59"
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "₹ 749"
-            },
-            {
               "name": "100 GB",
               "price": "₹ 149"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₹ 749"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4761,12 +4770,12 @@
               "name": "Google AI Plus (2 TB)",
               "price": "R$ 49,99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4784,8 +4793,7 @@
               "name": "30 GB",
               "price": "Rp 14.500"
             }
-          ],
-          "itemCount": 4
+          ]
         }
       ]
     },
@@ -4809,6 +4817,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -4831,12 +4840,12 @@
               "price": "$5.00"
             },
             {
-              "name": "Extra Usage Credits 20 USD",
-              "price": "$20.00"
-            },
-            {
               "name": "SuperGrok Lite",
               "price": "$100.00"
+            },
+            {
+              "name": "Extra Usage Credits 20 USD",
+              "price": "$20.00"
             },
             {
               "name": "Extra Usage Credits 50 USD",
@@ -4846,12 +4855,12 @@
               "name": "Extra Usage Credits 100 USD",
               "price": "$100.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -4889,16 +4898,28 @@
               "name": "Extra Usage Credits 100 USD",
               "price": "HK$ 788.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
-              "name": "SuperGrok",
-              "price": "NT$990.00"
+              "name": "Extra Usage Credits 10 USD",
+              "price": "NT$320.00"
+            },
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "NT$2,990.00"
+            },
+            {
+              "name": "Extra Usage Credits 20 USD",
+              "price": "NT$690.00"
+            },
+            {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "NT$1,490.00"
             },
             {
               "name": "Extra Usage Credits 5 USD",
@@ -4909,35 +4930,27 @@
               "price": "NT$320.00"
             },
             {
-              "name": "Extra Usage Credits 20 USD",
-              "price": "NT$690.00"
+              "name": "SuperGrok Lite",
+              "price": "NT$2,990.00"
             },
             {
               "name": "SuperGrok Heavy",
               "price": "NT$9,990.00"
             },
             {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "NT$1,490.00"
-            },
-            {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "NT$2,990.00"
+              "name": "SuperGrok",
+              "price": "NT$990.00"
             },
             {
               "name": "SuperGrok",
               "price": "NT$9,990.00"
-            },
-            {
-              "name": "SuperGrok Lite",
-              "price": "NT$2,990.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -4952,12 +4965,12 @@
               "price": "299.000đ"
             },
             {
-              "name": "Extra Usage Credits 20 USD",
-              "price": "599.000đ"
-            },
-            {
               "name": "SuperGrok Heavy",
               "price": "7.999.000đ"
+            },
+            {
+              "name": "Extra Usage Credits 20 USD",
+              "price": "599.000đ"
             },
             {
               "name": "SuperGrok",
@@ -4975,12 +4988,12 @@
               "name": "SuperGrok Lite",
               "price": "2.999.000đ"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5018,12 +5031,12 @@
               "name": "SuperGrok Lite",
               "price": "S$ 149.98"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5061,12 +5074,12 @@
               "name": "SuperGrok Lite",
               "price": "¥15,000"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5104,12 +5117,12 @@
               "name": "SuperGrok Lite",
               "price": "￦149,000"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5147,12 +5160,12 @@
               "name": "SuperGrok Lite",
               "price": "฿3,990.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5190,12 +5203,12 @@
               "name": "SuperGrok Lite",
               "price": "£100.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5233,12 +5246,12 @@
               "name": "SuperGrok Lite",
               "price": "100,00 €"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5276,12 +5289,12 @@
               "name": "SuperGrok Lite",
               "price": "100,00 €"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5308,23 +5321,23 @@
               "price": "$70.00"
             },
             {
-              "name": "SuperGrok",
-              "price": "$400.00"
-            },
-            {
               "name": "Extra Usage Credits 100 USD",
               "price": "$129.00"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "$400.00"
             },
             {
               "name": "SuperGrok Lite",
               "price": "$129.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5362,12 +5375,12 @@
               "name": "SuperGrok Lite",
               "price": "₺4.999,99"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5405,12 +5418,12 @@
               "name": "SuperGrok Lite",
               "price": "$150.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5448,12 +5461,12 @@
               "name": "Extra Usage Credits 10 USD",
               "price": "₱ 599.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5491,12 +5504,12 @@
               "name": "Extra Usage Credits 50 USD",
               "price": "₦ 79,900.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5507,12 +5520,12 @@
               "price": "₹ 499"
             },
             {
-              "name": "SuperGrok",
-              "price": "₹ 29,000"
-            },
-            {
               "name": "Extra Usage Credits 20 USD",
               "price": "₹ 1,999"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "₹ 29,000"
             },
             {
               "name": "SuperGrok",
@@ -5534,12 +5547,12 @@
               "name": "Extra Usage Credits 10 USD",
               "price": "₹ 999"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5577,12 +5590,12 @@
               "name": "SuperGrok Lite",
               "price": "R$ 599,90"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "SuperGrok",
@@ -5620,8 +5633,7 @@
               "name": "Extra Usage Credits 50 USD",
               "price": "Rp 799ribu"
             }
-          ],
-          "itemCount": 9
+          ]
         }
       ]
     },
@@ -6422,6 +6434,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6463,12 +6476,12 @@
               "name": "1500 Telegram Stars",
               "price": "$29.99"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "1x Telegram Premium (One Week)",
@@ -6510,20 +6523,20 @@
               "name": "250 Telegram Stars",
               "price": "HK$ 39.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
-            {
-              "name": "1x Telegram Premium (One Week)",
-              "price": "NT$30.00"
-            },
             {
               "name": "Telegram Premium",
               "price": "NT$160.00"
+            },
+            {
+              "name": "1x Telegram Premium (One Week)",
+              "price": "NT$30.00"
             },
             {
               "name": "100 Telegram Stars",
@@ -6557,12 +6570,12 @@
               "name": "150 Telegram Stars",
               "price": "NT$110.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6600,12 +6613,12 @@
               "name": "1x Premium (1 Year)",
               "price": "999.000đ"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6628,16 +6641,16 @@
               "price": "S$ 4.38"
             },
             {
-              "name": "1x Telegram Premium (One Week)",
-              "price": "S$ 1.98"
-            },
-            {
               "name": "500 Telegram Stars",
               "price": "S$ 14.90"
             },
             {
               "name": "1x Premium (3 Months)",
               "price": "S$ 19.98"
+            },
+            {
+              "name": "1x Telegram Premium (One Week)",
+              "price": "S$ 1.98"
             },
             {
               "name": "750 Telegram Stars",
@@ -6647,12 +6660,12 @@
               "name": "350 Telegram Stars",
               "price": "S$ 10.48"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6694,12 +6707,12 @@
               "name": "1500 Telegram Stars",
               "price": "¥4,780"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6741,12 +6754,12 @@
               "name": "150 Telegram Stars",
               "price": "￦4,800"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6788,12 +6801,12 @@
               "name": "1000 Telegram Stars",
               "price": "฿719.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6835,12 +6848,12 @@
               "name": "350 Telegram Stars",
               "price": "£6.39"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "1x Telegram Premium (One Week)",
@@ -6882,12 +6895,12 @@
               "name": "350 Telegram Stars",
               "price": "7,39 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6929,12 +6942,12 @@
               "name": "Telegram Premium Annual",
               "price": "39,99 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -6961,6 +6974,10 @@
               "price": "$29.49"
             },
             {
+              "name": "1x Telegram Premium (Three Days)",
+              "price": "$0.29"
+            },
+            {
               "name": "1x Telegram Premium (One Week)",
               "price": "$1.99"
             },
@@ -6971,17 +6988,13 @@
             {
               "name": "Telegram Premium Annual",
               "price": "$49.99"
-            },
-            {
-              "name": "1x Telegram Premium (Three Days)",
-              "price": "$0.29"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "100 Telegram Stars",
@@ -7023,12 +7036,12 @@
               "name": "750 Telegram Stars",
               "price": "₺749,00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7070,12 +7083,12 @@
               "name": "1500 Telegram Stars",
               "price": "$52.90"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7110,19 +7123,19 @@
               "price": "₱ 639.00"
             },
             {
-              "name": "1000 Telegram Stars",
-              "price": "₱ 1,280.00"
-            },
-            {
               "name": "Telegram Premium (6 Months)",
               "price": "₱ 1,290.00"
+            },
+            {
+              "name": "1000 Telegram Stars",
+              "price": "₱ 1,280.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7164,12 +7177,12 @@
               "name": "1000 Telegram Stars",
               "price": "₦ 35,000.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7211,12 +7224,12 @@
               "name": "350 Telegram Stars",
               "price": "₹ 709"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7258,12 +7271,12 @@
               "name": "1x Premium (3 Months)",
               "price": "R$ 99,90"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "Telegram Premium",
@@ -7305,8 +7318,7 @@
               "name": "750 Telegram Stars",
               "price": "Rp 280ribu"
             }
-          ],
-          "itemCount": 10
+          ]
         }
       ]
     },
@@ -7324,6 +7336,7 @@
         {
           "region": "cn",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7365,12 +7378,12 @@
               "name": "@Rumoreconomy Subscription",
               "price": "¥8.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7412,12 +7425,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "$490.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7456,15 +7469,15 @@
               "price": "HK$ 188.00"
             },
             {
-              "name": "Boosted Tweet package",
-              "price": "HK$ 388.00"
+              "name": "@Jake__Wujastyk Subscription",
+              "price": "HK$ 118.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7506,12 +7519,12 @@
               "name": "@SawyerMerritt Subscription",
               "price": "NT$120.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7553,12 +7566,12 @@
               "name": "@cb_doge Subscription",
               "price": "49.000đ"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7593,19 +7606,19 @@
               "price": "S$ 69.98"
             },
             {
-              "name": "X Premium Plus (Annual)",
-              "price": "S$ 699.98"
-            },
-            {
               "name": "Promote Post for $25",
               "price": "S$ 34.98"
+            },
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "S$ 699.98"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7647,12 +7660,12 @@
               "name": "@hazuma Subscription",
               "price": "¥700"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7694,12 +7707,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "￦770,000"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7741,12 +7754,12 @@
               "name": "@arisarafanart Subscription",
               "price": "฿29.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7788,12 +7801,12 @@
               "name": "X Premium Basic (Annual)",
               "price": "£36.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7812,12 +7825,12 @@
               "price": "107,99 €"
             },
             {
-              "name": "Promote Post",
-              "price": "10,00 €"
-            },
-            {
               "name": "@elonmusk Subscription",
               "price": "4,00 €"
+            },
+            {
+              "name": "Promote Post",
+              "price": "10,00 €"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -7835,12 +7848,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "569,00 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7882,12 +7895,12 @@
               "name": "@ActualiteBarca Subscription",
               "price": "6,00 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7929,12 +7942,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "$690.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7976,12 +7989,12 @@
               "name": "Promote Post for $25",
               "price": "₺1.299,99"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -7996,12 +8009,12 @@
               "price": "$80.00"
             },
             {
-              "name": "X Premium (Annual)",
-              "price": "$154.99"
-            },
-            {
               "name": "@elonmusk Subscription",
               "price": "$6.00"
+            },
+            {
+              "name": "X Premium (Annual)",
+              "price": "$154.99"
             },
             {
               "name": "Promote Post",
@@ -8023,12 +8036,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "$790.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -8070,12 +8083,12 @@
               "name": "Boosted Tweet package",
               "price": "₱ 2,990.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -8106,23 +8119,23 @@
               "price": "₦ 1,900.00"
             },
             {
-              "name": "@renoomokri Subscription",
-              "price": "₦ 3,900.00"
-            },
-            {
               "name": "X Premium Basic (Annual)",
               "price": "₦ 31,000.00"
+            },
+            {
+              "name": "@renoomokri Subscription",
+              "price": "₦ 3,900.00"
             },
             {
               "name": "Boosted Tweet package",
               "price": "₦ 79,900.00"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -8137,12 +8150,12 @@
               "price": "₹ 4,700"
             },
             {
-              "name": "Promote Post",
-              "price": "₹ 999"
-            },
-            {
               "name": "X Premium Plus (Monthly)",
               "price": "₹ 4,999"
+            },
+            {
+              "name": "Promote Post",
+              "price": "₹ 999"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -8164,12 +8177,12 @@
               "name": "@elonmusk Subscription",
               "price": "₹ 399"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -8184,12 +8197,12 @@
               "price": "R$ 199,00"
             },
             {
-              "name": "Promote Post",
-              "price": "R$ 59,90"
-            },
-            {
               "name": "X Premium (Annual)",
               "price": "R$ 309,00"
+            },
+            {
+              "name": "Promote Post",
+              "price": "R$ 59,90"
             },
             {
               "name": "@elonmusk Subscription",
@@ -8211,12 +8224,12 @@
               "name": "X Premium Plus (Annual)",
               "price": "R$ 1.979,90"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "X Premium (Monthly)",
@@ -8258,8 +8271,7 @@
               "name": "Promote Post for $25",
               "price": "Rp 399ribu"
             }
-          ],
-          "itemCount": 10
+          ]
         }
       ]
     },
@@ -8283,6 +8295,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "20 Coins",
@@ -8324,8 +8337,7 @@
               "name": "1120 Coins",
               "price": "$16.99"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "hk",
@@ -8372,6 +8384,7 @@
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "20 Coins",
@@ -8413,12 +8426,12 @@
               "name": "350 Coins",
               "price": "£4.49"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "22 Coins",
@@ -8460,12 +8473,12 @@
               "name": "350 Coins",
               "price": "5,09 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "22 Coins",
@@ -8507,59 +8520,18 @@
               "name": "660 Coins",
               "price": "9,79 €"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ca",
-          "status": "ok-textPairs",
-          "items": [
-            {
-              "name": "20 Coins",
-              "price": "$0.39"
-            },
-            {
-              "name": "65 Coins",
-              "price": "$1.29"
-            },
-            {
-              "name": "330 Coins",
-              "price": "$6.59"
-            },
-            {
-              "name": "139 Coins",
-              "price": "$2.79"
-            },
-            {
-              "name": "130 Coins",
-              "price": "$2.69"
-            },
-            {
-              "name": "70 Coins",
-              "price": "$1.39"
-            },
-            {
-              "name": "660 Coins",
-              "price": "$13.49"
-            },
-            {
-              "name": "210 Coins",
-              "price": "$4.09"
-            },
-            {
-              "name": "199 Coins",
-              "price": "$3.99"
-            },
-            {
-              "name": "350 Coins",
-              "price": "$6.79"
-            }
-          ],
-          "itemCount": 10
+          "status": "iap-section-missing",
+          "itemCount": 0,
+          "items": []
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "14 Coins",
@@ -8601,12 +8573,12 @@
               "name": "199 Coins",
               "price": "₺154,99"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "20 Coins",
@@ -8648,8 +8620,7 @@
               "name": "199 Coins",
               "price": "$4.79"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "ph",
@@ -8659,50 +8630,9 @@
         },
         {
           "region": "ng",
-          "status": "ok-textPairs",
-          "items": [
-            {
-              "name": "20 Coins",
-              "price": "₦ 430.00"
-            },
-            {
-              "name": "70 Coins",
-              "price": "₦ 1,500.00"
-            },
-            {
-              "name": "65 Coins",
-              "price": "₦ 1,400.00"
-            },
-            {
-              "name": "139 Coins",
-              "price": "₦ 3,000.00"
-            },
-            {
-              "name": "30 coins",
-              "price": "₦ 650.00"
-            },
-            {
-              "name": "40 coins",
-              "price": "₦ 890.00"
-            },
-            {
-              "name": "60 coins",
-              "price": "₦ 1,300.00"
-            },
-            {
-              "name": "210 Coins",
-              "price": "₦ 4,500.00"
-            },
-            {
-              "name": "350 Coins",
-              "price": "₦ 7,500.00"
-            },
-            {
-              "name": "330 Coins",
-              "price": "₦ 7,400.00"
-            }
-          ],
-          "itemCount": 10
+          "status": "iap-section-missing",
+          "itemCount": 0,
+          "items": []
         },
         {
           "region": "in",
@@ -8713,6 +8643,7 @@
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 10,
           "items": [
             {
               "name": "12 Coins",
@@ -8739,12 +8670,12 @@
               "price": "R$ 12,90"
             },
             {
-              "name": "130 Coins",
-              "price": "R$ 12,90"
-            },
-            {
               "name": "40 coins",
               "price": "R$ 3,90"
+            },
+            {
+              "name": "130 Coins",
+              "price": "R$ 12,90"
             },
             {
               "name": "330 Coins",
@@ -8754,8 +8685,7 @@
               "name": "60 coins",
               "price": "R$ 5,50"
             }
-          ],
-          "itemCount": 10
+          ]
         },
         {
           "region": "id",
@@ -8779,6 +8709,7 @@
         {
           "region": "cn",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8816,12 +8747,12 @@
               "name": "YouTube Premium",
               "price": "¥68.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8851,12 +8782,12 @@
               "name": "Movies & Shows",
               "price": "$2.99"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8894,12 +8825,12 @@
               "name": "Super Chat",
               "price": "HK$ 78.00"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8925,12 +8856,12 @@
               "name": "YouTube Premium Two-person",
               "price": "NT$390.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8956,12 +8887,12 @@
               "name": "YouTube Music",
               "price": "85.000đ"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8976,12 +8907,12 @@
               "price": "S$ 36.98"
             },
             {
-              "name": "Premium Lite",
-              "price": "S$ 10.98"
-            },
-            {
               "name": "Super Chat",
               "price": "S$ 2.98"
+            },
+            {
+              "name": "Premium Lite",
+              "price": "S$ 10.98"
             },
             {
               "name": "Super Chat",
@@ -8991,12 +8922,12 @@
               "name": "五歲抬頭基礎加持團",
               "price": "S$ 8.98"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9026,12 +8957,12 @@
               "name": "Premium Lite",
               "price": "¥980"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9065,12 +8996,12 @@
               "name": "Premium Lite",
               "price": "￦10,900"
             }
-          ],
-          "itemCount": 8
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9092,12 +9023,12 @@
               "name": "YouTube Music",
               "price": "฿199.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9131,12 +9062,12 @@
               "name": "Super Chat",
               "price": "£4.99"
             }
-          ],
-          "itemCount": 8
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9166,12 +9097,12 @@
               "name": "Super Chat",
               "price": "2,49 €"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9198,19 +9129,19 @@
               "price": "38,99 €"
             },
             {
-              "name": "Premium Lite",
-              "price": "9,99 €"
-            },
-            {
               "name": "Super Chat",
               "price": "2,49 €"
+            },
+            {
+              "name": "Premium Lite",
+              "price": "9,99 €"
             }
-          ],
-          "itemCount": 8
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9244,12 +9175,12 @@
               "name": "Premium Lite",
               "price": "$10.49"
             }
-          ],
-          "itemCount": 8
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9271,12 +9202,12 @@
               "name": "Aslan Paketi",
               "price": "₺39,99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9306,12 +9237,12 @@
               "name": "Premium Lite",
               "price": "$11.99"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9333,12 +9264,12 @@
               "name": "YouTube Premium",
               "price": "₱ 629.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9364,12 +9295,12 @@
               "name": "Super Chat",
               "price": "₦ 900.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9394,13 +9325,17 @@
             {
               "name": "Premium Lite",
               "price": "₹ 119"
+            },
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9426,12 +9361,12 @@
               "name": "CazéTV",
               "price": "R$ 2,90"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9461,8 +9396,7 @@
               "name": "Super Chat",
               "price": "Rp 5ribu"
             }
-          ],
-          "itemCount": 7
+          ]
         }
       ]
     },
@@ -9486,6 +9420,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Netflix 2 Screens - Unlimited Streaming",
@@ -9507,12 +9442,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "$26.99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9538,12 +9473,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "HK$ 78.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9569,12 +9504,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "NT$290.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9589,27 +9524,23 @@
               "price": "114.000đ"
             },
             {
-              "name": "Netflix 4 Screens - Unlimited Streaming",
-              "price": "275.000đ"
-            },
-            {
               "name": "Netflix 2 Screens - Unlimited Streaming",
               "price": "230.000đ"
             },
             {
-              "name": "Netflix 1 Screen - Unlimited Streaming",
-              "price": "114.000đ"
+              "name": "Netflix 4 Screens - Unlimited Streaming",
+              "price": "275.000đ"
             },
             {
-              "name": "Netflix 2S Streaming",
-              "price": "230.000đ"
+              "name": "Netflix 1 Screen - Unlimited Streaming",
+              "price": "114.000đ"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9635,12 +9566,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "S$ 15.98"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Netflix Standard",
@@ -9658,12 +9589,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "¥2,290"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9681,12 +9612,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "￦17,000"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9712,12 +9643,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "฿169.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Netflix",
@@ -9747,12 +9678,12 @@
               "name": "Netflix 4S Plan",
               "price": "£18.99"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Netflix Standard",
@@ -9770,12 +9701,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "19,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Netflix Standard",
@@ -9793,12 +9724,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "21,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Netflix",
@@ -9820,12 +9751,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "$23.99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Basic",
@@ -9851,12 +9782,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "₺379,99"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Netflix 2 Screens - Unlimited Streaming",
@@ -9874,12 +9805,12 @@
               "name": "Netflix Premium",
               "price": "$28.99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9905,12 +9836,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "₱ 279.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9936,12 +9867,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "₦ 8,500.00"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -9967,12 +9898,12 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "₹ 199"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Netflix 2 Screens - Unlimited Streaming",
@@ -9994,12 +9925,12 @@
               "name": "Netflix 4 Screens - Unlimited Streaming",
               "price": "R$ 55,90"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Netflix Premium",
@@ -10025,8 +9956,7 @@
               "name": "Netflix 1 Screen - Unlimited Streaming",
               "price": "Rp 65ribu"
             }
-          ],
-          "itemCount": 6
+          ]
         }
       ]
     },
@@ -10050,6 +9980,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Standard Monthly",
@@ -10075,12 +10006,12 @@
               "name": "Basic With Ads Yearly",
               "price": "$109.99"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Standard",
@@ -10098,12 +10029,12 @@
               "name": "Standard",
               "price": "HK$ 780.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Standard",
@@ -10125,18 +10056,18 @@
               "name": "Standard",
               "price": "NT$2,190.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "vn",
           "status": "iap-section-missing",
-          "items": [],
-          "itemCount": 0
+          "itemCount": 0,
+          "items": []
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Standard",
@@ -10158,8 +10089,7 @@
               "name": "Premium",
               "price": "S$ 169.98"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "jp",
@@ -10176,6 +10106,7 @@
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Standard",
@@ -10197,23 +10128,23 @@
               "name": "Standard",
               "price": "฿1,390.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 1,
           "items": [
             {
               "name": "TNT Sports",
               "price": "£30.99"
             }
-          ],
-          "itemCount": 1
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Basic with Ads",
@@ -10231,12 +10162,12 @@
               "name": "Premium & Sports",
               "price": "19,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Standard",
@@ -10254,8 +10185,7 @@
               "name": "Premium & Sports",
               "price": "20,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ca",
@@ -10266,6 +10196,7 @@
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Standard",
@@ -10283,12 +10214,12 @@
               "name": "Standard",
               "price": "₺2.299,00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 6,
           "items": [
             {
               "name": "Standard",
@@ -10314,12 +10245,12 @@
               "name": "Basic with Ads",
               "price": "$119.99"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Standard",
@@ -10349,8 +10280,7 @@
               "name": "Mobile",
               "price": "₱ 1,040.00"
             }
-          ],
-          "itemCount": 7
+          ]
         },
         {
           "region": "ng",
@@ -10367,6 +10297,7 @@
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 9,
           "items": [
             {
               "name": "Basic with ads Monthly",
@@ -10404,12 +10335,12 @@
               "name": "Platinum Yearly",
               "price": "R$ 539,90"
             }
-          ],
-          "itemCount": 9
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 7,
           "items": [
             {
               "name": "Standard",
@@ -10439,8 +10370,7 @@
               "name": "Mobile",
               "price": "Rp 349ribu"
             }
-          ],
-          "itemCount": 7
+          ]
         }
       ]
     },
@@ -10464,6 +10394,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10485,12 +10416,12 @@
               "name": "Disney+ Premium",
               "price": "$189.99"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10512,12 +10443,12 @@
               "name": "Monthly Basic - US Only",
               "price": "HK$ 108.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10539,8 +10470,7 @@
               "name": "Monthly Basic - US Only",
               "price": "NT$285.00"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "vn",
@@ -10551,7 +10481,12 @@
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
+            {
+              "name": "Disney+ Premium",
+              "price": "S$ 22.98"
+            },
             {
               "name": "Disney+ Standard",
               "price": "S$ 18.98"
@@ -10561,27 +10496,19 @@
               "price": "S$ 189.98"
             },
             {
+              "name": "Premier Access: Black Widow",
+              "price": "S$ 39.98"
+            },
+            {
               "name": "Disney+ Standard",
               "price": "S$ 159.98"
-            },
-            {
-              "name": "Disney+ Premium",
-              "price": "S$ 22.98"
-            },
-            {
-              "name": "Disney+ Standard",
-              "price": "S$ 15.98"
-            },
-            {
-              "name": "Disney+ Premium",
-              "price": "S$ 18.98"
             }
-          ],
-          "itemCount": 6
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10603,12 +10530,12 @@
               "name": "Disney+ Basic Monthly",
               "price": "¥1,670"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10630,8 +10557,7 @@
               "name": "Monthly Basic - US Only",
               "price": "￦13,900"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "th",
@@ -10642,6 +10568,7 @@
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10659,12 +10586,12 @@
               "name": "Disney+ Premium",
               "price": "£149.99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10682,12 +10609,12 @@
               "name": "Disney+ Premium",
               "price": "159,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10705,12 +10632,12 @@
               "name": "Disney+ Premium",
               "price": "159,99 €"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10728,12 +10655,12 @@
               "name": "Disney+ Premium",
               "price": "$169.99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10747,12 +10674,12 @@
               "name": "Monthly Basic - US Only",
               "price": "₺249,99"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10766,8 +10693,7 @@
               "name": "Disney+ Premium",
               "price": "$249.99"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "ph",
@@ -10790,6 +10716,7 @@
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10803,8 +10730,7 @@
               "name": "Disney+ Premium",
               "price": "R$ 589,00"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "id",
@@ -10837,6 +10763,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "Hulu",
@@ -10846,8 +10773,7 @@
               "name": "Hulu (No Ads)",
               "price": "$18.99"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "hk",
@@ -11016,6 +10942,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11029,12 +10956,12 @@
               "name": "ESPN+ Yearly",
               "price": "$129.99"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "hk",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11044,12 +10971,12 @@
               "name": "ESPN+ Yearly",
               "price": "HK$ 888.00"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "tw",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11067,12 +10994,12 @@
               "name": "UFC PPV 284",
               "price": "NT$2,490.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "vn",
           "status": "ok-textPairs",
+          "itemCount": 5,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11094,12 +11021,12 @@
               "name": "UFC 312",
               "price": "499.000đ"
             }
-          ],
-          "itemCount": 5
+          ]
         },
         {
           "region": "sg",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11109,12 +11036,12 @@
               "name": "ESPN+ Yearly",
               "price": "S$ 149.98"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "jp",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11124,12 +11051,12 @@
               "name": "ESPN+ Yearly",
               "price": "¥15,000"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "kr",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11143,12 +11070,12 @@
               "name": "UFC PPV 273",
               "price": "￦129,000"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "th",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11166,12 +11093,12 @@
               "name": "UFC 313",
               "price": "฿199.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "gb",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11185,12 +11112,12 @@
               "name": "Fury vs. Whyte",
               "price": "£69.99"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "de",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11200,12 +11127,12 @@
               "name": "ESPN+ Yearly",
               "price": "119,99 €"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "fr",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11215,12 +11142,12 @@
               "name": "ESPN+ Yearly",
               "price": "119,99 €"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "ca",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11230,12 +11157,12 @@
               "name": "ESPN+ Yearly",
               "price": "$149.99"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "tr",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11253,12 +11180,12 @@
               "name": "UFC 313",
               "price": "₺249,99"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "au",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11272,12 +11199,12 @@
               "name": "Fury vs Wilder II",
               "price": "$129.99"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11287,12 +11214,12 @@
               "name": "ESPN+ Yearly",
               "price": "₱ 5,990.00"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "ng",
           "status": "ok-textPairs",
+          "itemCount": 4,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11310,12 +11237,12 @@
               "name": "UFC 313",
               "price": "₦ 99,900.00"
             }
-          ],
-          "itemCount": 4
+          ]
         },
         {
           "region": "in",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11329,12 +11256,12 @@
               "name": "Paul v Fury",
               "price": "₹ 4,999"
             }
-          ],
-          "itemCount": 3
+          ]
         },
         {
           "region": "br",
           "status": "ok-textPairs",
+          "itemCount": 2,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11344,12 +11271,12 @@
               "name": "ESPN+ Yearly",
               "price": "R$ 599,90"
             }
-          ],
-          "itemCount": 2
+          ]
         },
         {
           "region": "id",
           "status": "ok-textPairs",
+          "itemCount": 3,
           "items": [
             {
               "name": "ESPN+ Monthly",
@@ -11363,8 +11290,7 @@
               "name": "UFC PPV 270",
               "price": "Rp 1,299juta"
             }
-          ],
-          "itemCount": 3
+          ]
         }
       ]
     }
