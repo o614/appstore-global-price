@@ -18,7 +18,7 @@ export function GET() {
     hour12: false,
   }).format(new Date(dataGeneratedAt));
 
-  const content = `# App Store 全球价格
+  const content = `# App Store 订阅比价
 
 > 比较同一 App 或 Apple 订阅服务在 ${Object.keys(regionMeta).length} 个固定地区的官方价格，保留原币标价，人民币金额仅供横向参考。
 
@@ -27,7 +27,7 @@ export function GET() {
 ## 主要页面
 
 - [首页与应用目录](${siteUrl}/): 浏览全部已收录应用与 Apple 订阅服务。
-- [价格变动日志](${siteUrl}/changes/): 查看已经校验并发布的套餐、价格和可用状态变化。
+- [订阅变动日志](${siteUrl}/changes/): 查看已经校验并发布的套餐调价、新增、移除和可用状态变化。
 - [XML Sitemap](${siteUrl}/sitemap.xml): 机器可读的完整公开页面清单。
 
 ## 应用与服务

@@ -19,12 +19,12 @@ import { apps, dataGeneratedAt, regionMeta } from "../lib/catalog";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 
 export const metadata: Metadata = {
-  title: "价格变动日志 | App Store 全球价格",
-  description: "查看已经校验并发布的 App Store 应用与 Apple 订阅服务价格变化。",
+  title: "订阅变动日志 | App Store 订阅比价",
+  description: "查看已经校验并发布的套餐调价、新增、移除以及应用、地区与可用状态变化。",
   alternates: { canonical: "/changes/" },
   openGraph: {
-    title: "价格变动日志 | App Store 全球价格",
-    description: "查看已经校验并发布的 App Store 应用与 Apple 订阅服务价格变化。",
+    title: "订阅变动日志 | App Store 订阅比价",
+    description: "查看已经校验并发布的套餐调价、新增、移除以及应用、地区与可用状态变化。",
     type: "website",
     url: `${siteUrl}/changes/`,
   },
@@ -141,25 +141,26 @@ export default function ChangesPage() {
   return (
     <main className="change-log-page">
       <header className="site-header detail-header">
-        <Link className="brand" href="/" aria-label="App Store 全球价格首页">
+        <Link className="brand" href="/" aria-label="App Store 订阅比价首页">
           <BrandMark />
-          <span><strong>App Store</strong><small>全球价格</small></span>
+          <span><strong>App Store</strong><small>订阅比价</small></span>
         </Link>
         <nav>
           <Link href="/#apps">应用目录</Link>
-          <Link href="/changes/" aria-current="page">价格日志</Link>
+          <Link href="/changes/" aria-current="page">订阅变动</Link>
           <Link className="back-link" href="/"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回首页</Link>
         </nav>
       </header>
 
       <section className="change-log-hero">
-        <span className="eyebrow">PRICE CHANGE LOG</span>
-        <h1>每一次价格变化，<br />都有记录。</h1>
-        <p>这里展示已经验证并发布的价格变化，方便查看套餐调价、新增与移除记录。</p>
+        <span className="eyebrow">SUBSCRIPTION CHANGE LOG</span>
+        <h1>套餐与价格的每一次变化，<br />都有记录。</h1>
+        <p>这里记录已经验证并发布的套餐调价、新增、移除，以及应用、地区与可用状态变化。</p>
         <div className="change-log-legend" aria-label="日志类型说明">
           <span><TransferHorizontalLine className="legend-adjusted ui-icon" aria-hidden="true" />同一套餐调价</span>
           <span><AddCircleLine className="legend-added ui-icon" aria-hidden="true" />新增套餐</span>
           <span><Delete2Line className="legend-removed ui-icon" aria-hidden="true" />移除套餐</span>
+          <span><InformationLine className="ui-icon" aria-hidden="true" />应用、地区与状态变化</span>
         </div>
       </section>
 
@@ -168,7 +169,7 @@ export default function ChangesPage() {
           <div className="change-log-heading">
             <div>
               <span className="eyebrow">已发布记录</span>
-              <h2 id="change-log-title">最近的价格变动</h2>
+              <h2 id="change-log-title">最近的订阅变动</h2>
             </div>
             <p>展示最近 {entries.length} 次发布记录</p>
           </div>
@@ -218,10 +219,10 @@ export default function ChangesPage() {
           <History2Line className="empty-log-mark" aria-hidden="true" />
           <div>
             <span className="eyebrow">等待第一条记录</span>
-            <h2 id="empty-log-title">暂时还没有已发布的价格变动。</h2>
-            <p>从下一次正式价格更新开始，这里会自动记录应用、地区、套餐以及调价前后的原币金额，不补写未经验证的历史。</p>
+            <h2 id="empty-log-title">暂时还没有已发布的订阅变动。</h2>
+            <p>从下一次正式更新开始，这里会自动记录应用、地区、套餐新增与移除，以及调价前后的原币金额，不补写未经验证的历史。</p>
           </div>
-          <Link href="/#apps">查看当前价格 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
+          <Link href="/#apps">查看当前订阅价格 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
         </section>
       )}
 

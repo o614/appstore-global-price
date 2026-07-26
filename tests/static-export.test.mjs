@@ -10,7 +10,7 @@ async function readPage(path) {
 
 test("exports the price comparison homepage as static HTML", async () => {
   const html = await readPage("/index.html");
-  assert.match(html, /<title>App Store 全球价格<\/title>/);
+  assert.match(html, /<title>App Store 订阅比价<\/title>/);
   assert.match(html, /先看清价格/);
   assert.match(html, /ChatGPT Plus/);
   assert.match(html, /应用与订阅服务/);
@@ -22,8 +22,8 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.doesNotMatch(html, /class="hero-stats"/);
   assert.doesNotMatch(html, /已验证价格页/);
   assert.match(html, /每日自动检测 4 次/);
-  assert.match(html, /价格日志/);
-  assert.match(html, /© 2026 App Store 全球价格/);
+  assert.match(html, /订阅变动/);
+  assert.match(html, /© 2026 App Store 订阅比价/);
   assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
   assert.match(html, /文章教程/);
   assert.match(html, /href="https:\/\/290935\.xyz\/posts\/how-to-register-foreign-apple-id\/"[^>]*>注册教程<\/a>/);
@@ -49,7 +49,7 @@ test("exports every configured app detail route", async () => {
   }
 
   const html = await readPage("/apps/6448311069/index.html");
-  assert.match(html, /ChatGPT 全球价格/);
+  assert.match(html, /ChatGPT 订阅比价/);
   assert.match(html, /App ID/);
   assert.match(html, /6448311069/);
   assert.match(html, /选择套餐，查看各地区价格/);
@@ -165,9 +165,12 @@ test("exports a public log for confirmed price changes", async () => {
   const changeLog = JSON.parse(await readFile(new URL("../data/price-change-log.json", import.meta.url), "utf8"));
   const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
   const entries = changeLog.entries.filter((entry) => entry.changes.length > 0);
-  assert.match(html, /价格变动日志/);
-  assert.match(html, /每一次价格变化/);
-  assert.match(html, /已经验证并发布的价格变化/);
+  assert.match(html, /订阅变动日志/);
+  assert.match(html, /套餐与价格的每一次变化/);
+  assert.match(html, /套餐调价、新增、移除，以及应用、地区与可用状态变化/);
+  assert.match(html, /新增套餐/);
+  assert.match(html, /移除套餐/);
+  assert.match(html, /应用、地区与状态变化/);
   assert.doesNotMatch(html, /Bark/i);
   if (entries.length) {
     assert.doesNotMatch(html, /暂时还没有已发布的价格变动/);
@@ -189,8 +192,8 @@ test("exports a public log for confirmed price changes", async () => {
 
 test("exports installable app metadata and home-screen icons", async () => {
   const manifest = JSON.parse(await readFile(new URL("../out/manifest.webmanifest", import.meta.url), "utf8"));
-  assert.equal(manifest.name, "App Store 全球价格");
-  assert.equal(manifest.short_name, "全球价格");
+  assert.equal(manifest.name, "App Store 订阅比价");
+  assert.equal(manifest.short_name, "订阅比价");
   assert.equal(manifest.display, "standalone");
   assert.equal(manifest.theme_color, "#f5f5f7");
   assert.ok(manifest.icons.some((icon) => icon.src === "/icons/app-icon-192.png"));
@@ -221,7 +224,7 @@ test("exports crawler discovery files for the public site", async () => {
   assert.match(robots, /Sitemap: https:\/\/price\.290935\.xyz\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz\/changes\/<\/loc>/);
-  assert.match(llms, /^# App Store 全球价格/m);
+  assert.match(llms, /^# App Store 订阅比价/m);
   assert.match(llms, /服务不可用、官方价格未公开与解析失败是三种不同状态/);
   for (const app of snapshot.apps) {
     assert.match(sitemap, new RegExp(`<loc>https://price\\.290935\\.xyz/apps/${app.id}/</loc>`));

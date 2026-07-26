@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const app = getApp(id);
   if (!app) return {};
   const priceKind = app.priceSource === "app-store" || !app.priceSource ? "App Store 内购" : "Apple 官方订阅";
-  const title = `${app.matchedName} 全球价格｜App Store 全球价格`;
+  const title = `${app.matchedName} 订阅比价｜App Store 订阅比价`;
   const description = `查看 ${app.matchedName} 在多个地区的公开${priceKind}价格。`;
   const pageUrl = `/apps/${app.id}/`;
   return {
@@ -98,7 +98,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
       />
       <header className="site-header detail-header">
-        <Link className="brand" href="/"><BrandMark /><span><strong>App Store</strong><small>全球价格</small></span></Link>
+        <Link className="brand" href="/"><BrandMark /><span><strong>App Store</strong><small>订阅比价</small></span></Link>
         <Link className="back-link" href="/#apps"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回应用目录</Link>
       </header>
 
@@ -121,7 +121,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
 
         <section className="comparison-section" id="comparison">
           <div className="section-heading detail-section-heading">
-            <div><span className="eyebrow">全球价格</span><h2>选择套餐，查看各地区价格</h2></div>
+            <div><span className="eyebrow">订阅比价</span><h2>选择套餐，查看各地区价格</h2></div>
             <span className="truth-note"><CheckCircleLine className="ui-icon" aria-hidden="true" />同套餐、同周期比较</span>
           </div>
           <PriceExplorer app={app} plans={plans} />
