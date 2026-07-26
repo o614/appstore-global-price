@@ -15,12 +15,12 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /ChatGPT Plus/);
   assert.match(html, /应用与订阅服务/);
   assert.match(html, /浏览应用/);
-  assert.match(html, /固定地区，统一口径/);
-  assert.match(html, /应用目录与可比价范围会随官方数据更新/);
+  assert.match(html, /为什么固定这 20 个地区/);
+  assert.match(html, /覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场/);
   assert.doesNotMatch(html, /class="app-group-heading"/);
   assert.doesNotMatch(html, /<span>(?:Productivity|Entertainment|Social Networking|Photo &amp; Video)<\/span>/);
-  assert.match(html, /未上架或未公开价格的地区不参与排名/);
-  assert.match(html, /<strong>20<\/strong><span>比价地区<\/span>/);
+  assert.doesNotMatch(html, /class="hero-stats"/);
+  assert.doesNotMatch(html, /已验证价格页/);
   assert.match(html, /每日自动检测 4 次/);
   assert.match(html, /价格日志/);
   assert.match(html, /© 2026 App Store 全球价格/);
@@ -68,6 +68,7 @@ test("exports every configured app detail route", async () => {
   assert.match(netflixHtml, /363590051/);
 
   for (const [id, name] of [
+    ["640199958", "Apple Developer"],
     ["6474233312", "Kimi"],
     ["835599320", "TikTok"],
     ["1666653815", "HBO Max"],
@@ -93,6 +94,8 @@ test("exports every configured app detail route", async () => {
     "Send Kimi a flower !",
     "Grab a coffee with Kimi !",
     "Get Kimi charged !",
+    "Land on the moon with Kimi !",
+    "Treat Kimi to a meal !",
   ]) {
     assert.equal(kimiItemNames.includes(itemName), false, `Kimi tip item should not be compared: ${itemName}`);
   }
@@ -147,7 +150,7 @@ test("exports every configured app detail route", async () => {
     "apple-icloud-plus": "/service-icons/apple-icloud-plus.png",
     "apple-one": "/service-icons/apple-one.png",
     "apple-tv-plus": "/service-icons/apple-tv-plus.png",
-    "apple-arcade": "/service-icons/apple-arcade.png",
+    "apple-arcade": "/service-icons/apple-arcade.webp",
     "apple-fitness-plus": "/service-icons/apple-fitness-plus.png",
     "apple-news-plus": "/service-icons/apple-news-plus.png",
   };

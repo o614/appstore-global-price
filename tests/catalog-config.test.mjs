@@ -48,6 +48,7 @@ test("catalog contains the requested apps and excludes removed entries", async (
     "317469184",
     "1446075923",
     "376510438",
+    "640199958",
   ]) {
     assert.ok(ids.includes(id), `missing App ID ${id}`);
   }
@@ -55,7 +56,9 @@ test("catalog contains the requested apps and excludes removed entries", async (
   assert.equal(ids.includes("547166701"), false, "百度网盘 should be removed");
   assert.equal(ids.includes("6737597349"), false, "DeepSeek should be removed");
   assert.equal(ids.includes("530168168"), false, "Paramount+ should be removed");
-  assert.equal(ids.length, 21);
+  assert.equal(ids.length, 22);
+  assert.equal(ids[0], "640199958", "Apple services should be listed before AI tools");
+  assert.ok(ids.indexOf("1108187390") < ids.indexOf("6448311069"), "Apple services should precede AI tools");
   assert.deepEqual(entries.find((entry) => entry.id === "376510438")?.regionalAppIds, { jp: "549416492" });
-  assert.equal(entries.find((entry) => entry.id === "6474233312")?.excludeItemNames.length, 4);
+  assert.equal(entries.find((entry) => entry.id === "6474233312")?.excludeItemNames.length, 6);
 });

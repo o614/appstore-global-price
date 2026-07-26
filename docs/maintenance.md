@@ -56,6 +56,8 @@ npm run data:add
 
 因此日常新增 App 不需要由 Codex 执行抓取：维护总表并提交即可。全量检查所有现有应用仍使用 `手动更新 App Store 价格` Action。
 
+自动任务按应用和地区独立处理故障。网络超时、限流或解析异常发生时，已有应用会保留对应地区上一版已验证数据并继续抓取后续内容；全新应用首次抓取失败则暂缓加入网站，下一次任务会自动重试。404 或当地未上架仍保留为官方不可用状态，不会误用其他地区价格补齐。Action 摘要会列出本次复用和暂缓项目；只有地区配置、汇率或快照结构等全局校验失败才停止发布。
+
 ## 其他唯一配置入口
 
 | 维护内容 | 文件 | 说明 |
@@ -71,10 +73,10 @@ npm run data:add
 
 ## 新增应用
 
-1. 在 `data/catalog-config.json` 添加固定 App ID；普通 App 可以不写名称和图标。
-2. 运行 `npm run data:add`，只抓取新应用；需要全量刷新时再运行 `npm run data:update`。
-3. 运行 `npm test`，确认 20 个地区、套餐覆盖和静态详情页都通过。
-4. 仅当原始套餐名不够清楚时，再维护 `data/plan-definitions.json`。
+1. 打开 `data/catalog-config.json`，在希望展示的位置添加 `{ "id": "640199958", "group": "Apple 服务" }`；普通 App 不需要手写名称和图标。
+2. 提交到 `main`。`应用总表自动抓取` Action 会自动读取 Apple 元数据、分批抓取 20 个地区、校验并提交生成结果，无需让 Codex 手工抓取。
+3. 如果同一品牌只在某个地区使用另一官方 App ID，才增加 `regionalAppIds`；如果 Apple 内购列表含明确的打赏项，才用完整名称配置 `excludeItemNames`。
+4. 仅当 Apple 原始套餐名不够清楚时，再维护 `data/plan-definitions.json`。需要立即重试时，可在 GitHub Actions 页面手动运行 `应用总表自动抓取`。
 
 ## 调整地区
 

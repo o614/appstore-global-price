@@ -1,5 +1,14 @@
 {
   "apps": [
+    { "id": "640199958", "group": "Apple 服务" },
+    { "id": "1108187390", "group": "Apple 服务", "priceSource": "apple-music" },
+    { "id": "apple-icloud-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "icloud-plus", "metadata": { "matchedName": "iCloud+", "developer": "Apple Inc.", "icon": "/service-icons/apple-icloud-plus.png", "category": "Apple 服务", "storeUrl": "https://support.apple.com/en-us/108047" } },
+    { "id": "apple-one", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-one", "metadata": { "matchedName": "Apple One", "developer": "Apple Inc.", "icon": "/service-icons/apple-one.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-one/" } },
+    { "id": "apple-tv-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-tv-plus", "metadata": { "matchedName": "Apple TV+", "developer": "Apple Inc.", "icon": "/service-icons/apple-tv-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-tv/" } },
+    { "id": "apple-arcade", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-arcade", "metadata": { "matchedName": "Apple Arcade", "developer": "Apple Inc.", "icon": "/service-icons/apple-arcade.webp", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-arcade/" } },
+    { "id": "apple-fitness-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-fitness-plus", "metadata": { "matchedName": "Apple Fitness+", "developer": "Apple Inc.", "icon": "/service-icons/apple-fitness-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-fitness-plus/" } },
+    { "id": "apple-news-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-news-plus", "metadata": { "matchedName": "Apple News+", "developer": "Apple Inc.", "icon": "/service-icons/apple-news-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-news/" } },
+
     { "id": "6448311069", "group": "AI 助手" },
     { "id": "6473753684", "group": "AI 助手" },
     { "id": "6477489729", "group": "AI 助手" },
@@ -11,7 +20,9 @@
         "Give Kimi some snacks !",
         "Send Kimi a flower !",
         "Grab a coffee with Kimi !",
-        "Get Kimi charged !"
+        "Get Kimi charged !",
+        "Land on the moon with Kimi !",
+        "Treat Kimi to a meal !"
       ]
     },
 
@@ -24,15 +35,6 @@
     { "id": "1666653815", "group": "影音娱乐" },
     { "id": "1446075923", "group": "影音娱乐" },
     { "id": "376510438", "group": "影音娱乐", "regionalAppIds": { "jp": "549416492" } },
-
-    { "id": "317469184", "group": "体育" },
-
-    { "id": "1108187390", "group": "Apple 服务", "priceSource": "apple-music" },
-    { "id": "apple-icloud-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "icloud-plus", "metadata": { "matchedName": "iCloud+", "developer": "Apple Inc.", "icon": "/service-icons/apple-icloud-plus.png", "category": "Apple 服务", "storeUrl": "https://support.apple.com/en-us/108047" } },
-    { "id": "apple-one", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-one", "metadata": { "matchedName": "Apple One", "developer": "Apple Inc.", "icon": "/service-icons/apple-one.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-one/" } },
-    { "id": "apple-tv-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-tv-plus", "metadata": { "matchedName": "Apple TV+", "developer": "Apple Inc.", "icon": "/service-icons/apple-tv-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-tv/" } },
-    { "id": "apple-arcade", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-arcade", "metadata": { "matchedName": "Apple Arcade", "developer": "Apple Inc.", "icon": "/service-icons/apple-arcade.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-arcade/" } },
-    { "id": "apple-fitness-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-fitness-plus", "metadata": { "matchedName": "Apple Fitness+", "developer": "Apple Inc.", "icon": "/service-icons/apple-fitness-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-fitness-plus/" } },
-    { "id": "apple-news-plus", "group": "Apple 服务", "priceSource": "apple-service", "service": "apple-news-plus", "metadata": { "matchedName": "Apple News+", "developer": "Apple Inc.", "icon": "/service-icons/apple-news-plus.png", "category": "Apple 服务", "storeUrl": "https://www.apple.com/apple-news/" } }
+    { "id": "317469184", "group": "体育" }
   ]
 }

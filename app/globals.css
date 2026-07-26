@@ -82,11 +82,6 @@ button, input { font: inherit; }
   border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.72);
   color: #535956; font-size: 13px; font-weight: 650;
 }
-.hero-stats { display: flex; gap: 42px; margin-top: 62px; }
-.hero-stats div { display: flex; flex-direction: column; gap: 4px; }
-.hero-stats strong { font-family: var(--font-geist-mono); font-size: 22px; }
-.hero-stats span { color: var(--muted); font-size: 11px; }
-
 .hero-price-card {
   position: relative; display: block; padding: 26px; border-radius: 28px;
   background: rgba(255,255,255,.82); border: 1px solid rgba(255,255,255,.9);
@@ -370,7 +365,6 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
   .hero-copy > p { font-size: 14px; }
   .hero-actions { align-items: stretch; flex-direction: column; gap: 10px; }
   .primary-button, .secondary-button { width: fit-content; }
-  .hero-stats { gap: 25px; margin-top: 44px; }
   .hero-price-card { padding: 18px; border-radius: 22px; }
   .coverage-note { padding: 20px 18px; }
   .price-spotlight { padding: 20px; }

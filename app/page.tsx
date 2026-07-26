@@ -14,7 +14,6 @@ import {
   getAppCoverage,
   getPlansForApp,
   getRegionStoreUrl,
-  getVerifiedRegionCount,
   regionMeta,
   toCny,
 } from "./lib/catalog";
@@ -22,7 +21,6 @@ import {
 const cardApps = apps.map((app) => ({
   ...app,
   coverage: getAppCoverage(app),
-  verifiedCount: getVerifiedRegionCount(app),
   planCount: getPlansForApp(app).length,
 }));
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
@@ -52,7 +50,6 @@ export default function Home() {
         .sort((a, b) => (a.cny ?? Infinity) - (b.cny ?? Infinity))
     : [];
   const featuredLowest = featuredRows[0];
-  const verifiedStorePages = cardApps.reduce((total, app) => total + app.verifiedCount, 0);
   const regionCount = Object.keys(regionMeta).length;
 
   return (
@@ -83,11 +80,6 @@ export default function Home() {
             <a href="#apps" className="primary-button">浏览应用 <ArrowRightLine className="ui-icon" aria-hidden="true" /></a>
             <Link href="/apps/6448311069" className="secondary-button">查看 ChatGPT 示例</Link>
           </div>
-          <div className="hero-stats">
-            <div><strong>{apps.length}</strong><span>应用与服务</span></div>
-            <div><strong>{regionCount}</strong><span>比价地区</span></div>
-            <div><strong>{verifiedStorePages}</strong><span>已验证价格页</span></div>
-          </div>
         </div>
 
         <article className="hero-price-card">
@@ -113,10 +105,10 @@ export default function Home() {
 
       <section className="coverage-note" aria-labelledby="coverage-note-title">
         <div>
-          <span className="eyebrow">比较原则</span>
-          <strong id="coverage-note-title">固定地区，统一口径</strong>
+          <span className="eyebrow">地区选择</span>
+          <strong id="coverage-note-title">为什么固定这 20 个地区</strong>
         </div>
-        <p>应用目录与可比价范围会随官方数据更新；未上架或未公开价格的地区不参与排名。人民币金额仅供参考。</p>
+        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
       </section>
 
       <AppDirectory apps={cardApps} />
