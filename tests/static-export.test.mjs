@@ -17,6 +17,8 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /覆盖 17 个应用与服务、20 个地区/);
   assert.match(html, /未上架或未公开价格的地区不参与排名/);
   assert.match(html, /<strong>20<\/strong><span>比价地区<\/span>/);
+  assert.match(html, /每日自动检测 4 次/);
+  assert.match(html, /价格日志/);
   assert.match(html, /© 2026 App Store 全球价格/);
   assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
@@ -35,6 +37,9 @@ test("exports every configured app detail route", async () => {
   assert.match(html, /6448311069/);
   assert.match(html, /选择套餐，查看各地区价格/);
   assert.match(html, /同套餐、同周期比较/);
+  assert.match(html, /地区有价格/);
+  assert.match(html, /个公开套餐/);
+  assert.doesNotMatch(html, /日汇率折算/);
   assert.match(html, /分享比价/);
   assert.match(html, /查看跳转方式/);
 

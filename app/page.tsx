@@ -112,8 +112,8 @@ export default function Home() {
         </div>
         <div className="method-grid">
           <article><span>01</span><h3>确认同一应用</h3><p>各地区统一使用同一 App ID，避免同名应用混淆。</p></article>
-          <article><span>02</span><h3>保留官方原币</h3><p>人民币金额按每日汇率折算，仅用于横向比较。</p></article>
-          <article><span>03</span><h3>查看地区页面</h3><p>页面可用时提供对应地区的 Apple 官方入口。</p></article>
+          <article><span>02</span><h3>保留官方原币</h3><p>人民币金额按公开汇率折算，仅用于横向比较。</p></article>
+          <article><span>03</span><h3>确认更新时间</h3><p>每日自动检测 4 次；通过校验并发布后，页面快照时间与 <Link href="/changes/">价格日志</Link> 同步更新。</p></article>
         </div>
       </section>
 

@@ -55,6 +55,10 @@ export function extractAppleMusicPlans(html, region) {
     // The public comparison tracks the recurring price, not the campaign.
     return options.find((option) => option.candidates.length > 1)?.candidates.at(-1)
       ?? options.find((option) => !isPromotionalMusicHeadline(option.headline))?.candidates.at(-1)
+      // Some official pages append “first month free” to the normal recurring
+      // price. When that is the only priced card, the amount is still the
+      // published recurring price and must not be discarded as a promotion.
+      ?? (options.length === 1 ? options[0].candidates.at(-1) : null)
       ?? null;
   });
 

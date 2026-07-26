@@ -85,6 +85,9 @@ export const dataUpdatedAt = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
   month: "2-digit",
   day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
 }).format(new Date(validationSnapshot.generatedAt));
 export const dataGeneratedAt = validationSnapshot.generatedAt;
 export const dataSource = validationSnapshot.source;

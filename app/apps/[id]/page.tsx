@@ -27,7 +27,6 @@ import {
   getVerifiedRegionCount,
   rateAttributionUrl,
   rateProvider,
-  rateUpdatedAt,
 } from "../../lib/catalog";
 
 export const dynamicParams = false;
@@ -72,8 +71,8 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
             <p>{app.developer}</p>
             <div className="detail-badges">
               <span className="detail-meta-badge detail-id-badge"><Numbers09SortAscendingLine className="ui-icon" aria-hidden="true" />{app.priceSource === "app-store" || !app.priceSource ? "App ID" : "服务 ID"} <b>{app.id}</b></span>
-              <span className="detail-meta-badge"><Earth2Line className="ui-icon" aria-hidden="true" />{verifiedCount}/{app.regions.length} 地区</span>
-              {plans.length > 0 && <span className="detail-meta-badge"><ListCheckLine className="ui-icon" aria-hidden="true" />{plans.length} 个套餐</span>}
+              <span className="detail-meta-badge"><Earth2Line className="ui-icon" aria-hidden="true" />{verifiedCount}/{app.regions.length} 地区有价格</span>
+              {plans.length > 0 && <span className="detail-meta-badge"><ListCheckLine className="ui-icon" aria-hidden="true" />{plans.length} 个公开套餐</span>}
               {coverage.review > 0 && <span className="detail-meta-badge review-badge"><AlertLine className="ui-icon" aria-hidden="true" />{coverage.review} 地区待复核</span>}
               <DataFreshness generatedAt={dataGeneratedAt} displayDate={dataUpdatedAt} />
             </div>
@@ -92,7 +91,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
 
       <section className="detail-notes">
         <article><span>Apple 标价</span><p>原币金额来自对应地区的{sourceCopy.noun}。</p></article>
-        <article><span>人民币参考</span><p>按 {new Date(rateUpdatedAt).toLocaleDateString("zh-CN")} 日汇率折算，由 <a href={rateAttributionUrl}>{rateProvider}</a> 提供。</p></article>
+        <article><span>人民币参考</span><p>按公开汇率折算，由 <a href={rateAttributionUrl}>{rateProvider}</a> 提供。</p></article>
         <article><span>套餐比较</span><p>月付、年付和一次性购买分别排名；缺少该套餐的地区不参与比较。</p></article>
       </section>
       <SiteFooter />

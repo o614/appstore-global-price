@@ -33,6 +33,48 @@ test("ignores introductory offers when Apple also publishes the recurring price"
   ]);
 });
 
+test("keeps recurring prices when the normal card also mentions a free first month", () => {
+  const locales = [
+    {
+      region: "sg",
+      prices: ["S$11.98", "S$20.98", "S$6.48"],
+      expected: ["S$11.98", "S$20.98", "S$6.48"],
+      suffix: "/month, first month free for new subscribers.",
+    },
+    {
+      region: "gb",
+      prices: ["£11.99", "£19.99", "£5.99"],
+      expected: ["£11.99", "£19.99", "£5.99"],
+      suffix: "/month, first month free for new subscribers.",
+    },
+    {
+      region: "fr",
+      prices: ["11,99 €", "19,99 €", "6,99 €"],
+      expected: ["€11,99", "€19,99", "€6,99"],
+      suffix: "/mois, premier mois gratuit pour les nouveaux abonnements.",
+    },
+    {
+      region: "au",
+      prices: ["A$14.99", "A$23.99", "A$7.99"],
+      expected: ["$14.99", "$23.99", "$7.99"],
+      suffix: " per month, first month free for new subscribers.",
+    },
+  ];
+
+  for (const { region, prices, expected, suffix } of locales) {
+    const html = [
+      planCard("individual", `${prices[0]}${suffix}`),
+      planCard("family", `${prices[1]}${suffix}`),
+      planCard("student", `${prices[2]}${suffix}`),
+    ].join("");
+    assert.deepEqual(
+      extractAppleMusicPlans(html, region).map((plan) => plan.price),
+      expected,
+      region,
+    );
+  }
+});
+
 test("uses the official FAQ as the student-price fallback", () => {
   const html = [
     planCard("individual", "RMB&nbsp;12/月"),
