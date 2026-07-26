@@ -32,7 +32,9 @@ function galleryCards(html) {
 function planHeadlines(html, planId) {
   return galleryCards(html)
     .filter(({ tag }) => new RegExp(`\\bid=(?:"${planId}"|'${planId}')`, "iu").test(tag))
-    .map(({ html: cardHtml }) => cardHtml.match(/<p\b[^>]*\bclass=(?:"[^"]*\btile-headline\b[^"]*"|'[^']*\btile-headline\b[^']*')[^>]*>([\s\S]*?)<\/p>/iu))
+    // Some localized Apple pages omit the closing </p> before the plan list.
+    // Treat the next list or container boundary as the end of the headline too.
+    .map(({ html: cardHtml }) => cardHtml.match(/<p\b[^>]*\bclass=(?:"[^"]*\btile-headline\b[^"]*"|'[^']*\btile-headline\b[^']*')[^>]*>([\s\S]*?)(?:<\/p>|<ul\b|<\/div>)/iu))
     .filter(Boolean)
     .map((headline) => plainText(headline[1]));
 }
@@ -65,7 +67,7 @@ export function extractAppleMusicPlans(html, region) {
   // The mainland China page omits the student card but publishes its price in
   // the official pricing FAQ. Use the highest official price below Individual
   // as the student fallback instead of hard-coding a localized amount.
-  if (!matches[2] && matches[0]) {
+  if (region === "cn" && !matches[2] && matches[0]) {
     const individualAmount = numericAmount(matches[0].amountText, region);
     const fallback = regionalPrices(plainText(html), region)
       .filter((candidate, index, values) => values.findIndex((value) => value.price === candidate.price) === index)

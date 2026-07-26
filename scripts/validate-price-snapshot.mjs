@@ -55,6 +55,7 @@ for (const entry of config.apps) {
     const keys = new Set();
     for (const item of region.items) {
       if (!item.name?.trim() || !item.price?.trim()) errors.push(`${app.matchedName}/${region.region} contains an empty item`);
+      else if (!/\d/u.test(item.price)) errors.push(`${app.matchedName}/${region.region} contains an invalid price: ${item.price}`);
       const key = `${item.name}\u0000${item.price}`;
       if (keys.has(key)) errors.push(`${app.matchedName}/${region.region} contains a duplicate item: ${item.name}`);
       keys.add(key);

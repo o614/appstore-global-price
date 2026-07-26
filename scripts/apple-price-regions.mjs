@@ -23,7 +23,7 @@ const CURRENCY_FORMATS = {
   AUD: { prefix: "$", patterns: [/(?:A)?\$\s*([\d.,]+)/giu] },
   PHP: { prefix: "₱", patterns: [/₱\s*([\d.,]+)/gu] },
   NGN: { prefix: "₦", patterns: [/₦\s*([\d.,]+)/gu] },
-  INR: { prefix: "₹", patterns: [/₹\s*([\d.,]+)/gu, /Rs\s*([\d.,]+)/giu] },
+  INR: { prefix: "₹", patterns: [/₹\s*([\d.,]+)/gu, /\bRs\.?\s*([\d.,]+)/giu] },
   BRL: { prefix: "R$", patterns: [/R\$\s*([\d.,]+)/giu] },
   IDR: { prefix: "Rp", patterns: [/Rp\s*([\d.,]+)/giu] },
 };
@@ -47,6 +47,7 @@ export function regionalPrices(text, regionCode) {
     const expression = new RegExp(template.source, template.flags);
     for (const match of text.matchAll(expression)) {
       const amountText = match[1].replace(/[.,]+$/u, "");
+      if (!/\d/u.test(amountText)) continue;
       matches.push({
         index: match.index,
         end: match.index + match[0].length - (match[1].length - amountText.length),

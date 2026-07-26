@@ -33,6 +33,44 @@ test("ignores introductory offers when Apple also publishes the recurring price"
   ]);
 });
 
+test("handles Apple's unclosed Japanese family-price headline", () => {
+  const html = [
+    planCard("individual", "新規登録すると、3か月間で180円。その後は月額1,180円。"),
+    planCard("family", "3か月間480円"),
+    '<li class="gallery-item tile" id="family"><p class="tile-headline">新規登録すると、3か月間で480円。その後は月額1,980円。<ul><li>ファミリー共有</li></ul></li>',
+    planCard("student", "さらにお得な月額680円。最初の1か月間無料。"),
+  ].join("");
+  assert.deepEqual(extractAppleMusicPlans(html, "jp"), [
+    { name: "Apple Music Individual", price: "¥1,180" },
+    { name: "Apple Music Family", price: "¥1,980" },
+    { name: "Apple Music Student", price: "¥680" },
+  ]);
+});
+
+test("extracts Indian recurring prices without mistaking subscribers punctuation for Rs", () => {
+  const html = [
+    planCard("individual", "3 months for just ₹19 for new subscribers, then ₹139/month."),
+    planCard("family", "3 months for just ₹39 for new subscribers, then ₹229/month."),
+    planCard("student", "Extra savings at just ₹69/month, first month free for new subscribers."),
+  ].join("");
+  assert.deepEqual(extractAppleMusicPlans(html, "in"), [
+    { name: "Apple Music Individual", price: "₹139" },
+    { name: "Apple Music Family", price: "₹229" },
+    { name: "Apple Music Student", price: "₹69" },
+  ]);
+});
+
+test("does not invent a student plan when a non-China page omits it", () => {
+  const html = [
+    planCard("individual", "신규 구독자는 1,100원에 3개월 이용 후 월 8,900원의 요금 결제."),
+    planCard("family", "신규 구독자는 3,300원에 3개월 이용 후 월 13,500원의 요금 결제."),
+  ].join("");
+  assert.deepEqual(extractAppleMusicPlans(html, "kr"), [
+    { name: "Apple Music Individual", price: "₩8,900" },
+    { name: "Apple Music Family", price: "₩13,500" },
+  ]);
+});
+
 test("keeps recurring prices when the normal card also mentions a free first month", () => {
   const locales = [
     {
