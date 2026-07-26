@@ -4,8 +4,8 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "App Store 全球价格",
-    short_name: "全球价格",
+    name: "App Store 订阅比价",
+    short_name: "订阅比价",
     description: "比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格。",
     start_url: "/",
     scope: "/",
