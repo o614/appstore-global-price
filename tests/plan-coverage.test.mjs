@@ -15,16 +15,15 @@ test("every public item and duplicate occurrence is visible without a manual whi
   }
 });
 
-test("Grok exposes every storefront row, including same-name monthly and annual plans", async () => {
+test("Grok exposes every storefront row without a fixed plan-count ceiling", async () => {
   const [snapshot, definitions] = await Promise.all([
     readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../data/plan-definitions.json", import.meta.url), "utf8").then(JSON.parse),
   ]);
   const grok = snapshot.apps.find((app) => app.id === "6670324846");
   const plans = discoverPlans(grok, definitions[grok.id]);
-  // The regional union is 10: each populated storefront currently has 9 rows,
-  // but some expose the 10 USD credit pack while others expose 100 USD.
-  assert.equal(plans.length, 10);
+  assert.deepEqual(uncoveredItems(grok, plans), []);
+  assert.ok(plans.length >= 10, "Grok unexpectedly lost previously published plans");
   assert.ok(plans.some((plan) => plan.label === "SuperGrok" && plan.period === "年付"));
   assert.ok(plans.some((plan) => plan.label === "SuperGrok Lite" && plan.period === "年付"));
   assert.ok(plans.some((plan) => plan.label === "Extra Usage Credits 100 USD"));

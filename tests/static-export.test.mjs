@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
+import { discoverPlans } from "../app/lib/plan-discovery.mjs";
 
 async function readPage(path) {
   const html = await readFile(new URL(`../out${path}`, import.meta.url), "utf8");
@@ -62,9 +63,14 @@ test("exports every configured app detail route", async () => {
   assert.match(appleMusicHtml, /查看官方方案/);
 
   const grokHtml = await readPage("/apps/6670324846/index.html");
+  const planDefinitions = JSON.parse(await readFile(new URL("../data/plan-definitions.json", import.meta.url), "utf8"));
+  const grok = snapshot.apps.find((app) => app.id === "6670324846");
   assert.match(grokHtml, /Extra Usage Credits 10 USD/);
   assert.match(grokHtml, /Extra Usage Credits 100 USD/);
-  assert.equal((grokHtml.match(/<button[^>]*class="plan-chip/g) ?? []).length, 10);
+  assert.equal(
+    (grokHtml.match(/<button[^>]*class="plan-chip/g) ?? []).length,
+    discoverPlans(grok, planDefinitions[grok.id]).length,
+  );
 
   const iCloudHtml = await readPage("/apps/apple-icloud-plus/index.html");
   assert.match(iCloudHtml, /iCloud\+ 50 GB/);
@@ -104,11 +110,19 @@ test("exports every configured app detail route", async () => {
 
 test("exports a public log for confirmed price changes", async () => {
   const html = await readPage("/changes/index.html");
+  const changeLog = JSON.parse(await readFile(new URL("../data/price-change-log.json", import.meta.url), "utf8"));
+  const entries = changeLog.entries.filter((entry) => entry.changes.length > 0);
   assert.match(html, /价格变动日志/);
   assert.match(html, /每一次价格变化/);
   assert.match(html, /已经验证并发布的价格变化/);
   assert.doesNotMatch(html, /Bark/i);
-  assert.match(html, /暂时还没有已发布的价格变动/);
+  if (entries.length) {
+    assert.doesNotMatch(html, /暂时还没有已发布的价格变动/);
+    assert.ok(html.includes(`${entries[0].changeCount} 个应用或地区有变化`));
+    assert.ok(html.includes(`/apps/${entries[0].changes[0].appId}/`));
+  } else {
+    assert.match(html, /暂时还没有已发布的价格变动/);
+  }
   assert.match(html, /服务不可用/);
   assert.match(html, /官方价格未公开/);
   assert.match(html, /解析失败/);
