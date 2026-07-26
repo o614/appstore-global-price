@@ -21,6 +21,7 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /每日自动检测 4 次/);
   assert.match(html, /价格日志/);
   assert.match(html, /© 2026 App Store 全球价格/);
+  assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
   assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
