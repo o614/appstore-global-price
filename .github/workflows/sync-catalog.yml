@@ -47,7 +47,9 @@ jobs:
         run: npm test
 
       - name: 写入任务摘要
-        run: cat .tmp/catalog-diff.md >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          node scripts/render-update-report.mjs data/validation-snapshot.json >> "$GITHUB_STEP_SUMMARY"
+          cat .tmp/catalog-diff.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: 提交自动生成的数据
         id: commit

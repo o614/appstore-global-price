@@ -26,7 +26,7 @@ jobs:
           node-version: 22
 
       - name: 抓取候选快照
-        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot.json
+        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot.json --fallback data/validation-snapshot.json
 
       - name: 校验候选快照
         run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot.json --previous data/validation-snapshot.json
@@ -36,8 +36,9 @@ jobs:
         run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot.json --json .tmp/price-diff.json --markdown .tmp/price-diff.md --github-output "$GITHUB_OUTPUT"
 
       - name: 写入任务摘要
-        if: steps.compare.outputs.changed == 'true'
-        run: cat .tmp/price-diff.md >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          node scripts/render-update-report.mjs .tmp/price-snapshot.json >> "$GITHUB_STEP_SUMMARY"
+          cat .tmp/price-diff.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: 检查是否已经提醒过
         if: steps.compare.outputs.changed == 'true'

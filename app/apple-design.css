@@ -26,10 +26,12 @@
 html { background: var(--paper); }
 
 body {
+  min-height: 100vh;
   color: var(--ink);
   background:
-    radial-gradient(circle at 78% 4%, rgba(130, 190, 255, 0.16), transparent 29rem),
+    radial-gradient(ellipse 42rem 36rem at 78% 0, rgba(130, 190, 255, 0.17), transparent 72%),
     var(--paper);
+  background-repeat: no-repeat;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -159,10 +161,6 @@ button, a { touch-action: manipulation; }
 .primary-button:hover { background: #0077ed; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.2); }
 .secondary-button { border-color: rgba(0, 0, 0, 0.1); color: #1d1d1f; background: rgba(255,255,255,.8); }
 .secondary-button:hover { border-color: rgba(0, 113, 227, 0.22); color: var(--blue); background: #fff; }
-
-.hero-stats { gap: 38px; margin-top: 56px; }
-.hero-stats strong { font-variant-numeric: tabular-nums; }
-.hero-stats span { color: var(--muted); }
 
 .hero-price-card {
   padding: 26px;
@@ -404,8 +402,6 @@ button, a { touch-action: manipulation; }
   .hero h1 { font-size: clamp(44px, 13vw, 58px); line-height: 0.98; }
   .hero-copy > p { font-size: 15px; line-height: 1.65; }
   .hero-actions { flex-direction: row; align-items: center; }
-  .hero-stats { justify-content: space-between; gap: 12px; }
-  .hero-stats strong { font-size: 20px; }
   .hero-price-card { padding: 17px; border-radius: 24px; }
 
   .coverage-note { border-radius: 18px; }

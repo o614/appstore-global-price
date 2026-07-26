@@ -2,6 +2,18 @@
   "version": 1,
   "entries": [
     {
+      "id": "39f277daadd8f469a655",
+      "publishedAt": "2026-07-26T08:02:21.258Z",
+      "changeCount": 1,
+      "changes": [
+        {
+          "type": "app-added",
+          "appId": "640199958",
+          "appName": "Apple Developer"
+        }
+      ]
+    },
+    {
       "id": "dc46e241dbc6d95ff7dc",
       "publishedAt": "2026-07-26T06:10:18.601Z",
       "changeCount": 14,

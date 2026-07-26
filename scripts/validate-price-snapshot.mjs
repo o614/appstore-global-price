@@ -29,8 +29,18 @@ if (snapshot.source !== "Apple public App Store product and service pricing page
 
 const expectedIds = catalogEntries.map((app) => app.id);
 const actualIds = snapshot.apps?.map((app) => app.id) ?? [];
-if (JSON.stringify(expectedIds) !== JSON.stringify(actualIds)) {
-  errors.push(`App IDs do not match configuration: expected ${expectedIds.join(", ")}`);
+const deferredIds = new Set(snapshot.updateReport?.deferredApps?.map((entry) => entry.appId) ?? []);
+const invalidDeferredIds = [...deferredIds].filter((id) => !expectedIds.includes(id));
+if (invalidDeferredIds.length) errors.push(`Deferred App IDs are not in configuration: ${invalidDeferredIds.join(", ")}`);
+if (previous) {
+  const deferredPublishedIds = [...deferredIds].filter((id) => previous.apps?.some((app) => app.id === id));
+  if (deferredPublishedIds.length) {
+    errors.push(`Previously published apps must use verified fallback data instead of being deferred: ${deferredPublishedIds.join(", ")}`);
+  }
+}
+const expectedPublishedIds = expectedIds.filter((id) => !deferredIds.has(id));
+if (JSON.stringify(expectedPublishedIds) !== JSON.stringify(actualIds)) {
+  errors.push(`Published App IDs do not match configuration after deferrals: expected ${expectedPublishedIds.join(", ")}`);
 }
 if (expectedRegions.length !== 20) errors.push(`Expected exactly 20 fixed regions, received ${expectedRegions.length}`);
 if (new Set(expectedRegions).size !== expectedRegions.length) errors.push("Region codes are not unique");

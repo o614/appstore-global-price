@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { extractAppleMusicPlans, getAppleMusicPageUrl } from "./apple-music-prices.mjs";
 import { extractAppleServicePlans, getAppleServicePageUrl } from "./apple-service-prices.mjs";
 import { inferCatalogGroup, normalizeCatalogEntries } from "./catalog-config.mjs";
+import { resolveRegionWithFallback } from "./update-fallback.mjs";
 
 const START_MARKER = '<script type="application/json" id="serialized-server-data">';
 const END_MARKER = "</script>";
@@ -18,6 +19,8 @@ const regionsPath = resolve(option("--regions", "data/regions.json"));
 const outputPath = resolve(option("--output", ".tmp/price-snapshot.json"));
 const reuseOption = option("--reuse");
 const reusePath = reuseOption ? resolve(reuseOption) : null;
+const fallbackOption = option("--fallback");
+const fallbackPath = fallbackOption ? resolve(fallbackOption) : reusePath;
 const concurrency = Number(option("--concurrency", "6"));
 const appStoreIntervalMs = Number(option("--app-store-interval", "300"));
 const appBatchSize = Number(option("--app-batch-size", "4"));
@@ -26,6 +29,7 @@ const catalogEntries = normalizeCatalogEntries(config.apps);
 const regionData = JSON.parse(await readFile(regionsPath, "utf8"));
 const regionCodes = regionData.regions?.map((region) => region.code) ?? [];
 const reuseSnapshot = reusePath ? JSON.parse(await readFile(reusePath, "utf8")) : null;
+const fallbackSnapshot = fallbackPath ? JSON.parse(await readFile(fallbackPath, "utf8")) : null;
 
 function delay(milliseconds) {
   return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
@@ -281,9 +285,40 @@ if (!Number.isInteger(appBatchSize) || appBatchSize < 1 || appBatchSize > 20) {
 
 await mkdir(dirname(outputPath), { recursive: true });
 console.log(`Resolving ${catalogEntries.length} fixed catalog entries...`);
-const apps = await mapLimit(catalogEntries, Math.min(concurrency, 4), fetchMetadata);
+const fallbackEvents = [];
+const deferredApps = [];
+const metadataResults = await mapLimit(catalogEntries, Math.min(concurrency, 4), async (entry) => {
+  try {
+    return { entry, app: await fetchMetadata(entry) };
+  } catch (error) {
+    const previous = fallbackSnapshot?.apps?.find((app) => app.id === entry.id);
+    if (!previous) {
+      const deferred = { appId: entry.id, reason: `metadata:${error.message}` };
+      deferredApps.push(deferred);
+      console.warn(`Deferring new App ID ${entry.id}: ${error.message}`);
+      return { entry, app: null };
+    }
+    const previousMetadata = { ...previous };
+    delete previousMetadata.regions;
+    const app = {
+      ...previousMetadata,
+      id: entry.id,
+      query: entry.query ?? previousMetadata.query,
+      group: entry.group ?? inferCatalogGroup(previousMetadata.category),
+      priceSource: entry.priceSource ?? previousMetadata.priceSource ?? "app-store",
+      service: entry.service ?? previousMetadata.service,
+      regionalAppIds: entry.regionalAppIds,
+      excludeItemNames: entry.excludeItemNames,
+    };
+    fallbackEvents.push({ appId: entry.id, reason: `metadata:${error.message}` });
+    console.warn(`Reusing verified metadata for ${entry.id}; continuing after: ${error.message}`);
+    return { entry, app };
+  }
+});
+const apps = metadataResults.map((result) => result.app).filter(Boolean);
 const regionsByApp = new Map();
 const completedAppIds = new Set();
+const deferredAppIds = new Set(deferredApps.map((entry) => entry.appId));
 const batches = Array.from(
   { length: Math.ceil(apps.length / appBatchSize) },
   (_, index) => apps.slice(index * appBatchSize, (index + 1) * appBatchSize),
@@ -297,14 +332,35 @@ for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
     `Batch ${batchIndex + 1}/${batches.length}: fetching ${regionTasks.length - reusableCount} Apple public price pages`
       + `${reusableCount ? `; reusing ${reusableCount} verified rows` : ""}...`,
   );
-  const regionResults = await mapLimit(
+  const candidateRegionResults = await mapLimit(
     regionTasks,
     concurrency,
     ({ app, region }) => reusableRegion(app, region) ?? inspectRegion(app, region),
   );
+  const regionResults = candidateRegionResults.map((candidate, index) => {
+    const task = regionTasks[index];
+    const resolved = resolveRegionWithFallback({
+      appId: task.app.id,
+      regionCode: task.region,
+      candidate,
+      fallbackSnapshot,
+    });
+    if (resolved.fallback) {
+      fallbackEvents.push(resolved.fallback);
+      console.warn(
+        `Reusing ${task.app.id}/${task.region} after ${resolved.fallback.reason}; continuing with remaining regions.`,
+      );
+    } else if (!resolved.region) {
+      deferredAppIds.add(task.app.id);
+      const deferred = { appId: task.app.id, region: task.region, reason: candidate?.status ?? "unknown-region-result" };
+      if (!deferredApps.some((entry) => entry.appId === task.app.id)) deferredApps.push(deferred);
+      console.warn(`Deferring ${task.app.id}; no verified fallback exists for ${task.region} (${deferred.reason}).`);
+    }
+    return resolved.region;
+  });
   for (const app of batch) regionsByApp.set(app.id, []);
   for (let index = 0; index < regionTasks.length; index += 1) {
-    regionsByApp.get(regionTasks[index].app.id).push(regionResults[index]);
+    if (regionResults[index]) regionsByApp.get(regionTasks[index].app.id).push(regionResults[index]);
   }
   for (const app of batch) completedAppIds.add(app.id);
 
@@ -313,13 +369,18 @@ for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
     source: "Apple public App Store product and service pricing pages",
     regions: regionCodes,
     apps: apps
-      .filter((app) => completedAppIds.has(app.id))
+      .filter((app) => completedAppIds.has(app.id) && !deferredAppIds.has(app.id))
       .map((app) => {
         const publishedApp = Object.fromEntries(
           Object.entries(app).filter(([key]) => key !== "excludeItemNames"),
         );
         return { ...publishedApp, regions: regionsByApp.get(app.id) };
       }),
+    updateReport: {
+      fallbackCount: fallbackEvents.length,
+      fallbacks: fallbackEvents,
+      deferredApps,
+    },
   };
   await writeFile(outputPath, `${JSON.stringify(checkpoint, null, 2)}\n`, "utf8");
   console.log(`Saved checkpoint with ${checkpoint.apps.length}/${apps.length} catalog entries.`);

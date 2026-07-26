@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T06:10:18.376Z",
+  "generatedAt": "2026-07-26T08:02:21.013Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -24,6 +24,3121 @@
     "id"
   ],
   "apps": [
+    {
+      "query": "Apple Developer",
+      "id": "640199958",
+      "matchedName": "Apple Developer",
+      "developer": "Apple Inc.",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f7/db/94/f7db9418-3cfc-81e8-9304-fc13ce9fabe2/AppIcon-Release-0-1x_U007epad-0-0-0-1-0-85-220-0.png/512x512bb.jpg",
+      "category": "Developer Tools",
+      "group": "Apple 服务",
+      "storeUrl": "https://apps.apple.com/us/app/apple-developer/id640199958?uo=4",
+      "priceSource": "app-store",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "¥688.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "¥28,999.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "¥52,999.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "¥34,999.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "¥10,499.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "¥70,999.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "¥718.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "¥358.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "¥2,888.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "¥358.00"
+            }
+          ]
+        },
+        {
+          "region": "us",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "$98.99"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "$3,999.99"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "$7,499.99"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "$4,999.99"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "$2,499.99"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "$9,999.99"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "$99.99"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "$49.99"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "$399.99"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "$49.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "HK$ 788.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "HK$ 31,888.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "HK$ 57,888.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "HK$ 38,888.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "HK$ 19,388.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "HK$ 77,888.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "HK$ 788.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "HK$ 393.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "HK$ 3,148.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "HK$ 393.00"
+            }
+          ]
+        },
+        {
+          "region": "tw",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "NT$3,390.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "NT$130,000.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "NT$225,000.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "NT$150,000.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "NT$75,000.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "NT$300,000.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "NT$3,250.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "NT$1,630.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "NT$13,000.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "NT$1,630.00"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "2.299.000đ"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "99.999.000đ"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "174.999.000đ"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "114.999.000đ"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "57.999.000đ"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "229.999.000đ"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "2.499.000đ"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "1.249.000đ"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "9.999.000đ"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "1.159.000đ"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "S$ 144.98"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "S$ 5,499.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "S$ 9,899.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "S$ 6,599.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "S$ 3,299.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "S$ 12,999.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "S$ 137.98"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "S$ 68.98"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "S$ 549.98"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "S$ 68.98"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "¥12,800"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "¥590,000"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "¥1,050,000"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "¥710,000"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "¥350,000"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "¥1,400,000"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "¥14,800"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "¥7,400"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "¥59,000"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "¥7,400"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "￦129,000"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "￦5,190,000"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "￦9,000,000"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "￦6,090,000"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "￦3,090,000"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "￦12,000,000"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "￦130,000"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "￦65,000"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "￦520,000"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "￦65,000"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "฿3,500.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "฿150,000.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "฿264,900.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "฿174,900.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "฿84,900.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "฿350,000.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "฿3,800.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "฿1,900.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "฿15,000.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "฿1,900.00"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "£78.99"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "£3,799.99"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "£7,299.99"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "£4,899.99"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "£2,399.99"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "£9,799.99"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "£97.99"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "£48.99"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "£379.99"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "£48.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "98,99 €"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "4.399,99 €"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "7.999,99 €"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "5.499,99 €"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "2.699,99 €"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "10.999,99 €"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "109,99 €"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "54,99 €"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "439,99 €"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "58,99 €"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "98,99 €"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "4.399,99 €"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "7.999,99 €"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "5.499,99 €"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "2.699,99 €"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "10.999,99 €"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "109,99 €"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "54,99 €"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "439,99 €"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "58,99 €"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "$118.99"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "$5,099.99"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "$10,000.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "$6,599.99"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "$3,299.99"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "$12,999.99"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "$127.99"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "$63.99"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "$509.99"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "$63.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₺649,99"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "₺149.999,00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "₺174.999,00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "₺114.999,00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "₺54.999,00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "₺234.999,00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "₺3.699,00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "₺1.839,99"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "₺14.999,99"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "₺1.099,99"
+            }
+          ]
+        },
+        {
+          "region": "au",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "$144.99"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "$6,399.99"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "$10,999.99"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "$7,799.99"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "$3,899.99"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "$14,999.99"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "$159.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "$78.99"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "$639.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "$78.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₱ 4,490.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "₱ 224,900.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "₱ 409,900.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "₱ 274,900.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "₱ 134,900.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "₱ 549,900.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "₱ 5,590.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "₱ 2,790.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "₱ 22,490.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "₱ 2,790.00"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₦ 43,900.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "₦ 3,349,000.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "₦ 3,599,000.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "₦ 2,399,000.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "₦ 1,199,000.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "₦ 4,799,000.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "₦ 83,900.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "₦ 41,900.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "₦ 334,900.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "₦ 22,900.00"
+            }
+          ]
+        },
+        {
+          "region": "in",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₹ 8,700"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "₹ 379,900"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "₹ 709,900"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "₹ 469,900"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "₹ 229,900"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "₹ 949,900"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "₹ 9,399"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "₹ 4,699"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "₹ 37,500"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "₹ 4,699"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "R$ 549,90"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "R$ 20.999,00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "R$ 37.999,00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "R$ 24.999,00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "R$ 12.499,00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "R$ 49.999,00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "R$ 529,90"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "R$ 264,90"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "R$ 2.099,90"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "R$ 264,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-textPairs",
+          "itemCount": 10,
+          "items": [
+            {
+              "name": "Apple Developer Program",
+              "price": "Rp 1,599juta"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "price": "Rp 64,999juta"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "price": "Rp 124,999juta"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "price": "Rp 83,999juta"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "price": "Rp 41,999juta"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "price": "Rp 164,999juta"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "price": "Rp 1,619juta"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "price": "Rp 809ribu"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "price": "Rp 6,499juta"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "price": "Rp 809ribu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple Music",
+      "id": "1108187390",
+      "matchedName": "Apple Music",
+      "developer": "Apple Inc.",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/31/6c/c3/316cc33a-5e7d-8902-58eb-f4e16c5d9440/music-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg",
+      "category": "Music",
+      "group": "Apple 服务",
+      "storeUrl": "https://apps.apple.com/us/app/apple-music/id1108187390?uo=4",
+      "priceSource": "apple-music",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "RMB 12"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "RMB 20"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "RMB 7"
+            }
+          ]
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "$11.99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "$19.99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "$6.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "HK$78"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "HK$128"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "HK$48"
+            }
+          ]
+        },
+        {
+          "region": "tw",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "NT$165"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "NT$295"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "NT$90"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "₫65.000"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "₫99.000"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "₫35.000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "S$11.98"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "S$20.98"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "S$6.48"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "¥1,180"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "¥1,980"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "¥680"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-apple-music-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "₩8,900"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "₩13,500"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "฿149"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "฿249"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "฿79"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "£11.99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "£19.99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "£5.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "€11,99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "€19,99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "€6,99"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "€11,99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "€19,99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "€6,99"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "$11.99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "$19.99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "$5.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "₺89,99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "₺149,99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "₺49,99"
+            }
+          ]
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "$14.99"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "$23.99"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "$7.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "₱169"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "₱279"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "₱85"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "₹139"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "₹229"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "₹69"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "R$23,90"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "R$40,90"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "R$12,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-apple-music-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple Music Individual",
+              "price": "Rp59.000"
+            },
+            {
+              "name": "Apple Music Family",
+              "price": "Rp99.000"
+            },
+            {
+              "name": "Apple Music Student",
+              "price": "Rp35.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "iCloud+",
+      "id": "apple-icloud-plus",
+      "matchedName": "iCloud+",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-icloud-plus.png",
+      "category": "Apple 服务",
+      "storeUrl": "https://support.apple.com/en-us/108047",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "icloud-plus",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "RMB 6"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "RMB 21"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "RMB 68"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "RMB 198"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "RMB 398"
+            }
+          ]
+        },
+        {
+          "region": "us",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "$0.99"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "$2.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "$9.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "$29.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "$59.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "HK$8"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "HK$23"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "HK$78"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "HK$238"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "HK$468"
+            }
+          ]
+        },
+        {
+          "region": "tw",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "NT$30"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "NT$90"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "NT$300"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "NT$900"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "NT$1790"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₫25000"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₫89000"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₫299000"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₫899000"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₫1799000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "S$1.48"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "S$3.98"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "S$13.98"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "S$42.98"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "S$84.98"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "¥180"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "¥540"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "¥1800"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "¥5500"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "¥11000"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₩1100"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₩4400"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₩14000"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₩44000"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₩88000"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "฿35"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "฿99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "฿399"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "฿1190"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "฿2390"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "£0.99"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "£2.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "£8.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "£26.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "£54.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "€0.99"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "€2.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "€9.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "€29.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "€59.99"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "€0.99"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "€2.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "€9.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "€29.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "€59.99"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "$1.29"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "$3.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "$12.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "$39.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "$79.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₺49.99"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₺169.99"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₺549.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₺1699.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₺3399.99"
+            }
+          ]
+        },
+        {
+          "region": "au",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "$1.49"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "$4.49"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "$14.99"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "$44.99"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "$89.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₱59"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₱199"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₱699"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₱1990"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₱3990"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₦1300"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₦4500"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₦14900"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₦39900"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₦66900"
+            }
+          ]
+        },
+        {
+          "region": "in",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "₹75"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "₹219"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "₹749"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "₹2999"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "₹5900"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "R$5.90"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "R$19.90"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "R$66.90"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "R$199.90"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "R$399.90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-icloud-plus-page",
+          "itemCount": 5,
+          "items": [
+            {
+              "name": "iCloud+ 50 GB",
+              "price": "Rp15000"
+            },
+            {
+              "name": "iCloud+ 200 GB",
+              "price": "Rp59000"
+            },
+            {
+              "name": "iCloud+ 2 TB",
+              "price": "Rp199000"
+            },
+            {
+              "name": "iCloud+ 6 TB",
+              "price": "Rp599000"
+            },
+            {
+              "name": "iCloud+ 12 TB",
+              "price": "Rp1199000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple One",
+      "id": "apple-one",
+      "matchedName": "Apple One",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-one.png",
+      "category": "Apple 服务",
+      "storeUrl": "https://www.apple.com/apple-one/",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "apple-one",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "$19.95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "$27.95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "$39.95"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "tw",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "NT$390"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "NT$490"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "₫239.000"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "₫279.000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "S$23.95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "S$29.95"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "¥1,350"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "¥2,500"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "₩14,900"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "₩20,900"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "฿369"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "฿449"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "£18.95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "£24.95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "£36.95"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "€19,95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "€25,95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "€34,95"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "€19,95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "€25,95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "€34,95"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "$22.95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "$30.95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "$46.95"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "$24.95"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "$34.95"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "$52.95"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "₱499"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "₱629"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "ok-apple-one-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "₹195"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "₹365"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "R$42,90"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "R$64,90"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "R$104,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-apple-one-page",
+          "itemCount": 3,
+          "items": [
+            {
+              "name": "Apple One Individual",
+              "price": "Rp149.000"
+            },
+            {
+              "name": "Apple One Family",
+              "price": "Rp199.000"
+            },
+            {
+              "name": "Apple One Premier",
+              "price": "Rp319.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple TV+",
+      "id": "apple-tv-plus",
+      "matchedName": "Apple TV+",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-tv-plus.png",
+      "category": "Apple 服务",
+      "storeUrl": "https://www.apple.com/apple-tv/",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "apple-tv-plus",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "$14.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "HK$68"
+            }
+          ]
+        },
+        {
+          "region": "tw",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "NT$390"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "₫179.000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "S$13.98"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "¥1,200"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "₩6,500"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "฿249"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "£9.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "€9,99"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "€9,99"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "$14.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "₺89,99"
+            }
+          ]
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "$15.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "₱369"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "₹99"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "R$29,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-apple-tv-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple TV+ Monthly",
+              "price": "Rp99.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple Arcade",
+      "id": "apple-arcade",
+      "matchedName": "Apple Arcade",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-arcade.webp",
+      "category": "Apple 服务",
+      "storeUrl": "https://www.apple.com/apple-arcade/",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "apple-arcade",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "$6.99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "$49.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "tw",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "NT$220"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "NT$1,690"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "₫179.000"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "₫1.199.000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "S$9.98"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "S$69.98"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "¥900"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "¥6,000"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "₩6,500"
+            }
+          ]
+        },
+        {
+          "region": "th",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "฿149"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "฿989"
+            }
+          ]
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "£6.99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "£49.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "€6,99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "€49,99"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "€6,99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "€49,99"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "$8.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "₺69,99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "₺499"
+            }
+          ]
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "$9.99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "$79.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "₱369"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "₱2,490"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "₹99"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "₹999.00"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "R$14,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-apple-arcade-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Arcade Monthly",
+              "price": "Rp99.000"
+            },
+            {
+              "name": "Apple Arcade Annual",
+              "price": "Rp699.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple Fitness+",
+      "id": "apple-fitness-plus",
+      "matchedName": "Apple Fitness+",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-fitness-plus.png",
+      "category": "Apple 服务",
+      "storeUrl": "https://www.apple.com/apple-fitness-plus/",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "apple-fitness-plus",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "$9.99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "$79.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "HK$58"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "HK$468"
+            }
+          ]
+        },
+        {
+          "region": "tw",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "NT$150"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "NT$1,190"
+            }
+          ]
+        },
+        {
+          "region": "vn",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "₫69.000"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "₫499.000"
+            }
+          ]
+        },
+        {
+          "region": "sg",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "S$9.98"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "S$79"
+            }
+          ]
+        },
+        {
+          "region": "jp",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "¥980"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "¥7,800"
+            }
+          ]
+        },
+        {
+          "region": "kr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "th",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "£9.99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "£79.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "€9,99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "€79,99"
+            }
+          ]
+        },
+        {
+          "region": "fr",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "€9,99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "€79,99"
+            }
+          ]
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "$12.99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "$99.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "$14.99"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "$119.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "₱149"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "₱1,190"
+            }
+          ]
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "₹149"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "₹999"
+            }
+          ]
+        },
+        {
+          "region": "br",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "R$29,90"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "R$149,90"
+            }
+          ]
+        },
+        {
+          "region": "id",
+          "status": "ok-apple-fitness-plus-page",
+          "itemCount": 2,
+          "items": [
+            {
+              "name": "Apple Fitness+ Monthly",
+              "price": "Rp69.000"
+            },
+            {
+              "name": "Apple Fitness+ Annual",
+              "price": "Rp399.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "Apple News+",
+      "id": "apple-news-plus",
+      "matchedName": "Apple News+",
+      "developer": "Apple Inc.",
+      "icon": "/service-icons/apple-news-plus.png",
+      "category": "Apple 服务",
+      "storeUrl": "https://www.apple.com/apple-news/",
+      "group": "Apple 服务",
+      "priceSource": "apple-service",
+      "service": "apple-news-plus",
+      "regions": [
+        {
+          "region": "cn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "us",
+          "status": "ok-apple-news-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple News+ Monthly",
+              "price": "$12.99"
+            }
+          ]
+        },
+        {
+          "region": "hk",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "tw",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "vn",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "sg",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "jp",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "kr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "th",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "gb",
+          "status": "ok-apple-news-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple News+ Monthly",
+              "price": "£12.99"
+            }
+          ]
+        },
+        {
+          "region": "de",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "fr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "ca",
+          "status": "ok-apple-news-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple News+ Monthly",
+              "price": "$16.99"
+            }
+          ]
+        },
+        {
+          "region": "tr",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "au",
+          "status": "ok-apple-news-plus-page",
+          "itemCount": 1,
+          "items": [
+            {
+              "name": "Apple News+ Monthly",
+              "price": "$19.99"
+            }
+          ]
+        },
+        {
+          "region": "ph",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "ng",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "in",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "br",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        },
+        {
+          "region": "id",
+          "status": "official-price-page-missing",
+          "itemCount": 0,
+          "items": []
+        }
+      ]
+    },
     {
       "query": "ChatGPT",
       "id": "6448311069",
@@ -4200,7 +7315,7 @@
       "id": "333903271",
       "matchedName": "X",
       "developer": "X Corp.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/77/e6/27/77e6273e-62f9-c0d5-d372-4f727676d16a/ProductionAppIcon-0-0-1x_U007emarketing-0-8-0-0-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/f3/63/6ef36335-2b31-75ae-bc96-e4b7d193ffc0/ProductionAppIcon-0-0-1x_U007emarketing-0-8-0-0-0-85-220.png/512x512bb.jpg",
       "category": "News",
       "group": "社交平台",
       "storeUrl": "https://apps.apple.com/us/app/x/id333903271?uo=4",
@@ -8252,2168 +11367,11 @@
           "itemCount": 3
         }
       ]
-    },
-    {
-      "query": "Apple Music",
-      "id": "1108187390",
-      "matchedName": "Apple Music",
-      "developer": "Apple Inc.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/31/6c/c3/316cc33a-5e7d-8902-58eb-f4e16c5d9440/music-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg",
-      "category": "Music",
-      "group": "Apple 服务",
-      "storeUrl": "https://apps.apple.com/us/app/apple-music/id1108187390?uo=4",
-      "priceSource": "apple-music",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "RMB 12"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "RMB 20"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "RMB 7"
-            }
-          ]
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "$11.99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "$19.99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "$6.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "HK$78"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "HK$128"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "HK$48"
-            }
-          ]
-        },
-        {
-          "region": "tw",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "NT$165"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "NT$295"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "NT$90"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "₫65.000"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "₫99.000"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "₫35.000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "S$11.98"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "S$20.98"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "S$6.48"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "¥1,180"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "¥1,980"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "¥680"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "ok-apple-music-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "₩8,900"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "₩13,500"
-            }
-          ]
-        },
-        {
-          "region": "th",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "฿149"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "฿249"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "฿79"
-            }
-          ]
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "£11.99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "£19.99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "£5.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "€11,99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "€19,99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "€6,99"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "€11,99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "€19,99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "€6,99"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "$11.99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "$19.99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "$5.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "₺89,99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "₺149,99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "₺49,99"
-            }
-          ]
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "$14.99"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "$23.99"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "$7.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "₱169"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "₱279"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "₱85"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "₹139"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "₹229"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "₹69"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "R$23,90"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "R$40,90"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "R$12,90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-apple-music-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple Music Individual",
-              "price": "Rp59.000"
-            },
-            {
-              "name": "Apple Music Family",
-              "price": "Rp99.000"
-            },
-            {
-              "name": "Apple Music Student",
-              "price": "Rp35.000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "iCloud+",
-      "id": "apple-icloud-plus",
-      "matchedName": "iCloud+",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-icloud-plus.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://support.apple.com/en-us/108047",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "icloud-plus",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "RMB 6"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "RMB 21"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "RMB 68"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "RMB 198"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "RMB 398"
-            }
-          ]
-        },
-        {
-          "region": "us",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "$0.99"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "$2.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "$9.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "$29.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "$59.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "HK$8"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "HK$23"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "HK$78"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "HK$238"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "HK$468"
-            }
-          ]
-        },
-        {
-          "region": "tw",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "NT$30"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "NT$90"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "NT$300"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "NT$900"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "NT$1790"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₫25000"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₫89000"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₫299000"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₫899000"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₫1799000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "S$1.48"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "S$3.98"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "S$13.98"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "S$42.98"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "S$84.98"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "¥180"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "¥540"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "¥1800"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "¥5500"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "¥11000"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₩1100"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₩4400"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₩14000"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₩44000"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₩88000"
-            }
-          ]
-        },
-        {
-          "region": "th",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "฿35"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "฿99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "฿399"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "฿1190"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "฿2390"
-            }
-          ]
-        },
-        {
-          "region": "gb",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "£0.99"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "£2.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "£8.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "£26.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "£54.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "€0.99"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "€2.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "€9.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "€29.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "€59.99"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "€0.99"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "€2.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "€9.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "€29.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "€59.99"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "$1.29"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "$3.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "$12.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "$39.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "$79.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₺49.99"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₺169.99"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₺549.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₺1699.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₺3399.99"
-            }
-          ]
-        },
-        {
-          "region": "au",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "$1.49"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "$4.49"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "$14.99"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "$44.99"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "$89.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₱59"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₱199"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₱699"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₱1990"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₱3990"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₦1300"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₦4500"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₦14900"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₦39900"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₦66900"
-            }
-          ]
-        },
-        {
-          "region": "in",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "₹75"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "₹219"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "₹749"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "₹2999"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "₹5900"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "R$5.90"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "R$19.90"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "R$66.90"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "R$199.90"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "R$399.90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-icloud-plus-page",
-          "itemCount": 5,
-          "items": [
-            {
-              "name": "iCloud+ 50 GB",
-              "price": "Rp15000"
-            },
-            {
-              "name": "iCloud+ 200 GB",
-              "price": "Rp59000"
-            },
-            {
-              "name": "iCloud+ 2 TB",
-              "price": "Rp199000"
-            },
-            {
-              "name": "iCloud+ 6 TB",
-              "price": "Rp599000"
-            },
-            {
-              "name": "iCloud+ 12 TB",
-              "price": "Rp1199000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "Apple One",
-      "id": "apple-one",
-      "matchedName": "Apple One",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-one.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://www.apple.com/apple-one/",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "apple-one",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "$19.95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "$27.95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "$39.95"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "tw",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "NT$390"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "NT$490"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "₫239.000"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "₫279.000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "S$23.95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "S$29.95"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "¥1,350"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "¥2,500"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "₩14,900"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "₩20,900"
-            }
-          ]
-        },
-        {
-          "region": "th",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "฿369"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "฿449"
-            }
-          ]
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "£18.95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "£24.95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "£36.95"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "€19,95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "€25,95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "€34,95"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "€19,95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "€25,95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "€34,95"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "$22.95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "$30.95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "$46.95"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "$24.95"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "$34.95"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "$52.95"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "₱499"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "₱629"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "ok-apple-one-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "₹195"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "₹365"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "R$42,90"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "R$64,90"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "R$104,90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-apple-one-page",
-          "itemCount": 3,
-          "items": [
-            {
-              "name": "Apple One Individual",
-              "price": "Rp149.000"
-            },
-            {
-              "name": "Apple One Family",
-              "price": "Rp199.000"
-            },
-            {
-              "name": "Apple One Premier",
-              "price": "Rp319.000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "Apple TV+",
-      "id": "apple-tv-plus",
-      "matchedName": "Apple TV+",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-tv-plus.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://www.apple.com/apple-tv/",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "apple-tv-plus",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "$14.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "HK$68"
-            }
-          ]
-        },
-        {
-          "region": "tw",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "NT$390"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "₫179.000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "S$13.98"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "¥1,200"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "₩6,500"
-            }
-          ]
-        },
-        {
-          "region": "th",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "฿249"
-            }
-          ]
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "£9.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "€9,99"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "€9,99"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "$14.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "₺89,99"
-            }
-          ]
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "$15.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "₱369"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "₹99"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "R$29,90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-apple-tv-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple TV+ Monthly",
-              "price": "Rp99.000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "Apple Arcade",
-      "id": "apple-arcade",
-      "matchedName": "Apple Arcade",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-arcade.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://www.apple.com/apple-arcade/",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "apple-arcade",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "$6.99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "$49.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "tw",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "NT$220"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "NT$1,690"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "₫179.000"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "₫1.199.000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "S$9.98"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "S$69.98"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "¥900"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "¥6,000"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "₩6,500"
-            }
-          ]
-        },
-        {
-          "region": "th",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "฿149"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "฿989"
-            }
-          ]
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "£6.99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "£49.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "€6,99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "€49,99"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "€6,99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "€49,99"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "$8.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "₺69,99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "₺499"
-            }
-          ]
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "$9.99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "$79.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "₱369"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "₱2,490"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "₹99"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "₹999.00"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "R$14,90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-apple-arcade-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Arcade Monthly",
-              "price": "Rp99.000"
-            },
-            {
-              "name": "Apple Arcade Annual",
-              "price": "Rp699.000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "Apple Fitness+",
-      "id": "apple-fitness-plus",
-      "matchedName": "Apple Fitness+",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-fitness-plus.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://www.apple.com/apple-fitness-plus/",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "apple-fitness-plus",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "$9.99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "$79.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "HK$58"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "HK$468"
-            }
-          ]
-        },
-        {
-          "region": "tw",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "NT$150"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "NT$1,190"
-            }
-          ]
-        },
-        {
-          "region": "vn",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "₫69.000"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "₫499.000"
-            }
-          ]
-        },
-        {
-          "region": "sg",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "S$9.98"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "S$79"
-            }
-          ]
-        },
-        {
-          "region": "jp",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "¥980"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "¥7,800"
-            }
-          ]
-        },
-        {
-          "region": "kr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "th",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "£9.99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "£79.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "€9,99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "€79,99"
-            }
-          ]
-        },
-        {
-          "region": "fr",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "€9,99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "€79,99"
-            }
-          ]
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "$12.99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "$99.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "$14.99"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "$119.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "₱149"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "₱1,190"
-            }
-          ]
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "₹149"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "₹999"
-            }
-          ]
-        },
-        {
-          "region": "br",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "R$29,90"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "R$149,90"
-            }
-          ]
-        },
-        {
-          "region": "id",
-          "status": "ok-apple-fitness-plus-page",
-          "itemCount": 2,
-          "items": [
-            {
-              "name": "Apple Fitness+ Monthly",
-              "price": "Rp69.000"
-            },
-            {
-              "name": "Apple Fitness+ Annual",
-              "price": "Rp399.000"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "query": "Apple News+",
-      "id": "apple-news-plus",
-      "matchedName": "Apple News+",
-      "developer": "Apple Inc.",
-      "icon": "/service-icons/apple-news-plus.png",
-      "category": "Apple 服务",
-      "storeUrl": "https://www.apple.com/apple-news/",
-      "group": "Apple 服务",
-      "priceSource": "apple-service",
-      "service": "apple-news-plus",
-      "regions": [
-        {
-          "region": "cn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "us",
-          "status": "ok-apple-news-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple News+ Monthly",
-              "price": "$12.99"
-            }
-          ]
-        },
-        {
-          "region": "hk",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "tw",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "vn",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "sg",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "jp",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "kr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "th",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "gb",
-          "status": "ok-apple-news-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple News+ Monthly",
-              "price": "£12.99"
-            }
-          ]
-        },
-        {
-          "region": "de",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "fr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "ca",
-          "status": "ok-apple-news-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple News+ Monthly",
-              "price": "$16.99"
-            }
-          ]
-        },
-        {
-          "region": "tr",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "au",
-          "status": "ok-apple-news-plus-page",
-          "itemCount": 1,
-          "items": [
-            {
-              "name": "Apple News+ Monthly",
-              "price": "$19.99"
-            }
-          ]
-        },
-        {
-          "region": "ph",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "ng",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "in",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "br",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        },
-        {
-          "region": "id",
-          "status": "official-price-page-missing",
-          "itemCount": 0,
-          "items": []
-        }
-      ]
     }
-  ]
+  ],
+  "updateReport": {
+    "fallbackCount": 0,
+    "fallbacks": [],
+    "deferredApps": []
+  }
 }

@@ -34,7 +34,7 @@ await mkdir(temporaryDirectory, { recursive: true });
 
 try {
   console.log("1/5 Fetching a candidate Apple price snapshot…");
-  const fetchArgs = ["--output", candidateSnapshot];
+  const fetchArgs = ["--output", candidateSnapshot, "--fallback", publishedSnapshot];
   if (reuseCurrent) fetchArgs.push("--reuse", publishedSnapshot);
   if (appBatchSize) fetchArgs.push("--app-batch-size", appBatchSize);
   await run("scripts/fetch-price-snapshot.mjs", fetchArgs);
