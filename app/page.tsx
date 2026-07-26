@@ -27,7 +27,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 const appDirectoryJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "App Store 应用与订阅服务全球价格目录",
+  name: "App Store 应用与订阅服务价格目录",
   numberOfItems: apps.length,
   itemListElement: apps.map((app, index) => ({
     "@type": "ListItem",
@@ -59,9 +59,9 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appDirectoryJsonLd).replace(/</g, "\\u003c") }}
       />
       <header className="site-header">
-        <Link className="brand" href="/" aria-label="App Store 全球价格首页">
+        <Link className="brand" href="/" aria-label="App Store 订阅比价首页">
           <BrandMark />
-          <span><strong>App Store</strong><small>全球价格</small></span>
+          <span><strong>App Store</strong><small>订阅比价</small></span>
         </Link>
         <nav>
           <a href="#apps">应用目录</a>
