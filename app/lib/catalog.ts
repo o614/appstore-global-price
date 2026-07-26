@@ -20,6 +20,8 @@ export type AppSnapshot = {
   developer: string;
   icon?: string;
   category?: string;
+  group?: string;
+  regionalAppIds?: Record<string, string>;
   storeUrl?: string;
   priceSource?: "app-store" | "apple-music" | "apple-service";
   service?: string;
@@ -166,12 +168,13 @@ export function getPublicItemRange(app: AppSnapshot) {
   return { min: Math.min(...counts), max: Math.max(...counts) };
 }
 
-export function getRegionStoreUrl(appId: string, regionCode: string) {
-  return `https://apps.apple.com/${regionCode}/app/id${appId}`;
+export function getRegionStoreUrl(appId: string, regionCode: string, regionalAppIds?: Record<string, string>) {
+  const resolvedAppId = regionalAppIds?.[regionCode] ?? appId;
+  return `https://apps.apple.com/${regionCode}/app/id${resolvedAppId}`;
 }
 
 export function getRegionPriceSourceUrl(app: AppSnapshot, regionCode: string) {
-  if (app.priceSource === "app-store" || !app.priceSource) return getRegionStoreUrl(app.id, regionCode);
+  if (app.priceSource === "app-store" || !app.priceSource) return getRegionStoreUrl(app.id, regionCode, app.regionalAppIds);
   const region = regionDefinitionsByCode.get(regionCode);
   if (!region) return null;
   if (app.priceSource === "apple-music") {
@@ -193,8 +196,9 @@ export function getPriceSourceCopy(app: AppSnapshot) {
   return { noun: "Apple 商品页", missing: "未公开内购", status: "无公开内购" };
 }
 
-export function getRegionStoreAppUrl(appId: string, regionCode: string) {
-  return `itms-apps://apps.apple.com/${regionCode}/app/id${appId}`;
+export function getRegionStoreAppUrl(appId: string, regionCode: string, regionalAppIds?: Record<string, string>) {
+  const resolvedAppId = regionalAppIds?.[regionCode] ?? appId;
+  return `itms-apps://apps.apple.com/${regionCode}/app/id${resolvedAppId}`;
 }
 
 export function getRegionSwitchUrl(regionCode: string) {

@@ -5,6 +5,7 @@ import {
   ArrowLeftLine,
   ArrowRightLine,
   Delete2Line,
+  DownSmallLine,
   History2Line,
   InformationLine,
   TransferHorizontalLine,
@@ -172,12 +173,19 @@ export default function ChangesPage() {
             <p>展示最近 {entries.length} 次发布记录</p>
           </div>
           <div className="change-log-list">
-            {entries.map((entry) => (
-              <article className="change-entry" key={entry.id}>
-                <header className="change-entry-header">
-                  <time dateTime={entry.publishedAt}>{formatPublishedAt(entry.publishedAt)}</time>
-                  <span>{entry.changeCount} 个应用或地区有变化</span>
-                </header>
+            {entries.map((entry, entryIndex) => (
+              <details className="change-entry" key={entry.id} open={entryIndex === 0}>
+                <summary className="change-entry-summary">
+                  <span className="change-entry-header">
+                    <time dateTime={entry.publishedAt}>{formatPublishedAt(entry.publishedAt)}</time>
+                    <span>{entry.changeCount} 个应用或地区有变化</span>
+                  </span>
+                  <span className="change-entry-action">
+                    <span className="change-entry-action-collapsed">查看详情</span>
+                    <span className="change-entry-action-expanded">收起详情</span>
+                    <DownSmallLine className="ui-icon" aria-hidden="true" />
+                  </span>
+                </summary>
                 <div className="change-entry-items">
                   {entry.changes.map((change, index) => {
                     const meta = change.region ? regionMeta[change.region] : null;
@@ -201,7 +209,7 @@ export default function ChangesPage() {
                     );
                   })}
                 </div>
-              </article>
+              </details>
             ))}
           </div>
         </section>

@@ -16,10 +16,9 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
     const keyword = query.trim().toLowerCase();
     if (!keyword) return apps;
     return apps.filter((app) =>
-      `${app.matchedName} ${app.developer} ${app.category ?? ""}`.toLowerCase().includes(keyword),
+      `${app.matchedName} ${app.developer}`.toLowerCase().includes(keyword),
     );
   }, [apps, query]);
-
   return (
     <section className="directory" id="apps">
       <div className="section-heading">
@@ -55,7 +54,6 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
                 </div>
                 <p>{app.developer}</p>
                 <div className="app-card-meta">
-                  <span>{app.category ?? "App"}</span>
                   <span>{app.coverage.verified}/{app.coverage.total} 地区</span>
                   {available && <span>{app.planCount} 个套餐</span>}
                   {app.coverage.review > 0 && <span className="meta-review">{app.coverage.review} 地区待复核</span>}

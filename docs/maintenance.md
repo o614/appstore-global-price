@@ -12,12 +12,56 @@ npm run data:update
 
 仅想查看候选结果时运行 `npm run data:fetch`，输出位于 `.tmp/price-snapshot.json`，不会覆盖网站当前数据。`npm run data:check` 用于复核已经发布的快照。
 
-## 唯一配置入口
+新增应用时优先运行：
+
+```bash
+npm run data:add
+```
+
+这个命令复用现有应用已经发布的安全数据，只抓取总表中新加入的 App，并按每批 2 个应用处理。每批完成都会写入候选快照；任务意外中断时，可把该候选快照作为 `--reuse` 输入继续，最终仍要通过完整校验才会发布。日常检查价格变化仍使用 `npm run data:update`，它会重新抓取全部应用，不能复用旧价格。
+
+## 应用总表
+
+`data/catalog-config.json` 是应用目录、分类顺序和抓取数据源的唯一总表。数组顺序就是网站的分类及卡片顺序；普通 App 最少只需写 App ID：
+
+```json
+{ "id": "6474233312" }
+```
+
+名称、开发者、高清图标、官方分类和 App Store 链接会从 Apple Lookup API 自动补齐。如果 Apple 的官方分类不适合作为本站分组，可在同一行增加可选的 `group`：
+
+```json
+{ "id": "6474233312", "group": "AI 助手" }
+```
+
+`query` 不再是普通 App 的必填字段。Apple 自有服务不是普通 App Store 内购页，仍需保留 `priceSource`、`service` 和 `metadata`。
+
+同一品牌在个别地区使用不同的官方 App ID 时，只配置已经由 Apple 官方页面确认的地区映射，不猜测其他地区：
+
+```json
+{ "id": "376510438", "regionalAppIds": { "jp": "549416492" } }
+```
+
+如果公开内购列表混有与订阅比价无关的一次性打赏项目，可按 Apple 页面上的完整名称排除：
+
+```json
+{ "id": "6474233312", "excludeItemNames": ["Give Kimi some snacks !"] }
+```
+
+排除规则只用于明显不属于订阅套餐的项目，不用于隐藏价格或补齐缺失套餐。
+
+## GitHub Actions 自动抓取
+
+提交 `data/catalog-config.json` 到 `main` 后，`应用总表自动抓取` Action 会自动运行 `npm run data:add`，按每批 2 个应用抓取新增项或特殊地区映射，校验完整静态网站，并把价格快照、汇率和价格日志提交回仓库。也可以在 GitHub Actions 页面手动运行该任务。
+
+因此日常新增 App 不需要由 Codex 执行抓取：维护总表并提交即可。全量检查所有现有应用仍使用 `手动更新 App Store 价格` Action。
+
+## 其他唯一配置入口
 
 | 维护内容 | 文件 | 说明 |
 | --- | --- | --- |
 | 固定比价地区 | `data/regions.json` | 地区名、币种、Apple storefront 与官方站点；前端、抓取、汇率、测试共用 |
-| 应用与数据源 | `data/catalog-config.json` | App ID 或 Apple 服务抓取类型 |
+| 应用、类别与数据源 | `data/catalog-config.json` | App ID、可选类别或 Apple 服务抓取类型 |
 | 套餐显示名 | `data/plan-definitions.json` | 只优化名称、周期和同名项目次序，不决定套餐是否出现 |
 | 国旗 | `public/flags/{code}.png` | 由地区代码自动定位，无需在 JSON 重复配置路径 |
 | 当前价格快照 | `data/validation-snapshot.json` | 自动生成，不手工修改 |
@@ -27,8 +71,8 @@ npm run data:update
 
 ## 新增应用
 
-1. 在 `data/catalog-config.json` 添加固定 App ID 和数据源类型。
-2. 运行 `npm run data:update`。
+1. 在 `data/catalog-config.json` 添加固定 App ID；普通 App 可以不写名称和图标。
+2. 运行 `npm run data:add`，只抓取新应用；需要全量刷新时再运行 `npm run data:update`。
 3. 运行 `npm test`，确认 20 个地区、套餐覆盖和静态详情页都通过。
 4. 仅当原始套餐名不够清楚时，再维护 `data/plan-definitions.json`。
 

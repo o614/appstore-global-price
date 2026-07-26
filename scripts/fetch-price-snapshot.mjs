@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { extractAppleMusicPlans, getAppleMusicPageUrl } from "./apple-music-prices.mjs";
 import { extractAppleServicePlans, getAppleServicePageUrl } from "./apple-service-prices.mjs";
+import { inferCatalogGroup, normalizeCatalogEntries } from "./catalog-config.mjs";
 
 const START_MARKER = '<script type="application/json" id="serialized-server-data">';
 const END_MARKER = "</script>";
@@ -19,7 +20,9 @@ const reuseOption = option("--reuse");
 const reusePath = reuseOption ? resolve(reuseOption) : null;
 const concurrency = Number(option("--concurrency", "6"));
 const appStoreIntervalMs = Number(option("--app-store-interval", "300"));
+const appBatchSize = Number(option("--app-batch-size", "4"));
 const config = JSON.parse(await readFile(configPath, "utf8"));
+const catalogEntries = normalizeCatalogEntries(config.apps);
 const regionData = JSON.parse(await readFile(regionsPath, "utf8"));
 const regionCodes = regionData.regions?.map((region) => region.code) ?? [];
 const reuseSnapshot = reusePath ? JSON.parse(await readFile(reusePath, "utf8")) : null;
@@ -141,11 +144,14 @@ function extractIap(html) {
 async function fetchMetadata(entry) {
   if (entry.metadata) {
     return {
-      query: entry.query,
+      query: entry.query ?? entry.metadata.matchedName ?? entry.id,
       id: entry.id,
       ...entry.metadata,
+      group: entry.group ?? entry.metadata.group ?? inferCatalogGroup(entry.metadata.category),
       priceSource: entry.priceSource,
       service: entry.service,
+      regionalAppIds: entry.regionalAppIds,
+      excludeItemNames: entry.excludeItemNames,
     };
   }
   const url = new URL("https://itunes.apple.com/lookup");
@@ -156,14 +162,17 @@ async function fetchMetadata(entry) {
   const result = payload.results?.find((item) => String(item.trackId) === entry.id);
   if (!result) throw new Error(`App ID ${entry.id} lookup failed`);
   return {
-    query: entry.query,
+    query: entry.query ?? result.trackName,
     id: entry.id,
     matchedName: result.trackName,
     developer: result.sellerName,
     icon: result.artworkUrl512 || result.artworkUrl100,
     category: result.primaryGenreName,
+    group: entry.group ?? inferCatalogGroup(result.primaryGenreName),
     storeUrl: result.trackViewUrl,
     priceSource: entry.priceSource ?? "app-store",
+    regionalAppIds: entry.regionalAppIds,
+    excludeItemNames: entry.excludeItemNames,
   };
 }
 
@@ -185,13 +194,16 @@ function isAppleRedirectShell(html) {
     || /['"]s-channel['"]\s*:\s*['"]redirects['"]/iu.test(html);
 }
 
-async function inspectAppStoreRegion(appId, region) {
-  const url = `https://apps.apple.com/${region}/app/id${appId}?l=en`;
+async function inspectAppStoreRegion(app, region) {
+  const regionalAppId = app.regionalAppIds?.[region] ?? app.id;
+  const url = `https://apps.apple.com/${region}/app/id${regionalAppId}?l=en`;
   try {
     const response = await request(url, { acceptedStatuses: [404] });
     if (response.status === 404) return { region, status: "error:HTTP 404", itemCount: 0, items: [] };
     const extracted = extractIap(await response.text());
-    return { region, ...extracted, itemCount: extracted.items.length };
+    const excludedNames = new Set((app.excludeItemNames ?? []).map((name) => name.toLocaleLowerCase("en-US")));
+    const items = extracted.items.filter((item) => !excludedNames.has(item.name.toLocaleLowerCase("en-US")));
+    return { region, status: extracted.status, itemCount: items.length, items };
   } catch (error) {
     return { region, status: `error:${error.message}`, itemCount: 0, items: [] };
   }
@@ -239,12 +251,13 @@ async function inspectAppleServiceRegion(app, region) {
 async function inspectRegion(app, region) {
   if (app.priceSource === "apple-music") return inspectAppleMusicRegion(region);
   if (app.priceSource === "apple-service") return inspectAppleServiceRegion(app, region);
-  return inspectAppStoreRegion(app.id, region);
+  return inspectAppStoreRegion(app, region);
 }
 
-function reusableRegion(appId, regionCode) {
+function reusableRegion(app, regionCode) {
+  if (app.excludeItemNames?.length || app.regionalAppIds?.[regionCode]) return null;
   const region = reuseSnapshot?.apps
-    ?.find((app) => app.id === appId)
+    ?.find((candidate) => candidate.id === app.id)
     ?.regions?.find((candidate) => candidate.region === regionCode);
   if (!region) return null;
   const safeEmpty = ["iap-section-missing", "official-price-page-missing", "error:HTTP 404"].includes(region.status);
@@ -252,7 +265,7 @@ function reusableRegion(appId, regionCode) {
   return safeEmpty || safePopulated ? region : null;
 }
 
-if (!Array.isArray(config.apps) || !config.apps.length || !regionCodes.length) {
+if (!regionCodes.length) {
   throw new Error("Catalog and region configuration must contain non-empty arrays");
 }
 if (new Set(regionCodes).size !== regionCodes.length) throw new Error("Region codes must be unique");
@@ -262,26 +275,54 @@ if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 20) {
 if (!Number.isFinite(appStoreIntervalMs) || appStoreIntervalMs < 0 || appStoreIntervalMs > 10_000) {
   throw new Error("App Store interval must be between 0 and 10000 milliseconds");
 }
-
-console.log(`Resolving ${config.apps.length} fixed catalog entries...`);
-const apps = await mapLimit(config.apps, Math.min(concurrency, 4), fetchMetadata);
-const regionTasks = apps.flatMap((app) => regionCodes.map((region) => ({ app, region })));
-const reusableCount = regionTasks.filter(({ app, region }) => reusableRegion(app.id, region)).length;
-console.log(`Fetching ${regionTasks.length - reusableCount} Apple public price pages with concurrency ${concurrency}${reusableCount ? `; reusing ${reusableCount} verified rows` : ""}...`);
-const regionResults = await mapLimit(regionTasks, concurrency, ({ app, region }) => reusableRegion(app.id, region) ?? inspectRegion(app, region));
-
-const regionsByApp = new Map(apps.map((app) => [app.id, []]));
-for (let index = 0; index < regionTasks.length; index += 1) {
-  regionsByApp.get(regionTasks[index].app.id).push(regionResults[index]);
+if (!Number.isInteger(appBatchSize) || appBatchSize < 1 || appBatchSize > 20) {
+  throw new Error("App batch size must be an integer between 1 and 20");
 }
 
-const snapshot = {
-  generatedAt: new Date().toISOString(),
-  source: "Apple public App Store product and service pricing pages",
-  regions: regionCodes,
-  apps: apps.map((app) => ({ ...app, regions: regionsByApp.get(app.id) })),
-};
-
 await mkdir(dirname(outputPath), { recursive: true });
-await writeFile(outputPath, `${JSON.stringify(snapshot, null, 2)}\n`, "utf8");
+console.log(`Resolving ${catalogEntries.length} fixed catalog entries...`);
+const apps = await mapLimit(catalogEntries, Math.min(concurrency, 4), fetchMetadata);
+const regionsByApp = new Map();
+const completedAppIds = new Set();
+const batches = Array.from(
+  { length: Math.ceil(apps.length / appBatchSize) },
+  (_, index) => apps.slice(index * appBatchSize, (index + 1) * appBatchSize),
+);
+
+for (let batchIndex = 0; batchIndex < batches.length; batchIndex += 1) {
+  const batch = batches[batchIndex];
+  const regionTasks = batch.flatMap((app) => regionCodes.map((region) => ({ app, region })));
+  const reusableCount = regionTasks.filter(({ app, region }) => reusableRegion(app, region)).length;
+  console.log(
+    `Batch ${batchIndex + 1}/${batches.length}: fetching ${regionTasks.length - reusableCount} Apple public price pages`
+      + `${reusableCount ? `; reusing ${reusableCount} verified rows` : ""}...`,
+  );
+  const regionResults = await mapLimit(
+    regionTasks,
+    concurrency,
+    ({ app, region }) => reusableRegion(app, region) ?? inspectRegion(app, region),
+  );
+  for (const app of batch) regionsByApp.set(app.id, []);
+  for (let index = 0; index < regionTasks.length; index += 1) {
+    regionsByApp.get(regionTasks[index].app.id).push(regionResults[index]);
+  }
+  for (const app of batch) completedAppIds.add(app.id);
+
+  const checkpoint = {
+    generatedAt: new Date().toISOString(),
+    source: "Apple public App Store product and service pricing pages",
+    regions: regionCodes,
+    apps: apps
+      .filter((app) => completedAppIds.has(app.id))
+      .map((app) => {
+        const publishedApp = Object.fromEntries(
+          Object.entries(app).filter(([key]) => key !== "excludeItemNames"),
+        );
+        return { ...publishedApp, regions: regionsByApp.get(app.id) };
+      }),
+  };
+  await writeFile(outputPath, `${JSON.stringify(checkpoint, null, 2)}\n`, "utf8");
+  console.log(`Saved checkpoint with ${checkpoint.apps.length}/${apps.length} catalog entries.`);
+}
+
 console.log(`Saved price snapshot to ${outputPath}`);

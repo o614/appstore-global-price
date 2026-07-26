@@ -15,7 +15,10 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /ChatGPT Plus/);
   assert.match(html, /应用与订阅服务/);
   assert.match(html, /浏览应用/);
-  assert.match(html, /覆盖 17 个应用与服务、20 个地区/);
+  assert.match(html, /固定地区，统一口径/);
+  assert.match(html, /应用目录与可比价范围会随官方数据更新/);
+  assert.doesNotMatch(html, /class="app-group-heading"/);
+  assert.doesNotMatch(html, /<span>(?:Productivity|Entertainment|Social Networking|Photo &amp; Video)<\/span>/);
   assert.match(html, /未上架或未公开价格的地区不参与排名/);
   assert.match(html, /<strong>20<\/strong><span>比价地区<\/span>/);
   assert.match(html, /每日自动检测 4 次/);
@@ -40,6 +43,7 @@ test("exports the price comparison homepage as static HTML", async () => {
 
 test("exports every configured app detail route", async () => {
   const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
+  const planDefinitions = JSON.parse(await readFile(new URL("../data/plan-definitions.json", import.meta.url), "utf8"));
   for (const app of snapshot.apps) {
     await stat(new URL(`../out/apps/${app.id}/index.html`, import.meta.url));
   }
@@ -63,6 +67,40 @@ test("exports every configured app detail route", async () => {
   assert.match(netflixHtml, /Netflix/);
   assert.match(netflixHtml, /363590051/);
 
+  for (const [id, name] of [
+    ["6474233312", "Kimi"],
+    ["835599320", "TikTok"],
+    ["1666653815", "HBO Max"],
+    ["317469184", "ESPN"],
+    ["1446075923", "Disney+"],
+    ["376510438", "Hulu"],
+  ]) {
+    const app = snapshot.apps.find((candidate) => candidate.id === id);
+    assert.ok(app?.matchedName.includes(name), `${name} is missing from the snapshot`);
+    await stat(new URL(`../out/apps/${id}/index.html`, import.meta.url));
+  }
+  assert.equal(snapshot.apps.some((app) => app.id === "1451784328"), false);
+  assert.equal(snapshot.apps.some((app) => app.id === "547166701"), false);
+  assert.equal(snapshot.apps.some((app) => app.id === "6737597349"), false);
+  assert.equal(snapshot.apps.some((app) => app.id === "530168168"), false);
+
+  const kimi = snapshot.apps.find((app) => app.id === "6474233312");
+  assert.ok(kimi, "Kimi is missing from the snapshot");
+  assert.equal(discoverPlans(kimi, planDefinitions["6474233312"]).length, 10);
+  const kimiItemNames = kimi.regions.flatMap((region) => region.items.map((item) => item.name));
+  for (const itemName of [
+    "Give Kimi some snacks !",
+    "Send Kimi a flower !",
+    "Grab a coffee with Kimi !",
+    "Get Kimi charged !",
+  ]) {
+    assert.equal(kimiItemNames.includes(itemName), false, `Kimi tip item should not be compared: ${itemName}`);
+  }
+
+  const hulu = snapshot.apps.find((app) => app.id === "376510438");
+  assert.equal(hulu?.regionalAppIds?.jp, "549416492");
+  assert.ok(hulu?.regions.find((region) => region.region === "jp")?.itemCount > 0, "Hulu Japan prices are missing");
+
   const claudeHtml = await readPage("/apps/6473753684/index.html");
   assert.match(claudeHtml, /Claude Usage Credits 20/);
   assert.match(claudeHtml, /Claude Usage Credits 50/);
@@ -75,7 +113,6 @@ test("exports every configured app detail route", async () => {
   assert.match(appleMusicHtml, /查看官方方案/);
 
   const grokHtml = await readPage("/apps/6670324846/index.html");
-  const planDefinitions = JSON.parse(await readFile(new URL("../data/plan-definitions.json", import.meta.url), "utf8"));
   const grok = snapshot.apps.find((app) => app.id === "6670324846");
   assert.match(grokHtml, /Extra Usage Credits 10 USD/);
   assert.match(grokHtml, /Extra Usage Credits 100 USD/);
@@ -123,6 +160,7 @@ test("exports every configured app detail route", async () => {
 test("exports a public log for confirmed price changes", async () => {
   const html = await readPage("/changes/index.html");
   const changeLog = JSON.parse(await readFile(new URL("../data/price-change-log.json", import.meta.url), "utf8"));
+  const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
   const entries = changeLog.entries.filter((entry) => entry.changes.length > 0);
   assert.match(html, /价格变动日志/);
   assert.match(html, /每一次价格变化/);
@@ -130,8 +168,14 @@ test("exports a public log for confirmed price changes", async () => {
   assert.doesNotMatch(html, /Bark/i);
   if (entries.length) {
     assert.doesNotMatch(html, /暂时还没有已发布的价格变动/);
+    assert.match(html, /<details class="change-entry" open="">/);
+    assert.match(html, /查看详情/);
+    assert.match(html, /收起详情/);
     assert.ok(html.includes(`${entries[0].changeCount} 个应用或地区有变化`));
-    assert.ok(html.includes(`/apps/${entries[0].changes[0].appId}/`));
+    assert.ok(html.includes(entries[0].changes[0].appName));
+    const currentChange = entries.flatMap((entry) => entry.changes)
+      .find((change) => snapshot.apps.some((app) => app.id === change.appId));
+    if (currentChange) assert.ok(html.includes(`/apps/${currentChange.appId}/`));
   } else {
     assert.match(html, /暂时还没有已发布的价格变动/);
   }

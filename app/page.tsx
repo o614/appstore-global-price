@@ -113,10 +113,10 @@ export default function Home() {
 
       <section className="coverage-note" aria-labelledby="coverage-note-title">
         <div>
-          <span className="eyebrow">比较范围</span>
-          <strong id="coverage-note-title">覆盖 {apps.length} 个应用与服务、{regionCount} 个地区</strong>
+          <span className="eyebrow">比较原则</span>
+          <strong id="coverage-note-title">固定地区，统一口径</strong>
         </div>
-        <p>仅展示 Apple 已公开的价格；未上架或未公开价格的地区不参与排名。人民币金额仅供参考。</p>
+        <p>应用目录与可比价范围会随官方数据更新；未上架或未公开价格的地区不参与排名。人民币金额仅供参考。</p>
       </section>
 
       <AppDirectory apps={cardApps} />
