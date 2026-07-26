@@ -4,7 +4,7 @@ import "./globals.css";
 import "./apple-design.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
-const title = "App Store 全球价格";
+const title = "App Store 订阅比价";
 const description = "比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格，按月付、年付和一次性购买分别查看。";
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "全球价格",
+    title: "订阅比价",
   },
   formatDetection: { telephone: false },
   openGraph: {
