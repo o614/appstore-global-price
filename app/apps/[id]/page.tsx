@@ -40,10 +40,26 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const app = getApp(id);
   if (!app) return {};
   const priceKind = app.priceSource === "app-store" || !app.priceSource ? "App Store 内购" : "Apple 官方订阅";
+  const title = `${app.matchedName} 全球价格｜App Store 全球价格`;
+  const description = `查看 ${app.matchedName} 在多个地区的公开${priceKind}价格。`;
+  const pageUrl = `/apps/${app.id}/`;
   return {
-    title: `${app.matchedName} 全球价格｜App Store 全球价格`,
-    description: `查看 ${app.matchedName} 在多个地区的公开${priceKind}价格。`,
-    alternates: { canonical: `/apps/${app.id}/` },
+    title,
+    description,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: pageUrl,
+      images: app.icon ? [{ url: app.icon, alt: `${app.matchedName} 图标` }] : ["/og-v2.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: app.icon ? [app.icon] : ["/og-v2.png"],
+    },
   };
 }
 
@@ -55,9 +71,32 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
   const verifiedCount = getVerifiedRegionCount(app);
   const coverage = getAppCoverage(app);
   const sourceCopy = getPriceSourceCopy(app);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "应用目录",
+        item: `${siteUrl}/#apps`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: app.matchedName,
+        item: `${siteUrl}/apps/${app.id}/`,
+      },
+    ],
+  };
 
   return (
     <main className="detail-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
       <header className="site-header detail-header">
         <Link className="brand" href="/"><BrandMark /><span><strong>App Store</strong><small>全球价格</small></span></Link>
         <Link className="back-link" href="/#apps"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回应用目录</Link>

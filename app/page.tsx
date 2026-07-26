@@ -25,6 +25,19 @@ const cardApps = apps.map((app) => ({
   verifiedCount: getVerifiedRegionCount(app),
   planCount: getPlansForApp(app).length,
 }));
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
+const appDirectoryJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "App Store 应用与订阅服务全球价格目录",
+  numberOfItems: apps.length,
+  itemListElement: apps.map((app, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: app.matchedName,
+    url: `${siteUrl}/apps/${app.id}/`,
+  })),
+};
 
 export default function Home() {
   const chatgpt = cardApps.find((app) => app.id === "6448311069")!;
@@ -44,6 +57,10 @@ export default function Home() {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appDirectoryJsonLd).replace(/</g, "\\u003c") }}
+      />
       <header className="site-header">
         <Link className="brand" href="/" aria-label="App Store 全球价格首页">
           <BrandMark />

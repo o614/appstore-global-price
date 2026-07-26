@@ -29,7 +29,10 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /href="https:\/\/290935\.xyz\/"[^>]*>更多教程<\/a>/);
   assert.match(html, /联系作者/);
   assert.match(html, /href="https:\/\/study\.bjwomen\.gov\.cn\/uploads\/2026\/07\/10\/6a50425bd9a89\.JPG"[^>]*>公众号<\/a>/);
-  assert.doesNotMatch(html, /购买服务|微信：ehpass|LINUX DO|知乎/);
+  assert.match(html, /href="https:\/\/www\.zhihu\.com\/people\/ehpass"[^>]*>知乎<\/a>/);
+  assert.match(html, /href="https:\/\/linux\.do\/u\/d\.to\/summary"[^>]*>LINUX DO<\/a>/);
+  assert.match(html, /href="https:\/\/chatbot\.weixin\.qq\.com\/webapp\/BNdgzvZEjvkaygCreiiiJvRZgFLJPy\?isFloat=false&amp;robotName=%E4%B8%8D%E8%A6%81%E8%89%BE%E7%89%B9%E6%88%91"[^>]*>联系客服<\/a>/);
+  assert.doesNotMatch(html, /购买服务|微信：ehpass|分享网站|快捷入口/);
   assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
@@ -163,12 +166,34 @@ test("exports crawler discovery files for the public site", async () => {
   const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
   const robots = await readFile(new URL("../out/robots.txt", import.meta.url), "utf8");
   const sitemap = await readFile(new URL("../out/sitemap.xml", import.meta.url), "utf8");
+  const llms = await readFile(new URL("../out/llms.txt", import.meta.url), "utf8");
 
   assert.match(robots, /Allow: \/(?:\r?\n|$)/);
+  assert.match(robots, /User-Agent: OAI-SearchBot[\s\S]*?Allow: \//);
+  assert.match(robots, /User-Agent: ChatGPT-User[\s\S]*?Allow: \//);
   assert.match(robots, /Sitemap: https:\/\/price\.290935\.xyz\/sitemap\.xml/);
   assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/price\.290935\.xyz\/changes\/<\/loc>/);
+  assert.match(llms, /^# App Store 全球价格/m);
+  assert.match(llms, /服务不可用、官方价格未公开与解析失败是三种不同状态/);
   for (const app of snapshot.apps) {
     assert.match(sitemap, new RegExp(`<loc>https://price\\.290935\\.xyz/apps/${app.id}/</loc>`));
+    assert.match(llms, new RegExp(`https://price\\.290935\\.xyz/apps/${app.id}/`));
   }
+});
+
+test("exports machine-readable structured data", async () => {
+  const snapshot = JSON.parse(await readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8"));
+  const home = await readPage("/index.html");
+  const detail = await readPage("/apps/6448311069/index.html");
+  const parseJsonLd = (html) =>
+    [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map((match) => JSON.parse(match[1]));
+
+  const homeJsonLd = parseJsonLd(home);
+  const detailJsonLd = parseJsonLd(detail);
+
+  assert.ok(homeJsonLd.some((entry) => entry["@type"] === "WebSite"));
+  assert.ok(homeJsonLd.some((entry) => entry["@type"] === "ItemList" && entry.numberOfItems === snapshot.apps.length));
+  assert.ok(detailJsonLd.some((entry) => entry["@type"] === "BreadcrumbList"));
+  assert.match(detail, /<meta property="og:url" content="https:\/\/price\.290935\.xyz\/apps\/6448311069\/"/);
 });

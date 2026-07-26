@@ -6,6 +6,15 @@ import "./apple-design.css";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 const title = "App Store 全球价格";
 const description = "比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格，按月付、年付和一次性购买分别查看。";
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: title,
+  description,
+  inLanguage: "zh-CN",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,6 +57,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }}
+        />
         <SafariShell />
         {children}
       </body>
