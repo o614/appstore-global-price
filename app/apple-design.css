@@ -394,6 +394,8 @@ button, a { touch-action: manipulation; }
     border-radius: 16px;
   }
 
+  .change-log-page > .detail-header { margin-bottom: 0; }
+
   .brand-mark { width: 32px; height: 32px; }
   .brand small { display: none; }
   .live-badge { max-width: 145px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
