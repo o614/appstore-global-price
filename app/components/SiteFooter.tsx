@@ -10,7 +10,7 @@ export function SiteFooter() {
         <section>
           <h2>价格服务</h2>
           <Link href="/#apps">应用目录</Link>
-          <Link href="/changes/">价格日志</Link>
+          <Link href="/changes/">订阅变动</Link>
           <Link href="/#method">数据说明</Link>
         </section>
 
@@ -46,7 +46,7 @@ export function SiteFooter() {
       </div>
 
       <div className="footer-legal">
-        <p className="footer-copyright">© {new Date().getFullYear()} App Store 全球价格 · 本站与 Apple Inc. 无隶属关系</p>
+        <p className="footer-copyright">© {new Date().getFullYear()} App Store 订阅比价 · 本站与 Apple Inc. 无隶属关系</p>
         <a className="footer-status-link" href={publicStatusPageUrl} target="_blank" rel="noreferrer">
           <span className="footer-status-indicator" aria-hidden="true" />
           系统状态

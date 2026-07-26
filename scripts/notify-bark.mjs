@@ -48,7 +48,7 @@ if (event === "change") {
   title = "App Store 价格数据已提交";
   body = summary?.changed
     ? `已发布 ${summary.changeCount} 个应用/地区的变化。Cloudflare Pages 将自动部署最新静态页面。`
-    : "本次检查未发现价格变化，网站数据无需更新。";
+    : "本次检查未发现订阅变动，网站数据无需更新。";
 } else {
   title = "App Store 价格任务失败";
   body = `${process.env.GITHUB_WORKFLOW ?? "价格任务"} 执行失败，请点击查看日志。`;

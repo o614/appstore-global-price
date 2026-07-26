@@ -1,4 +1,4 @@
-name: 检测 App Store 价格变化
+name: 检测 App Store 订阅变动
 
 on:
   schedule:
@@ -31,7 +31,7 @@ jobs:
       - name: 校验候选快照
         run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot.json --previous data/validation-snapshot.json
 
-      - name: 比较价格变化
+      - name: 比较订阅变动
         id: compare
         run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot.json --json .tmp/price-diff.json --markdown .tmp/price-diff.md --github-output "$GITHUB_OUTPUT"
 

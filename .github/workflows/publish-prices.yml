@@ -39,7 +39,7 @@ jobs:
           cp .tmp/price-snapshot.json data/validation-snapshot.json
           node scripts/fetch-exchange-rates.mjs --output data/exchange-rates.json
 
-      - name: 更新网站价格日志
+      - name: 更新网站订阅变动日志
         run: node scripts/update-price-change-log.mjs --diff .tmp/price-diff.json --log data/price-change-log.json
 
       - name: 安装构建依赖

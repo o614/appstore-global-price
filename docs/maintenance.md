@@ -18,7 +18,7 @@ npm run data:update
 npm run data:add
 ```
 
-这个命令复用现有应用已经发布的安全数据，只抓取总表中新加入的 App，并按每批 2 个应用处理。每批完成都会写入候选快照；任务意外中断时，可把该候选快照作为 `--reuse` 输入继续，最终仍要通过完整校验才会发布。日常检查价格变化仍使用 `npm run data:update`，它会重新抓取全部应用，不能复用旧价格。
+这个命令复用现有应用已经发布的安全数据，只抓取总表中新加入的 App，并按每批 2 个应用处理。每批完成都会写入候选快照；任务意外中断时，可把该候选快照作为 `--reuse` 输入继续，最终仍要通过完整校验才会发布。日常检查订阅变动仍使用 `npm run data:update`，它会重新抓取全部应用，不能复用旧价格。
 
 ## 应用总表
 
@@ -52,7 +52,7 @@ npm run data:add
 
 ## GitHub Actions 自动抓取
 
-提交 `data/catalog-config.json` 到 `main` 后，`应用总表自动抓取` Action 会自动运行 `npm run data:add`，按每批 2 个应用抓取新增项或特殊地区映射，校验完整静态网站，并把价格快照、汇率和价格日志提交回仓库。也可以在 GitHub Actions 页面手动运行该任务。
+提交 `data/catalog-config.json` 到 `main` 后，`应用总表自动抓取` Action 会自动运行 `npm run data:add`，按每批 2 个应用抓取新增项或特殊地区映射，校验完整静态网站，并把价格快照、汇率和订阅变动日志提交回仓库。也可以在 GitHub Actions 页面手动运行该任务。
 
 因此日常新增 App 不需要由 Codex 执行抓取：维护总表并提交即可。全量检查所有现有应用仍使用 `手动更新 App Store 价格` Action。
 

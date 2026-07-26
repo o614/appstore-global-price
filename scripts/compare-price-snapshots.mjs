@@ -134,7 +134,7 @@ const result = {
 
 const markdown = changes.length
   ? [
-      "# App Store 价格变化",
+      "# App Store 订阅变动",
       "",
       `共发现 ${changes.length} 个应用/地区发生变化。`,
       "",
@@ -151,7 +151,7 @@ const markdown = changes.length
       "",
       `检测时间：${after.generatedAt}`,
     ].join("\n")
-  : `# App Store 价格变化\n\n未发现变化。\n\n检测时间：${after.generatedAt}\n`;
+  : `# App Store 订阅变动\n\n未发现变化。\n\n检测时间：${after.generatedAt}\n`;
 
 await mkdir(dirname(jsonPath), { recursive: true });
 await mkdir(dirname(markdownPath), { recursive: true });

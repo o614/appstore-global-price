@@ -24,7 +24,7 @@ export function AppDirectory({ apps }: { apps: CardData[] }) {
       <div className="section-heading">
         <div>
           <span className="eyebrow">应用与订阅服务</span>
-          <h2>选择应用，查看全球价格</h2>
+          <h2>选择应用，比较订阅价格</h2>
         </div>
         <label className="catalog-search">
           <SearchLine className="ui-icon" aria-hidden="true" />

@@ -66,7 +66,7 @@ export default function Home() {
         <nav>
           <a href="#apps">应用目录</a>
           <a href="#method">数据说明</a>
-          <Link href="/changes/">价格日志</Link>
+          <Link href="/changes/">订阅变动</Link>
           <DataFreshness generatedAt={dataGeneratedAt} displayDate={dataUpdatedAt} />
         </nav>
       </header>
@@ -84,7 +84,7 @@ export default function Home() {
 
         <article className="hero-price-card">
           <div className="featured-app">
-            <Image src={chatgpt.icon ?? "/og.png"} alt="" width={58} height={58} priority />
+            <Image src={chatgpt.icon ?? "/icon.svg"} alt="" width={58} height={58} priority />
             <div><span>热门对比</span><h2>ChatGPT Plus</h2><p>月付套餐 · {regionCount} 个地区</p></div>
             <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价"><ExternalLinkLine className="ui-icon" aria-hidden="true" /></Link>
           </div>
@@ -108,7 +108,7 @@ export default function Home() {
           <span className="eyebrow">地区选择</span>
           <strong id="coverage-note-title">为什么固定这 20 个地区</strong>
         </div>
-        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；确认并核验过能购买和使用 Apple Gift Card；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
+        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
       </section>
 
       <AppDirectory apps={cardApps} />
@@ -122,7 +122,7 @@ export default function Home() {
         <div className="method-grid">
           <article><span>01</span><h3>确认同一应用</h3><p>各地区统一使用同一 App ID，避免同名应用混淆。</p></article>
           <article><span>02</span><h3>保留官方原币</h3><p>人民币金额按公开汇率折算，仅用于横向比较。</p></article>
-          <article><span>03</span><h3>确认更新时间</h3><p>每日自动检测 4 次；通过校验并发布后，页面快照时间与 <Link href="/changes/">价格日志</Link> 同步更新。</p></article>
+          <article><span>03</span><h3>确认更新时间</h3><p>每日自动检测 4 次；通过校验并发布后，页面快照时间与 <Link href="/changes/">订阅变动日志</Link> 同步更新。</p></article>
         </div>
       </section>
 

@@ -189,8 +189,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${app.matchedName} 全球价格`,
-          text: `${selectedPlan.label}（${selectedPlan.period}）全球价格对比`,
+          title: `${app.matchedName} 订阅比价`,
+          text: `${selectedPlan.label}（${selectedPlan.period}）订阅价格对比`,
           url: getShareUrl(),
         });
         return;
@@ -239,7 +239,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
       context.fillStyle = "#18181b";
       context.font = '600 36px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      context.fillText("App Store 全球价格", 228, 157);
+      context.fillText("App Store 订阅比价", 228, 157);
       context.fillStyle = "#77777d";
       context.font = '400 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
       context.fillText("比较 20 个地区的 Apple 官方价格", 228, 195);
@@ -325,12 +325,12 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       context.textAlign = "left";
 
       const blob = await canvasToBlob(canvas);
-      const fileName = `${app.matchedName}-${selectedPlan.label}-全球价格.png`.replace(/[\\/:*?"<>|]/g, "-");
+      const fileName = `${app.matchedName}-${selectedPlan.label}-订阅比价.png`.replace(/[\\/:*?"<>|]/g, "-");
       const file = new File([blob], fileName, { type: "image/png" });
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         try {
           await navigator.share({
-            title: `${app.matchedName} 全球价格`,
+            title: `${app.matchedName} 订阅比价`,
             text: `${selectedPlan.label}（${selectedPlan.period}）价格对比`,
             files: [file],
           });
@@ -567,7 +567,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
             </div>
 
             <div className="share-result-card">
-              <div className="share-card-brand"><BrandMark /><small>App Store 全球价格</small></div>
+              <div className="share-card-brand"><BrandMark /><small>App Store 订阅比价</small></div>
               <div className="share-card-app">
                 <AppArtwork app={app} className="share-app-artwork" size={44} />
                 <div><strong>{app.matchedName}</strong><span>{selectedPlan.label} · {selectedPlan.period}</span></div>
