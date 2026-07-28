@@ -2,6 +2,41 @@
   "version": 1,
   "entries": [
     {
+      "id": "324658753fbcc743cee9",
+      "publishedAt": "2026-07-28T05:42:40.422Z",
+      "changeCount": 2,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ng",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₦ 9,900.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "a32ea09824794aae49ff",
       "publishedAt": "2026-07-28T00:27:04.126Z",
       "changeCount": 13,

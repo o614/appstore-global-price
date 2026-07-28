@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T00:27:03.729Z",
+  "generatedAt": "2026-07-28T05:42:40.007Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3144,7 +3144,7 @@
       "id": "6448311069",
       "matchedName": "ChatGPT",
       "developer": "OpenAI OpCo, LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/02/f0/42/02f0428f-7ab7-59fa-6c9d-b386aa26db60/AppIcon-0-0-1x_U007epad-0-0-0-1-0-P3-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/59/2d/ef/592defc8-04d3-4d04-b5c0-2205f1fa0121/AppIcon-0-0-1x_U007epad-0-0-0-1-0-P3-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/chatgpt/id6448311069?uo=4",
@@ -3170,12 +3170,12 @@
               "price": "$8.00"
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "$200.00"
-            },
-            {
               "name": "ChatGPT Pro 5x",
               "price": "$100.00"
+            },
+            {
+              "name": "ChatGPT Pro 20x",
+              "price": "$200.00"
             },
             {
               "name": "100 Credits",
@@ -3423,12 +3423,12 @@
               "price": "7,99 €"
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "229,00 €"
-            },
-            {
               "name": "ChatGPT Pro 5x",
               "price": "102,99 €"
+            },
+            {
+              "name": "ChatGPT Pro 20x",
+              "price": "229,00 €"
             },
             {
               "name": "ChatGPT Plus",
@@ -4702,7 +4702,7 @@
         {
           "region": "ng",
           "status": "ok-textPairs",
-          "itemCount": 4,
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4719,6 +4719,10 @@
             {
               "name": "200 GB",
               "price": "₦ 2,900.00"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₦ 9,900.00"
             }
           ]
         },
@@ -4891,11 +4895,11 @@
               "price": "HK$ 388.00"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "Extra Usage Credits 100 USD",
               "price": "HK$ 788.00"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Lite",
               "price": "HK$ 788.00"
             }
           ]
@@ -5606,12 +5610,12 @@
               "price": "Rp 169ribu"
             },
             {
-              "name": "SuperGrok Heavy",
-              "price": "Rp 4,999juta"
-            },
-            {
               "name": "Extra Usage Credits 20 USD",
               "price": "Rp 349ribu"
+            },
+            {
+              "name": "SuperGrok Heavy",
+              "price": "Rp 4,999juta"
             },
             {
               "name": "Extra Usage Credits 100 USD",
@@ -5888,11 +5892,11 @@
               "price": "¥15,000"
             },
             {
-              "name": "Vivace",
+              "name": "Moderato Annual Pass",
               "price": "¥30,000"
             },
             {
-              "name": "Moderato Annual Pass",
+              "name": "Vivace",
               "price": "¥30,000"
             },
             {
@@ -6348,16 +6352,16 @@
               "price": "R$ 599,90"
             },
             {
+              "name": "Vivace",
+              "price": "R$ 1.299,90"
+            },
+            {
               "name": "Moderato Annual Pass",
               "price": "R$ 1.199,90"
             },
             {
               "name": "Allegretto Annual Pass",
               "price": "R$ 2.499,90"
-            },
-            {
-              "name": "Vivace",
-              "price": "R$ 1.299,90"
             },
             {
               "name": "Allegro Annual Pass",
@@ -7013,12 +7017,12 @@
               "price": "₺999,00"
             },
             {
-              "name": "150 Telegram Stars",
-              "price": "₺149,00"
-            },
-            {
               "name": "1x Telegram Premium (One Week)",
               "price": "₺59,99"
+            },
+            {
+              "name": "150 Telegram Stars",
+              "price": "₺149,00"
             },
             {
               "name": "350 Telegram Stars",
@@ -8865,7 +8869,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 9,
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8898,10 +8902,6 @@
             {
               "name": "加入JFFT永遠都唔會遲",
               "price": "HK$ 33.00"
-            },
-            {
-              "name": "Super Chat",
-              "price": "HK$ 78.00"
             }
           ]
         },
@@ -9203,12 +9203,12 @@
               "price": "2,49 €"
             },
             {
-              "name": "YouTube Premium Family",
-              "price": "38,99 €"
-            },
-            {
               "name": "Premium Lite",
               "price": "9,99 €"
+            },
+            {
+              "name": "YouTube Premium Family",
+              "price": "38,99 €"
             },
             {
               "name": "Super Chat",
@@ -9308,12 +9308,12 @@
               "price": "$51.99"
             },
             {
-              "name": "YouTube Premium Family",
-              "price": "$51.99"
-            },
-            {
               "name": "Premium Lite",
               "price": "$11.99"
+            },
+            {
+              "name": "YouTube Premium Family",
+              "price": "$51.99"
             }
           ]
         },
@@ -10039,7 +10039,7 @@
       "id": "1666653815",
       "matchedName": "HBO Max: Stream Movies & TV",
       "developer": "WarnerMedia Global Digital Services, LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/99/f1/ff/99f1ff7b-cec1-0337-4583-3f6972abfb1d/AppIcon-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f5/68/f6/f568f62c-b586-22ae-8988-34a6a0c0b914/AppIcon-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
       "category": "Entertainment",
       "group": "影音娱乐",
       "storeUrl": "https://apps.apple.com/us/app/hbo-max-stream-movies-tv/id1666653815?uo=4",
