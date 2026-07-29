@@ -97,7 +97,7 @@ export default function Home() {
           <span className="eyebrow">比较范围</span>
           <strong>为什么固定这 20 个地区</strong>
         </div>
-        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一组地区，才能让不同应用和不同时间的结果保持可比。</p>
+        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；找出低价不是目的，能够优惠订阅才是王道。</p>
       </section>
 
       <SiteFooter />

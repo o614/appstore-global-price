@@ -21,17 +21,13 @@ import {
   type AppSnapshot,
   type PlanDefinition,
 } from "../lib/catalog";
+import { detectClientKind, type ClientKind } from "../lib/client-kind.mjs";
 import { AppArtwork } from "./AppArtwork";
 import { BrandMark } from "./BrandMark";
 import { usePriceShare } from "./PriceShareContext";
 import { RegionFlag } from "./RegionFlag";
 
 const CANVAS_FONT_STACK = '"PingFang SC", "PingFang TC", "PingFang HK", -apple-system, BlinkMacSystemFont, sans-serif';
-
-function detectDeviceKind(): "ios" | "other" {
-  const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent) || isiPadDesktopMode ? "ios" : "other";
-}
 
 function roundedRect(
   context: CanvasRenderingContext2D,
@@ -100,7 +96,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
   const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
   const { isShareOpen, closeShare } = usePriceShare();
   const [selectedStoreRegion, setSelectedStoreRegion] = useState<string | null>(null);
-  const [deviceKind, setDeviceKind] = useState<"unknown" | "ios" | "other">("unknown");
+  const [clientKind, setClientKind] = useState<"unknown" | ClientKind>("unknown");
   const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
   const sourceCopy = getPriceSourceCopy(app);
@@ -343,7 +339,11 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
   function showStoreOptions(regionCode: string) {
     setShareFeedback("");
-    setDeviceKind(detectDeviceKind());
+    setClientKind(detectClientKind({
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      maxTouchPoints: navigator.maxTouchPoints,
+    }));
     setSelectedStoreRegion(regionCode);
   }
 
@@ -502,13 +502,23 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 </div>
               </div>
 
-              {deviceKind === "ios" ? (
+              {clientKind === "wechat" ? (
+                <div className="store-device-panel">
+                  <div className="store-wechat-guide" role="note">
+                    <InformationLine className="ui-icon" aria-hidden="true" />
+                    <div>
+                      <strong>请在浏览器中打开</strong>
+                      <p>点击微信右上角 ···，选择“在浏览器中打开”后再继续。</p>
+                    </div>
+                  </div>
+                </div>
+              ) : clientKind === "ios" ? (
                 <div className="store-device-panel">
                   <div className="store-jump-actions single">
                     {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>切换完成后在 App Store 粘贴搜索</small></button>}
                   </div>
                 </div>
-              ) : deviceKind === "other" ? (
+              ) : clientKind === "other" ? (
                 <div className="store-device-panel">
                   <div className="store-jump-actions single">
                     <button className="store-jump-primary" type="button" onClick={() => copyText(webUrl, "应用链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制应用链接</button>

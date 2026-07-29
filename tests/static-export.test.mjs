@@ -17,6 +17,8 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /浏览应用/);
   assert.match(html, /为什么固定这 20 个地区/);
   assert.match(html, /覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场/);
+  assert.match(html, /找出低价不是目的，能够优惠订阅才是王道/);
+  assert.doesNotMatch(html, /固定同一组地区，才能让不同应用和不同时间的结果保持可比/);
   assert.doesNotMatch(html, /class="app-group-heading"/);
   assert.doesNotMatch(html, /<span>(?:Productivity|Entertainment|Social Networking|Photo &amp; Video)<\/span>/);
   assert.doesNotMatch(html, /class="hero-stats"/);
@@ -189,6 +191,8 @@ test("uses one comparison view and keeps sharing focused", async () => {
   assert.match(priceExplorerSource, /分享图片/);
   assert.match(priceExplorerSource, /复制链接/);
   assert.match(priceExplorerSource, /quickchart\.io\/qr/);
+  assert.match(priceExplorerSource, /clientKind === "wechat"/);
+  assert.match(priceExplorerSource, /请在浏览器中打开/);
   assert.doesNotMatch(
     priceExplorerSource,
     /系统分享|扫码查看完整地区价格|当前设备不直接切换 App Store|已识别为 iPhone/,
@@ -225,9 +229,8 @@ test("exports a public log for confirmed price changes", async () => {
   } else {
     assert.match(html, /暂时还没有已发布的价格变动/);
   }
-  assert.match(html, /服务不可用/);
-  assert.match(html, /官方价格未公开/);
-  assert.match(html, /解析失败/);
+  assert.doesNotMatch(html, /状态变化也会被单独记录/);
+  assert.doesNotMatch(html, /代表不同情况。系统不会猜测国家页面/);
 });
 
 test("exports installable app metadata and home-screen icons", async () => {

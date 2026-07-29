@@ -322,6 +322,10 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 .store-account-warning p { margin: 5px 0 0; color: #796b58; font-size: 9px; line-height: 1.65; }
 .store-device-panel { margin-top: 13px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: white; }
 .store-device-panel > p { margin: 14px 0; color: var(--muted); font-size: 9px; line-height: 1.7; }
+.store-wechat-guide { display: flex; align-items: flex-start; gap: 10px; padding: 13px 14px; border: 1px solid rgba(0, 113, 227, .18); border-radius: 12px; color: #174f85; background: #eef6ff; }
+.store-wechat-guide > .ui-icon { flex: 0 0 auto; margin-top: 1px; color: var(--blue); font-size: 16px; }
+.store-wechat-guide strong { display: block; font-size: 11px; }
+.store-wechat-guide p { margin: 5px 0 0; color: #52697f; font-size: 9px; line-height: 1.65; }
 .store-jump-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .store-jump-actions button { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 42px; padding: 10px 11px; border: 1px solid #d2d8d1; border-radius: 10px; color: #424a44; background: #f9faf7; font-size: 9px; font-weight: 750; text-align: center; cursor: pointer; }
 .store-jump-actions .store-jump-primary { grid-column: 1 / -1; flex-direction: column; gap: 3px; border-color: #1c251e; color: white; background: #1c251e; }
@@ -542,11 +546,11 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 .change-log-empty h2 { margin: 8px 0 10px; font-size: 25px; letter-spacing: -.035em; }
 .change-log-empty p { max-width: 610px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
 .change-log-empty > a { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 17px; font-size: 11px; font-weight: 700; }
-.change-log-note { padding: 34px 0; border-bottom: 1px solid var(--line); }
+.change-log-note { padding: 20px 0; border-bottom: 1px solid var(--line); }
 .change-log-note h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 14px; }
 .transition-icon { font-size: 11px; }
 .change-log-note p { max-width: 700px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
-.change-log-note span { display: block; margin-top: 12px; color: var(--muted); font-size: 9px; }
+.change-log-note span { display: block; margin: 0; color: var(--muted); font-size: 9px; }
 
 @media (max-width: 760px) {
   .change-log-hero,

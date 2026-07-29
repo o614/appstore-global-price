@@ -216,8 +216,6 @@ export default function ChangesPage() {
       )}
 
       <section className="change-log-note">
-        <h2><InformationLine className="ui-icon" aria-hidden="true" />状态变化也会被单独记录</h2>
-        <p>“服务不可用”“官方价格未公开”和“解析失败”代表不同情况。系统不会猜测国家页面，也不会用其他地区的价格补齐。</p>
         <span>只保留最近 30 次正式发布记录 · 当前价格数据生成于 {formatPublishedAt(dataGeneratedAt)}</span>
       </section>
       <SiteFooter />
