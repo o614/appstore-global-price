@@ -1124,11 +1124,11 @@ button, a { touch-action: manipulation; }
 
 .custom-comparison {
   width: 100%;
-  padding-top: 40px;
+  padding-top: 56px;
   scroll-margin-top: 90px;
 }
 
-.custom-comparison > .app-hero {
+.custom-comparison.detail-page > .app-hero {
   margin-top: 0;
 }
 
