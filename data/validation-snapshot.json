@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T05:42:40.007Z",
+  "generatedAt": "2026-07-29T05:36:04.037Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3170,12 +3170,12 @@
               "price": "$8.00"
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "$100.00"
-            },
-            {
               "name": "ChatGPT Pro 20x",
               "price": "$200.00"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "price": "$100.00"
             },
             {
               "name": "100 Credits",
@@ -3288,12 +3288,12 @@
               "price": "¥1,400"
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "¥16,800"
-            },
-            {
               "name": "ChatGPT Pro 20x",
               "price": "¥30,000"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "price": "¥16,800"
             },
             {
               "name": "ChatGPT Plus",
@@ -3423,12 +3423,12 @@
               "price": "7,99 €"
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "102,99 €"
-            },
-            {
               "name": "ChatGPT Pro 20x",
               "price": "229,00 €"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "price": "102,99 €"
             },
             {
               "name": "ChatGPT Plus",
@@ -3685,12 +3685,12 @@
               "price": "$124.99"
             },
             {
-              "name": "Claude Max 20x - Monthly",
-              "price": "$249.99"
-            },
-            {
               "name": "Claude Pro - Annual",
               "price": "$214.99"
+            },
+            {
+              "name": "Claude Max 20x - Monthly",
+              "price": "$249.99"
             },
             {
               "name": "Usage Credits (20)",
@@ -4274,11 +4274,11 @@
               "price": "Rp 1,999juta"
             },
             {
-              "name": "Claude Max 20x - Monthly",
+              "name": "Claude Pro - Annual",
               "price": "Rp 3,999juta"
             },
             {
-              "name": "Claude Pro - Annual",
+              "name": "Claude Max 20x - Monthly",
               "price": "Rp 3,999juta"
             },
             {
@@ -4559,12 +4559,12 @@
               "price": "4,99 €"
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "9,99 €"
-            },
-            {
               "name": "Google AI Ultra (30 TB)",
               "price": "219,99 €"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "9,99 €"
             }
           ]
         },
@@ -4582,12 +4582,12 @@
               "price": "4,99 €"
             },
             {
-              "name": "100 GB",
-              "price": "1,99 €"
-            },
-            {
               "name": "Google AI Plus (2 TB)",
               "price": "9,99 €"
+            },
+            {
+              "name": "100 GB",
+              "price": "1,99 €"
             }
           ]
         },
@@ -4621,7 +4621,7 @@
         {
           "region": "tr",
           "status": "ok-textPairs",
-          "itemCount": 6,
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4632,20 +4632,16 @@
               "price": "₺869,99"
             },
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₺719,99"
-            },
-            {
               "name": "Google AI Plus (2 TB)",
-              "price": "₺204,99"
+              "price": "₺359,99"
             },
             {
               "name": "100 GB",
-              "price": "₺49,99"
+              "price": "₺84,99"
             },
             {
               "name": "Google AI Pro (5 TB)",
-              "price": "₺359,99"
+              "price": "₺539,99"
             }
           ]
         },
@@ -4714,15 +4710,15 @@
             },
             {
               "name": "100 GB",
-              "price": "₦ 1,900.00"
+              "price": "₦ 2,950.00"
             },
             {
               "name": "200 GB",
-              "price": "₦ 2,900.00"
+              "price": "₦ 4,400.00"
             },
             {
               "name": "Google AI Plus (2 TB)",
-              "price": "₦ 9,900.00"
+              "price": "₦ 15,000.00"
             }
           ]
         },
@@ -4748,8 +4744,8 @@
               "price": "₹ 149"
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "₹ 749"
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 4,000"
             }
           ]
         },
@@ -4895,11 +4891,11 @@
               "price": "HK$ 388.00"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Lite",
               "price": "HK$ 788.00"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "Extra Usage Credits 100 USD",
               "price": "HK$ 788.00"
             }
           ]
@@ -5525,11 +5521,11 @@
             },
             {
               "name": "SuperGrok",
-              "price": "₹ 29,000"
+              "price": "₹ 700"
             },
             {
               "name": "SuperGrok",
-              "price": "₹ 700"
+              "price": "₹ 29,000"
             },
             {
               "name": "Extra Usage Credits 50 USD",
@@ -5583,11 +5579,11 @@
               "price": "R$ 1.499,90"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Lite",
               "price": "R$ 599,90"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "Extra Usage Credits 100 USD",
               "price": "R$ 599,90"
             }
           ]
@@ -5744,12 +5740,12 @@
               "price": "HK$ 788.00"
             },
             {
-              "name": "Allegretto Annual Pass",
-              "price": "HK$ 2,888.00"
-            },
-            {
               "name": "Moderato Annual Pass",
               "price": "HK$ 1,488.00"
+            },
+            {
+              "name": "Allegretto Annual Pass",
+              "price": "HK$ 2,888.00"
             },
             {
               "name": "Vivace",
@@ -5787,16 +5783,16 @@
               "price": "NT$5,990.00"
             },
             {
-              "name": "Allegro Annual Pass",
-              "price": "NT$30,000.00"
-            },
-            {
               "name": "Vivace",
               "price": "NT$6,990.00"
             },
             {
               "name": "Allegretto Annual Pass",
               "price": "NT$12,000.00"
+            },
+            {
+              "name": "Allegro Annual Pass",
+              "price": "NT$30,000.00"
             }
           ]
         },
@@ -5892,11 +5888,11 @@
               "price": "¥15,000"
             },
             {
-              "name": "Moderato Annual Pass",
+              "name": "Vivace",
               "price": "¥30,000"
             },
             {
-              "name": "Vivace",
+              "name": "Moderato Annual Pass",
               "price": "¥30,000"
             },
             {
@@ -6005,12 +6001,12 @@
               "price": "£39.00"
             },
             {
-              "name": "Allegro",
-              "price": "£99.00"
-            },
-            {
               "name": "Vivace",
               "price": "£199.00"
+            },
+            {
+              "name": "Allegro",
+              "price": "£99.00"
             },
             {
               "name": "Moderato Annual Pass",
@@ -6126,12 +6122,12 @@
               "price": "$129.00"
             },
             {
-              "name": "Moderato Annual Pass",
-              "price": "$249.99"
-            },
-            {
               "name": "Vivace",
               "price": "$249.00"
+            },
+            {
+              "name": "Moderato Annual Pass",
+              "price": "$249.99"
             },
             {
               "name": "Allegretto Annual Pass",
@@ -6161,16 +6157,16 @@
               "price": "₺1.799,99"
             },
             {
-              "name": "Moderato Annual Pass",
-              "price": "₺7.699,99"
-            },
-            {
               "name": "Allegro",
               "price": "₺4.999,99"
             },
             {
               "name": "Vivace",
               "price": "₺8.999,99"
+            },
+            {
+              "name": "Moderato Annual Pass",
+              "price": "₺7.699,99"
             },
             {
               "name": "Allegro Annual Pass",
@@ -6231,12 +6227,12 @@
               "price": "₱ 1,190.00"
             },
             {
-              "name": "Allegro",
-              "price": "₱ 5,990.00"
-            },
-            {
               "name": "Allegretto",
               "price": "₱ 2,490.00"
+            },
+            {
+              "name": "Allegro",
+              "price": "₱ 5,990.00"
             },
             {
               "name": "Vivace",
@@ -6645,12 +6641,12 @@
               "price": "S$ 14.90"
             },
             {
-              "name": "1x Telegram Premium (One Week)",
-              "price": "S$ 1.98"
-            },
-            {
               "name": "1x Premium (3 Months)",
               "price": "S$ 19.98"
+            },
+            {
+              "name": "1x Telegram Premium (One Week)",
+              "price": "S$ 1.98"
             },
             {
               "name": "750 Telegram Stars",
@@ -6970,16 +6966,16 @@
               "price": "$21.99"
             },
             {
+              "name": "1x Telegram Premium (Three Days)",
+              "price": "$0.29"
+            },
+            {
               "name": "1000 Telegram Stars",
               "price": "$29.49"
             },
             {
               "name": "1x Telegram Premium (One Week)",
               "price": "$1.99"
-            },
-            {
-              "name": "1x Telegram Premium (Three Days)",
-              "price": "$0.29"
             },
             {
               "name": "2500 Telegram Stars",
@@ -6997,12 +6993,12 @@
           "itemCount": 10,
           "items": [
             {
-              "name": "100 Telegram Stars",
-              "price": "₺99,99"
-            },
-            {
               "name": "Telegram Premium",
               "price": "₺189,99"
+            },
+            {
+              "name": "100 Telegram Stars",
+              "price": "₺99,99"
             },
             {
               "name": "250 Telegram Stars",
@@ -7017,12 +7013,12 @@
               "price": "₺999,00"
             },
             {
-              "name": "1x Telegram Premium (One Week)",
-              "price": "₺59,99"
-            },
-            {
               "name": "150 Telegram Stars",
               "price": "₺149,00"
+            },
+            {
+              "name": "1x Telegram Premium (One Week)",
+              "price": "₺59,99"
             },
             {
               "name": "350 Telegram Stars",
@@ -7076,12 +7072,12 @@
               "price": "$87.99"
             },
             {
-              "name": "1500 Telegram Stars",
-              "price": "$52.90"
-            },
-            {
               "name": "Telegram Premium Annual",
               "price": "$59.99"
+            },
+            {
+              "name": "1500 Telegram Stars",
+              "price": "$52.90"
             }
           ]
         },
@@ -7123,12 +7119,12 @@
               "price": "₱ 639.00"
             },
             {
-              "name": "1000 Telegram Stars",
-              "price": "₱ 1,280.00"
-            },
-            {
               "name": "Telegram Premium (6 Months)",
               "price": "₱ 1,290.00"
+            },
+            {
+              "name": "1000 Telegram Stars",
+              "price": "₱ 1,280.00"
             }
           ]
         },
@@ -7512,12 +7508,12 @@
               "price": "NT$190.00"
             },
             {
-              "name": "Promote Post",
-              "price": "NT$15,000.00"
-            },
-            {
               "name": "@proudfox7788 Subscription",
               "price": "NT$150.00"
+            },
+            {
+              "name": "@SawyerMerritt Subscription",
+              "price": "NT$120.00"
             }
           ]
         },
@@ -7629,12 +7625,12 @@
               "price": "¥450"
             },
             {
-              "name": "X Premium (Annual)",
-              "price": "¥12,700"
-            },
-            {
               "name": "X Premium Plus (Monthly)",
               "price": "¥8,000"
+            },
+            {
+              "name": "X Premium (Annual)",
+              "price": "¥12,700"
             },
             {
               "name": "Promote Post",
@@ -7657,8 +7653,8 @@
               "price": "¥8,000"
             },
             {
-              "name": "Promote Post for $100",
-              "price": "¥15,000"
+              "name": "@hazuma Subscription",
+              "price": "¥700"
             }
           ]
         },
@@ -7825,12 +7821,12 @@
               "price": "107,99 €"
             },
             {
-              "name": "Promote Post",
-              "price": "10,00 €"
-            },
-            {
               "name": "@elonmusk Subscription",
               "price": "4,00 €"
+            },
+            {
+              "name": "Promote Post",
+              "price": "10,00 €"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -7880,12 +7876,12 @@
               "price": "29,00 €"
             },
             {
-              "name": "X Premium Basic (Annual)",
-              "price": "36,00 €"
-            },
-            {
               "name": "@elonmusk Subscription",
               "price": "4,00 €"
+            },
+            {
+              "name": "X Premium Basic (Annual)",
+              "price": "36,00 €"
             },
             {
               "name": "Boosted Tweet package",
@@ -8033,8 +8029,8 @@
               "price": "$80.00"
             },
             {
-              "name": "X Premium Plus (Annual)",
-              "price": "$790.00"
+              "name": "@NiallHarbison Subscription",
+              "price": "$8.00"
             }
           ]
         },
@@ -8119,12 +8115,12 @@
               "price": "₦ 1,900.00"
             },
             {
-              "name": "X Premium Basic (Annual)",
-              "price": "₦ 31,000.00"
-            },
-            {
               "name": "@renoomokri Subscription",
               "price": "₦ 3,900.00"
+            },
+            {
+              "name": "X Premium Basic (Annual)",
+              "price": "₦ 31,000.00"
             },
             {
               "name": "Boosted Tweet package",
@@ -8201,12 +8197,12 @@
               "price": "R$ 309,00"
             },
             {
-              "name": "Promote Post",
-              "price": "R$ 59,90"
-            },
-            {
               "name": "@elonmusk Subscription",
               "price": "R$ 19,90"
+            },
+            {
+              "name": "Promote Post",
+              "price": "R$ 59,90"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -8252,12 +8248,12 @@
               "price": "Rp 889ribu"
             },
             {
-              "name": "Promote Post",
-              "price": "Rp 169ribu"
-            },
-            {
               "name": "X Premium Basic (Annual)",
               "price": "Rp 325ribu"
+            },
+            {
+              "name": "Promote Post",
+              "price": "Rp 169ribu"
             },
             {
               "name": "Premium Annual Gift",
@@ -8280,7 +8276,7 @@
       "id": "835599320",
       "matchedName": "TikTok - Videos, Shop & LIVE",
       "developer": "TIKTOK PTE. LTD.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bd/2f/ee/bd2fee5f-b778-03d7-5a98-872587cb0bda/TikTok_AppIcon26-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e6/a6/d8/e6a6d8a2-8969-594e-ffd0-8f550581486c/TikTok_AppIcon26-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
       "category": "Entertainment",
       "group": "社交平台",
       "storeUrl": "https://apps.apple.com/us/app/tiktok-videos-shop-live/id835599320?uo=4",
@@ -8517,8 +8513,8 @@
               "price": "2,99 €"
             },
             {
-              "name": "350 Coins",
-              "price": "5,29 €"
+              "name": "660 Coins",
+              "price": "9,79 €"
             }
           ]
         },
@@ -8552,20 +8548,20 @@
               "price": "$1.39"
             },
             {
-              "name": "210 Coins",
-              "price": "$4.09"
-            },
-            {
               "name": "660 Coins",
               "price": "$13.49"
             },
             {
-              "name": "350 Coins",
-              "price": "$6.79"
+              "name": "210 Coins",
+              "price": "$4.09"
             },
             {
               "name": "199 Coins",
               "price": "$3.99"
+            },
+            {
+              "name": "1120 Coins",
+              "price": "$22.49"
             }
           ]
         },
@@ -8583,12 +8579,12 @@
               "price": "₺53,99"
             },
             {
-              "name": "139 Coins",
-              "price": "₺114,99"
-            },
-            {
               "name": "330 Coins",
               "price": "₺254,99"
+            },
+            {
+              "name": "139 Coins",
+              "price": "₺114,99"
             },
             {
               "name": "70 Coins",
@@ -8752,12 +8748,12 @@
               "price": "R$ 12,90"
             },
             {
-              "name": "40 coins",
-              "price": "R$ 3,90"
-            },
-            {
               "name": "130 Coins",
               "price": "R$ 12,90"
+            },
+            {
+              "name": "40 coins",
+              "price": "R$ 3,90"
             },
             {
               "name": "330 Coins",
@@ -8869,7 +8865,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 8,
+          "itemCount": 9,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8902,6 +8898,10 @@
             {
               "name": "加入JFFT永遠都唔會遲",
               "price": "HK$ 33.00"
+            },
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
             }
           ]
         },
@@ -8985,12 +8985,12 @@
               "price": "S$ 36.98"
             },
             {
-              "name": "Premium Lite",
-              "price": "S$ 10.98"
-            },
-            {
               "name": "Super Chat",
               "price": "S$ 2.98"
+            },
+            {
+              "name": "Premium Lite",
+              "price": "S$ 10.98"
             },
             {
               "name": "Super Chat",
@@ -9071,8 +9071,8 @@
               "price": "￦6,500"
             },
             {
-              "name": "Premium Lite",
-              "price": "￦10,900"
+              "name": "Super Chat",
+              "price": "￦15,000"
             }
           ]
         },
@@ -9203,16 +9203,16 @@
               "price": "2,49 €"
             },
             {
-              "name": "Premium Lite",
-              "price": "9,99 €"
-            },
-            {
               "name": "YouTube Premium Family",
               "price": "38,99 €"
             },
             {
               "name": "Super Chat",
               "price": "2,49 €"
+            },
+            {
+              "name": "Premium Lite",
+              "price": "9,99 €"
             }
           ]
         },
@@ -9308,19 +9308,19 @@
               "price": "$51.99"
             },
             {
-              "name": "Premium Lite",
-              "price": "$11.99"
-            },
-            {
               "name": "YouTube Premium Family",
               "price": "$51.99"
+            },
+            {
+              "name": "Premium Lite",
+              "price": "$11.99"
             }
           ]
         },
         {
           "region": "ph",
           "status": "ok-textPairs",
-          "itemCount": 5,
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9341,6 +9341,10 @@
             {
               "name": "YouTube Premium",
               "price": "₱ 629.00"
+            },
+            {
+              "name": "YouTube Premium Family",
+              "price": "₱ 1,190.00"
             }
           ]
         },
@@ -9378,7 +9382,7 @@
         {
           "region": "in",
           "status": "ok-textPairs",
-          "itemCount": 6,
+          "itemCount": 7,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9403,6 +9407,10 @@
             {
               "name": "Premium Lite",
               "price": "₹ 119"
+            },
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
             }
           ]
         },
@@ -9479,7 +9487,7 @@
       "id": "363590051",
       "matchedName": "Netflix",
       "developer": "Netflix, Inc.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/19/3c/f0/193cf071-6d65-5168-1845-69d679b11c94/AppIcon-0-0-1x_U007emarketing-0-11-0-sRGB-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/d0/80/dcd08068-b8dd-578a-2e6b-a6cbda39e9c9/AppIcon-0-0-1x_U007emarketing-0-11-0-sRGB-0-85-220.png/512x512bb.jpg",
       "category": "Entertainment",
       "group": "影音娱乐",
       "storeUrl": "https://apps.apple.com/us/app/netflix/id363590051?uo=4",
@@ -10039,7 +10047,7 @@
       "id": "1666653815",
       "matchedName": "HBO Max: Stream Movies & TV",
       "developer": "WarnerMedia Global Digital Services, LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f5/68/f6/f568f62c-b586-22ae-8988-34a6a0c0b914/AppIcon-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/99/f1/ff/99f1ff7b-cec1-0337-4583-3f6972abfb1d/AppIcon-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
       "category": "Entertainment",
       "group": "影音娱乐",
       "storeUrl": "https://apps.apple.com/us/app/hbo-max-stream-movies-tv/id1666653815?uo=4",
@@ -10502,12 +10510,12 @@
               "price": "HK$ 108.00"
             },
             {
-              "name": "Disney+ Standard",
-              "price": "HK$ 88.00"
-            },
-            {
               "name": "Disney+ Premium",
               "price": "HK$ 1,080.00"
+            },
+            {
+              "name": "Disney+ Standard",
+              "price": "HK$ 88.00"
             },
             {
               "name": "Disney+ Standard",
@@ -10899,10 +10907,6 @@
               "price": "¥360"
             },
             {
-              "name": "400ポイント",
-              "price": "¥480"
-            },
-            {
               "name": "1,020ポイント",
               "price": "¥1,200"
             },
@@ -10911,8 +10915,12 @@
               "price": "¥650"
             },
             {
-              "name": "100ポイント",
-              "price": "¥120"
+              "name": "500ポイント",
+              "price": "¥600"
+            },
+            {
+              "name": "400ポイント",
+              "price": "¥480"
             }
           ]
         },

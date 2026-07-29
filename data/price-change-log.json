@@ -2,6 +2,271 @@
   "version": 1,
   "entries": [
     {
+      "id": "6b7c049632920274cc49",
+      "publishedAt": "2026-07-29T05:36:04.420Z",
+      "changeCount": 13,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "beforePrice": "₺719,99",
+              "afterPrice": "₺539,99"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "beforePrice": "₺204,99",
+              "afterPrice": "₺359,99"
+            },
+            {
+              "name": "100 GB",
+              "beforePrice": "₺49,99",
+              "afterPrice": "₺84,99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₺359,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ng",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "100 GB",
+              "beforePrice": "₦ 1,900.00",
+              "afterPrice": "₦ 2,950.00"
+            },
+            {
+              "name": "200 GB",
+              "beforePrice": "₦ 2,900.00",
+              "afterPrice": "₦ 4,400.00"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "beforePrice": "₦ 9,900.00",
+              "afterPrice": "₦ 15,000.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 4,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₹ 749"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@SawyerMerritt Subscription",
+              "price": "NT$120.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Promote Post",
+              "price": "NT$15,000.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@hazuma Subscription",
+              "price": "¥700"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Promote Post for $100",
+              "price": "¥15,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@NiallHarbison Subscription",
+              "price": "$8.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "$790.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "835599320",
+          "appName": "TikTok - Videos, Shop & LIVE",
+          "region": "fr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "660 Coins",
+              "price": "9,79 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "350 Coins",
+              "price": "5,29 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "835599320",
+          "appName": "TikTok - Videos, Shop & LIVE",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "1120 Coins",
+              "price": "$22.49"
+            }
+          ],
+          "removed": [
+            {
+              "name": "350 Coins",
+              "price": "$6.79"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Super Chat",
+              "price": "￦15,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Premium Lite",
+              "price": "￦10,900"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "ph",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "YouTube Premium Family",
+              "price": "₱ 1,190.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "376510438",
+          "appName": "Hulu: Stream TV shows & movies",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "500ポイント",
+              "price": "¥600"
+            }
+          ],
+          "removed": [
+            {
+              "name": "100ポイント",
+              "price": "¥120"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "324658753fbcc743cee9",
       "publishedAt": "2026-07-28T05:42:40.422Z",
       "changeCount": 2,
