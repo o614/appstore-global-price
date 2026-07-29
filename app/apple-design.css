@@ -1123,53 +1123,13 @@ button, a { touch-action: manipulation; }
 }
 
 .custom-comparison {
+  width: 100%;
   padding-top: 54px;
   scroll-margin-top: 90px;
 }
 
-.custom-app-summary {
-  display: grid;
-  align-items: center;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 22px;
-  padding: 28px;
-  border: 1px solid rgba(0, 0, 0, 0.065);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.05);
-}
-
-.custom-app-icon {
-  width: 88px;
-  height: 88px;
-  border-radius: 21px;
-}
-
-.custom-app-summary h2 {
-  margin: 8px 0 5px;
-  font-size: clamp(28px, 4vw, 40px);
-  letter-spacing: -0.045em;
-}
-
-.custom-app-summary p {
-  margin: 0 0 10px;
-  color: var(--muted);
-}
-
-.custom-app-summary small {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.custom-comparison-heading {
-  margin: 78px 0 28px;
-}
-
-.custom-comparison-heading h2 {
-  margin-top: 11px;
-  font-size: clamp(34px, 4vw, 50px);
-  line-height: 1.02;
-  letter-spacing: -0.048em;
+.custom-comparison > .app-hero {
+  margin-top: 0;
 }
 
 @media (max-width: 860px) {
@@ -1323,28 +1283,6 @@ button, a { touch-action: manipulation; }
     min-height: 88px;
     padding: 15px;
     border-radius: 19px;
-  }
-
-  .custom-app-summary {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 16px;
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .custom-app-summary > button {
-    grid-column: 1 / -1;
-    justify-self: start;
-  }
-
-  .custom-app-icon {
-    width: 68px;
-    height: 68px;
-    border-radius: 17px;
-  }
-
-  .custom-comparison-heading {
-    margin-top: 58px;
   }
 
   html[data-browser="safari"] .home-page .site-header {

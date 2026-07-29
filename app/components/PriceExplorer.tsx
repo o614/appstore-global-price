@@ -3,11 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   CloseLine,
-  ExternalLinkLine,
   InformationLine,
   LinkLine,
   PicLine,
-  ShareForwardLine,
   WarningLine,
 } from "@mingcute/react";
 import {
@@ -27,6 +25,8 @@ import { AppArtwork } from "./AppArtwork";
 import { BrandMark } from "./BrandMark";
 import { usePriceShare } from "./PriceShareContext";
 import { RegionFlag } from "./RegionFlag";
+
+const CANVAS_FONT_STACK = '"PingFang SC", "PingFang TC", "PingFang HK", -apple-system, BlinkMacSystemFont, sans-serif';
 
 function detectDeviceKind(): "ios" | "other" {
   const isiPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
@@ -78,31 +78,21 @@ function loadCanvasImage(src: string) {
   });
 }
 
-function getQuickChartQrUrl(value: string) {
-  const url = new URL("https://quickchart.io/qr");
-  url.search = new URLSearchParams({
-    text: value,
-    size: "320",
-    margin: "2",
-    dark: "18181b",
-    light: "ffffff",
-    ecLevel: "M",
-  }).toString();
-  return url.toString();
-}
-
-async function loadQuickChartQr(value: string) {
-  const response = await fetch(getQuickChartQrUrl(value), {
+async function loadRemoteCanvasImage(src: string) {
+  const response = await fetch(src, {
+    cache: "no-store",
     credentials: "omit",
     mode: "cors",
     referrerPolicy: "no-referrer",
   });
-  if (!response.ok) throw new Error(`QuickChart returned ${response.status}`);
+  if (!response.ok) throw new Error(`Unable to load ${src}`);
   const objectUrl = URL.createObjectURL(await response.blob());
   try {
-    return await loadCanvasImage(objectUrl);
-  } finally {
+    const image = await loadCanvasImage(objectUrl);
+    return { image, objectUrl };
+  } catch (error) {
     URL.revokeObjectURL(objectUrl);
+    throw error;
   }
 }
 
@@ -185,33 +175,9 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
     }
   }
 
-  async function shareResult() {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `${app.matchedName} 订阅比价`,
-          text: `${selectedPlan.label}（${selectedPlan.period}）订阅价格对比`,
-          url: getShareUrl(),
-        });
-        return;
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") return;
-      }
-    }
-    await copyText(getShareUrl(), "链接已复制");
-  }
-
   async function shareImage() {
     setShareFeedback("正在生成图片…");
     try {
-      const shareUrl = getShareUrl();
-      let qrCode: HTMLImageElement | null = null;
-      try {
-        qrCode = await loadQuickChartQr(shareUrl);
-      } catch {
-        // QuickChart 暂时不可用时，仍然生成不带二维码的完整分享图。
-      }
-
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
       canvas.height = 1350;
@@ -219,14 +185,20 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       if (!context) throw new Error("Canvas is unavailable");
 
       const gradient = context.createLinearGradient(0, 0, 1080, 1350);
-      gradient.addColorStop(0, "#f7f7f9");
-      gradient.addColorStop(1, "#eceff4");
+      gradient.addColorStop(0, "#f7f8fa");
+      gradient.addColorStop(1, "#eef2f7");
       context.fillStyle = gradient;
       context.fillRect(0, 0, canvas.width, canvas.height);
 
+      context.shadowColor = "rgba(31, 42, 55, 0.12)";
+      context.shadowBlur = 42;
+      context.shadowOffsetY = 18;
       context.fillStyle = "#ffffff";
       roundedRect(context, 64, 64, 952, 1222, 48);
       context.fill();
+      context.shadowColor = "transparent";
+      context.shadowBlur = 0;
+      context.shadowOffsetY = 0;
 
       try {
         const brandIcon = await loadCanvasImage("/icon.svg");
@@ -238,10 +210,10 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       }
 
       context.fillStyle = "#18181b";
-      context.font = '600 36px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `600 36px ${CANVAS_FONT_STACK}`;
       context.fillText("App Store 订阅比价", 228, 157);
       context.fillStyle = "#77777d";
-      context.font = '400 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `400 24px ${CANVAS_FONT_STACK}`;
       context.fillText("比较 20 个地区的 Apple 官方价格", 228, 195);
 
       context.strokeStyle = "#e7e7eb";
@@ -252,53 +224,56 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       context.stroke();
 
       context.fillStyle = "#77777d";
-      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `500 24px ${CANVAS_FONT_STACK}`;
       context.fillText("当前比价", 112, 312);
       context.fillStyle = "#18181b";
-      context.font = '650 52px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `650 52px ${CANVAS_FONT_STACK}`;
       context.fillText(fitCanvasText(context, app.matchedName, 856), 112, 378);
       context.fillStyle = "#55555b";
-      context.font = '500 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `500 30px ${CANVAS_FONT_STACK}`;
       context.fillText(fitCanvasText(context, `${selectedPlan.label} · ${selectedPlan.period}`, 856), 112, 428);
 
-      context.fillStyle = "#f3f8ff";
+      context.fillStyle = "#f1f7ff";
       roundedRect(context, 112, 482, 856, 236, 34);
       context.fill();
       context.fillStyle = "#68717c";
-      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `500 24px ${CANVAS_FONT_STACK}`;
       context.fillText("参考折算最低", 154, 545);
       context.fillStyle = "#15171a";
-      context.font = '650 76px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `650 76px ${CANVAS_FONT_STACK}`;
       context.fillText(lowest ? `¥${lowest.cny?.toFixed(2)}` : "暂无完整数据", 154, 642);
       context.fillStyle = "#4f5965";
-      context.font = '500 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `500 28px ${CANVAS_FONT_STACK}`;
       const lowestRegion = lowest ? regionMeta[lowest.region.region].name : "当前套餐可比地区不足";
       context.fillText(`${lowestRegion}${lowest ? ` · ${ranked.length} 个地区可比` : ""}`, 154, 687);
 
       context.fillStyle = "#77777d";
-      context.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      context.font = `500 24px ${CANVAS_FONT_STACK}`;
       context.fillText("价格前三", 112, 786);
 
       ranked.slice(0, 3).forEach((row, index) => {
         const meta = regionMeta[row.region.region];
-        const top = 822 + index * 112;
-        context.fillStyle = index === 0 ? "#ffe60f" : "#f1f1f3";
+        const top = 822 + index * 102;
+        context.fillStyle = "#f7f7f9";
+        roundedRect(context, 112, top, 856, 92, 22);
+        context.fill();
+        context.fillStyle = index === 0 ? "#dceeff" : "#e9e9ed";
         context.beginPath();
         context.arc(142, top + 39, 24, 0, Math.PI * 2);
         context.fill();
-        context.fillStyle = "#36363a";
-        context.font = '600 23px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.fillStyle = index === 0 ? "#0071e3" : "#606066";
+        context.font = `600 23px ${CANVAS_FONT_STACK}`;
         context.textAlign = "center";
         context.fillText(String(index + 1), 142, top + 48);
         context.textAlign = "left";
         context.fillStyle = "#202024";
-        context.font = '600 31px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.font = `600 31px ${CANVAS_FONT_STACK}`;
         context.fillText(meta.name, 188, top + 35);
         context.fillStyle = "#77777d";
-        context.font = '500 23px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.font = `500 23px ${CANVAS_FONT_STACK}`;
         context.fillText(`${row.item?.price} ${meta.currency}`, 188, top + 69);
         context.fillStyle = "#202024";
-        context.font = '600 32px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        context.font = `600 32px ${CANVAS_FONT_STACK}`;
         context.textAlign = "right";
         context.fillText(`¥${row.cny?.toFixed(2)}`, 930, top + 54);
         context.textAlign = "left";
@@ -310,18 +285,26 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       context.lineTo(968, 1128);
       context.stroke();
 
-      context.fillStyle = "#74747a";
-      context.font = '400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      context.fillText("扫码查看完整地区价格", 112, 1171);
-      context.fillText(new URL(shareUrl).host, 112, 1213);
-      context.fillText(`价格快照 ${dataUpdatedAt} · 人民币仅供参考`, 112, 1255);
-
-      if (qrCode) {
-        context.fillStyle = "#ffffff";
-        roundedRect(context, 808, 1134, 160, 144, 20);
-        context.fill();
-        context.drawImage(qrCode, 820, 1142, 136, 136);
+      try {
+        const qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(getShareUrl())}&size=260&margin=1&ecLevel=M&format=png`;
+        const { image: qrImage, objectUrl } = await loadRemoteCanvasImage(qrUrl);
+        try {
+          context.fillStyle = "#ffffff";
+          roundedRect(context, 816, 1140, 144, 144, 18);
+          context.fill();
+          context.drawImage(qrImage, 824, 1148, 128, 128);
+        } finally {
+          URL.revokeObjectURL(objectUrl);
+        }
+      } catch {
+        // QR generation is optional; a temporary third-party outage must not block image sharing.
       }
+
+      context.fillStyle = "#74747a";
+      context.font = `400 22px ${CANVAS_FONT_STACK}`;
+      context.fillText(`价格快照 ${dataUpdatedAt}`, 112, 1194);
+      context.font = `400 20px ${CANVAS_FONT_STACK}`;
+      context.fillText("人民币金额仅供参考", 112, 1238);
       context.textAlign = "left";
 
       const blob = await canvasToBlob(canvas);
@@ -449,8 +432,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 <tr key={row.region.region}>
                   <td className="col-rank"><span className={index === 0 ? "rank first" : "rank"}>{index + 1}</span></td>
                   <td className="col-region">{app.priceSource !== "app-store" && sourceUrl
-                    ? <a className="region-name region-store-link" href={sourceUrl} target="_blank" rel="noreferrer" title={`查看${meta.name} Apple 官方方案`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></a>
-                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} title={`查看${meta.name} App Store 跳转方式`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></button>}</td>
+                    ? <a className="region-name region-store-link" href={sourceUrl} target="_blank" rel="noreferrer" aria-label={`打开${meta.name}官方价格页`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}</span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} aria-label={`打开${meta.name}区 App Store`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}</span></button>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
@@ -484,8 +467,8 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                 <tr className="muted-row" key={row.region.region}>
                   <td className="col-rank">—</td>
                   <td className="col-region">{canOpenStore ? (app.priceSource !== "app-store"
-                    ? <a className="region-name region-store-link" href={sourceUrl ?? undefined} target="_blank" rel="noreferrer"><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看官方方案 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></a>
-                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}<small>查看跳转方式 <ExternalLinkLine className="ui-icon" aria-hidden="true" /></small></span></button>) : <span className="region-name"><RegionFlag code={row.region.region} name={meta.name} size="regular" />{meta.name}</span>}</td>
+                    ? <a className="region-name region-store-link" href={sourceUrl ?? undefined} target="_blank" rel="noreferrer" aria-label={`打开${meta.name}官方价格页`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}</span></a>
+                    : <button className="region-name region-store-link" type="button" onClick={() => showStoreOptions(row.region.region)} aria-label={`打开${meta.name}区 App Store`}><RegionFlag code={row.region.region} name={meta.name} size="regular" /><span>{meta.name}</span></button>) : <span className="region-name"><RegionFlag code={row.region.region} name={meta.name} size="regular" />{meta.name}</span>}</td>
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="col-original muted-detail">{detail}</td>
                   <td className="col-cny"><span className={statusClass}>{shortStatus}</span></td>
@@ -521,14 +504,12 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
               {deviceKind === "ios" ? (
                 <div className="store-device-panel">
-                  <p>已识别为 iPhone / iPad。点击后会复制应用名称，并打开 Apple 的地区切换页。</p>
                   <div className="store-jump-actions single">
                     {switchUrl && <button className="store-jump-primary" type="button" onClick={() => copyAppNameAndSwitch(switchUrl)}><strong>复制 {app.query} 并切换到{meta.name}区</strong><small>切换完成后在 App Store 粘贴搜索</small></button>}
                   </div>
                 </div>
               ) : deviceKind === "other" ? (
                 <div className="store-device-panel">
-                  <p>当前设备不直接切换 App Store，可复制这个地区的应用链接。</p>
                   <div className="store-jump-actions single">
                     <button className="store-jump-primary" type="button" onClick={() => copyText(webUrl, "应用链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制应用链接</button>
                   </div>
@@ -576,8 +557,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
             <p className="share-dialog-note"><InformationLine className="ui-icon" aria-hidden="true" />分享内容会保留当前套餐和周期；人民币为汇率参考，实际扣款以对应地区 App Store 为准。</p>
             <div className="share-dialog-actions">
-              <button type="button" className="share-primary" onClick={shareResult}><ShareForwardLine className="ui-icon" aria-hidden="true" />系统分享</button>
-              <button type="button" onClick={shareImage}><PicLine className="ui-icon" aria-hidden="true" />分享图片</button>
+              <button type="button" className="share-primary" onClick={shareImage}><PicLine className="ui-icon" aria-hidden="true" />分享图片</button>
               <button type="button" onClick={() => copyText(getShareUrl(), "链接已复制")}><LinkLine className="ui-icon" aria-hidden="true" />复制链接</button>
             </div>
             <div className="share-feedback" role="status" aria-live="polite">{shareFeedback}</div>

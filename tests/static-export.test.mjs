@@ -69,7 +69,8 @@ test("exports every configured app detail route", async () => {
   assert.doesNotMatch(html, /Apple 已验证|参考最低<\/span><\/td>/);
   assert.doesNotMatch(html, /日汇率折算/);
   assert.match(html, /分享比价/);
-  assert.match(html, /查看跳转方式/);
+  assert.doesNotMatch(html, /查看跳转方式|查看官方方案/);
+  assert.doesNotMatch(html, /当前设备不直接切换 App Store|已识别为 iPhone|系统分享|扫码查看完整地区价格/);
 
   const netflixHtml = await readPage("/apps/363590051/index.html");
   const netflix = snapshot.apps.find((app) => app.id === "363590051");
@@ -124,7 +125,7 @@ test("exports every configured app detail route", async () => {
   assert.match(appleMusicHtml, /Apple Music 个人方案/);
   assert.match(appleMusicHtml, /Apple Music 家庭方案/);
   assert.match(appleMusicHtml, /Apple Music 学生方案/);
-  assert.match(appleMusicHtml, /查看官方方案/);
+  assert.doesNotMatch(appleMusicHtml, /查看官方方案/);
 
   const grokHtml = await readPage("/apps/6670324846/index.html");
   const grok = snapshot.apps.find((app) => app.id === "6670324846");
@@ -169,6 +170,31 @@ test("exports every configured app detail route", async () => {
     assert.equal(snapshot.apps.find((app) => app.id === id)?.icon, icon);
     await stat(new URL(`../public${icon}`, import.meta.url));
   }
+});
+
+test("uses one comparison view and keeps sharing focused", async () => {
+  const priceExplorerSource = await readFile(
+    new URL("../app/components/PriceExplorer.tsx", import.meta.url),
+    "utf8",
+  );
+  const curatedDetailSource = await readFile(
+    new URL("../app/apps/[id]/page.tsx", import.meta.url),
+    "utf8",
+  );
+  const customSearchSource = await readFile(
+    new URL("../app/components/CustomAppSearch.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(priceExplorerSource, /分享图片/);
+  assert.match(priceExplorerSource, /复制链接/);
+  assert.match(priceExplorerSource, /quickchart\.io\/qr/);
+  assert.doesNotMatch(
+    priceExplorerSource,
+    /系统分享|扫码查看完整地区价格|当前设备不直接切换 App Store|已识别为 iPhone/,
+  );
+  assert.match(curatedDetailSource, /AppComparisonView/);
+  assert.match(customSearchSource, /AppComparisonView/);
 });
 
 test("exports a public log for confirmed price changes", async () => {

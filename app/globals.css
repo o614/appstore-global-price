@@ -8,8 +8,9 @@
   --green-dark: #1d6731;
   --green-soft: #e7f7e9;
   --violet: #8d7af0;
-  --font-geist-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-pingfang: "PingFang SC", "PingFang TC", "PingFang HK", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
+  --font-geist-sans: var(--font-pingfang);
+  --font-geist-mono: var(--font-pingfang);
 }
 
 * { box-sizing: border-box; }
@@ -18,8 +19,15 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-pingfang);
 }
+html,
+body,
+body *,
+button,
+input,
+textarea,
+select { font-family: var(--font-pingfang) !important; }
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
 .ui-icon { width: 1.35em; height: 1.35em; flex: none; color: currentColor; opacity: .72; }
@@ -234,9 +242,8 @@ footer p { margin: 0; color: var(--muted); font-size: 10px; }
 .region-name { display: flex; align-items: center; gap: 9px; }
 button.region-name { padding: 0; border: 0; color: inherit; background: transparent; text-align: left; cursor: pointer; }
 .region-name b { font-size: 18px; }
-.region-name > span { display: flex; flex-direction: column; gap: 2px; }
-.region-name small { color: #7b8b7e; font-size: 8px; }
-.region-store-link:hover > span { color: var(--green-dark); }
+.region-name > span { display: inline; }
+.region-store-link:hover > span { color: var(--blue); }
 .store-count { font-family: var(--font-geist-mono); white-space: nowrap; }
 .original-price, .cny-price { font-family: var(--font-geist-mono); }
 .original-price small { color: var(--muted); font-size: 9px; }
@@ -273,13 +280,14 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 }
 .share-result-card {
   position: relative; margin-top: 20px; padding: 20px; overflow: hidden; border-radius: 18px;
-  color: white; background: linear-gradient(145deg, #142218 0%, #1c3423 58%, #35412f 100%);
-  box-shadow: 0 18px 38px rgba(23,43,27,.18);
+  color: #1d1d1f; border: 1px solid rgba(0,0,0,.06);
+  background: linear-gradient(145deg, #fff 0%, #f7f9fc 100%);
+  box-shadow: 0 18px 38px rgba(38,52,70,.1);
 }
-.share-result-card::after { content: ""; position: absolute; width: 240px; height: 240px; right: -90px; top: -120px; border-radius: 50%; background: rgba(121,217,140,.2); pointer-events: none; }
+.share-result-card::after { content: ""; position: absolute; width: 240px; height: 240px; right: -90px; top: -120px; border-radius: 50%; background: rgba(0,113,227,.1); filter: blur(10px); pointer-events: none; }
 .share-card-brand { position: relative; z-index: 1; display: flex; align-items: center; gap: 9px; }
 .share-card-brand .brand-mark { width: 30px; height: 30px; border-radius: 9px; font-size: 9px; }
-.share-card-brand small { color: #c9d6ca; font-size: 9px; }
+.share-card-brand small { color: #6e6e73; font-size: 9px; }
 .share-card-app { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-top: 18px; }
 .share-card-app img { width: 44px; height: 44px; border-radius: 11px; box-shadow: 0 7px 15px rgba(0,0,0,.22); }
 .share-app-artwork { width: 44px; height: 44px; border-radius: 11px; }
@@ -287,18 +295,18 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 .share-app-artwork strong { font-size: 8px; }
 .share-card-app div { display: flex; flex-direction: column; gap: 4px; }
 .share-card-app strong { font-size: 15px; }
-.share-card-app span { color: #b8c5b9; font-size: 9px; }
-.share-card-lowest { position: relative; z-index: 1; margin: 20px 0 14px; padding: 16px; border-radius: 13px; background: rgba(255,255,255,.08); }
-.share-card-lowest span { display: block; color: #a7d7af; font-size: 8px; font-weight: 700; }
+.share-card-app span { color: #6e6e73; font-size: 9px; }
+.share-card-lowest { position: relative; z-index: 1; margin: 20px 0 14px; padding: 16px; border-radius: 13px; background: #eef6ff; }
+.share-card-lowest span { display: block; color: #58616d; font-size: 8px; font-weight: 700; }
 .share-card-lowest strong { display: block; margin: 5px 0 2px; font-family: var(--font-geist-mono); font-size: 30px; letter-spacing: -.05em; }
-.share-card-lowest small { color: #d3ddd4; font-size: 9px; }
+.share-card-lowest small { color: #4d5865; font-size: 9px; }
 .share-card-ranking { position: relative; z-index: 1; display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
-.share-card-ranking li { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 8px 9px; border-radius: 9px; background: rgba(255,255,255,.055); font-size: 9px; }
+.share-card-ranking li { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 8px 9px; border-radius: 9px; background: rgba(0,0,0,.028); font-size: 9px; }
 .share-card-ranking b { font-family: var(--font-geist-mono); font-weight: 600; }
-.share-card-ranking em { min-width: 57px; color: #aee4b6; font-family: var(--font-geist-mono); font-style: normal; text-align: right; }
-.share-result-card > p { position: relative; z-index: 1; margin: 13px 0 0; color: #9fac9f; font-size: 8px; }
+.share-card-ranking em { min-width: 57px; color: var(--blue); font-family: var(--font-geist-mono); font-style: normal; text-align: right; }
+.share-result-card > p { position: relative; z-index: 1; margin: 13px 0 0; color: #77777d; font-size: 8px; }
 .share-dialog-note { display: flex; align-items: flex-start; gap: 7px; margin: 15px 2px; color: var(--muted); font-size: 9px; line-height: 1.6; }
-.share-dialog-actions { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 8px; }
+.share-dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .share-dialog-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px; border: 1px solid #d3d8d1; border-radius: 10px; color: #424a44; background: white; font-size: 10px; font-weight: 700; cursor: pointer; }
 .share-dialog-actions button:hover { border-color: #aab3aa; }
 .share-dialog-actions .share-primary { border-color: #1c251e; color: white; background: #1c251e; }
@@ -308,7 +316,7 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
 .store-account-warning > .ui-icon { margin-top: 1px; font-size: 16px; opacity: .82; }
 .store-account-warning strong { display: block; font-size: 11px; }
 .store-account-warning p { margin: 5px 0 0; color: #796b58; font-size: 9px; line-height: 1.65; }
-.store-device-panel { margin-top: 13px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+.store-device-panel { margin-top: 13px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: white; }
 .store-device-panel > p { margin: 14px 0; color: var(--muted); font-size: 9px; line-height: 1.7; }
 .store-jump-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .store-jump-actions button { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 42px; padding: 10px 11px; border: 1px solid #d2d8d1; border-radius: 10px; color: #424a44; background: #f9faf7; font-size: 9px; font-weight: 750; text-align: center; cursor: pointer; }
@@ -395,13 +403,11 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
   .price-table td { font-size: 11px; }
   .region-name { min-width: 0; gap: 7px; }
   .region-name b { font-size: 16px; }
-  .region-name small { display: none; }
   .cny-price { font-size: 12px !important; }
   .share-dialog-backdrop { align-items: end; padding: 0; }
   .share-dialog { width: 100%; max-height: calc(100vh - 12px); padding: 20px 16px max(14px, env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; }
   .share-dialog-header h2 { font-size: 21px; }
   .share-dialog-actions { grid-template-columns: 1fr 1fr; }
-  .share-dialog-actions .share-primary { grid-column: 1 / -1; }
 }
 
 @media (max-width: 390px) {

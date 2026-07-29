@@ -3,11 +3,9 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { SearchLine } from "@mingcute/react";
 import type { AppSnapshot } from "../lib/catalog";
-import { getAppCoverage } from "../lib/catalog";
 import { discoverPlans } from "../lib/plan-discovery.mjs";
+import { AppComparisonView } from "./AppComparisonView";
 import { AppArtwork } from "./AppArtwork";
-import { PriceExplorer } from "./PriceExplorer";
-import { PriceShareProvider } from "./PriceShareContext";
 
 type SearchResult = {
   appId: string;
@@ -47,10 +45,18 @@ export function CustomAppSearch() {
     () => comparison ? discoverPlans(comparison.app, []) : [],
     [comparison],
   );
-  const coverage = useMemo(
-    () => comparison ? getAppCoverage(comparison.app) : null,
-    [comparison],
-  );
+  const comparisonDisplayDate = useMemo(() => {
+    if (!comparison) return "";
+    return new Intl.DateTimeFormat("zh-CN", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(new Date(comparison.generatedAt));
+  }, [comparison]);
 
   async function runSearch(value: string) {
     const normalized = value.trim();
@@ -118,86 +124,73 @@ export function CustomAppSearch() {
   }, []);
 
   return (
-    <section className="custom-search-workspace" aria-label="自定义应用比价">
-      <div className="custom-search-panel">
-        <form className="custom-search-form" onSubmit={submit}>
-          <label>
-            <SearchLine className="ui-icon" aria-hidden="true" />
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.currentTarget.value)}
-              placeholder="应用名称、App ID 或 App Store 链接"
-              autoComplete="off"
-              enterKeyHint="search"
-              aria-label="搜索 App"
-            />
-          </label>
-          <button type="submit" disabled={searching}>
-            {searching ? "正在搜索…" : "搜索"}
-          </button>
-        </form>
-      </div>
-
-      {error && <p className="custom-search-error" role="status">{error}</p>}
-
-      {!!results.length && !comparison && (
-        <div className="custom-search-results" aria-label="应用搜索结果">
-          {results.map((result) => (
-            <button
-              key={result.appId}
-              type="button"
-              className="custom-search-result"
-              onClick={() => void compare(result)}
-              disabled={Boolean(comparingId)}
-            >
-              <AppArtwork
-                app={{
-                  id: result.appId,
-                  query: result.appName,
-                  matchedName: result.appName,
-                  developer: result.developer,
-                  icon: result.icon ?? undefined,
-                  regions: [],
-                }}
-                className="custom-result-icon"
-                size={58}
+    <>
+      <section className="custom-search-workspace" aria-label="自定义应用比价">
+        <div className="custom-search-panel">
+          <form className="custom-search-form" onSubmit={submit}>
+            <label>
+              <SearchLine className="ui-icon" aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.currentTarget.value)}
+                placeholder="应用名称、App ID 或 App Store 链接"
+                autoComplete="off"
+                enterKeyHint="search"
+                aria-label="搜索 App"
               />
-              <span>
-                <strong>{result.appName}</strong>
-                <small>{result.developer || `App ID ${result.appId}`}</small>
-              </span>
-              <em>{comparingId === result.appId ? "正在比较 20 区…" : "比较"}</em>
+            </label>
+            <button type="submit" disabled={searching}>
+              {searching ? "正在搜索…" : "搜索"}
             </button>
-          ))}
+          </form>
         </div>
-      )}
 
-      {comparison && coverage && (
-        <section className="custom-comparison" id="custom-comparison">
-          <div className="custom-app-summary">
-            <AppArtwork app={comparison.app} className="custom-app-icon" size={88} />
-            <div>
-              <span className="eyebrow">20 区临时查询</span>
-              <h2>{comparison.app.matchedName}</h2>
-              <p>{comparison.app.developer}</p>
-              <small>
-                App ID {comparison.app.id} · {coverage.verified}/{comparison.regionCount} 个地区有公开价格
-                {coverage.review > 0 ? ` · ${coverage.review} 个地区待复核` : ""}
-              </small>
-            </div>
-            <button type="button" onClick={() => setComparison(null)}>更换应用</button>
-          </div>
+        {error && <p className="custom-search-error" role="status">{error}</p>}
 
-          <div className="custom-comparison-heading">
-            <span className="eyebrow">订阅比价</span>
-            <h2>选择套餐，查看各地区价格</h2>
+        {!!results.length && !comparison && (
+          <div className="custom-search-results" aria-label="应用搜索结果">
+            {results.map((result) => (
+              <button
+                key={result.appId}
+                type="button"
+                className="custom-search-result"
+                onClick={() => void compare(result)}
+                disabled={Boolean(comparingId)}
+              >
+                <AppArtwork
+                  app={{
+                    id: result.appId,
+                    query: result.appName,
+                    matchedName: result.appName,
+                    developer: result.developer,
+                    icon: result.icon ?? undefined,
+                    regions: [],
+                  }}
+                  className="custom-result-icon"
+                  size={58}
+                />
+                <span>
+                  <strong>{result.appName}</strong>
+                  <small>{result.developer || `App ID ${result.appId}`}</small>
+                </span>
+                <em>{comparingId === result.appId ? "正在比较 20 区…" : "比较"}</em>
+              </button>
+            ))}
           </div>
-          <PriceShareProvider>
-            <PriceExplorer app={comparison.app} plans={plans} />
-          </PriceShareProvider>
+        )}
+      </section>
+
+      {comparison && (
+        <section className="custom-comparison detail-page" id="custom-comparison">
+          <AppComparisonView
+            app={comparison.app}
+            plans={plans}
+            generatedAt={comparison.generatedAt}
+            displayDate={comparisonDisplayDate}
+          />
         </section>
       )}
-    </section>
+    </>
   );
 }
