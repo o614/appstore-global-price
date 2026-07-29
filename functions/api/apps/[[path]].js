@@ -305,11 +305,44 @@ async function lookupRegion(appId, region, fetchImpl) {
   }
 }
 
+async function lookupAppStorePage(appId, region, fetchImpl) {
+  const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
+  try {
+    const response = await appleRequest(requestedUrl, fetchImpl, [404]);
+    const resolvedUrl = response.url || requestedUrl;
+    if (response.status === 404 || !new URL(resolvedUrl).pathname.includes(`id${appId}`)) return null;
+    const metadata = extractAppStorePage(
+      await readTextWithLimit(response, MAX_APP_PAGE_BYTES),
+    ).metadata;
+    if (!metadata) return null;
+    return {
+      appId,
+      appName: metadata.matchedName,
+      developer: metadata.developer,
+      icon: metadata.icon,
+      storeUrl: resolvedUrl,
+      sourceRegion: region.code,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function searchAppleApps(query, fetchImpl = fetch) {
   const directId = parseAppId(query);
   let regionalResults;
   if (directId) {
-    regionalResults = await mapLimit(REGIONS, 5, (region) => lookupRegion(directId, region, fetchImpl));
+    const preferredRegions = ["us", "cn", "jp", "hk", "gb"]
+      .map((code) => REGIONS.find((region) => region.code === code))
+      .filter(Boolean);
+    regionalResults = await mapLimit(
+      preferredRegions,
+      5,
+      (region) => lookupAppStorePage(directId, region, fetchImpl),
+    );
+    if (!regionalResults.some(Boolean)) {
+      regionalResults = await mapLimit(REGIONS, 5, (region) => lookupRegion(directId, region, fetchImpl));
+    }
   } else {
     const searchTargets = [
       { regionCode: "us", platform: "iphone" },

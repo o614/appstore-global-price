@@ -162,6 +162,25 @@ test("search de-duplicates regional Apple results", async () => {
   assert.equal(results[0].appName, "Example App");
 });
 
+test("direct App ID search falls back to the official App Store page", async () => {
+  const fetchImpl = async (input) => {
+    const url = new URL(input);
+    if (url.hostname === "apps.apple.com" && url.pathname === `/us/app/id${appId}`) {
+      return response(appPageHtml(), { url: String(url) });
+    }
+    if (url.hostname === "apps.apple.com") {
+      return response("not found", { status: 404, url: String(url) });
+    }
+    return response(JSON.stringify({ resultCount: 0, results: [] }), { url: String(url) });
+  };
+
+  const results = await searchAppleApps(appId, fetchImpl);
+  assert.equal(results.length, 1);
+  assert.equal(results[0].appId, appId);
+  assert.equal(results[0].appName, "Example App");
+  assert.equal(results[0].sourceRegion, "us");
+});
+
 test("one regional failure does not stop the remaining comparison", async () => {
   const fetchImpl = async (input) => {
     const url = new URL(input);
