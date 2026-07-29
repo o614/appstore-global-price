@@ -195,6 +195,9 @@ test("uses one comparison view and keeps sharing focused", async () => {
   );
   assert.match(curatedDetailSource, /AppComparisonView/);
   assert.match(customSearchSource, /AppComparisonView/);
+  assert.match(customSearchSource, /searchParams\.set\("app", appId\)/);
+  assert.match(customSearchSource, /searchParams\.get\("app"\)/);
+  assert.match(customSearchSource, /searchParams\.delete\("app"\)/);
 });
 
 test("exports a public log for confirmed price changes", async () => {

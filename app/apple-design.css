@@ -802,6 +802,13 @@ button, a { touch-action: manipulation; }
     0 12px 30px rgba(42, 53, 68, 0.07);
 }
 
+.home-page .catalog-search input {
+  min-width: 0;
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .home-page .app-grid {
   gap: 12px;
 }

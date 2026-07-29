@@ -65,6 +65,13 @@ export function CustomAppSearch() {
       return;
     }
 
+    const url = new URL(window.location.href);
+    url.searchParams.set("q", normalized);
+    url.searchParams.delete("app");
+    url.searchParams.delete("plan");
+    url.hash = "";
+    window.history.replaceState(null, "", url);
+
     setSearching(true);
     setError("");
     setComparison(null);
@@ -76,9 +83,6 @@ export function CustomAppSearch() {
       if (!response.ok) throw new Error(messageFromResponse(payload, "搜索暂时不可用"));
       setResults(payload.results);
       if (!payload.results.length) setError("没有找到匹配应用，可尝试输入 App ID 或完整 App Store 链接。");
-      const url = new URL(window.location.href);
-      url.searchParams.set("q", normalized);
-      window.history.replaceState(null, "", url);
     } catch (searchError) {
       setResults([]);
       setError(searchError instanceof Error ? searchError.message : "搜索暂时不可用");
@@ -87,15 +91,22 @@ export function CustomAppSearch() {
     }
   }
 
-  async function compare(result: SearchResult) {
-    setComparingId(result.appId);
+  async function compare(appId: string) {
+    setComparingId(appId);
     setError("");
     try {
-      const response = await fetch(`/api/apps/compare/${result.appId}`, {
+      const response = await fetch(`/api/apps/compare/${appId}`, {
         headers: { accept: "application/json" },
       });
       const payload = await response.json() as ComparePayload;
       if (!response.ok) throw new Error(messageFromResponse(payload, "比价暂时不可用"));
+
+      const url = new URL(window.location.href);
+      url.searchParams.set("q", payload.app.matchedName);
+      url.searchParams.set("app", appId);
+      window.history.replaceState(null, "", url);
+
+      setQuery(payload.app.matchedName);
       setComparison(payload);
       window.requestAnimationFrame(() => {
         document.getElementById("custom-comparison")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -115,10 +126,15 @@ export function CustomAppSearch() {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      const initialQuery = new URL(window.location.href).searchParams.get("q")?.trim() ?? "";
-      if (!initialQuery) return;
-      setQuery(initialQuery);
-      void runSearch(initialQuery);
+      const url = new URL(window.location.href);
+      const initialQuery = url.searchParams.get("q")?.trim() ?? "";
+      const initialAppId = url.searchParams.get("app")?.trim() ?? "";
+      if (initialQuery) setQuery(initialQuery);
+      if (/^\d{5,}$/.test(initialAppId)) {
+        void compare(initialAppId);
+      } else if (initialQuery) {
+        void runSearch(initialQuery);
+      }
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
@@ -159,7 +175,7 @@ export function CustomAppSearch() {
                 key={result.appId}
                 type="button"
                 className="custom-search-result"
-                onClick={() => void compare(result)}
+                onClick={() => void compare(result.appId)}
                 disabled={Boolean(comparingId)}
               >
                 <AppArtwork
