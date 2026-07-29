@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   AddCircleLine,
-  ArrowLeftLine,
   ArrowRightLine,
   Delete2Line,
   DownSmallLine,
@@ -11,9 +10,9 @@ import {
   TransferHorizontalLine,
 } from "@mingcute/react";
 import changeLogData from "../../data/price-change-log.json";
-import { BrandMark } from "../components/BrandMark";
 import { RegionFlag } from "../components/RegionFlag";
 import { SiteFooter } from "../components/SiteFooter";
+import { SiteHeader } from "../components/SiteHeader";
 import { apps, dataGeneratedAt, regionMeta } from "../lib/catalog";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
@@ -140,17 +139,7 @@ export default function ChangesPage() {
 
   return (
     <main className="change-log-page">
-      <header className="site-header detail-header">
-        <Link className="brand" href="/" aria-label="App Store 订阅比价首页">
-          <BrandMark />
-          <span><strong>App Store</strong><small>订阅比价</small></span>
-        </Link>
-        <nav>
-          <Link href="/#apps">应用目录</Link>
-          <Link href="/changes/" aria-current="page">订阅变动</Link>
-          <Link className="back-link" href="/"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回首页</Link>
-        </nav>
-      </header>
+      <SiteHeader active="changes" />
 
       <section className="change-log-hero">
         <span className="eyebrow">SUBSCRIPTION CHANGE LOG</span>

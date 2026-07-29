@@ -439,7 +439,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
               <th className="col-items">地区公开项目</th>
               <th className="col-original">Apple 当前标价</th>
               <th className="col-cny">人民币参考</th>
-              <th className="col-status">状态</th>
             </tr>
           </thead>
           <tbody>
@@ -455,7 +454,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="original-price col-original">{row.item?.price} <small>{meta.currency}</small></td>
                   <td className="cny-price col-cny">¥{row.cny?.toFixed(2)}</td>
-                  <td className="col-status">{index === 0 ? <span className="best-pill">参考最低</span> : <span className="verified-pill">Apple 已验证</span>}</td>
                 </tr>
               );
             })}
@@ -481,15 +479,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   : evidenceState === "verified"
                     ? "未提供"
                     : "待复核";
-              const rankStatus = isOfficialPriceMissing
-                ? "无公开价格"
-                : evidenceState === "unavailable"
-                ? "未上架"
-                : evidenceState === "not-public"
-                  ? "无公开内购"
-                  : evidenceState === "verified"
-                    ? "未参与排名"
-                    : "等待复核";
               const statusClass = evidenceState === "review" ? "review-pill" : evidenceState === "not-public" ? "not-public-pill" : "unavailable-pill";
               return (
                 <tr className="muted-row" key={row.region.region}>
@@ -500,7 +489,6 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
                   <td className="col-items"><span className="store-count">{row.region.itemCount} 项</span></td>
                   <td className="col-original muted-detail">{detail}</td>
                   <td className="col-cny"><span className={statusClass}>{shortStatus}</span></td>
-                  <td className="col-status"><span className={statusClass}>{rankStatus}</span></td>
                 </tr>
               );
             })}

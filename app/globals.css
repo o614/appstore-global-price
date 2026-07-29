@@ -227,9 +227,8 @@ footer p { margin: 0; color: var(--muted); font-size: 10px; }
 .price-table .col-rank { width: 72px; }
 .price-table .col-region { width: 25%; }
 .price-table .col-items { width: 16%; }
-.price-table .col-original { width: 20%; }
-.price-table .col-cny { width: 16%; }
-.price-table .col-status { width: 17%; }
+.price-table .col-original { width: 27%; }
+.price-table .col-cny { width: 18%; }
 .rank { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; background: #eef0ec; font-family: var(--font-geist-mono); font-size: 10px; }
 .rank.first { color: #185d2a; background: #c9f1d0; }
 .region-name { display: flex; align-items: center; gap: 9px; }
@@ -344,10 +343,6 @@ button.region-name { padding: 0; border: 0; color: inherit; background: transpar
   .lowest-card { grid-column: span 2; }
   .detail-notes { grid-template-columns: 1fr; }
   .detail-notes article + article { border-left: 0; border-top: 1px solid var(--line); }
-}
-
-@media (max-width: 1099px) {
-  .price-table .col-status { display: none; }
 }
 
 @media (max-width: 859px) {

@@ -2,14 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightLine, ExternalLinkLine } from "@mingcute/react";
 import { AppDirectory } from "./components/AppDirectory";
-import { BrandMark } from "./components/BrandMark";
-import { DataFreshness } from "./components/DataFreshness";
 import { RegionFlag } from "./components/RegionFlag";
 import { SiteFooter } from "./components/SiteFooter";
+import { SiteHeader } from "./components/SiteHeader";
 import {
   apps,
-  dataGeneratedAt,
-  dataUpdatedAt,
   findPlanItem,
   getAppCoverage,
   getPlansForApp,
@@ -53,77 +50,54 @@ export default function Home() {
   const regionCount = Object.keys(regionMeta).length;
 
   return (
-    <main>
+    <main className="home-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appDirectoryJsonLd).replace(/</g, "\\u003c") }}
       />
-      <header className="site-header">
-        <Link className="brand" href="/" aria-label="App Store 订阅比价首页">
-          <BrandMark />
-          <span><strong>App Store</strong><small>订阅比价</small></span>
-        </Link>
-        <nav>
-          <a href="#apps">应用目录</a>
-          <a href="#method">数据说明</a>
-          <Link href="/changes/">订阅变动</Link>
-          <DataFreshness generatedAt={dataGeneratedAt} displayDate={dataUpdatedAt} />
-        </nav>
-      </header>
+      <SiteHeader active="apps" />
 
       <section className="hero">
-        <div className="hero-copy">
-          <span className="eyebrow">GLOBAL IN-APP PRICE INDEX</span>
-          <h1>先看清价格，<br />再决定在哪个区买。</h1>
-          <p>比较同一 App 或订阅服务在不同地区的 Apple 官方价格。保留原币标价，人民币金额仅供参考。</p>
-          <div className="hero-actions">
-            <a href="#apps" className="primary-button">浏览应用 <ArrowRightLine className="ui-icon" aria-hidden="true" /></a>
-            <Link href="/apps/6448311069" className="secondary-button">查看 ChatGPT 示例</Link>
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <span className="eyebrow">APP STORE SUBSCRIPTION PRICES</span>
+            <h1>先看清价格，再决定在哪个区买。</h1>
+            <p>比较同一 App 或订阅服务在不同地区的 Apple 官方价格。保留原币标价，人民币金额仅供参考。</p>
+            <div className="hero-actions">
+              <a href="#apps" className="primary-button">浏览应用</a>
+            </div>
           </div>
-        </div>
 
-        <article className="hero-price-card">
-          <div className="featured-app">
-            <Image src={chatgpt.icon ?? "/icon.svg"} alt="" width={58} height={58} priority />
-            <div><span>热门对比</span><h2>ChatGPT Plus</h2><p>月付套餐 · {regionCount} 个地区</p></div>
-            <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价"><ExternalLinkLine className="ui-icon" aria-hidden="true" /></Link>
-          </div>
-          <div className="price-spotlight">
-            <span>参考折算最低</span>
-            <strong>{featuredLowest ? regionMeta[featuredLowest.region.region].name : "暂无完整数据"}</strong>
-            <div><b>{featuredLowest?.item?.price ?? "—"}</b><em>{featuredLowest?.cny ? `约 ¥${featuredLowest.cny.toFixed(2)}` : "等待验证"}</em></div>
-          </div>
-          <div className="mini-regions">
-            {featuredRows.slice(0, 3).map((row) => {
-              const meta = regionMeta[row.region.region];
-              return <a href={getRegionStoreUrl(chatgpt.id, row.region.region)} target="_blank" rel="noreferrer" key={row.region.region}><span><RegionFlag code={row.region.region} name={meta.name} />{meta.name}</span><b>¥{row.cny?.toFixed(2)}</b></a>;
-            })}
-          </div>
-          <Link className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看月付、年付和地区套餐差异 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
-        </article>
+          <article className="hero-price-card">
+            <div className="featured-app">
+              <Image src={chatgpt.icon ?? "/icon.svg"} alt="" width={58} height={58} priority />
+              <div><span>热门对比</span><h2>ChatGPT Plus</h2><p>月付套餐 · {regionCount} 个地区</p></div>
+              <Link href={`/apps/${chatgpt.id}`} aria-label="查看 ChatGPT 详细比价"><ExternalLinkLine className="ui-icon" aria-hidden="true" /></Link>
+            </div>
+            <div className="price-spotlight">
+              <span>参考折算最低</span>
+              <strong>{featuredLowest ? regionMeta[featuredLowest.region.region].name : "暂无完整数据"}</strong>
+              <div><b>{featuredLowest?.item?.price ?? "—"}</b><em>{featuredLowest?.cny ? `约 ¥${featuredLowest.cny.toFixed(2)}` : "等待验证"}</em></div>
+            </div>
+            <div className="mini-regions">
+              {featuredRows.slice(0, 3).map((row) => {
+                const meta = regionMeta[row.region.region];
+                return <a href={getRegionStoreUrl(chatgpt.id, row.region.region)} target="_blank" rel="noreferrer" key={row.region.region}><span><RegionFlag code={row.region.region} name={meta.name} />{meta.name}</span><b>¥{row.cny?.toFixed(2)}</b></a>;
+              })}
+            </div>
+            <Link className="card-detail-link" href={`/apps/${chatgpt.id}`}>查看完整地区排名 <ArrowRightLine className="ui-icon" aria-hidden="true" /></Link>
+          </article>
+        </div>
       </section>
 
-      <section className="coverage-note" aria-labelledby="coverage-note-title">
+      <AppDirectory apps={cardApps} regionCount={regionCount} />
+
+      <section className="coverage-note" aria-label="地区选择说明">
         <div>
-          <span className="eyebrow">地区选择</span>
-          <strong id="coverage-note-title">为什么固定这 20 个地区</strong>
+          <span className="eyebrow">比较范围</span>
+          <strong>为什么固定这 20 个地区</strong>
         </div>
-        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一范围长期追踪，让不同应用和不同时间的结果始终可比。</p>
-      </section>
-
-      <AppDirectory apps={cardApps} />
-
-      <section className="method-section" id="method">
-        <div className="method-copy">
-          <span className="eyebrow">数据说明</span>
-          <h2>不同周期分开比较，价格来源清晰可查。</h2>
-          <p>月付、年付和一次性购买分别比较；无法确认的项目不参与排名。</p>
-        </div>
-        <div className="method-grid">
-          <article><span>01</span><h3>确认同一应用</h3><p>各地区统一使用同一 App ID，避免同名应用混淆。</p></article>
-          <article><span>02</span><h3>保留官方原币</h3><p>人民币金额按公开汇率折算，仅用于横向比较。</p></article>
-          <article><span>03</span><h3>确认更新时间</h3><p>每日自动检测 4 次；通过校验并发布后，页面快照时间与 <Link href="/changes/">订阅变动日志</Link> 同步更新。</p></article>
-        </div>
+        <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；固定同一组地区，才能让不同应用和不同时间的结果保持可比。</p>
       </section>
 
       <SiteFooter />

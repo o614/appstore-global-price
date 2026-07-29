@@ -11,7 +11,6 @@ export function SiteFooter() {
           <h2>价格服务</h2>
           <Link href="/#apps">应用目录</Link>
           <Link href="/changes/">订阅变动</Link>
-          <Link href="/#method">数据说明</Link>
         </section>
 
         <section>

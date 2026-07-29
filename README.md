@@ -1,10 +1,10 @@
 # App Store 订阅比价
 
-一个基于 Apple 各地区公开 App Store 商品页和官方服务方案页快照的内购与订阅比价网站。网站构建后是纯静态文件，不需要付费 Worker、数据库或运行时接口。
+一个基于 Apple 各地区公开 App Store 商品页和官方服务方案页的内购与订阅比价网站。精选目录和变动日志仍是静态快照；未收录应用可通过 Cloudflare Pages Function 临时搜索和比较，不使用数据库或 KV。
 
 公开地址：<https://price.290935.xyz>
 
-当前覆盖 17 个常用应用与 Apple 服务，以及固定的 20 个地区：中国、美国、香港、台湾、越南、新加坡、日本、韩国、泰国、英国、德国、法国、加拿大、土耳其、澳大利亚、菲律宾、尼日利亚、印度、巴西和印度尼西亚。普通 App 读取公开内购项目；Apple Music、iCloud+、Apple One、Apple TV+、Apple Arcade、Apple Fitness+ 和 Apple News+ 读取各地区 Apple 官方价格页。页面区分月付、年付和一次性购买，并提供对应国家的官方来源链接。人民币金额仅使用公开汇率进行参考折算。
+精选目录维护常用应用与 Apple 服务；自定义搜索不限制 App，但所有入口都只比较固定的 20 个地区：中国、美国、香港、台湾、越南、新加坡、日本、韩国、泰国、英国、德国、法国、加拿大、土耳其、澳大利亚、菲律宾、尼日利亚、印度、巴西和印度尼西亚。普通 App 读取公开内购项目；Apple Music、iCloud+、Apple One、Apple TV+、Apple Arcade、Apple Fitness+ 和 Apple News+ 读取各地区 Apple 官方价格页。页面区分月付、年付和一次性购买，并提供对应国家的官方来源链接。人民币金额仅使用公开汇率进行参考折算。
 
 ## 本地运行
 
@@ -54,7 +54,13 @@ npm run data:check
 ## 常用命令
 
 - `npm run dev`：启动本地开发服务
-- `npm run build`：在 `out/` 生成 Cloudflare Pages 可直接托管的纯静态文件
+- `npm run build`：在 `out/` 生成静态页面；仓库根目录的 `functions/` 由 Cloudflare Pages 同时部署
 - `npm test`：构建并验证首页和全部应用详情页
 - `npm run lint`：检查代码规范
 - `npm run data:update`：安全更新价格快照和汇率
+
+## 自定义应用查询
+
+`/search/` 接受应用名称、App ID 或 App Store 链接。`/api/apps/search` 只负责在 Apple 公开接口中定位应用，`/api/apps/compare/{id}` 再逐区读取固定 20 个地区的公开内购。某个地区超时、限流或解析失败只会标记该地区，不会中止其余地区。
+
+临时查询使用 Cloudflare Cache API 限时缓存搜索和比价响应，不写入 KV、精选目录或订阅变动日志。`public/_routes.json` 将 Pages Function 严格限制在 `/api/*`，其余页面继续按静态文件提供。

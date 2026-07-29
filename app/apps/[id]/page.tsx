@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   AlertLine,
-  ArrowLeftLine,
   CheckCircleLine,
   Earth2Line,
   ListCheckLine,
   Numbers09SortAscendingLine,
 } from "@mingcute/react";
 import { AppArtwork } from "../../components/AppArtwork";
-import { BrandMark } from "../../components/BrandMark";
 import { DataFreshness } from "../../components/DataFreshness";
 import { PriceExplorer } from "../../components/PriceExplorer";
 import { PriceShareProvider } from "../../components/PriceShareContext";
 import { PriceShareTrigger } from "../../components/PriceShareTrigger";
 import { SiteFooter } from "../../components/SiteFooter";
+import { SiteHeader } from "../../components/SiteHeader";
 import {
   apps,
   dataGeneratedAt,
@@ -97,10 +95,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
       />
-      <header className="site-header detail-header">
-        <Link className="brand" href="/"><BrandMark /><span><strong>App Store</strong><small>订阅比价</small></span></Link>
-        <Link className="back-link" href="/#apps"><ArrowLeftLine className="ui-icon" aria-hidden="true" />返回应用目录</Link>
-      </header>
+      <SiteHeader />
 
       <PriceShareProvider>
         <section className="app-hero">

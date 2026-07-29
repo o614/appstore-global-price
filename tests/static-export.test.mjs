@@ -21,7 +21,7 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.doesNotMatch(html, /<span>(?:Productivity|Entertainment|Social Networking|Photo &amp; Video)<\/span>/);
   assert.doesNotMatch(html, /class="hero-stats"/);
   assert.doesNotMatch(html, /已验证价格页/);
-  assert.match(html, /每日自动检测 4 次/);
+  assert.match(html, /系统约每 6 小时自动检测一次/);
   assert.match(html, /订阅变动/);
   assert.match(html, /© 2026 App Store 订阅比价/);
   assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
@@ -36,9 +36,18 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /href="https:\/\/linux\.do\/u\/d\.to\/summary"[^>]*>LINUX DO<\/a>/);
   assert.match(html, /href="https:\/\/chatbot\.weixin\.qq\.com\/webapp\/BNdgzvZEjvkaygCreiiiJvRZgFLJPy\?isFloat=false&amp;robotName=%E4%B8%8D%E8%A6%81%E8%89%BE%E7%89%B9%E6%88%91"[^>]*>联系客服<\/a>/);
   assert.doesNotMatch(html, /购买服务|微信：ehpass|分享网站|快捷入口/);
-  assert.match(html, /比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格/);
+  assert.match(html, /比较任意 App 与 Apple 订阅服务在固定 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
+});
+
+test("exports the fixed-20-region custom app search entry", async () => {
+  const html = await readPage("/search/index.html");
+  assert.match(html, /查找 App/);
+  assert.match(html, /输入应用名称、App ID 或 App Store 链接/);
+  assert.doesNotMatch(html, /仍只比较固定 20 个地区|不会加入精选目录或订阅变动日志/);
+  const routes = JSON.parse(await readFile(new URL("../out/_routes.json", import.meta.url), "utf8"));
+  assert.deepEqual(routes.include, ["/api/*"]);
 });
 
 test("exports every configured app detail route", async () => {
@@ -56,6 +65,8 @@ test("exports every configured app detail route", async () => {
   assert.match(html, /同套餐、同周期比较/);
   assert.match(html, /地区有价格/);
   assert.match(html, /个公开套餐/);
+  assert.doesNotMatch(html, /<th class="col-status">状态<\/th>/);
+  assert.doesNotMatch(html, /Apple 已验证|参考最低<\/span><\/td>/);
   assert.doesNotMatch(html, /日汇率折算/);
   assert.match(html, /分享比价/);
   assert.match(html, /查看跳转方式/);
