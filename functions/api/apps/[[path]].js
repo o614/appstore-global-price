@@ -187,6 +187,51 @@ export function extractAppStorePage(html) {
   };
 }
 
+export function extractAppSearchPage(html, sourceRegion) {
+  const start = html.indexOf(START_MARKER);
+  if (start === -1) return [];
+  const contentStart = start + START_MARKER.length;
+  const end = html.indexOf(END_MARKER, contentStart);
+  if (end === -1) return [];
+
+  const root = JSON.parse(html.slice(contentStart, end));
+  const queue = [root];
+  const results = [];
+  const seen = new Set();
+  let cursor = 0;
+
+  while (cursor < queue.length && cursor < 20_000) {
+    const value = queue[cursor];
+    cursor += 1;
+    if (!value || typeof value !== "object") continue;
+
+    const lockup = value.lockup;
+    const appId = String(lockup?.adamId ?? "");
+    if (
+      value.resultType !== "bundle"
+      && /^\d{6,12}$/u.test(appId)
+      && typeof lockup?.title === "string"
+      && !seen.has(appId)
+    ) {
+      seen.add(appId);
+      results.push({
+        appId,
+        appName: lockup.title.trim(),
+        developer: typeof lockup.subtitle === "string" ? lockup.subtitle.trim() : "",
+        icon: artworkFromTemplate(lockup.icon?.template),
+        storeUrl: `https://apps.apple.com/${sourceRegion}/app/id${appId}`,
+        sourceRegion,
+      });
+    }
+
+    for (const child of Object.values(value)) {
+      if (child && typeof child === "object") queue.push(child);
+    }
+  }
+
+  return results;
+}
+
 function normalizeSearch(value) {
   return String(value ?? "")
     .normalize("NFKC")
@@ -231,6 +276,20 @@ async function searchRegion(query, region, fetchImpl) {
   }
 }
 
+async function searchAppStorePage(query, regionCode, platform, fetchImpl) {
+  const url = new URL(`https://apps.apple.com/${regionCode}/${platform}/search`);
+  url.searchParams.set("term", query);
+  try {
+    const response = await appleRequest(url, fetchImpl);
+    return extractAppSearchPage(
+      await readTextWithLimit(response, MAX_APP_PAGE_BYTES),
+      regionCode,
+    );
+  } catch {
+    return [];
+  }
+}
+
 async function lookupRegion(appId, region, fetchImpl) {
   const url = new URL("https://itunes.apple.com/lookup");
   url.searchParams.set("id", appId);
@@ -248,9 +307,33 @@ async function lookupRegion(appId, region, fetchImpl) {
 
 export async function searchAppleApps(query, fetchImpl = fetch) {
   const directId = parseAppId(query);
-  const regionalResults = directId
-    ? await mapLimit(REGIONS, 5, (region) => lookupRegion(directId, region, fetchImpl))
-    : (await mapLimit(REGIONS, 5, (region) => searchRegion(query, region, fetchImpl))).flat();
+  let regionalResults;
+  if (directId) {
+    regionalResults = await mapLimit(REGIONS, 5, (region) => lookupRegion(directId, region, fetchImpl));
+  } else {
+    const searchTargets = [
+      { regionCode: "us", platform: "iphone" },
+      { regionCode: "us", platform: "ipad" },
+      { regionCode: "cn", platform: "iphone" },
+      { regionCode: "hk", platform: "iphone" },
+      { regionCode: "jp", platform: "iphone" },
+    ];
+    regionalResults = (await mapLimit(
+      searchTargets,
+      5,
+      ({ regionCode, platform }) => searchAppStorePage(query, regionCode, platform, fetchImpl),
+    )).flat();
+
+    // Apple's legacy Search API has had intermittent outages. Keep it only as
+    // a fallback so one Apple endpoint cannot make the entire search feature fail.
+    if (!regionalResults.length) {
+      regionalResults = (await mapLimit(
+        REGIONS.slice(0, 5),
+        5,
+        (region) => searchRegion(query, region, fetchImpl),
+      )).flat();
+    }
+  }
 
   const normalizedQuery = normalizeSearch(query);
   const deduplicated = new Map();
@@ -380,6 +463,7 @@ export async function onRequestGet(context) {
       }
       const cacheUrl = new URL("/api/apps/search", url.origin);
       cacheUrl.searchParams.set("q", normalizeSearch(query));
+      cacheUrl.searchParams.set("v", "2");
       return cachedJson(context, cacheUrl, 21_600, 300, async () => ({
         query,
         regions: REGIONS.map(({ code, name }) => ({ code, name })),

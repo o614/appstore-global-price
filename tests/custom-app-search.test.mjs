@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   REGIONS,
   compareAppleApp,
+  extractAppSearchPage,
   extractAppStorePage,
   parseAppId,
   searchAppleApps,
@@ -75,9 +76,73 @@ test("App Store page parser extracts metadata and public purchases", () => {
   ]);
 });
 
+test("App Store search page parser extracts apps and skips bundles", () => {
+  const payload = {
+    data: [{
+      data: {
+        shelves: [{
+          items: [
+            {
+              resultType: "app",
+              lockup: {
+                adamId: appId,
+                title: "Example App",
+                subtitle: "Example Developer",
+                icon: { template: "https://example.test/icon/{w}x{h}.{f}" },
+              },
+            },
+            {
+              resultType: "bundle",
+              lockup: {
+                adamId: "987654321",
+                title: "Example Bundle",
+              },
+            },
+          ],
+        }],
+      },
+    }],
+  };
+  const html = `<html><script type="application/json" id="serialized-server-data">${JSON.stringify(payload)}</script></html>`;
+  assert.deepEqual(extractAppSearchPage(html, "us"), [{
+    appId,
+    appName: "Example App",
+    developer: "Example Developer",
+    icon: "https://example.test/icon/512x512.jpg",
+    storeUrl: `https://apps.apple.com/us/app/id${appId}`,
+    sourceRegion: "us",
+  }]);
+});
+
 test("search de-duplicates regional Apple results", async () => {
   const fetchImpl = async (input) => {
     const url = new URL(input);
+    if (url.hostname === "apps.apple.com" && url.pathname.endsWith("/search")) {
+      const country = url.pathname.split("/")[1];
+      const payload = {
+        data: [{
+          data: {
+            shelves: [{
+              items: country === "us" || country === "ca"
+                ? [{
+                    resultType: "app",
+                    lockup: {
+                      adamId: appId,
+                      title: "Example App",
+                      subtitle: "Example Developer",
+                      icon: { template: "https://example.test/icon/{w}x{h}.{f}" },
+                    },
+                  }]
+                : [],
+            }],
+          },
+        }],
+      };
+      return response(
+        `<html><script type="application/json" id="serialized-server-data">${JSON.stringify(payload)}</script></html>`,
+        { url: String(url) },
+      );
+    }
     const country = url.searchParams.get("country");
     const results = country === "us" || country === "ca"
       ? [{

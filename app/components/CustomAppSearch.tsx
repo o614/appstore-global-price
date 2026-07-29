@@ -63,7 +63,7 @@ export function CustomAppSearch() {
     setError("");
     setComparison(null);
     try {
-      const response = await fetch(`/api/apps/search?q=${encodeURIComponent(normalized)}`, {
+      const response = await fetch(`/api/apps/search?v=2&q=${encodeURIComponent(normalized)}`, {
         headers: { accept: "application/json" },
       });
       const payload = await response.json() as SearchPayload;
