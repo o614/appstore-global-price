@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { SafariShell } from "./components/SafariShell";
 import "./globals.css";
 import "./apple-design.css";
 
@@ -50,7 +49,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   colorScheme: "light",
-  themeColor: "#f5f5f7",
+  themeColor: "#f8f8fa",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -61,7 +60,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }}
         />
-        <SafariShell />
         {children}
       </body>
     </html>

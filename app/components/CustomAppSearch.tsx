@@ -125,9 +125,12 @@ export function CustomAppSearch() {
 
   return (
     <>
-      <section className="custom-search-workspace" aria-label="自定义应用比价">
+      <section
+        className={`custom-search-workspace${comparison ? " has-comparison" : ""}`}
+        aria-label="自定义应用比价"
+      >
         <div className="custom-search-panel">
-          <form className="custom-search-form" onSubmit={submit}>
+          <form className="custom-search-form" onSubmit={submit} aria-busy={searching}>
             <label>
               <SearchLine className="ui-icon" aria-hidden="true" />
               <input
@@ -141,7 +144,8 @@ export function CustomAppSearch() {
               />
             </label>
             <button type="submit" disabled={searching}>
-              {searching ? "正在搜索…" : "搜索"}
+              {searching && <span className="search-spinner" aria-hidden="true" />}
+              <span>{searching ? "正在搜索" : "搜索"}</span>
             </button>
           </form>
         </div>
@@ -174,7 +178,10 @@ export function CustomAppSearch() {
                   <strong>{result.appName}</strong>
                   <small>{result.developer || `App ID ${result.appId}`}</small>
                 </span>
-                <em>{comparingId === result.appId ? "正在比较 20 区…" : "比较"}</em>
+                <em>
+                  {comparingId === result.appId && <span className="search-spinner search-spinner-blue" aria-hidden="true" />}
+                  <span>{comparingId === result.appId ? "正在比价" : "比价"}</span>
+                </em>
               </button>
             ))}
           </div>
