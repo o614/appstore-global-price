@@ -496,7 +496,7 @@ export async function onRequestGet(context) {
       }
       const cacheUrl = new URL("/api/apps/search", url.origin);
       cacheUrl.searchParams.set("q", normalizeSearch(query));
-      cacheUrl.searchParams.set("v", "2");
+      cacheUrl.searchParams.set("v", "3");
       return cachedJson(context, cacheUrl, 21_600, 300, async () => ({
         query,
         regions: REGIONS.map(({ code, name }) => ({ code, name })),
