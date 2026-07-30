@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T05:36:04.037Z",
+  "generatedAt": "2026-07-30T03:42:59.716Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -4302,7 +4302,7 @@
       "id": "6477489729",
       "matchedName": "Google Gemini",
       "developer": "Google LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f3/fd/c3/f3fdc3b4-f68d-2b69-0ab8-a01e85e8c027/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-sRGB-0-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0b/ca/a1/0bcaa148-9669-0a11-ff26-9a1945c785fe/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-sRGB-0-0-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/google-gemini/id6477489729?uo=4",
@@ -6001,16 +6001,16 @@
               "price": "£39.00"
             },
             {
+              "name": "Moderato Annual Pass",
+              "price": "£179.99"
+            },
+            {
               "name": "Vivace",
               "price": "£199.00"
             },
             {
               "name": "Allegro",
               "price": "£99.00"
-            },
-            {
-              "name": "Moderato Annual Pass",
-              "price": "£179.99"
             },
             {
               "name": "Allegretto Annual Pass",
@@ -6387,16 +6387,16 @@
               "price": "Rp 1,699juta"
             },
             {
+              "name": "Allegretto Annual Pass",
+              "price": "Rp 5,999juta"
+            },
+            {
               "name": "Vivace",
               "price": "Rp 3,499juta"
             },
             {
               "name": "Moderato Annual Pass",
               "price": "Rp 2,999juta"
-            },
-            {
-              "name": "Allegretto Annual Pass",
-              "price": "Rp 5,999juta"
             },
             {
               "name": "Allegro Annual Pass",
@@ -10911,16 +10911,16 @@
               "price": "¥1,200"
             },
             {
+              "name": "400ポイント",
+              "price": "¥480"
+            },
+            {
               "name": "570ポイント",
               "price": "¥650"
             },
             {
-              "name": "500ポイント",
-              "price": "¥600"
-            },
-            {
-              "name": "400ポイント",
-              "price": "¥480"
+              "name": "100ポイント",
+              "price": "¥120"
             }
           ]
         },

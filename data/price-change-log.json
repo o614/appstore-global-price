@@ -2,6 +2,33 @@
   "version": 1,
   "entries": [
     {
+      "id": "96f4be3716039adc7f6a",
+      "publishedAt": "2026-07-30T03:42:59.848Z",
+      "changeCount": 1,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "376510438",
+          "appName": "Hulu: Stream TV shows & movies",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "100ポイント",
+              "price": "¥120"
+            }
+          ],
+          "removed": [
+            {
+              "name": "500ポイント",
+              "price": "¥600"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "6b7c049632920274cc49",
       "publishedAt": "2026-07-29T05:36:04.420Z",
       "changeCount": 13,
