@@ -371,12 +371,28 @@ export async function searchAppleApps(query, fetchImpl = fetch) {
   const normalizedQuery = normalizeSearch(query);
   const deduplicated = new Map();
   for (const result of regionalResults.flat().filter(Boolean)) {
-    const scoreName = normalizeSearch(result.appName);
-    const score = scoreName === normalizedQuery ? 0 : scoreName.startsWith(normalizedQuery) ? 1 : scoreName.includes(normalizedQuery) ? 2 : 3;
+    const normalizedName = normalizeSearch(result.appName);
+    const normalizedDeveloper = normalizeSearch(result.developer);
+    const score = normalizedName === normalizedQuery
+      ? 0
+      : normalizedName.startsWith(normalizedQuery)
+        ? 1
+        : normalizedName.includes(normalizedQuery)
+          ? 2
+          : normalizedDeveloper === normalizedQuery
+            ? 3
+            : normalizedDeveloper.startsWith(normalizedQuery)
+              ? 4
+              : normalizedDeveloper.includes(normalizedQuery)
+                ? 5
+                : 9;
     const previous = deduplicated.get(result.appId);
     if (!previous || score < previous.score) deduplicated.set(result.appId, { ...result, score });
   }
-  return [...deduplicated.values()]
+  const rankedResults = [...deduplicated.values()];
+  const hasTextMatch = rankedResults.some((result) => result.score < 9);
+  return rankedResults
+    .filter((result) => !hasTextMatch || result.score < 9)
     .sort((left, right) => left.score - right.score || left.appName.localeCompare(right.appName))
     .slice(0, 12)
     .map((result) => ({
@@ -496,7 +512,7 @@ export async function onRequestGet(context) {
       }
       const cacheUrl = new URL("/api/apps/search", url.origin);
       cacheUrl.searchParams.set("q", normalizeSearch(query));
-      cacheUrl.searchParams.set("v", "3");
+      cacheUrl.searchParams.set("v", "4");
       return cachedJson(context, cacheUrl, 21_600, 300, async () => ({
         query,
         regions: REGIONS.map(({ code, name }) => ({ code, name })),

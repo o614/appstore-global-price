@@ -162,6 +162,69 @@ test("search de-duplicates regional Apple results", async () => {
   assert.equal(results[0].appName, "Example App");
 });
 
+test("search removes unrelated Apple suggestions when a text match exists", async () => {
+  const fetchImpl = async (input) => {
+    const url = new URL(input);
+    if (url.hostname === "apps.apple.com") {
+      return response("not found", { status: 404, url: String(url) });
+    }
+    const country = url.searchParams.get("country");
+    const results = country === "us"
+      ? [
+          {
+            trackId: 363590051,
+            trackName: "Netflix",
+            sellerName: "Netflix, Inc.",
+            artworkUrl512: "https://example.test/netflix.png",
+            trackViewUrl: "https://apps.apple.com/us/app/id363590051",
+          },
+          {
+            trackId: 6448311069,
+            trackName: "ChatGPT",
+            sellerName: "OpenAI",
+            artworkUrl512: "https://example.test/chatgpt.png",
+            trackViewUrl: "https://apps.apple.com/us/app/id6448311069",
+          },
+          {
+            trackId: 284882215,
+            trackName: "Facebook",
+            sellerName: "Meta Platforms, Inc.",
+            artworkUrl512: "https://example.test/facebook.png",
+            trackViewUrl: "https://apps.apple.com/us/app/id284882215",
+          },
+        ]
+      : [];
+    return response(JSON.stringify({ resultCount: results.length, results }), { url: String(url) });
+  };
+
+  const results = await searchAppleApps("Netflix", fetchImpl);
+  assert.deepEqual(results.map((result) => result.appName), ["Netflix"]);
+});
+
+test("search keeps Apple's suggestions when no result text matches the query", async () => {
+  const fetchImpl = async (input) => {
+    const url = new URL(input);
+    if (url.hostname === "apps.apple.com") {
+      return response("not found", { status: 404, url: String(url) });
+    }
+    const country = url.searchParams.get("country");
+    const results = country === "us"
+      ? [{
+          trackId: Number(appId),
+          trackName: "Example App",
+          sellerName: "Example Developer",
+          artworkUrl512: "https://example.test/icon.png",
+          trackViewUrl: `https://apps.apple.com/${country}/app/id${appId}`,
+        }]
+      : [];
+    return response(JSON.stringify({ resultCount: results.length, results }), { url: String(url) });
+  };
+
+  const results = await searchAppleApps("untranslated query", fetchImpl);
+  assert.equal(results.length, 1);
+  assert.equal(results[0].appName, "Example App");
+});
+
 test("direct App ID search falls back to the official App Store page", async () => {
   const fetchImpl = async (input) => {
     const url = new URL(input);

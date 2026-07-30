@@ -163,10 +163,10 @@ test("exports every configured app detail route", async () => {
   const serviceIcons = {
     "apple-icloud-plus": "/service-icons/apple-icloud-plus.png",
     "apple-one": "/service-icons/apple-one.png",
-    "apple-tv-plus": "/service-icons/apple-tv-plus.png",
+    "apple-tv-plus": "/service-icons/apple-tv-plus.webp",
     "apple-arcade": "/service-icons/apple-arcade.webp",
-    "apple-fitness-plus": "/service-icons/apple-fitness-plus.png",
-    "apple-news-plus": "/service-icons/apple-news-plus.png",
+    "apple-fitness-plus": "/service-icons/apple-fitness-plus.webp",
+    "apple-news-plus": "/service-icons/apple-news-plus.webp",
   };
   for (const [id, icon] of Object.entries(serviceIcons)) {
     assert.equal(snapshot.apps.find((app) => app.id === id)?.icon, icon);
@@ -288,5 +288,13 @@ test("exports machine-readable structured data", async () => {
   assert.ok(homeJsonLd.some((entry) => entry["@type"] === "WebSite"));
   assert.ok(homeJsonLd.some((entry) => entry["@type"] === "ItemList" && entry.numberOfItems === snapshot.apps.length));
   assert.ok(detailJsonLd.some((entry) => entry["@type"] === "BreadcrumbList"));
+  assert.ok(detailJsonLd.some((entry) =>
+    entry["@type"] === "SoftwareApplication"
+    && entry.name === "ChatGPT"
+    && entry.additionalProperty.some((property) => property.name === "比价地区数量" && property.value === 20)
+  ));
   assert.match(detail, /<meta property="og:url" content="https:\/\/price\.290935\.xyz\/apps\/6448311069\/"/);
+
+  const appleService = parseJsonLd(await readPage("/apps/apple-icloud-plus/index.html"));
+  assert.ok(appleService.some((entry) => entry["@type"] === "Service" && entry.name === "iCloud+"));
 });

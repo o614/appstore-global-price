@@ -9,28 +9,30 @@ export function SiteFooter() {
       <nav className="footer-directory" aria-label="页脚导航">
         <section>
           <h2>价格服务</h2>
-          <Link href="/#apps">应用目录</Link>
-          <Link href="/changes/">订阅变动</Link>
+          <div className="footer-links">
+            <Link href="/#apps">应用目录</Link>
+            <Link href="/changes/">订阅变动</Link>
+            <a href={publicSiteLinks.customerService} target="_blank" rel="noreferrer">联系客服</a>
+          </div>
         </section>
 
         <section>
           <h2>文章教程</h2>
-          <a href={publicSiteLinks.registerTutorial} target="_blank" rel="noreferrer">注册教程</a>
-          <a href={publicSiteLinks.regionTutorial} target="_blank" rel="noreferrer">改区教程</a>
-          <a href={publicSiteLinks.rechargeTutorial} target="_blank" rel="noreferrer">充值教程</a>
-          <a href={publicSiteLinks.moreTutorials} target="_blank" rel="noreferrer">更多教程</a>
+          <div className="footer-links">
+            <a href={publicSiteLinks.registerTutorial} target="_blank" rel="noreferrer">注册教程</a>
+            <a href={publicSiteLinks.regionTutorial} target="_blank" rel="noreferrer">改区教程</a>
+            <a href={publicSiteLinks.rechargeTutorial} target="_blank" rel="noreferrer">充值教程</a>
+            <a href={publicSiteLinks.moreTutorials} target="_blank" rel="noreferrer">更多教程</a>
+          </div>
         </section>
 
         <section>
           <h2>联系作者</h2>
-          <a href={publicSiteLinks.officialAccount} target="_blank" rel="noreferrer">公众号</a>
-          <a href={publicSiteLinks.zhihu} target="_blank" rel="noreferrer">知乎</a>
-          <a href={publicSiteLinks.linuxDo} target="_blank" rel="noreferrer">LINUX DO</a>
-        </section>
-
-        <section>
-          <h2>帮助与支持</h2>
-          <a href={publicSiteLinks.customerService} target="_blank" rel="noreferrer">联系客服</a>
+          <div className="footer-links">
+            <a href={publicSiteLinks.officialAccount} target="_blank" rel="noreferrer">公众号</a>
+            <a href={publicSiteLinks.zhihu} target="_blank" rel="noreferrer">知乎</a>
+            <a href={publicSiteLinks.linuxDo} target="_blank" rel="noreferrer">LINUX DO</a>
+          </div>
         </section>
       </nav>
 

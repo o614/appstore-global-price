@@ -34,13 +34,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description,
       type: "website",
       url: pageUrl,
-      images: app.icon ? [{ url: app.icon, alt: `${app.matchedName} 图标` }] : ["/og-v2.png"],
+      images: app.icon ? [{ url: app.icon, alt: `${app.matchedName} 图标` }] : ["/og-v2.jpg"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: app.icon ? [app.icon] : ["/og-v2.png"],
+      images: app.icon ? [app.icon] : ["/og-v2.jpg"],
     },
   };
 }
@@ -51,6 +51,8 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
   if (!app) notFound();
   const plans = getPlansForApp(app);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
+  const pageUrl = `${siteUrl}/apps/${app.id}/`;
+  const isAppleService = app.priceSource === "apple-service" || app.priceSource === "apple-music";
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -65,16 +67,54 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         "@type": "ListItem",
         position: 2,
         name: app.matchedName,
-        item: `${siteUrl}/apps/${app.id}/`,
+        item: pageUrl,
       },
     ],
   };
+  const entityJsonLd = isAppleService
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: app.matchedName,
+        description: `${app.matchedName} 在固定 ${app.regions.length} 个地区的 Apple 官方订阅价格比较。`,
+        url: pageUrl,
+        image: app.icon ? new URL(app.icon, siteUrl).href : undefined,
+        sameAs: app.storeUrl,
+        serviceType: "Apple 订阅服务",
+        provider: { "@type": "Organization", name: app.developer || "Apple Inc." },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "比价地区数量", value: app.regions.length },
+          { "@type": "PropertyValue", name: "公开套餐数量", value: plans.length },
+        ],
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": `${pageUrl}#application`,
+        name: app.matchedName,
+        description: `${app.matchedName} 在固定 ${app.regions.length} 个地区的 App Store 公开订阅价格比较。`,
+        url: pageUrl,
+        image: app.icon ? new URL(app.icon, siteUrl).href : undefined,
+        sameAs: app.storeUrl,
+        applicationCategory: app.category || "MobileApplication",
+        operatingSystem: "iOS, iPadOS",
+        author: { "@type": "Organization", name: app.developer },
+        additionalProperty: [
+          { "@type": "PropertyValue", name: "比价地区数量", value: app.regions.length },
+          { "@type": "PropertyValue", name: "公开套餐数量", value: plans.length },
+        ],
+      };
 
   return (
     <main className="detail-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(entityJsonLd).replace(/</g, "\\u003c") }}
       />
       <SiteHeader />
       <AppComparisonView

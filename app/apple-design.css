@@ -41,6 +41,15 @@ button, a, input { -webkit-tap-highlight-color: transparent; }
 
 button, a { touch-action: manipulation; }
 
+:where(a, button, input, summary):focus-visible {
+  outline: 3px solid rgba(0, 113, 227, 0.34);
+  outline-offset: 3px;
+}
+
+:where(a, button, summary):focus-visible {
+  border-radius: 8px;
+}
+
 .primary-button,
 .secondary-button,
 .app-card,
