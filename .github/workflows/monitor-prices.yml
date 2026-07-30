@@ -1,21 +1,22 @@
-name: 检测 App Store 订阅变动
+name: 检测并发布 App Store 订阅变动
 
 on:
   schedule:
-    - cron: "17 2,8,14,20 * * *"
+    - cron: "37 6,14,22 * * *"
+      timezone: "Asia/Shanghai"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: appstore-price-data
   cancel-in-progress: false
 
 jobs:
-  detect:
+  detect-confirm-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - name: 读取当前数据
         uses: actions/checkout@v6
@@ -24,64 +25,117 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: npm
 
-      - name: 抓取候选快照
-        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot.json --fallback data/validation-snapshot.json
+      - name: 第一次抓取候选快照
+        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot-first.json --fallback data/validation-snapshot.json
 
-      - name: 校验候选快照
-        run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot.json --previous data/validation-snapshot.json
+      - name: 校验第一次候选快照
+        run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot-first.json --previous data/validation-snapshot.json
 
-      - name: 比较订阅变动
-        id: compare
-        run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot.json --json .tmp/price-diff.json --markdown .tmp/price-diff.md --github-output "$GITHUB_OUTPUT"
+      - name: 比较第一次订阅变动
+        id: first-compare
+        run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot-first.json --json .tmp/price-diff-first.json --markdown .tmp/price-diff-first.md --github-output "$GITHUB_OUTPUT"
 
-      - name: 写入任务摘要
+      - name: 写入第一次检测摘要
         run: |
-          node scripts/render-update-report.mjs .tmp/price-snapshot.json >> "$GITHUB_STEP_SUMMARY"
-          cat .tmp/price-diff.md >> "$GITHUB_STEP_SUMMARY"
+          node scripts/render-update-report.mjs .tmp/price-snapshot-first.json >> "$GITHUB_STEP_SUMMARY"
+          cat .tmp/price-diff-first.md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: 检查是否已经提醒过
-        if: steps.compare.outputs.changed == 'true'
-        id: notification-cache
-        uses: actions/cache/restore@v5
-        with:
-          path: .tmp/notification-cache
-          key: price-change-${{ steps.compare.outputs.fingerprint }}
+      - name: 等待 Apple 页面稳定
+        if: steps.first-compare.outputs.changed == 'true'
+        run: sleep 480
 
-      - name: 发送 Bark 变化提醒
-        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true'
-        id: bark
+      - name: 第二次抓取确认快照
+        if: steps.first-compare.outputs.changed == 'true'
+        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot-confirmed.json --fallback data/validation-snapshot.json
+
+      - name: 校验第二次确认快照
+        if: steps.first-compare.outputs.changed == 'true'
+        run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot-confirmed.json --previous data/validation-snapshot.json
+
+      - name: 比较第二次订阅变动
+        if: steps.first-compare.outputs.changed == 'true'
+        id: second-compare
+        run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot-confirmed.json --json .tmp/price-diff-confirmed.json --markdown .tmp/price-diff-confirmed.md --github-output "$GITHUB_OUTPUT"
+
+      - name: 确认两次变化完全一致
+        if: steps.first-compare.outputs.changed == 'true'
+        id: confirm
+        run: node scripts/confirm-price-change.mjs --first .tmp/price-diff-first.json --second .tmp/price-diff-confirmed.json --github-output "$GITHUB_OUTPUT"
+
+      - name: 更新价格、汇率与公开日志
+        if: steps.confirm.outputs.confirmed == 'true'
+        run: |
+          cp .tmp/price-snapshot-confirmed.json data/validation-snapshot.json
+          node scripts/fetch-exchange-rates.mjs --output data/exchange-rates.json
+          node scripts/update-price-change-log.mjs --diff .tmp/price-diff-confirmed.json --log data/price-change-log.json
+          node scripts/write-deployment-marker.mjs
+
+      - name: 安装构建依赖
+        if: steps.confirm.outputs.confirmed == 'true'
+        run: npm ci
+
+      - name: 验证数据与静态网站
+        if: steps.confirm.outputs.confirmed == 'true'
+        run: |
+          npm run lint
+          npm test
+
+      - name: 写入确认结果摘要
+        if: steps.confirm.outputs.confirmed == 'true'
+        run: |
+          printf '\n## 二次确认结果\n\n' >> "$GITHUB_STEP_SUMMARY"
+          cat .tmp/price-diff-confirmed.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 提交已确认数据
+        if: steps.confirm.outputs.confirmed == 'true'
+        id: commit
+        run: |
+          git diff --check
+          git add data/validation-snapshot.json data/exchange-rates.json data/price-change-log.json public/deployment-status.json
+          if git diff --cached --quiet; then
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update confirmed App Store price snapshot"
+          git push
+          echo "published=true" >> "$GITHUB_OUTPUT"
+
+      - name: 验证 Cloudflare 线上部署
+        if: steps.commit.outputs.published == 'true'
+        env:
+          SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://price.290935.xyz' }}
+        run: node scripts/verify-public-deployment.mjs --url "$SITE_URL" --timeout-seconds 600
+
+      - name: 发送 Bark 上线结果
+        if: steps.commit.outputs.published == 'true' && success()
+        continue-on-error: true
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
-          PUBLISH_URL: ${{ github.server_url }}/${{ github.repository }}/actions/workflows/publish-prices.yml
-        run: node scripts/notify-bark.mjs --event change --summary .tmp/price-diff.json --url "$PUBLISH_URL" --github-output "$GITHUB_OUTPUT"
+          SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://price.290935.xyz' }}
+        run: node scripts/notify-bark.mjs --event published --summary .tmp/price-diff-confirmed.json --url "${SITE_URL%/}/changes/"
 
-      - name: 标记本次变化已经提醒
-        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true' && steps.bark.outputs.sent == 'true'
-        run: |
-          mkdir -p .tmp/notification-cache
-          echo "${{ steps.compare.outputs.fingerprint }}" > .tmp/notification-cache/fingerprint
-
-      - name: 保存提醒去重标记
-        if: steps.compare.outputs.changed == 'true' && steps.notification-cache.outputs.cache-hit != 'true' && steps.bark.outputs.sent == 'true'
-        uses: actions/cache/save@v5
-        with:
-          path: .tmp/notification-cache
-          key: price-change-${{ steps.compare.outputs.fingerprint }}
-
-      - name: 保存变化详情
-        if: steps.compare.outputs.changed == 'true'
+      - name: 保存检测与确认详情
+        if: always() && steps.first-compare.outputs.changed == 'true'
         uses: actions/upload-artifact@v6
         with:
-          name: price-change-${{ steps.compare.outputs.fingerprint }}
+          name: price-confirmation-${{ steps.first-compare.outputs.fingerprint }}
           path: |
-            .tmp/price-diff.md
-            .tmp/price-diff.json
-            .tmp/price-snapshot.json
+            .tmp/price-diff-first.md
+            .tmp/price-diff-first.json
+            .tmp/price-snapshot-first.json
+            .tmp/price-diff-confirmed.md
+            .tmp/price-diff-confirmed.json
+            .tmp/price-snapshot-confirmed.json
+          if-no-files-found: ignore
           retention-days: 7
 
       - name: 任务失败时发送 Bark
         if: failure()
+        continue-on-error: true
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

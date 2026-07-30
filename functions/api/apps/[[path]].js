@@ -26,14 +26,20 @@ const END_MARKER = "</script>";
 const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Safari/537.36";
 const MAX_APP_PAGE_BYTES = 6_000_000;
 const MAX_JSON_BYTES = 1_000_000;
+const TOTAL_REQUEST_TIMEOUT_MS = 18_000;
 
-function jsonResponse(payload, status = 200, cacheControl = "no-store") {
+function jsonResponse(payload, status = 200, cacheControl = "no-store", extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {
     status,
     headers: {
       "cache-control": cacheControl,
+      "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
       "content-type": "application/json; charset=utf-8",
+      "permissions-policy": "camera=(), geolocation=(), microphone=(), payment=()",
+      "referrer-policy": "no-referrer",
+      "x-frame-options": "DENY",
       "x-content-type-options": "nosniff",
+      ...extraHeaders,
     },
   });
 }
@@ -71,7 +77,10 @@ async function readTextWithLimit(response, maximumBytes) {
   return output;
 }
 
-async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = []) {
+async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = [], deadlineSignal) {
+  const signal = deadlineSignal
+    ? AbortSignal.any([deadlineSignal, AbortSignal.timeout(8_000)])
+    : AbortSignal.timeout(8_000);
   const response = await fetchImpl(url, {
     headers: {
       accept: "application/json,text/html;q=0.9,*/*;q=0.8",
@@ -79,7 +88,7 @@ async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = []) {
       "user-agent": USER_AGENT,
     },
     redirect: "follow",
-    signal: AbortSignal.timeout(8_000),
+    signal,
   });
   if (!response.ok && !acceptedStatuses.includes(response.status)) {
     throw new Error(`HTTP ${response.status}`);
@@ -87,16 +96,17 @@ async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = []) {
   return response;
 }
 
-async function appleJson(url, fetchImpl = fetch) {
-  const response = await appleRequest(url, fetchImpl);
+async function appleJson(url, fetchImpl = fetch, deadlineSignal) {
+  const response = await appleRequest(url, fetchImpl, [], deadlineSignal);
   return JSON.parse(await readTextWithLimit(response, MAX_JSON_BYTES));
 }
 
-async function mapLimit(values, limit, task) {
+async function mapLimit(values, limit, task, deadlineSignal) {
   const results = new Array(values.length);
   let cursor = 0;
   async function worker() {
     while (cursor < values.length) {
+      if (deadlineSignal?.aborted) return;
       const index = cursor;
       cursor += 1;
       results[index] = await task(values[index], index);
@@ -259,7 +269,7 @@ function appSearchResult(item, sourceRegion) {
   };
 }
 
-async function searchRegion(query, region, fetchImpl) {
+async function searchRegion(query, region, fetchImpl, deadlineSignal) {
   const url = new URL("https://itunes.apple.com/search");
   url.searchParams.set("term", query);
   url.searchParams.set("country", region.code);
@@ -267,7 +277,7 @@ async function searchRegion(query, region, fetchImpl) {
   url.searchParams.set("entity", "software");
   url.searchParams.set("limit", "8");
   try {
-    const payload = await appleJson(url, fetchImpl);
+    const payload = await appleJson(url, fetchImpl, deadlineSignal);
     return (payload.results ?? [])
       .map((item) => appSearchResult(item, region.code))
       .filter(Boolean);
@@ -276,11 +286,11 @@ async function searchRegion(query, region, fetchImpl) {
   }
 }
 
-async function searchAppStorePage(query, regionCode, platform, fetchImpl) {
+async function searchAppStorePage(query, regionCode, platform, fetchImpl, deadlineSignal) {
   const url = new URL(`https://apps.apple.com/${regionCode}/${platform}/search`);
   url.searchParams.set("term", query);
   try {
-    const response = await appleRequest(url, fetchImpl);
+    const response = await appleRequest(url, fetchImpl, [], deadlineSignal);
     return extractAppSearchPage(
       await readTextWithLimit(response, MAX_APP_PAGE_BYTES),
       regionCode,
@@ -290,13 +300,13 @@ async function searchAppStorePage(query, regionCode, platform, fetchImpl) {
   }
 }
 
-async function lookupRegion(appId, region, fetchImpl) {
+async function lookupRegion(appId, region, fetchImpl, deadlineSignal) {
   const url = new URL("https://itunes.apple.com/lookup");
   url.searchParams.set("id", appId);
   url.searchParams.set("country", region.code);
   url.searchParams.set("entity", "software");
   try {
-    const payload = await appleJson(url, fetchImpl);
+    const payload = await appleJson(url, fetchImpl, deadlineSignal);
     return (payload.results ?? [])
       .map((item) => appSearchResult(item, region.code))
       .find((item) => item?.appId === appId) ?? null;
@@ -305,10 +315,10 @@ async function lookupRegion(appId, region, fetchImpl) {
   }
 }
 
-async function lookupAppStorePage(appId, region, fetchImpl) {
+async function lookupAppStorePage(appId, region, fetchImpl, deadlineSignal) {
   const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
   try {
-    const response = await appleRequest(requestedUrl, fetchImpl, [404]);
+    const response = await appleRequest(requestedUrl, fetchImpl, [404], deadlineSignal);
     const resolvedUrl = response.url || requestedUrl;
     if (response.status === 404 || !new URL(resolvedUrl).pathname.includes(`id${appId}`)) return null;
     const metadata = extractAppStorePage(
@@ -328,7 +338,7 @@ async function lookupAppStorePage(appId, region, fetchImpl) {
   }
 }
 
-export async function searchAppleApps(query, fetchImpl = fetch) {
+export async function searchAppleApps(query, fetchImpl = fetch, deadlineSignal) {
   const directId = parseAppId(query);
   let regionalResults;
   if (directId) {
@@ -338,10 +348,16 @@ export async function searchAppleApps(query, fetchImpl = fetch) {
     regionalResults = await mapLimit(
       preferredRegions,
       5,
-      (region) => lookupAppStorePage(directId, region, fetchImpl),
+      (region) => lookupAppStorePage(directId, region, fetchImpl, deadlineSignal),
+      deadlineSignal,
     );
     if (!regionalResults.some(Boolean)) {
-      regionalResults = await mapLimit(REGIONS, 5, (region) => lookupRegion(directId, region, fetchImpl));
+      regionalResults = await mapLimit(
+        REGIONS,
+        5,
+        (region) => lookupRegion(directId, region, fetchImpl, deadlineSignal),
+        deadlineSignal,
+      );
     }
   } else {
     const searchTargets = [
@@ -354,7 +370,8 @@ export async function searchAppleApps(query, fetchImpl = fetch) {
     regionalResults = (await mapLimit(
       searchTargets,
       5,
-      ({ regionCode, platform }) => searchAppStorePage(query, regionCode, platform, fetchImpl),
+      ({ regionCode, platform }) => searchAppStorePage(query, regionCode, platform, fetchImpl, deadlineSignal),
+      deadlineSignal,
     )).flat();
 
     // Apple's legacy Search API has had intermittent outages. Keep it only as
@@ -363,7 +380,8 @@ export async function searchAppleApps(query, fetchImpl = fetch) {
       regionalResults = (await mapLimit(
         REGIONS.slice(0, 5),
         5,
-        (region) => searchRegion(query, region, fetchImpl),
+        (region) => searchRegion(query, region, fetchImpl, deadlineSignal),
+        deadlineSignal,
       )).flat();
     }
   }
@@ -405,10 +423,10 @@ export async function searchAppleApps(query, fetchImpl = fetch) {
     }));
 }
 
-async function inspectRegion(appId, region, fetchImpl) {
+async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
   const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
   try {
-    const response = await appleRequest(requestedUrl, fetchImpl, [404]);
+    const response = await appleRequest(requestedUrl, fetchImpl, [404], deadlineSignal);
     const resolvedUrl = response.url || requestedUrl;
     if (response.status === 404 || !new URL(resolvedUrl).pathname.includes(`id${appId}`)) {
       return {
@@ -439,13 +457,32 @@ async function inspectRegion(appId, region, fetchImpl) {
   }
 }
 
-export async function compareAppleApp(appId, fetchImpl = fetch) {
+export async function compareAppleApp(appId, fetchImpl = fetch, deadlineSignal) {
   if (!/^\d{6,12}$/u.test(appId)) throw new Error("invalid-app-id");
-  const inspected = await mapLimit(REGIONS, 5, (region) => inspectRegion(appId, region, fetchImpl));
-  const pageMetadata = inspected.find((result) => result.metadata)?.metadata ?? null;
+  const inspected = await mapLimit(
+    REGIONS,
+    5,
+    (region) => inspectRegion(appId, region, fetchImpl, deadlineSignal),
+    deadlineSignal,
+  );
+  const completed = REGIONS.map((region, index) => inspected[index] ?? {
+    row: {
+      region: region.code,
+      status: "error:request-budget-exhausted",
+      itemCount: 0,
+      items: [],
+    },
+    metadata: null,
+  });
+  const pageMetadata = completed.find((result) => result.metadata)?.metadata ?? null;
   const lookupMetadata = pageMetadata
     ? null
-    : (await mapLimit(REGIONS.slice(0, 5), 5, (region) => lookupRegion(appId, region, fetchImpl))).find(Boolean);
+    : (await mapLimit(
+      REGIONS.slice(0, 5),
+      5,
+      (region) => lookupRegion(appId, region, fetchImpl, deadlineSignal),
+      deadlineSignal,
+    )).find(Boolean);
   const metadata = pageMetadata ?? (lookupMetadata ? {
     matchedName: lookupMetadata.appName,
     developer: lookupMetadata.developer,
@@ -464,7 +501,7 @@ export async function compareAppleApp(appId, fetchImpl = fetch) {
       icon: metadata?.icon ?? null,
       storeUrl: metadata?.storeUrl ?? `https://apps.apple.com/us/app/id${appId}`,
       priceSource: "app-store",
-      regions: inspected.map((result) => result.row),
+      regions: completed.map((result) => result.row),
     },
   };
 }
@@ -479,7 +516,11 @@ function requestIsSameOrigin(request, url) {
   }
 }
 
-async function cachedJson(context, cacheUrl, edgeSeconds, browserSeconds, producer) {
+function isTransientRegionError(region) {
+  return region.status.startsWith("error:") && region.status !== "error:HTTP 404";
+}
+
+async function cachedJson(context, cacheUrl, edgeSeconds, browserSeconds, producer, shouldCache = () => true) {
   const cache = typeof caches === "undefined" ? null : caches.default;
   const cacheKey = new Request(cacheUrl, { method: "GET" });
   if (cache) {
@@ -488,19 +529,31 @@ async function cachedJson(context, cacheUrl, edgeSeconds, browserSeconds, produc
   }
 
   const payload = await producer();
+  const cacheable = shouldCache(payload);
   const response = jsonResponse(
     payload,
     200,
-    `public, max-age=${browserSeconds}, s-maxage=${edgeSeconds}, stale-while-revalidate=3600`,
+    cacheable
+      ? `public, max-age=${browserSeconds}, s-maxage=${edgeSeconds}, stale-while-revalidate=3600`
+      : "no-store",
   );
-  if (cache) context.waitUntil(cache.put(cacheKey, response.clone()));
+  if (cache && cacheable) context.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }
 
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
+  const startedAt = Date.now();
+  const requestId = crypto.randomUUID();
+  const deadlineSignal = AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS);
   if (!requestIsSameOrigin(context.request, url)) {
-    return jsonResponse({ error: "仅支持本站调用" }, 403);
+    console.warn(JSON.stringify({
+      event: "custom-app-request-blocked",
+      requestId,
+      path: url.pathname,
+      reason: "cross-origin",
+    }));
+    return jsonResponse({ error: "仅支持本站调用" }, 403, "no-store", { "x-request-id": requestId });
   }
 
   const path = Array.isArray(context.params.path) ? context.params.path : [context.params.path].filter(Boolean);
@@ -516,7 +569,7 @@ export async function onRequestGet(context) {
       return cachedJson(context, cacheUrl, 21_600, 300, async () => ({
         query,
         regions: REGIONS.map(({ code, name }) => ({ code, name })),
-        results: await searchAppleApps(query),
+        results: await searchAppleApps(query, fetch, deadlineSignal),
       }));
     }
 
@@ -524,16 +577,43 @@ export async function onRequestGet(context) {
       const appId = String(path[1] ?? "");
       if (!/^\d{6,12}$/u.test(appId)) return jsonResponse({ error: "App ID 格式不正确" }, 400);
       const cacheUrl = new URL(`/api/apps/compare/${appId}`, url.origin);
-      return cachedJson(context, cacheUrl, 43_200, 600, () => compareAppleApp(appId));
+      return cachedJson(context, cacheUrl, 43_200, 600, async () => {
+        const comparison = await compareAppleApp(appId, fetch, deadlineSignal);
+        const degradedRegions = comparison.app.regions.filter(isTransientRegionError);
+        if (degradedRegions.length) {
+          console.warn(JSON.stringify({
+            event: "custom-app-compare-degraded",
+            requestId,
+            appId,
+            degradedRegionCount: degradedRegions.length,
+            elapsedMs: Date.now() - startedAt,
+          }));
+        }
+        return comparison;
+      }, (comparison) => !comparison.app.regions.some(isTransientRegionError));
     }
 
-    return jsonResponse({ error: "接口不存在" }, 404);
+    return jsonResponse({ error: "接口不存在" }, 404, "no-store", { "x-request-id": requestId });
   } catch (error) {
     console.error(JSON.stringify({
       event: "custom-app-query-failed",
+      requestId,
       path: url.pathname,
+      elapsedMs: Date.now() - startedAt,
       error: error instanceof Error ? error.message : String(error),
     }));
-    return jsonResponse({ error: publicError(error) }, 502);
+    return jsonResponse({ error: publicError(error) }, 502, "no-store", { "x-request-id": requestId });
   }
+}
+
+export function onRequest() {
+  return jsonResponse(
+    { error: "请求方法不受支持" },
+    405,
+    "no-store",
+    {
+      allow: "GET",
+      "x-request-id": crypto.randomUUID(),
+    },
+  );
 }

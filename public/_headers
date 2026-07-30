@@ -1,0 +1,12 @@
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; connect-src 'self' https://*.mzstatic.com https://quickchart.io; font-src 'self' data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://*.mzstatic.com https://quickchart.io; manifest-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests
+  Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 0
+
+/deployment-status.json
+  Cache-Control: no-store, max-age=0
+  Content-Type: application/json; charset=utf-8

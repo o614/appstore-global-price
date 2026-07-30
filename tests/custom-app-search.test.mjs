@@ -6,6 +6,7 @@ import {
   compareAppleApp,
   extractAppSearchPage,
   extractAppStorePage,
+  onRequest,
   parseAppId,
   searchAppleApps,
 } from "../functions/api/apps/[[path]].js";
@@ -265,4 +266,21 @@ test("one regional failure does not stop the remaining comparison", async () => 
     comparison.app.regions.find((region) => region.region === "tr").status,
     /^error:/u,
   );
+});
+
+test("an exhausted total request budget returns a complete degraded region list", async () => {
+  const comparison = await compareAppleApp(appId, fetch, AbortSignal.abort());
+  assert.equal(comparison.app.regions.length, 20);
+  assert.equal(
+    comparison.app.regions.filter((region) => region.status === "error:request-budget-exhausted").length,
+    20,
+  );
+});
+
+test("unsupported API methods are rejected with an explicit Allow header", async () => {
+  const response = await onRequest({
+    request: new Request("https://price.example/api/apps/search", { method: "POST" }),
+  });
+  assert.equal(response.status, 405);
+  assert.equal(response.headers.get("allow"), "GET");
 });

@@ -42,12 +42,12 @@ if (event === "change") {
     lines.push(`${change.appName} / ${change.region.toUpperCase()}：${details.join("，") || "内容变化"}`);
   }
   if ((summary?.changes?.length ?? 0) > 8) lines.push(`另有 ${(summary.changes.length - 8)} 处变化`);
-  lines.push("请确认后手动运行价格发布 Action。");
+  lines.push("系统会短时复查；两次结果一致后自动发布。");
   body = lines.join("\n");
 } else if (event === "published") {
-  title = "App Store 价格数据已提交";
+  title = "App Store 订阅变化已上线";
   body = summary?.changed
-    ? `已发布 ${summary.changeCount} 个应用/地区的变化。Cloudflare Pages 将自动部署最新静态页面。`
+    ? `已确认并上线 ${summary.changeCount} 个应用/地区的订阅变化。`
     : "本次检查未发现订阅变动，网站数据无需更新。";
 } else {
   title = "App Store 价格任务失败";

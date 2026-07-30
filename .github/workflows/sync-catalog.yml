@@ -41,7 +41,11 @@ jobs:
         run: npm run data:add
 
       - name: 生成本次变化摘要
-        run: node scripts/compare-price-snapshots.mjs --before .tmp/catalog-before.json --after data/validation-snapshot.json --json .tmp/catalog-diff.json --markdown .tmp/catalog-diff.md
+        id: compare
+        run: node scripts/compare-price-snapshots.mjs --before .tmp/catalog-before.json --after data/validation-snapshot.json --json .tmp/catalog-diff.json --markdown .tmp/catalog-diff.md --github-output "$GITHUB_OUTPUT"
+
+      - name: 生成线上部署标记
+        run: node scripts/write-deployment-marker.mjs
 
       - name: 验证数据与静态网站
         run: npm test
@@ -55,7 +59,7 @@ jobs:
         id: commit
         run: |
           git diff --check
-          git add data/validation-snapshot.json data/exchange-rates.json data/price-change-log.json
+          git add data/validation-snapshot.json data/exchange-rates.json data/price-change-log.json public/deployment-status.json
           if git diff --cached --quiet; then
             echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -66,8 +70,15 @@ jobs:
           git push
           echo "published=true" >> "$GITHUB_OUTPUT"
 
+      - name: 验证 Cloudflare 线上部署
+        if: steps.commit.outputs.published == 'true'
+        env:
+          SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://price.290935.xyz' }}
+        run: node scripts/verify-public-deployment.mjs --url "$SITE_URL" --timeout-seconds 600
+
       - name: 发送 Bark 发布结果
-        if: success() && steps.commit.outputs.published == 'true'
+        if: success() && steps.commit.outputs.published == 'true' && steps.compare.outputs.changed == 'true'
+        continue-on-error: true
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
           SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://price.290935.xyz' }}
@@ -75,6 +86,7 @@ jobs:
 
       - name: 任务失败时发送 Bark
         if: failure()
+        continue-on-error: true
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

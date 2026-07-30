@@ -67,3 +67,25 @@ test("price monitor keeps unavailable, unpublished, and parse failure states dis
   assert.equal(parseFailure.changes[0].afterState, "parse-failed");
   assert.deepEqual(parseFailure.changes[0].removed, []);
 });
+
+test("catalog additions remain internal and do not create a public subscription change", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "appstore-price-catalog-diff-"));
+  const before = join(directory, "before.json");
+  const after = join(directory, "after.json");
+  const json = join(directory, "diff.json");
+  const markdown = join(directory, "diff.md");
+  await writeFile(before, JSON.stringify({ generatedAt: "2026-07-14T00:00:00.000Z", apps: [] }), "utf8");
+  await writeFile(after, JSON.stringify(snapshot([{ name: "Monthly", price: "$9.99" }])), "utf8");
+  await execFileAsync(process.execPath, [
+    comparator,
+    "--before", before,
+    "--after", after,
+    "--json", json,
+    "--markdown", markdown,
+  ]);
+  const result = JSON.parse(await readFile(json, "utf8"));
+  assert.equal(result.changed, false);
+  assert.equal(result.changeCount, 0);
+  assert.equal(result.catalogOperations.length, 1);
+  assert.equal(result.catalogOperations[0].type, "app-added");
+});

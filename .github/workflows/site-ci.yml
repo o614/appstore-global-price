@@ -1,0 +1,48 @@
+name: 验证订阅比价网站
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+  pull_request:
+    paths-ignore:
+      - "**/*.md"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 读取代码
+        uses: actions/checkout@v6
+
+      - name: 使用 Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 检查代码与静态网站
+        run: |
+          npm run lint
+          npm test
+
+      - name: main 分支失败时发送 Bark
+        if: failure() && github.event_name == 'push'
+        continue-on-error: true
+        env:
+          BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/notify-bark.mjs --event failure --url "$RUN_URL"

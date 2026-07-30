@@ -69,12 +69,17 @@ function classifyItemChanges(removed, added) {
 }
 
 const changes = [];
+const catalogOperations = [];
 const appIds = new Set([...(before.apps ?? []).map((app) => app.id), ...(after.apps ?? []).map((app) => app.id)]);
 for (const appId of appIds) {
   const oldApp = before.apps?.find((app) => app.id === appId);
   const newApp = after.apps?.find((app) => app.id === appId);
   if (!oldApp || !newApp) {
-    changes.push({ type: oldApp ? "app-removed" : "app-added", appId, appName: oldApp?.matchedName ?? newApp?.matchedName ?? appId });
+    catalogOperations.push({
+      type: oldApp ? "app-removed" : "app-added",
+      appId,
+      appName: oldApp?.matchedName ?? newApp?.matchedName ?? appId,
+    });
     continue;
   }
   const regions = new Set([...(oldApp.regions ?? []).map((region) => region.region), ...(newApp.regions ?? []).map((region) => region.region)]);
@@ -82,7 +87,7 @@ for (const appId of appIds) {
     const oldRegion = oldApp.regions?.find((region) => region.region === regionCode);
     const newRegion = newApp.regions?.find((region) => region.region === regionCode);
     if (!oldRegion || !newRegion) {
-      changes.push({
+      catalogOperations.push({
         type: oldRegion ? "region-removed" : "region-added",
         appId,
         appName: newApp.matchedName,
@@ -130,16 +135,17 @@ const result = {
   changeCount: changes.length,
   checkedAt: after.generatedAt,
   changes,
+  catalogOperations,
 };
 
-const markdown = changes.length
-  ? [
-      "# App Store 订阅变动",
-      "",
-      `共发现 ${changes.length} 个应用/地区发生变化。`,
-      "",
-      ...changes.flatMap((change) => {
-        if (change.type !== "region-items-changed") return [`- **${change.appName}**：${change.type}`];
+const markdownLines = [
+  "# App Store 订阅变动",
+  "",
+  changes.length
+    ? `共发现 ${changes.length} 个应用/地区发生变化。`
+    : "未发现订阅变化。",
+  "",
+  ...changes.flatMap((change) => {
         const details = [];
         if (change.beforeCount !== change.afterCount) details.push(`套餐 ${change.beforeCount} → ${change.afterCount}`);
         if (change.beforeState !== change.afterState) details.push(`状态 ${change.beforeState} → ${change.afterState}`);
@@ -147,11 +153,24 @@ const markdown = changes.length
         for (const item of change.removed) details.push(`移除「${item.name} · ${item.price}」`);
         for (const item of change.added) details.push(`新增「${item.name} · ${item.price}」`);
         return [`- **${change.appName} / ${change.region.toUpperCase()}**：${details.join("；") || "项目顺序变化"}`];
-      }),
+  }),
+];
+if (catalogOperations.length) {
+  markdownLines.push(
+    "",
+    "## 内部目录操作（不写入公开日志或 Bark）",
+    "",
+    ...catalogOperations.map((operation) => {
+      const region = operation.region ? ` / ${operation.region.toUpperCase()}` : "";
+      return `- **${operation.appName}${region}**：${operation.type}`;
+    }),
+  );
+}
+markdownLines.push(
       "",
       `检测时间：${after.generatedAt}`,
-    ].join("\n")
-  : `# App Store 订阅变动\n\n未发现变化。\n\n检测时间：${after.generatedAt}\n`;
+);
+const markdown = markdownLines.join("\n");
 
 await mkdir(dirname(jsonPath), { recursive: true });
 await mkdir(dirname(markdownPath), { recursive: true });
