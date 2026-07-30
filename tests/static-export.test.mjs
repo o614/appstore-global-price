@@ -34,16 +34,8 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /订阅变动/);
   assert.match(html, /© 2026 App Store 订阅比价/);
   assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
-  assert.match(html, /文章教程/);
-  assert.match(html, /href="https:\/\/290935\.xyz\/posts\/how-to-register-foreign-apple-id\/"[^>]*>注册教程<\/a>/);
-  assert.match(html, /href="https:\/\/290935\.xyz\/posts\/how-to-change-apple-id-region\/"[^>]*>改区教程<\/a>/);
-  assert.match(html, /href="https:\/\/290935\.xyz\/posts\/how-to-buy-apple-gift-card-from-official-website\/"[^>]*>充值教程<\/a>/);
-  assert.match(html, /href="https:\/\/290935\.xyz\/"[^>]*>更多教程<\/a>/);
-  assert.match(html, /联系作者/);
-  assert.match(html, /href="https:\/\/study\.bjwomen\.gov\.cn\/uploads\/2026\/07\/10\/6a50425bd9a89\.JPG"[^>]*>公众号<\/a>/);
-  assert.match(html, /href="https:\/\/www\.zhihu\.com\/people\/ehpass"[^>]*>知乎<\/a>/);
-  assert.match(html, /href="https:\/\/linux\.do\/u\/d\.to\/summary"[^>]*>LINUX DO<\/a>/);
-  assert.match(html, /href="https:\/\/chatbot\.weixin\.qq\.com\/webapp\/BNdgzvZEjvkaygCreiiiJvRZgFLJPy\?isFloat=false&amp;robotName=%E4%B8%8D%E8%A6%81%E8%89%BE%E7%89%B9%E6%88%91"[^>]*>联系客服<\/a>/);
+  assert.doesNotMatch(html, /class="footer-directory"/);
+  assert.doesNotMatch(html, /价格服务|文章教程|联系作者|注册教程|改区教程|充值教程|更多教程|联系客服|LINUX DO/);
   assert.doesNotMatch(html, /购买服务|微信：ehpass|分享网站|快捷入口/);
   assert.match(html, /比较任意 App 与 Apple 订阅服务在固定 20 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);

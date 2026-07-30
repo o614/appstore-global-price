@@ -3,10 +3,12 @@ import { DataFreshness } from "./DataFreshness";
 import { dataGeneratedAt, dataUpdatedAt, rateAttributionUrl, rateProvider } from "../lib/catalog";
 import { publicSiteLinks, publicStatusPageUrl } from "../lib/site";
 
+const showFooterDirectory = false;
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <nav className="footer-directory" aria-label="页脚导航">
+      {showFooterDirectory && <nav className="footer-directory" aria-label="页脚导航">
         <section>
           <h2>价格服务</h2>
           <div className="footer-links">
@@ -34,7 +36,7 @@ export function SiteFooter() {
             <a href={publicSiteLinks.linuxDo} target="_blank" rel="noreferrer">LINUX DO</a>
           </div>
         </section>
-      </nav>
+      </nav>}
 
       <div className="footer-service-note">
         <p>
