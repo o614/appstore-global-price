@@ -8,6 +8,13 @@ async function readPage(path) {
   return html.replaceAll("<!-- -->", "");
 }
 
+function escapeHtmlText(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
 test("exports the price comparison homepage as static HTML", async () => {
   const html = await readPage("/index.html");
   assert.match(html, /<title>App Store 订阅比价<\/title>/);
@@ -222,7 +229,7 @@ test("exports a public log for confirmed price changes", async () => {
     assert.match(html, /查看详情/);
     assert.match(html, /收起详情/);
     assert.ok(html.includes(`${entries[0].changeCount} 个应用或地区有变化`));
-    assert.ok(html.includes(entries[0].changes[0].appName));
+    assert.ok(html.includes(escapeHtmlText(entries[0].changes[0].appName)));
     const currentChange = entries.flatMap((entry) => entry.changes)
       .find((change) => snapshot.apps.some((app) => app.id === change.appId));
     if (currentChange) assert.ok(html.includes(`/apps/${currentChange.appId}/`));
