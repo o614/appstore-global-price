@@ -2,6 +2,61 @@
   "version": 1,
   "entries": [
     {
+      "id": "79f340b69cdfc937c278",
+      "publishedAt": "2026-07-31T16:30:41.402Z",
+      "changeCount": 3,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "686449807",
+          "appName": "Telegram Messenger",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "1500 Telegram Stars",
+              "price": "£27.49"
+            }
+          ],
+          "removed": [
+            {
+              "name": "350 Telegram Stars",
+              "price": "£6.39"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "ph",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "YouTube Premium Family",
+              "price": "₱ 1,190.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "83b6d275ac7a61afa5b7",
       "publishedAt": "2026-07-31T09:37:57.300Z",
       "changeCount": 10,

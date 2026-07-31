@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T09:37:56.957Z",
+  "generatedAt": "2026-07-31T16:30:40.900Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3170,12 +3170,12 @@
               "price": "$8.00"
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "$200.00"
-            },
-            {
               "name": "ChatGPT Pro 5x",
               "price": "$100.00"
+            },
+            {
+              "name": "ChatGPT Pro 20x",
+              "price": "$200.00"
             },
             {
               "name": "100 Credits",
@@ -4555,12 +4555,12 @@
               "price": "4,99 €"
             },
             {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "219,99 €"
-            },
-            {
               "name": "Google AI Plus (2 TB)",
               "price": "9,99 €"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "219,99 €"
             }
           ]
         },
@@ -4628,12 +4628,12 @@
               "price": "₺359,99"
             },
             {
-              "name": "100 GB",
-              "price": "₺84,99"
-            },
-            {
               "name": "Google AI Pro (5 TB)",
               "price": "₺539,99"
+            },
+            {
+              "name": "100 GB",
+              "price": "₺84,99"
             }
           ]
         },
@@ -4790,7 +4790,7 @@
       "id": "6670324846",
       "matchedName": "Grok AI",
       "developer": "X Corp.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e4/70/fd/e470fd38-b63c-dd29-e79b-c9ba91fa32e2/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ad/a3/9a/ada39a46-b4f0-20ee-0e03-298b74705dd3/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/grok-ai/id6670324846?uo=4",
@@ -4957,12 +4957,12 @@
               "price": "599.000đ"
             },
             {
-              "name": "SuperGrok",
-              "price": "7.999.000đ"
-            },
-            {
               "name": "Extra Usage Credits 50 USD",
               "price": "1.499.000đ"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "7.999.000đ"
             },
             {
               "name": "Extra Usage Credits 100 USD",
@@ -5430,12 +5430,12 @@
               "price": "₱ 14,990.00"
             },
             {
-              "name": "SuperGrok",
-              "price": "₱ 14,990.00"
-            },
-            {
               "name": "Extra Usage Credits 50 USD",
               "price": "₱ 2,990.00"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "₱ 14,990.00"
             },
             {
               "name": "SuperGrok Lite",
@@ -5567,11 +5567,11 @@
               "price": "R$ 1.499,90"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "Extra Usage Credits 100 USD",
               "price": "R$ 599,90"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Lite",
               "price": "R$ 599,90"
             }
           ]
@@ -6145,12 +6145,12 @@
               "price": "₺1.799,99"
             },
             {
-              "name": "Allegro",
-              "price": "₺4.999,99"
-            },
-            {
               "name": "Vivace",
               "price": "₺8.999,99"
+            },
+            {
+              "name": "Allegro",
+              "price": "₺4.999,99"
             },
             {
               "name": "Moderato Annual Pass",
@@ -6500,12 +6500,12 @@
               "price": "HK$ 16.00"
             },
             {
-              "name": "Telegram Premium (6 Months)",
-              "price": "HK$ 148.00"
-            },
-            {
               "name": "250 Telegram Stars",
               "price": "HK$ 39.00"
+            },
+            {
+              "name": "Telegram Premium (6 Months)",
+              "price": "HK$ 148.00"
             }
           ]
         },
@@ -6829,8 +6829,8 @@
               "price": "£34.99"
             },
             {
-              "name": "350 Telegram Stars",
-              "price": "£6.39"
+              "name": "1500 Telegram Stars",
+              "price": "£27.49"
             }
           ]
         },
@@ -6946,12 +6946,12 @@
               "price": "$0.29"
             },
             {
-              "name": "250 Telegram Stars",
-              "price": "$7.39"
-            },
-            {
               "name": "500 Telegram Stars",
               "price": "$14.90"
+            },
+            {
+              "name": "250 Telegram Stars",
+              "price": "$7.39"
             },
             {
               "name": "750 Telegram Stars",
@@ -7860,12 +7860,12 @@
               "price": "10,00 €"
             },
             {
-              "name": "Promote Post for $25",
-              "price": "29,00 €"
-            },
-            {
               "name": "X Premium Basic (Annual)",
               "price": "36,00 €"
+            },
+            {
+              "name": "Promote Post for $25",
+              "price": "29,00 €"
             },
             {
               "name": "@elonmusk Subscription",
@@ -8185,12 +8185,12 @@
               "price": "R$ 309,00"
             },
             {
-              "name": "@elonmusk Subscription",
-              "price": "R$ 19,90"
-            },
-            {
               "name": "Promote Post",
               "price": "R$ 59,90"
+            },
+            {
+              "name": "@elonmusk Subscription",
+              "price": "R$ 19,90"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -8536,20 +8536,20 @@
               "price": "$1.39"
             },
             {
-              "name": "660 Coins",
-              "price": "$13.49"
-            },
-            {
               "name": "210 Coins",
               "price": "$4.09"
             },
             {
-              "name": "199 Coins",
-              "price": "$3.99"
+              "name": "660 Coins",
+              "price": "$13.49"
             },
             {
               "name": "350 Coins",
               "price": "$6.79"
+            },
+            {
+              "name": "199 Coins",
+              "price": "$3.99"
             }
           ]
         },
@@ -9308,7 +9308,7 @@
         {
           "region": "ph",
           "status": "ok-textPairs",
-          "itemCount": 6,
+          "itemCount": 5,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9329,10 +9329,6 @@
             {
               "name": "YouTube Premium",
               "price": "₱ 629.00"
-            },
-            {
-              "name": "YouTube Premium Family",
-              "price": "₱ 1,190.00"
             }
           ]
         },
@@ -9370,7 +9366,7 @@
         {
           "region": "in",
           "status": "ok-textPairs",
-          "itemCount": 7,
+          "itemCount": 6,
           "items": [
             {
               "name": "YouTube Premium",
@@ -9395,10 +9391,6 @@
             {
               "name": "Premium Lite",
               "price": "₹ 119"
-            },
-            {
-              "name": "Movies & Shows",
-              "price": "₹ 179"
             }
           ]
         },
