@@ -2,6 +2,265 @@
   "version": 1,
   "entries": [
     {
+      "id": "358600dd8ce0673d555a",
+      "publishedAt": "2026-08-01T23:43:51.137Z",
+      "changeCount": 14,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "S$ 289.98"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "$100.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "$100.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "NT$2,990.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "NT$2,990.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "fr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "100,00 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "100,00 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "$150.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "$150.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Vivace Annual Pass",
+              "price": "HK$ 14,888.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "686449807",
+          "appName": "Telegram Messenger",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "350 Telegram Stars",
+              "price": "£6.39"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Telegram Premium Annual",
+              "price": "£34.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Boosted Tweet package",
+              "price": "R$ 299,90"
+            }
+          ],
+          "removed": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "R$ 1.979,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Premium Lite",
+              "price": "￦10,900"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Super Chat",
+              "price": "￦15,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Movies & Shows",
+              "price": "$6.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "ph",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "YouTube Premium Family",
+              "price": "₱ 1,190.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Disney+ Premium",
+              "price": "£149.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "376510438",
+          "appName": "Hulu: Stream TV shows & movies",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "400ポイント",
+              "price": "¥480"
+            },
+            {
+              "name": "100ポイント",
+              "price": "¥120"
+            }
+          ],
+          "removed": [
+            {
+              "name": "500ポイント",
+              "price": "¥600"
+            },
+            {
+              "name": "5,100ポイント",
+              "price": "¥6,000"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "1f859c28d73843d01730",
       "publishedAt": "2026-08-01T09:06:41.645Z",
       "changeCount": 15,
