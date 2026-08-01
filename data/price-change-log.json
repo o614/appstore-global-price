@@ -2,6 +2,289 @@
   "version": 1,
   "entries": [
     {
+      "id": "1f859c28d73843d01730",
+      "publishedAt": "2026-08-01T09:06:41.645Z",
+      "changeCount": 15,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "¥15,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "¥15,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "￦149,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "￦149,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "th",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "฿3,990.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "฿3,990.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "£100.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "£100.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "100,00 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "100,00 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "$129.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "$129.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "₺4.999,99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "₺4.999,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "R$ 599,90"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "R$ 599,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Vivace Annual Pass",
+              "price": "HK$ 14,888.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@WholeMarsBlog Subscription",
+              "price": "NT$90.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "@SawyerMerritt Subscription",
+              "price": "NT$120.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "R$ 1.979,90"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Boosted Tweet package",
+              "price": "R$ 299,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "835599320",
+          "appName": "TikTok - Videos, Shop & LIVE",
+          "region": "fr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "350 Coins",
+              "price": "5,29 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "660 Coins",
+              "price": "9,79 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Movies & Shows",
+              "price": "$6.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "ph",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "YouTube Premium Family",
+              "price": "₱ 1,190.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Movies & Shows",
+              "price": "₹ 179"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "79f340b69cdfc937c278",
       "publishedAt": "2026-07-31T16:30:41.402Z",
       "changeCount": 3,
