@@ -2,6 +2,143 @@
   "version": 1,
   "entries": [
     {
+      "id": "02206de64fb883cf9a77",
+      "publishedAt": "2026-08-02T23:44:05.770Z",
+      "changeCount": 8,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "￦300,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "2.999.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "2.999.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "S$ 149.98"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "S$ 149.98"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Allegro Annual Pass",
+              "price": "HK$ 7,888.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@SawyerMerritt Subscription",
+              "price": "NT$120.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "@WholeMarsBlog Subscription",
+              "price": "NT$90.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Monthly Basic - US Only",
+              "price": "S$ 18.98"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "358600dd8ce0673d555a",
       "publishedAt": "2026-08-01T23:43:51.137Z",
       "changeCount": 14,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T23:43:50.686Z",
+  "generatedAt": "2026-08-02T23:44:05.334Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3234,12 +3234,12 @@
               "price": "499.000đ"
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "2.849.000đ"
-            },
-            {
               "name": "ChatGPT Pro 20x",
               "price": "4.999.000đ"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "price": "2.849.000đ"
             },
             {
               "name": "ChatGPT Plus",
@@ -3685,12 +3685,12 @@
               "price": "$124.99"
             },
             {
-              "name": "Claude Pro - Annual",
-              "price": "$214.99"
-            },
-            {
               "name": "Claude Max 20x - Monthly",
               "price": "$249.99"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "price": "$214.99"
             },
             {
               "name": "Usage Credits (20)",
@@ -4239,12 +4239,12 @@
               "price": "R$ 799,90"
             },
             {
-              "name": "Claude Pro - Annual",
-              "price": "R$ 1.299,90"
-            },
-            {
               "name": "Claude Max 20x - Monthly",
               "price": "R$ 1.499,90"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "price": "R$ 1.299,90"
             },
             {
               "name": "Usage Credits (250)",
@@ -4340,7 +4340,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 5,
+          "itemCount": 6,
           "items": [
             {
               "name": "Google AI Plus (400 GB)",
@@ -4353,6 +4353,10 @@
             {
               "name": "Google AI Plus (400 GB)",
               "price": "HK$ 388.00"
+            },
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "HK$ 78.00"
             },
             {
               "name": "Google AI Pro (5 TB)",
@@ -4428,12 +4432,12 @@
               "price": "S$ 6.98"
             },
             {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "S$ 289.98"
-            },
-            {
               "name": "100 GB",
               "price": "S$ 2.98"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "S$ 289.98"
             },
             {
               "name": "Google AI Plus (400 GB)",
@@ -4471,7 +4475,7 @@
         {
           "region": "kr",
           "status": "ok-textPairs",
-          "itemCount": 4,
+          "itemCount": 5,
           "items": [
             {
               "name": "Google AI Pro (5 TB)",
@@ -4488,6 +4492,10 @@
             {
               "name": "Google AI Pro (5 TB)",
               "price": "￦290,000"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "￦300,000"
             }
           ]
         },
@@ -4712,12 +4720,12 @@
           "itemCount": 5,
           "items": [
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₹ 1,950"
-            },
-            {
               "name": "Google AI Plus (400 GB)",
               "price": "₹ 399"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950"
             },
             {
               "name": "30 GB",
@@ -4824,15 +4832,15 @@
               "price": "$300.00"
             },
             {
+              "name": "SuperGrok Plus",
+              "price": "$100.00"
+            },
+            {
               "name": "Extra Usage Credits 20 USD",
               "price": "$20.00"
             },
             {
               "name": "SuperGrok Lite",
-              "price": "$100.00"
-            },
-            {
-              "name": "SuperGrok Plus",
               "price": "$100.00"
             },
             {
@@ -4953,19 +4961,19 @@
               "price": "7.999.000đ"
             },
             {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "1.499.000đ"
-            },
-            {
               "name": "SuperGrok",
               "price": "7.999.000đ"
+            },
+            {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "1.499.000đ"
             },
             {
               "name": "Extra Usage Credits 100 USD",
               "price": "2.999.000đ"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "SuperGrok Plus",
               "price": "2.999.000đ"
             }
           ]
@@ -5008,7 +5016,7 @@
               "price": "S$ 149.98"
             },
             {
-              "name": "SuperGrok Lite",
+              "name": "SuperGrok Plus",
               "price": "S$ 149.98"
             }
           ]
@@ -5176,12 +5184,12 @@
               "price": "£100.00"
             },
             {
-              "name": "SuperGrok",
-              "price": "£300.00"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "£100.00"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "£300.00"
             }
           ]
         },
@@ -5199,12 +5207,12 @@
               "price": "6,00 €"
             },
             {
-              "name": "SuperGrok Lite",
-              "price": "10,00 €"
-            },
-            {
               "name": "Extra Usage Credits 20 USD",
               "price": "22,00 €"
+            },
+            {
+              "name": "SuperGrok Lite",
+              "price": "10,00 €"
             },
             {
               "name": "SuperGrok Heavy",
@@ -5219,12 +5227,12 @@
               "price": "100,00 €"
             },
             {
-              "name": "SuperGrok",
-              "price": "349,00 €"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "100,00 €"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "349,00 €"
             }
           ]
         },
@@ -5262,12 +5270,12 @@
               "price": "100,00 €"
             },
             {
-              "name": "SuperGrok",
-              "price": "349,00 €"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "100,00 €"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "349,00 €"
             }
           ]
         },
@@ -5305,12 +5313,12 @@
               "price": "$129.00"
             },
             {
-              "name": "SuperGrok",
-              "price": "$400.00"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "$129.00"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "$400.00"
             }
           ]
         },
@@ -5391,12 +5399,12 @@
               "price": "$150.00"
             },
             {
-              "name": "SuperGrok",
-              "price": "$500.00"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "$150.00"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "$500.00"
             }
           ]
         },
@@ -5516,11 +5524,11 @@
               "price": "₹ 29,900"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Plus",
               "price": "₹ 9,900"
             },
             {
-              "name": "SuperGrok Plus",
+              "name": "Extra Usage Credits 100 USD",
               "price": "₹ 9,900"
             },
             {
@@ -5654,12 +5662,12 @@
               "price": "¥468.00"
             },
             {
-              "name": "Moderato 年卡",
-              "price": "¥948.00"
-            },
-            {
               "name": "Allegretto 年卡",
               "price": "¥1,948.00"
+            },
+            {
+              "name": "Moderato 年卡",
+              "price": "¥948.00"
             },
             {
               "name": "Allegro 年卡",
@@ -5709,7 +5717,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 8,
+          "itemCount": 7,
           "items": [
             {
               "name": "Moderato",
@@ -5738,10 +5746,6 @@
             {
               "name": "Vivace Annual Pass",
               "price": "HK$ 14,888.00"
-            },
-            {
-              "name": "Allegro Annual Pass",
-              "price": "HK$ 7,888.00"
             }
           ]
         },
@@ -5950,11 +5954,11 @@
               "price": "฿3,990.00"
             },
             {
-              "name": "Moderato Annual Pass",
+              "name": "Vivace",
               "price": "฿6,990.00"
             },
             {
-              "name": "Vivace",
+              "name": "Moderato Annual Pass",
               "price": "฿6,990.00"
             },
             {
@@ -5985,16 +5989,16 @@
               "price": "£39.00"
             },
             {
-              "name": "Vivace",
-              "price": "£199.00"
-            },
-            {
               "name": "Allegro",
               "price": "£99.00"
             },
             {
               "name": "Moderato Annual Pass",
               "price": "£179.99"
+            },
+            {
+              "name": "Vivace",
+              "price": "£199.00"
             },
             {
               "name": "Allegretto Annual Pass",
@@ -6075,12 +6079,12 @@
               "price": "199,99 €"
             },
             {
-              "name": "Allegretto Annual Pass",
-              "price": "399,99 €"
-            },
-            {
               "name": "Allegro Annual Pass",
               "price": "999,00 €"
+            },
+            {
+              "name": "Allegretto Annual Pass",
+              "price": "399,99 €"
             },
             {
               "name": "Vivace Annual Pass",
@@ -6519,12 +6523,12 @@
               "price": "NT$160.00"
             },
             {
-              "name": "100 Telegram Stars",
-              "price": "NT$75.00"
-            },
-            {
               "name": "Telegram Premium Annual",
               "price": "NT$1,290.00"
+            },
+            {
+              "name": "100 Telegram Stars",
+              "price": "NT$75.00"
             },
             {
               "name": "250 Telegram Stars",
@@ -6621,16 +6625,16 @@
               "price": "S$ 4.38"
             },
             {
-              "name": "500 Telegram Stars",
-              "price": "S$ 14.90"
-            },
-            {
               "name": "1x Premium (3 Months)",
               "price": "S$ 19.98"
             },
             {
               "name": "1x Telegram Premium (One Week)",
               "price": "S$ 1.98"
+            },
+            {
+              "name": "500 Telegram Stars",
+              "price": "S$ 14.90"
             },
             {
               "name": "750 Telegram Stars",
@@ -6715,12 +6719,12 @@
               "price": "￦15,800"
             },
             {
-              "name": "1x Telegram Premium (One Week)",
-              "price": "￦2,200"
-            },
-            {
               "name": "1x Premium (3 Months)",
               "price": "￦25,000"
+            },
+            {
+              "name": "1x Telegram Premium (One Week)",
+              "price": "￦2,200"
             },
             {
               "name": "750 Telegram Stars",
@@ -7441,12 +7445,12 @@
               "price": "HK$ 88.00"
             },
             {
-              "name": "X Premium Plus (Annual)",
-              "price": "HK$ 3,888.00"
-            },
-            {
               "name": "Promote Post for $25",
               "price": "HK$ 188.00"
+            },
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "HK$ 3,888.00"
             },
             {
               "name": "@Jake__Wujastyk Subscription",
@@ -7496,8 +7500,8 @@
               "price": "NT$150.00"
             },
             {
-              "name": "@WholeMarsBlog Subscription",
-              "price": "NT$90.00"
+              "name": "@SawyerMerritt Subscription",
+              "price": "NT$120.00"
             }
           ]
         },
@@ -7515,12 +7519,12 @@
               "price": "55.000đ"
             },
             {
-              "name": "X Premium Plus (Monthly)",
-              "price": "1.250.000đ"
-            },
-            {
               "name": "X Premium (Annual)",
               "price": "1.500.000đ"
+            },
+            {
+              "name": "X Premium Plus (Monthly)",
+              "price": "1.250.000đ"
             },
             {
               "name": "@elonmusk Subscription",
@@ -7797,20 +7801,20 @@
               "price": "4,00 €"
             },
             {
-              "name": "X Premium Plus (Monthly)",
-              "price": "57,00 €"
-            },
-            {
               "name": "X Premium (Annual)",
               "price": "107,99 €"
             },
             {
-              "name": "@elonmusk Subscription",
-              "price": "4,00 €"
+              "name": "X Premium Plus (Monthly)",
+              "price": "57,00 €"
             },
             {
               "name": "Promote Post",
               "price": "10,00 €"
+            },
+            {
+              "name": "@elonmusk Subscription",
+              "price": "4,00 €"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -7821,12 +7825,12 @@
               "price": "29,00 €"
             },
             {
-              "name": "Boosted Tweet package",
-              "price": "60,00 €"
-            },
-            {
               "name": "X Premium Plus (Annual)",
               "price": "569,00 €"
+            },
+            {
+              "name": "Boosted Tweet package",
+              "price": "60,00 €"
             }
           ]
         },
@@ -7856,12 +7860,12 @@
               "price": "10,00 €"
             },
             {
-              "name": "Promote Post for $25",
-              "price": "29,00 €"
-            },
-            {
               "name": "X Premium Basic (Annual)",
               "price": "36,00 €"
+            },
+            {
+              "name": "Promote Post for $25",
+              "price": "29,00 €"
             },
             {
               "name": "@elonmusk Subscription",
@@ -7950,24 +7954,24 @@
               "price": "₺2.149,99"
             },
             {
-              "name": "@hoccabazzzz Subscription",
-              "price": "₺349,99"
-            },
-            {
               "name": "Promote Post",
               "price": "₺499,99"
+            },
+            {
+              "name": "@hoccabazzzz Subscription",
+              "price": "₺349,99"
             },
             {
               "name": "@TuncSatiroglu Subscription",
               "price": "₺129,99"
             },
             {
-              "name": "Promote Post for $25",
-              "price": "₺1.299,99"
-            },
-            {
               "name": "X Premium Basic (Annual)",
               "price": "₺779,99"
+            },
+            {
+              "name": "Promote Post for $25",
+              "price": "₺1.299,99"
             }
           ]
         },
@@ -8079,12 +8083,12 @@
               "price": "₦ 3,050.00"
             },
             {
-              "name": "X Premium (Annual)",
-              "price": "₦ 76,900.00"
-            },
-            {
               "name": "Promote Post",
               "price": "₦ 14,900.00"
+            },
+            {
+              "name": "X Premium (Annual)",
+              "price": "₦ 76,900.00"
             },
             {
               "name": "X Premium Plus (Monthly)",
@@ -8469,12 +8473,12 @@
               "price": "0,99 €"
             },
             {
-              "name": "330 Coins",
-              "price": "4,90 €"
-            },
-            {
               "name": "70 Coins",
               "price": "1,09 €"
+            },
+            {
+              "name": "330 Coins",
+              "price": "4,90 €"
             },
             {
               "name": "130 Coins",
@@ -8536,12 +8540,12 @@
               "price": "$4.09"
             },
             {
-              "name": "660 Coins",
-              "price": "$13.49"
-            },
-            {
               "name": "350 Coins",
               "price": "$6.79"
+            },
+            {
+              "name": "660 Coins",
+              "price": "$13.49"
             },
             {
               "name": "199 Coins",
@@ -8563,12 +8567,12 @@
               "price": "₺53,99"
             },
             {
-              "name": "330 Coins",
-              "price": "₺254,99"
-            },
-            {
               "name": "139 Coins",
               "price": "₺114,99"
+            },
+            {
+              "name": "330 Coins",
+              "price": "₺254,99"
             },
             {
               "name": "70 Coins",
@@ -8849,7 +8853,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 9,
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8882,10 +8886,6 @@
             {
               "name": "加入JFFT永遠都唔會遲",
               "price": "HK$ 33.00"
-            },
-            {
-              "name": "Super Chat",
-              "price": "HK$ 78.00"
             }
           ]
         },
@@ -10539,7 +10539,7 @@
         {
           "region": "sg",
           "status": "ok-textPairs",
-          "itemCount": 5,
+          "itemCount": 6,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10560,6 +10560,10 @@
             {
               "name": "Disney+ Standard",
               "price": "S$ 159.98"
+            },
+            {
+              "name": "Monthly Basic - US Only",
+              "price": "S$ 18.98"
             }
           ]
         },
@@ -10887,12 +10891,12 @@
               "price": "¥1,200"
             },
             {
-              "name": "570ポイント",
-              "price": "¥650"
-            },
-            {
               "name": "100ポイント",
               "price": "¥120"
+            },
+            {
+              "name": "570ポイント",
+              "price": "¥650"
             }
           ]
         },
