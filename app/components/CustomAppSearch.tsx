@@ -33,6 +33,31 @@ function messageFromResponse(payload: { error?: string }, fallback: string) {
   return payload.error || fallback;
 }
 
+async function searchRequest(query: string): Promise<SearchPayload> {
+  const endpoint = `/api/apps/search?v=3&q=${encodeURIComponent(query)}`;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(endpoint, { headers: { accept: "application/json" } });
+      const payload = await response.json().catch(() => ({})) as Partial<SearchPayload>;
+      if (response.ok && Array.isArray(payload.results)) return payload as SearchPayload;
+      if (response.status === 429) throw new Error("搜索请求较多，请稍等片刻再试。");
+      if (response.status >= 500 && attempt === 0) {
+        await new Promise((resolve) => window.setTimeout(resolve, 600));
+        continue;
+      }
+      throw new Error(messageFromResponse(payload, "搜索暂时不可用，请稍后重试。"));
+    } catch (requestError) {
+      if (attempt === 0 && !(requestError instanceof Error && requestError.message.includes("请求较多"))) {
+        await new Promise((resolve) => window.setTimeout(resolve, 600));
+        continue;
+      }
+      if (requestError instanceof Error && requestError.message) throw requestError;
+      throw new Error("网络连接不稳定，请稍后重试。");
+    }
+  }
+  throw new Error("搜索暂时不可用，请稍后重试。");
+}
+
 export function CustomAppSearch() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -76,11 +101,7 @@ export function CustomAppSearch() {
     setError("");
     setComparison(null);
     try {
-      const response = await fetch(`/api/apps/search?v=3&q=${encodeURIComponent(normalized)}`, {
-        headers: { accept: "application/json" },
-      });
-      const payload = await response.json() as SearchPayload;
-      if (!response.ok) throw new Error(messageFromResponse(payload, "搜索暂时不可用"));
+      const payload = await searchRequest(normalized);
       setResults(payload.results);
       if (!payload.results.length) setError("没有找到匹配应用，可尝试输入 App ID 或完整 App Store 链接。");
     } catch (searchError) {

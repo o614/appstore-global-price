@@ -602,7 +602,12 @@ export async function onRequestGet(context) {
       elapsedMs: Date.now() - startedAt,
       error: error instanceof Error ? error.message : String(error),
     }));
-    return jsonResponse({ error: publicError(error) }, 502, "no-store", { "x-request-id": requestId });
+    return jsonResponse(
+      { error: publicError(error) },
+      502,
+      "no-store",
+      { "retry-after": "3", "x-request-id": requestId },
+    );
   }
 }
 
