@@ -2,6 +2,113 @@
   "version": 1,
   "entries": [
     {
+      "id": "82bb68662951470058ef",
+      "publishedAt": "2026-08-03T23:52:39.455Z",
+      "changeCount": 6,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6448311069",
+          "appName": "ChatGPT",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "1000 Credits",
+              "price": "$40.00"
+            },
+            {
+              "name": "500 Credits",
+              "price": "$20.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "HK$ 788.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "HK$ 788.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Allegro Annual Pass",
+              "price": "HK$ 7,888.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Boosted Tweet package",
+              "price": "R$ 299,90"
+            }
+          ],
+          "removed": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "R$ 1.979,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Disney+ Premium",
+              "price": "£149.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "63339e5a5a9a9a8556b8",
       "publishedAt": "2026-08-03T10:37:22.822Z",
       "changeCount": 9,

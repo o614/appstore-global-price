@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T10:37:22.427Z",
+  "generatedAt": "2026-08-03T23:52:39.023Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -3159,7 +3159,7 @@
         {
           "region": "us",
           "status": "ok-textPairs",
-          "itemCount": 6,
+          "itemCount": 8,
           "items": [
             {
               "name": "ChatGPT Plus",
@@ -3184,6 +3184,14 @@
             {
               "name": "ChatGPT Plus",
               "price": "$200.00"
+            },
+            {
+              "name": "1000 Credits",
+              "price": "$40.00"
+            },
+            {
+              "name": "500 Credits",
+              "price": "$20.00"
             }
           ]
         },
@@ -3423,12 +3431,12 @@
               "price": "7,99 €"
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "229,00 €"
-            },
-            {
               "name": "ChatGPT Pro 5x",
               "price": "102,99 €"
+            },
+            {
+              "name": "ChatGPT Pro 20x",
+              "price": "229,00 €"
             },
             {
               "name": "ChatGPT Plus",
@@ -4728,12 +4736,12 @@
           "itemCount": 5,
           "items": [
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₹ 1,950"
-            },
-            {
               "name": "Google AI Plus (400 GB)",
               "price": "₹ 399"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950"
             },
             {
               "name": "30 GB",
@@ -4802,7 +4810,7 @@
       "id": "6670324846",
       "matchedName": "Grok AI",
       "developer": "X Corp.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0b/f6/66/0bf666ac-b238-bd18-a581-f88b522d1fe5/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/18/1a/cd/181acd94-711e-50fd-c291-d7f7fd72f65a/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/grok-ai/id6670324846?uo=4",
@@ -4895,7 +4903,7 @@
               "price": "HK$ 788.00"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Plus",
               "price": "HK$ 788.00"
             }
           ]
@@ -5016,15 +5024,15 @@
               "price": "S$ 69.98"
             },
             {
+              "name": "SuperGrok Plus",
+              "price": "S$ 149.98"
+            },
+            {
               "name": "SuperGrok",
               "price": "S$ 399.98"
             },
             {
               "name": "Extra Usage Credits 100 USD",
-              "price": "S$ 149.98"
-            },
-            {
-              "name": "SuperGrok Plus",
               "price": "S$ 149.98"
             }
           ]
@@ -5266,12 +5274,12 @@
               "price": "22,00 €"
             },
             {
-              "name": "SuperGrok Heavy",
-              "price": "349,00 €"
-            },
-            {
               "name": "Extra Usage Credits 50 USD",
               "price": "60,00 €"
+            },
+            {
+              "name": "SuperGrok Heavy",
+              "price": "349,00 €"
             },
             {
               "name": "Extra Usage Credits 100 USD",
@@ -5364,12 +5372,12 @@
               "price": "₺2.499,99"
             },
             {
-              "name": "SuperGrok",
-              "price": "₺12.999,99"
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "₺4.999,99"
+            },
+            {
+              "name": "SuperGrok",
+              "price": "₺12.999,99"
             }
           ]
         },
@@ -5532,11 +5540,11 @@
               "price": "₹ 29,900"
             },
             {
-              "name": "Extra Usage Credits 100 USD",
+              "name": "SuperGrok Plus",
               "price": "₹ 9,900"
             },
             {
-              "name": "SuperGrok Plus",
+              "name": "Extra Usage Credits 100 USD",
               "price": "₹ 9,900"
             },
             {
@@ -5725,7 +5733,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 7,
+          "itemCount": 8,
           "items": [
             {
               "name": "Moderato",
@@ -5750,6 +5758,10 @@
             {
               "name": "Vivace",
               "price": "HK$ 1,488.00"
+            },
+            {
+              "name": "Allegro Annual Pass",
+              "price": "HK$ 7,888.00"
             },
             {
               "name": "Vivace Annual Pass",
@@ -6001,12 +6013,12 @@
               "price": "£99.00"
             },
             {
-              "name": "Moderato Annual Pass",
-              "price": "£179.99"
-            },
-            {
               "name": "Vivace",
               "price": "£199.00"
+            },
+            {
+              "name": "Moderato Annual Pass",
+              "price": "£179.99"
             },
             {
               "name": "Allegretto Annual Pass",
@@ -6633,12 +6645,12 @@
               "price": "S$ 4.38"
             },
             {
-              "name": "500 Telegram Stars",
-              "price": "S$ 14.90"
-            },
-            {
               "name": "1x Premium (3 Months)",
               "price": "S$ 19.98"
+            },
+            {
+              "name": "500 Telegram Stars",
+              "price": "S$ 14.90"
             },
             {
               "name": "1x Telegram Premium (One Week)",
@@ -6813,12 +6825,12 @@
               "price": "£9.09"
             },
             {
-              "name": "250 Telegram Stars",
-              "price": "£4.59"
-            },
-            {
               "name": "1x Telegram Premium (One Week)",
               "price": "£0.99"
+            },
+            {
+              "name": "250 Telegram Stars",
+              "price": "£4.59"
             },
             {
               "name": "750 Telegram Stars",
@@ -7390,12 +7402,12 @@
               "price": "$50.00"
             },
             {
-              "name": "@elonmusk Subscription",
-              "price": "$4.00"
-            },
-            {
               "name": "X Premium (Annual)",
               "price": "$114.99"
+            },
+            {
+              "name": "@elonmusk Subscription",
+              "price": "$4.00"
             },
             {
               "name": "Promote Post for $25",
@@ -7449,12 +7461,12 @@
               "price": "HK$ 278.00"
             },
             {
-              "name": "Promote Post",
-              "price": "HK$ 88.00"
-            },
-            {
               "name": "X Premium Plus (Annual)",
               "price": "HK$ 3,888.00"
+            },
+            {
+              "name": "Promote Post",
+              "price": "HK$ 88.00"
             },
             {
               "name": "Promote Post for $25",
@@ -7809,12 +7821,12 @@
               "price": "4,00 €"
             },
             {
-              "name": "X Premium Plus (Monthly)",
-              "price": "57,00 €"
-            },
-            {
               "name": "X Premium (Annual)",
               "price": "107,99 €"
+            },
+            {
+              "name": "X Premium Plus (Monthly)",
+              "price": "57,00 €"
             },
             {
               "name": "@elonmusk Subscription",
@@ -8142,12 +8154,12 @@
               "price": "₹ 4,700"
             },
             {
-              "name": "X Premium Plus (Monthly)",
-              "price": "₹ 4,999"
-            },
-            {
               "name": "Promote Post",
               "price": "₹ 999"
+            },
+            {
+              "name": "X Premium Plus (Monthly)",
+              "price": "₹ 4,999"
             },
             {
               "name": "X Premium Basic (Annual)",
@@ -8213,8 +8225,8 @@
               "price": "R$ 9,90"
             },
             {
-              "name": "X Premium Plus (Annual)",
-              "price": "R$ 1.979,90"
+              "name": "Boosted Tweet package",
+              "price": "R$ 299,90"
             }
           ]
         },
@@ -8548,12 +8560,12 @@
               "price": "$4.09"
             },
             {
-              "name": "660 Coins",
-              "price": "$13.49"
-            },
-            {
               "name": "350 Coins",
               "price": "$6.79"
+            },
+            {
+              "name": "660 Coins",
+              "price": "$13.49"
             },
             {
               "name": "199 Coins",
@@ -8802,12 +8814,12 @@
               "price": "¥68.00"
             },
             {
-              "name": "Super Chat",
-              "price": "¥128.00"
-            },
-            {
               "name": "Youtube Premium Family",
               "price": "¥153.00"
+            },
+            {
+              "name": "Super Chat",
+              "price": "¥128.00"
             },
             {
               "name": "YouTube Premium",
@@ -8861,7 +8873,7 @@
         {
           "region": "hk",
           "status": "ok-textPairs",
-          "itemCount": 9,
+          "itemCount": 8,
           "items": [
             {
               "name": "YouTube Premium",
@@ -8894,10 +8906,6 @@
             {
               "name": "加入JFFT永遠都唔會遲",
               "price": "HK$ 33.00"
-            },
-            {
-              "name": "Super Chat",
-              "price": "HK$ 78.00"
             }
           ]
         },
@@ -8981,12 +8989,12 @@
               "price": "S$ 36.98"
             },
             {
-              "name": "Super Chat",
-              "price": "S$ 2.98"
-            },
-            {
               "name": "Premium Lite",
               "price": "S$ 10.98"
+            },
+            {
+              "name": "Super Chat",
+              "price": "S$ 2.98"
             },
             {
               "name": "Super Chat",
@@ -9199,12 +9207,12 @@
               "price": "2,49 €"
             },
             {
-              "name": "YouTube Premium Family",
-              "price": "38,99 €"
-            },
-            {
               "name": "Premium Lite",
               "price": "9,99 €"
+            },
+            {
+              "name": "YouTube Premium Family",
+              "price": "38,99 €"
             },
             {
               "name": "Super Chat",
@@ -10642,7 +10650,7 @@
         {
           "region": "gb",
           "status": "ok-textPairs",
-          "itemCount": 4,
+          "itemCount": 3,
           "items": [
             {
               "name": "Disney+ Premium",
@@ -10655,10 +10663,6 @@
             {
               "name": "Disney+ Standard with Ads",
               "price": "£5.99"
-            },
-            {
-              "name": "Disney+ Premium",
-              "price": "£149.99"
             }
           ]
         },
@@ -10899,16 +10903,16 @@
               "price": "¥360"
             },
             {
+              "name": "400ポイント",
+              "price": "¥480"
+            },
+            {
               "name": "1,020ポイント",
               "price": "¥1,200"
             },
             {
               "name": "570ポイント",
               "price": "¥650"
-            },
-            {
-              "name": "400ポイント",
-              "price": "¥480"
             },
             {
               "name": "100ポイント",
@@ -11001,7 +11005,7 @@
       "id": "317469184",
       "matchedName": "ESPN: Live Sports & Scores",
       "developer": "Disney Electronic Content, Inc.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/16/08/f5/1608f539-91bf-8b6d-fad4-6e57f2087fa1/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fc/4b/1f/fc4b1f79-06b9-ca0f-d1ed-143e5c150e6b/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
       "category": "Sports",
       "group": "体育",
       "storeUrl": "https://apps.apple.com/us/app/espn-live-sports-scores/id317469184?uo=4",
