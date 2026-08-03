@@ -2,6 +2,169 @@
   "version": 1,
   "entries": [
     {
+      "id": "63339e5a5a9a9a8556b8",
+      "publishedAt": "2026-08-03T10:37:22.822Z",
+      "changeCount": 9,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "￦12,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "￦300,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "49,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ng",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "₦ 289,000.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "id",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "Rp 1,699juta"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "Rp 1,699juta"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "@Jake__Wujastyk Subscription",
+              "price": "S$ 19.98"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Boosted Tweet package",
+              "price": "S$ 69.98"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "$790.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "@NiallHarbison Subscription",
+              "price": "$8.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "333903271",
+          "appName": "X",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "X Premium Plus (Annual)",
+              "price": "R$ 1.979,90"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Boosted Tweet package",
+              "price": "R$ 299,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Disney+ Premium",
+              "price": "£149.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "02206de64fb883cf9a77",
       "publishedAt": "2026-08-02T23:44:05.770Z",
       "changeCount": 8,
