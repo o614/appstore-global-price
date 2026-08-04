@@ -2,6 +2,115 @@
   "version": 1,
   "entries": [
     {
+      "id": "0fe4f564fb7c700089fa",
+      "publishedAt": "2026-08-04T16:40:21.268Z",
+      "changeCount": 6,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "kr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "￦300,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "￦12,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$13.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$69.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ph",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₱ 599.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "₱ 11,900.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "sg",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Monthly Basic - US Only",
+              "price": "S$ 18.98"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Disney+ Premium",
+              "price": "£149.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "82bb68662951470058ef",
       "publishedAt": "2026-08-03T23:52:39.455Z",
       "changeCount": 6,
