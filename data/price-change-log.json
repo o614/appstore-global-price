@@ -2,6 +2,81 @@
   "version": 1,
   "entries": [
     {
+      "id": "6352979f09a50d17eac5",
+      "publishedAt": "2026-08-04T23:47:02.803Z",
+      "changeCount": 4,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "100 GB",
+              "price": "1,99 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "49,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "HK$ 788.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "HK$ 788.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "544007664",
+          "appName": "YouTube",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Super Chat",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1446075923",
+          "appName": "Disney+",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "removed": [
+            {
+              "name": "Disney+ Premium",
+              "price": "£149.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "0fe4f564fb7c700089fa",
       "publishedAt": "2026-08-04T16:40:21.268Z",
       "changeCount": 6,
