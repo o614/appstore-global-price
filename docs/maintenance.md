@@ -42,19 +42,7 @@ npm run data:add
 
 `query` 不再是普通 App 的必填字段。Apple 自有服务不是普通 App Store 内购页，仍需保留 `priceSource`、`service` 和 `metadata`。
 
-同一品牌在个别地区使用不同的官方 App ID 时，只配置已经由 Apple 官方页面确认的地区映射，不猜测其他地区：
-
-```json
-{ "id": "376510438", "regionalAppIds": { "jp": "549416492" } }
-```
-
-如果公开内购列表混有与订阅比价无关的一次性打赏项目，可按 Apple 页面上的完整名称排除：
-
-```json
-{ "id": "6474233312", "excludeItemNames": ["Give Kimi some snacks !"] }
-```
-
-排除规则只用于明显不属于订阅套餐的项目，不用于隐藏价格或补齐缺失套餐。
+普通应用不配置地区替代 ID，也不按应用维护套餐排除表。同一应用在部分地区使用不同 App ID 时不加入精选目录；Apple 已公开的全部购买项目都保留在快照与变动检测中，前端统一把主要订阅放在前面，并折叠其他购买项目。
 
 ## GitHub Actions 自动抓取
 
@@ -75,7 +63,7 @@ npm run data:add
 | 当前价格快照 | `data/validation-snapshot.json` | 自动生成，不手工修改 |
 | 当前参考汇率 | `data/exchange-rates.json` | 自动生成，不手工修改 |
 
-前端会自动发现抓取结果里的全部公开内购项目。应用新增套餐后，只要 Apple 公开页面能连续两次抓到同一变化，下一次有效更新就会自动进入面板；没有友好名称时先显示 Apple 原始名称，随后再在 `plan-definitions.json` 补充别名即可。应用新增、删除和目录地区配置等维护操作只出现在 Action 摘要中，不进入公开订阅变动日志或 Bark。
+前端会自动发现抓取结果里的全部公开内购项目，并用一套全局规则区分主要套餐与其他购买项目。应用新增项目后，只要 Apple 公开页面能连续两次抓到同一变化，下一次有效更新就会自动进入面板；没有友好名称时先显示 Apple 原始名称，随后再在 `plan-definitions.json` 补充别名即可。应用新增、删除和目录地区配置等维护操作只出现在 Action 摘要中，不进入公开订阅变动日志或 Bark。
 
 ## 自动任务
 
@@ -101,7 +89,7 @@ Cloudflare 面板建议再添加两条仅作用于 `price.290935.xyz/api/apps/` 
 
 1. 打开 `data/catalog-config.json`，在希望展示的位置添加 `{ "id": "640199958", "group": "Apple 服务" }`；普通 App 不需要手写名称和图标。
 2. 提交到 `main`。`应用总表自动抓取` Action 会自动读取 Apple 元数据、分批抓取 20 个地区、校验并提交生成结果，无需让 Codex 手工抓取。
-3. 如果同一品牌只在某个地区使用另一官方 App ID，才增加 `regionalAppIds`；如果 Apple 内购列表含明确的打赏项，才用完整名称配置 `excludeItemNames`。
+3. 同一应用在部分地区使用不同 App ID 时不加入精选目录；不用为金币、积分或打赏项目维护排除表，它们会自动进入折叠区域。
 4. 仅当 Apple 原始套餐名不够清楚时，再维护 `data/plan-definitions.json`。需要立即重试时，可在 GitHub Actions 页面手动运行 `应用总表自动抓取`。
 
 ## 调整地区

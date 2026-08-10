@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   CloseLine,
+  DownSmallLine,
   InformationLine,
   LinkLine,
   PicLine,
@@ -93,21 +94,34 @@ async function loadRemoteCanvasImage(src: string) {
 }
 
 export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDefinition[] }) {
-  const [selectedId, setSelectedId] = useState(plans[0]?.id ?? "");
+  const primaryPlans = useMemo(() => plans.filter((plan) => plan.displayGroup !== "other"), [plans]);
+  const otherPlans = useMemo(() => plans.filter((plan) => plan.displayGroup === "other"), [plans]);
+  const [selectedId, setSelectedId] = useState(primaryPlans[0]?.id ?? plans[0]?.id ?? "");
+  const [showAllPrimary, setShowAllPrimary] = useState(false);
+  const [showOtherPlans, setShowOtherPlans] = useState(primaryPlans.length === 0);
   const { isShareOpen, closeShare } = usePriceShare();
   const [selectedStoreRegion, setSelectedStoreRegion] = useState<string | null>(null);
   const [clientKind, setClientKind] = useState<"unknown" | ClientKind>("unknown");
   const [shareFeedback, setShareFeedback] = useState("");
   const selectedPlan = plans.find((plan) => plan.id === selectedId) ?? plans[0];
   const sourceCopy = getPriceSourceCopy(app);
+  const primaryPlanLimit = 6;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const planId = new URL(window.location.href).searchParams.get("plan");
-      if (planId && plans.some((plan) => plan.id === planId)) setSelectedId(planId);
+      const requestedPlan = plans.find((plan) => plan.id === planId);
+      const nextPlan = requestedPlan ?? primaryPlans[0] ?? plans[0];
+      if (!nextPlan) return;
+      const requestedIndex = primaryPlans.findIndex((plan) => plan.id === nextPlan.id);
+      setSelectedId(nextPlan.id);
+      setShowAllPrimary(requestedIndex >= primaryPlanLimit);
+      setShowOtherPlans(primaryPlans.length === 0 || otherPlans.some((plan) => plan.id === nextPlan.id));
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [plans]);
+  // AppComparisonView remounts this explorer for a different app; only reset on that boundary.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [app.id]);
 
   useEffect(() => {
     if (!isShareOpen && !selectedStoreRegion) return;
@@ -379,23 +393,79 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
 
   return (
     <div className="price-explorer">
-      <div className="plan-strip" role="tablist" aria-label="选择套餐">
-        {plans.map((plan) => (
+      {primaryPlans.length > 0 && (
+        <section className="plan-group" aria-labelledby="primary-plan-heading">
+          <div className="plan-group-heading">
+            <strong id="primary-plan-heading">主要套餐</strong>
+            <span>{primaryPlans.length}</span>
+          </div>
+          <div className="plan-strip" role="tablist" aria-label="选择主要套餐">
+            {primaryPlans.map((plan, index) => (
+              <button
+                key={plan.id}
+                className={plan.id === selectedPlan.id ? "plan-chip active" : "plan-chip"}
+                hidden={!showAllPrimary && index >= primaryPlanLimit}
+                onClick={() => setSelectedId(plan.id)}
+                role="tab"
+                aria-selected={plan.id === selectedPlan.id}
+              >
+                <strong>{plan.label}</strong>
+                <span>{plan.period}</span>
+              </button>
+            ))}
+          </div>
+          {primaryPlans.length > primaryPlanLimit && (
+            <button
+              className="plan-expand-button"
+              type="button"
+              aria-expanded={showAllPrimary}
+              onClick={() => {
+                if (showAllPrimary && !primaryPlans.slice(0, primaryPlanLimit).some((plan) => plan.id === selectedPlan.id)) {
+                  setSelectedId(primaryPlans[0].id);
+                }
+                setShowAllPrimary((current) => !current);
+              }}
+            >
+              {showAllPrimary ? "收起" : `展开其余 ${primaryPlans.length - primaryPlanLimit} 个`}
+              <DownSmallLine className="ui-icon" aria-hidden="true" />
+            </button>
+          )}
+        </section>
+      )}
+
+      {otherPlans.length > 0 && (
+        <section className="plan-group plan-group-secondary" aria-labelledby="other-plan-heading">
           <button
-            key={plan.id}
-            className={plan.id === selectedPlan.id ? "plan-chip active" : "plan-chip"}
-            onClick={() => setSelectedId(plan.id)}
-            role="tab"
-            aria-selected={plan.id === selectedPlan.id}
+            className="secondary-plan-toggle"
+            type="button"
+            aria-expanded={showOtherPlans}
+            aria-controls="other-plan-list"
+            onClick={() => {
+              if (showOtherPlans && otherPlans.some((plan) => plan.id === selectedPlan.id) && primaryPlans[0]) {
+                setSelectedId(primaryPlans[0].id);
+              }
+              setShowOtherPlans((current) => !current);
+            }}
           >
-            <strong>{plan.label}</strong>
-            <span>{plan.period}</span>
+            <span><strong id="other-plan-heading">其他购买项目</strong><small>{otherPlans.length}</small></span>
+            <DownSmallLine className="ui-icon" aria-hidden="true" />
           </button>
-        ))}
-      </div>
-      <div className="comparison-toolbar">
-        <p className="plan-explanation">月付、年付与一次性购买分别排名。</p>
-      </div>
+          <div className="plan-strip secondary-plan-strip" id="other-plan-list" role="tablist" aria-label="选择其他购买项目" hidden={!showOtherPlans}>
+            {otherPlans.map((plan) => (
+              <button
+                key={plan.id}
+                className={plan.id === selectedPlan.id ? "plan-chip active" : "plan-chip"}
+                onClick={() => setSelectedId(plan.id)}
+                role="tab"
+                aria-selected={plan.id === selectedPlan.id}
+              >
+                <strong>{plan.label}</strong>
+                <span>{plan.period}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="price-summary-grid">
         <div className="lowest-card">

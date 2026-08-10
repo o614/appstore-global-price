@@ -85,7 +85,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         provider: { "@type": "Organization", name: app.developer || "Apple Inc." },
         additionalProperty: [
           { "@type": "PropertyValue", name: "比价地区数量", value: app.regions.length },
-          { "@type": "PropertyValue", name: "公开套餐数量", value: plans.length },
+          { "@type": "PropertyValue", name: "公开购买项目数量", value: plans.length },
         ],
       }
     : {
@@ -102,7 +102,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
         author: { "@type": "Organization", name: app.developer },
         additionalProperty: [
           { "@type": "PropertyValue", name: "比价地区数量", value: app.regions.length },
-          { "@type": "PropertyValue", name: "公开套餐数量", value: plans.length },
+          { "@type": "PropertyValue", name: "公开购买项目数量", value: plans.length },
         ],
       };
 

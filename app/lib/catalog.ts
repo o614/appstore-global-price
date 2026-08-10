@@ -34,6 +34,8 @@ export type PlanDefinition = {
   period: string;
   aliases: string[];
   occurrence?: number;
+  discovered?: boolean;
+  displayGroup?: "primary" | "other";
 };
 
 export type RegionEvidenceState = "verified" | "unavailable" | "not-public" | "review";

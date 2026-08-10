@@ -65,7 +65,7 @@ test("exports every configured app detail route", async () => {
   assert.match(html, /选择套餐，查看各地区价格/);
   assert.match(html, /同套餐、同周期比较/);
   assert.match(html, /地区有价格/);
-  assert.match(html, /个公开套餐/);
+  assert.match(html, /个购买项目/);
   assert.doesNotMatch(html, /<th class="col-status">状态<\/th>/);
   assert.doesNotMatch(html, /Apple 已验证|参考最低<\/span><\/td>/);
   assert.doesNotMatch(html, /日汇率折算/);
@@ -84,38 +84,30 @@ test("exports every configured app detail route", async () => {
     ["640199958", "Apple Developer"],
     ["6474233312", "Kimi"],
     ["835599320", "TikTok"],
-    ["1666653815", "HBO Max"],
-    ["317469184", "ESPN"],
-    ["1446075923", "Disney+"],
-    ["376510438", "Hulu"],
+    ["1668000334", "Perplexity"],
+    ["570060128", "Duolingo"],
+    ["1500855883", "CapCut"],
+    ["985746746", "Discord"],
+    ["1451784328", "Google One"],
+    ["6767085653", "Cursor"],
+    ["426826309", "Strava"],
   ]) {
     const app = snapshot.apps.find((candidate) => candidate.id === id);
     assert.ok(app?.matchedName.includes(name), `${name} is missing from the snapshot`);
     await stat(new URL(`../out/apps/${id}/index.html`, import.meta.url));
   }
-  assert.equal(snapshot.apps.some((app) => app.id === "1451784328"), false);
+  for (const id of ["1666653815", "1446075923", "376510438", "317469184"]) {
+    assert.equal(snapshot.apps.some((app) => app.id === id), false);
+  }
   assert.equal(snapshot.apps.some((app) => app.id === "547166701"), false);
   assert.equal(snapshot.apps.some((app) => app.id === "6737597349"), false);
   assert.equal(snapshot.apps.some((app) => app.id === "530168168"), false);
 
   const kimi = snapshot.apps.find((app) => app.id === "6474233312");
   assert.ok(kimi, "Kimi is missing from the snapshot");
-  assert.equal(discoverPlans(kimi, planDefinitions["6474233312"]).length, 10);
-  const kimiItemNames = kimi.regions.flatMap((region) => region.items.map((item) => item.name));
-  for (const itemName of [
-    "Give Kimi some snacks !",
-    "Send Kimi a flower !",
-    "Grab a coffee with Kimi !",
-    "Get Kimi charged !",
-    "Land on the moon with Kimi !",
-    "Treat Kimi to a meal !",
-  ]) {
-    assert.equal(kimiItemNames.includes(itemName), false, `Kimi tip item should not be compared: ${itemName}`);
-  }
-
-  const hulu = snapshot.apps.find((app) => app.id === "376510438");
-  assert.equal(hulu?.regionalAppIds?.jp, "549416492");
-  assert.ok(hulu?.regions.find((region) => region.region === "jp")?.itemCount > 0, "Hulu Japan prices are missing");
+  const kimiPlans = discoverPlans(kimi, planDefinitions["6474233312"]);
+  assert.ok(kimiPlans.some((plan) => plan.displayGroup === "primary"));
+  assert.match(await readPage("/apps/6473753684/index.html"), /其他购买项目/);
 
   const claudeHtml = await readPage("/apps/6473753684/index.html");
   assert.match(claudeHtml, /Claude Usage Credits 20/);

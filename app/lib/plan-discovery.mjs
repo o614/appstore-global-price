@@ -65,6 +65,18 @@ function inferredPeriod(name, occurrence, count, app) {
   return "公开项目";
 }
 
+const PRIMARY_PERIODS = new Set(["月付", "年付", "周付"]);
+const PRIMARY_NAME_PATTERN = /(?:monthly|month|annual|yearly|year|weekly|week|subscription|membership|premium|plus|pro\+?|family|individual|lifetime|unlimited|premiere|career|business|recruiter|navigator|classic|essential|lite|max|ultra|会员|订阅|月付|年付|周付|包月|包年|家庭方案|个人方案)/iu;
+const SECONDARY_NAME_PATTERN = /(?:credit|coin|gem|token|\bbits?\b|boost|star(?:s| bundle)?|pack|bundle|offer|gift|sticker|avatar|hat|pet|skin|ticket|item|moves?|lives?|barrel|cart|chest|pok[ée]coin|keys?|gold|unlock|worlds?|story|audio|preset|content|marketplace|snacks?|coffee|flower|meal|charged|land on the moon|金币|宝石|积分|代币|礼包|贴纸|头像|道具|解锁)/iu;
+
+function displayGroupForPlan(plan) {
+  if (PRIMARY_PERIODS.has(plan.period)) return "primary";
+  if (plan.period === "一次性") return "other";
+  const searchable = `${plan.label ?? ""} ${(plan.aliases ?? []).join(" ")}`;
+  if (SECONDARY_NAME_PATTERN.test(searchable)) return "other";
+  return PRIMARY_NAME_PATTERN.test(searchable) ? "primary" : "other";
+}
+
 function stableHash(value) {
   let hash = 0x811c9dc5;
   for (const character of value) {
@@ -92,7 +104,10 @@ export function discoverPlans(app, curatedPlans = []) {
   const { maximum, firstSeen } = maximumOccurrences(app);
   const plans = curatedPlans
     .filter((plan) => plan.aliases.some((name) => (maximum.get(name) ?? 0) > (plan.occurrence ?? 0)))
-    .map((plan) => ({ ...plan, aliases: [...plan.aliases] }));
+    .map((plan) => {
+      const copy = { ...plan, aliases: [...plan.aliases] };
+      return { ...copy, displayGroup: displayGroupForPlan(copy) };
+    });
 
   for (const name of firstSeen) {
     const count = maximum.get(name) ?? 0;
@@ -101,14 +116,15 @@ export function discoverPlans(app, curatedPlans = []) {
       if (covered) continue;
       const period = inferredPeriod(name, occurrence, count, app);
       const periodIsDistinct = count > 1 && ["月付", "年付", "周付"].includes(period);
-      plans.push({
+      const discoveredPlan = {
         id: planId(name, occurrence),
         label: count > 1 && !periodIsDistinct ? `${name} · 项目 ${occurrence + 1}` : name,
         period,
         aliases: [name],
         occurrence,
         discovered: true,
-      });
+      };
+      plans.push({ ...discoveredPlan, displayGroup: displayGroupForPlan(discoveredPlan) });
     }
   }
   return plans;

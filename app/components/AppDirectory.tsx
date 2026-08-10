@@ -84,7 +84,7 @@ export function AppDirectory({ apps, regionCount }: { apps: CardData[]; regionCo
                 <p>{app.developer}</p>
                 <div className="app-card-meta">
                   <span>{app.coverage.verified}/{app.coverage.total} 地区</span>
-                  {available && <span>{app.planCount} 个套餐</span>}
+                  {available && <span>{app.planCount} 个购买项目</span>}
                   {app.coverage.review > 0 && <span className="meta-review">{app.coverage.review} 地区待复核</span>}
                 </div>
               </div>

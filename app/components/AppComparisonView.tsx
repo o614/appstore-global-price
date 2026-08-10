@@ -50,7 +50,7 @@ export function AppComparisonView({
             <div className="detail-badges">
               <span className="detail-meta-badge detail-id-badge"><Numbers09SortAscendingLine className="ui-icon" aria-hidden="true" />{app.priceSource === "app-store" || !app.priceSource ? "App ID" : "服务 ID"} <b>{app.id}</b></span>
               <span className="detail-meta-badge"><Earth2Line className="ui-icon" aria-hidden="true" />{verifiedCount}/{app.regions.length} 地区有价格</span>
-              {plans.length > 0 && <span className="detail-meta-badge"><ListCheckLine className="ui-icon" aria-hidden="true" />{plans.length} 个公开套餐</span>}
+              {plans.length > 0 && <span className="detail-meta-badge"><ListCheckLine className="ui-icon" aria-hidden="true" />{plans.length} 个购买项目</span>}
               {coverage.review > 0 && <span className="detail-meta-badge review-badge"><AlertLine className="ui-icon" aria-hidden="true" />{coverage.review} 地区待复核</span>}
               <DataFreshness generatedAt={generatedAt} displayDate={displayDate} />
             </div>
@@ -63,7 +63,7 @@ export function AppComparisonView({
             <div><span className="eyebrow">订阅比价</span><h2>选择套餐，查看各地区价格</h2></div>
             <span className="truth-note"><CheckCircleLine className="ui-icon" aria-hidden="true" />同套餐、同周期比较</span>
           </div>
-          <PriceExplorer app={app} plans={plans} />
+          <PriceExplorer key={app.id} app={app} plans={plans} />
         </section>
       </PriceShareProvider>
 

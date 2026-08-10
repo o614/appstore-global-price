@@ -44,21 +44,42 @@ test("catalog contains the requested apps and excludes removed entries", async (
   for (const id of [
     "6474233312",
     "835599320",
-    "1666653815",
-    "317469184",
-    "1446075923",
-    "376510438",
+    "1668000334",
+    "570060128",
+    "1500855883",
+    "288429040",
+    "1636235979",
+    "447188370",
+    "6445905219",
+    "1232780281",
+    "985746746",
+    "1442620678",
+    "1451784328",
+    "1136220934",
+    "1511601750",
+    "1444383602",
+    "360593530",
+    "541164041",
+    "1477376905",
+    "1630403500",
+    "1423538627",
+    "6767085653",
+    "327630330",
+    "992180193",
+    "426826309",
+    "626144601",
     "640199958",
   ]) {
     assert.ok(ids.includes(id), `missing App ID ${id}`);
   }
-  assert.equal(ids.includes("1451784328"), false, "Google One should be removed");
+  for (const id of ["1666653815", "1446075923", "376510438", "317469184"]) {
+    assert.equal(ids.includes(id), false, `removed App ID ${id} should stay out of the catalog`);
+  }
   assert.equal(ids.includes("547166701"), false, "百度网盘 should be removed");
   assert.equal(ids.includes("6737597349"), false, "DeepSeek should be removed");
   assert.equal(ids.includes("530168168"), false, "Paramount+ should be removed");
-  assert.equal(ids.length, 22);
+  assert.equal(ids.length, 42);
   assert.equal(ids[0], "640199958", "Apple services should be listed before AI tools");
   assert.ok(ids.indexOf("1108187390") < ids.indexOf("6448311069"), "Apple services should precede AI tools");
-  assert.deepEqual(entries.find((entry) => entry.id === "376510438")?.regionalAppIds, { jp: "549416492" });
-  assert.equal(entries.find((entry) => entry.id === "6474233312")?.excludeItemNames.length, 6);
+  assert.equal(entries.some((entry) => entry.excludeItemNames?.length), false, "catalog items should use the global display rules");
 });

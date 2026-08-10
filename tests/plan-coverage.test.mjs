@@ -49,3 +49,23 @@ test("manual definitions cannot invent plans when no official public item exists
   const plans = discoverPlans(app, [{ id: "stale", label: "Stale Plan", period: "月付", aliases: ["Stale Plan"] }]);
   assert.deepEqual(plans, []);
 });
+
+test("global display rules keep subscriptions prominent without dropping other purchases", () => {
+  const app = {
+    regions: [{
+      region: "us",
+      items: [
+        { name: "Premium Monthly", price: "$9.99" },
+        { name: "Premium Annual", price: "$99.99" },
+        { name: "1,000 Credits", price: "$4.99" },
+        { name: "Sticker Pack", price: "$1.99" },
+      ],
+    }],
+  };
+  const plans = discoverPlans(app, []);
+  assert.equal(plans.find((plan) => plan.label === "Premium Monthly")?.displayGroup, "primary");
+  assert.equal(plans.find((plan) => plan.label === "Premium Annual")?.displayGroup, "primary");
+  assert.equal(plans.find((plan) => plan.label === "1,000 Credits")?.displayGroup, "other");
+  assert.equal(plans.find((plan) => plan.label === "Sticker Pack")?.displayGroup, "other");
+  assert.deepEqual(uncoveredItems(app, plans), []);
+});
