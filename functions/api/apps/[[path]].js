@@ -40,7 +40,6 @@ const PRIVATE_STALE_SECONDS = 7 * 24 * 60 * 60;
 const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_INITIAL_WAIT_MS = 2_800;
 const PRIVATE_REFRESH_LOCK_SECONDS = 30;
 
 function jsonResponse(payload, status = 200, cacheControl = "no-store", extraHeaders = {}) {
@@ -849,19 +848,7 @@ async function privateCompare(context, storage, target, refreshMode) {
   }
   const refresh = await startPrivateRefresh(context, storage, appId);
   if (!refresh) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
-  const pending = Symbol("private-pending");
-  const result = await Promise.race([
-    refresh.initial,
-    new Promise((resolve) => setTimeout(() => resolve(pending), PRIVATE_INITIAL_WAIT_MS)),
-  ]);
-  if (result === pending || !result) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
-  if (result.error === "no-comparable-plans") {
-    return { status: 422, payload: { error: "no-comparable-plans" } };
-  }
-  if (result.error) {
-    return { status: 502, payload: { error: "refresh-failed", retryAfter: 30 } };
-  }
-  return { status: 200, payload: { status: "ready", cache: "miss", data: result.data } };
+  return { status: 202, payload: { status: "pending", retryAfter: 30 } };
 }
 
 export async function onRequestPost(context) {
