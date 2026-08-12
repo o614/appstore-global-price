@@ -1,7 +1,7 @@
-import exchangeRates from "../../../data/exchange-rates.json" with { type: "json" };
-import planDefinitions from "../../../data/plan-definitions.json" with { type: "json" };
-import regionData from "../../../data/regions.json" with { type: "json" };
-import validationSnapshot from "../../../data/validation-snapshot.json" with { type: "json" };
+import exchangeRates from "../../generated/exchange-rates.mjs";
+import planDefinitions from "../../generated/plan-definitions.mjs";
+import regionData from "../../generated/regions.mjs";
+import validationSnapshot from "../../generated/validation-snapshot.mjs";
 import { buildPrivateComparison } from "../../lib/private-comparison.js";
 
 export const REGIONS = [
