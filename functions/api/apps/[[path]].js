@@ -40,7 +40,8 @@ const PRIVATE_STALE_SECONDS = 7 * 24 * 60 * 60;
 const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_REFRESH_LOCK_SECONDS = 30;
+// Cloudflare KV rejects expirationTtl values below 60 seconds.
+const PRIVATE_REFRESH_LOCK_SECONDS = 60;
 
 function jsonResponse(payload, status = 200, cacheControl = "no-store", extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {

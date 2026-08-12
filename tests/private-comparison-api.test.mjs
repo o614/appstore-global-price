@@ -228,6 +228,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
       },
     })],
   ]);
+  let observedLockTtl = null;
   const background = [];
   const response = await onRequestPost({
     request: new Request(`https://price.example${pathname}`, {
@@ -243,8 +244,12 @@ test("private compare serves stale cache when refresh startup fails", async () =
       PRICE_COMPARE_API_SECRET: secret,
       PRICE_COMPARE_KV: {
         get: async (key) => values.get(key) ?? null,
-        put: async (key, value) => {
-          if (key === "private:lock:v1:999999999") throw new Error("lock unavailable");
+        put: async (key, value, options) => {
+          if (key === "private:lock:v1:999999999") {
+            observedLockTtl = options?.expirationTtl ?? null;
+            if (observedLockTtl < 60) throw new Error("invalid expiration_ttl");
+            throw new Error("stop refresh after validating lock ttl");
+          }
           values.set(key, value);
         },
         delete: async (key) => values.delete(key),
@@ -258,4 +263,5 @@ test("private compare serves stale cache when refresh startup fails", async () =
   assert.equal(payload.cache, "stale");
   assert.equal(payload.data.app.id, "999999999");
   await Promise.all(background);
+  assert.ok(observedLockTtl >= 60);
 });
