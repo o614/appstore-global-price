@@ -6,7 +6,11 @@ import planDefinitions from "../data/plan-definitions.json" with { type: "json" 
 import regionSnapshot from "../data/regions.json" with { type: "json" };
 import validationSnapshot from "../data/validation-snapshot.json" with { type: "json" };
 import { buildPrivateComparison } from "../functions/lib/private-comparison.js";
-import { onRequestPost, verifyPrivateSignature } from "../functions/api/apps/[[path]].js";
+import {
+  classifyPrivateRefreshError,
+  onRequestPost,
+  verifyPrivateSignature,
+} from "../functions/api/apps/[[path]].js";
 
 const regions = [
   { code: "us", name: "美国", currency: "USD" },
@@ -56,6 +60,12 @@ test("private comparison anchors duplicate plans to US occurrences", () => {
   assert.equal(payload.plans[0].prices[0].code, "ph");
   assert.equal(payload.plans[1].prices.find((price) => price.code === "us").price, "$100.00");
   assert.equal(payload.primaryPlanCount, 2);
+});
+
+test("private refresh distinguishes unavailable US data from transient failure", () => {
+  assert.equal(classifyPrivateRefreshError(new Error("us-anchor-unavailable")), "no-comparable-plans");
+  assert.equal(classifyPrivateRefreshError(new Error("us-plans-unavailable")), "no-comparable-plans");
+  assert.equal(classifyPrivateRefreshError(new Error("HTTP 503")), "refresh-failed");
 });
 
 test("private signature verifies the exact method, path and body", async () => {

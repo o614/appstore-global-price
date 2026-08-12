@@ -41,6 +41,7 @@ const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
 const PRIVATE_INITIAL_WAIT_MS = 2_800;
+const PRIVATE_REFRESH_LOCK_SECONDS = 30;
 
 function jsonResponse(payload, status = 200, cacheControl = "no-store", extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {
@@ -745,10 +746,16 @@ function recordAgeSeconds(record, now = Date.now()) {
   return Number.isFinite(generatedAt) ? Math.max(0, Math.floor((now - generatedAt) / 1000)) : Number.POSITIVE_INFINITY;
 }
 
+export function classifyPrivateRefreshError(error) {
+  return ["us-anchor-unavailable", "us-plans-unavailable"].includes(String(error?.message))
+    ? "no-comparable-plans"
+    : "refresh-failed";
+}
+
 async function startPrivateRefresh(context, storage, appId) {
   const lockKey = `private:lock:v1:${appId}`;
   if (await storage.get(lockKey)) return null;
-  await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: 60 });
+  await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: PRIVATE_REFRESH_LOCK_SECONDS });
 
   const cacheKey = `private:compare:v1:${appId}`;
   const initialPromise = compareAppleApp(appId, fetch, AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS))
@@ -781,7 +788,9 @@ async function startPrivateRefresh(context, storage, appId) {
   return {
     initial: initialPromise
       .then(({ record }) => record)
-      .catch(() => null),
+      .catch((error) => ({
+        error: classifyPrivateRefreshError(error),
+      })),
   };
 }
 
@@ -846,6 +855,12 @@ async function privateCompare(context, storage, target, refreshMode) {
     new Promise((resolve) => setTimeout(() => resolve(pending), PRIVATE_INITIAL_WAIT_MS)),
   ]);
   if (result === pending || !result) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
+  if (result.error === "no-comparable-plans") {
+    return { status: 422, payload: { error: "no-comparable-plans" } };
+  }
+  if (result.error) {
+    return { status: 502, payload: { error: "refresh-failed", retryAfter: 30 } };
+  }
   return { status: 200, payload: { status: "ready", cache: "miss", data: result.data } };
 }
 
