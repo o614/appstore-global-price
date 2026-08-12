@@ -1,3 +1,9 @@
+import exchangeRates from "../../../data/exchange-rates.json" with { type: "json" };
+import planDefinitions from "../../../data/plan-definitions.json" with { type: "json" };
+import regionData from "../../../data/regions.json" with { type: "json" };
+import validationSnapshot from "../../../data/validation-snapshot.json" with { type: "json" };
+import { buildPrivateComparison } from "../../lib/private-comparison.js";
+
 export const REGIONS = [
   { code: "cn", name: "中国" },
   { code: "us", name: "美国" },
@@ -27,6 +33,14 @@ const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/
 const MAX_APP_PAGE_BYTES = 6_000_000;
 const MAX_JSON_BYTES = 1_000_000;
 const TOTAL_REQUEST_TIMEOUT_MS = 18_000;
+const PRIVATE_BODY_BYTES = 4_096;
+const PRIVATE_CLOCK_SKEW_SECONDS = 300;
+const PRIVATE_FRESH_SECONDS = 12 * 60 * 60;
+const PRIVATE_STALE_SECONDS = 7 * 24 * 60 * 60;
+const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
+const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
+const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
+const PRIVATE_INITIAL_WAIT_MS = 2_800;
 
 function jsonResponse(payload, status = 200, cacheControl = "no-store", extraHeaders = {}) {
   return new Response(JSON.stringify(payload), {
@@ -242,7 +256,7 @@ export function extractAppSearchPage(html, sourceRegion) {
   return results;
 }
 
-function normalizeSearch(value) {
+export function normalizeSearch(value) {
   return String(value ?? "")
     .normalize("NFKC")
     .toLocaleLowerCase("en-US")
@@ -506,6 +520,38 @@ export async function compareAppleApp(appId, fetchImpl = fetch, deadlineSignal) 
   };
 }
 
+export async function retryTransientRegions(comparison, fetchImpl = fetch, deadlineSignal) {
+  const appId = String(comparison?.app?.id ?? "");
+  if (!/^\d{6,12}$/u.test(appId)) return comparison;
+  const failedCodes = new Set(
+    (comparison.app.regions ?? [])
+      .filter(isTransientRegionError)
+      .map((region) => region.region),
+  );
+  if (!failedCodes.size) return comparison;
+
+  const targets = REGIONS.filter((region) => failedCodes.has(region.code));
+  const retried = await mapLimit(
+    targets,
+    5,
+    (region) => inspectRegion(appId, region, fetchImpl, deadlineSignal),
+    deadlineSignal,
+  );
+  const replacements = new Map();
+  targets.forEach((region, index) => {
+    const row = retried[index]?.row;
+    if (row) replacements.set(region.code, row);
+  });
+  return {
+    ...comparison,
+    generatedAt: new Date().toISOString(),
+    app: {
+      ...comparison.app,
+      regions: comparison.app.regions.map((region) => replacements.get(region.region) ?? region),
+    },
+  };
+}
+
 function requestIsSameOrigin(request, url) {
   const origin = request.headers.get("origin");
   if (!origin) return true;
@@ -539,6 +585,327 @@ async function cachedJson(context, cacheUrl, edgeSeconds, browserSeconds, produc
   );
   if (cache && cacheable) context.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
+}
+
+function privateStorage(context) {
+  const storage = context.env?.PRICE_COMPARE_KV;
+  return storage && typeof storage.get === "function" && typeof storage.put === "function"
+    ? storage
+    : null;
+}
+
+function privateCanonicalRequest(timestamp, method, pathname, body) {
+  return `${timestamp}\n${method.toUpperCase()}\n${pathname}\n${body}`;
+}
+
+function bytesFromHex(value) {
+  if (!/^[a-f0-9]{64}$/iu.test(value)) return null;
+  const bytes = new Uint8Array(value.length / 2);
+  for (let index = 0; index < value.length; index += 2) {
+    bytes[index / 2] = Number.parseInt(value.slice(index, index + 2), 16);
+  }
+  return bytes;
+}
+
+export async function verifyPrivateSignature(request, url, body, secret, nowSeconds = Math.floor(Date.now() / 1000)) {
+  if (!secret) return false;
+  const timestamp = request.headers.get("x-price-timestamp") ?? "";
+  const timestampNumber = Number(timestamp);
+  if (!Number.isInteger(timestampNumber) || Math.abs(nowSeconds - timestampNumber) > PRIVATE_CLOCK_SKEW_SECONDS) {
+    return false;
+  }
+  const signature = bytesFromHex(request.headers.get("x-price-signature") ?? "");
+  if (!signature) return false;
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["verify"],
+  );
+  return crypto.subtle.verify(
+    "HMAC",
+    key,
+    signature,
+    encoder.encode(privateCanonicalRequest(timestamp, request.method, url.pathname, body)),
+  );
+}
+
+async function readPrivateJson(storage, key) {
+  try {
+    const value = await storage.get(key);
+    return value ? JSON.parse(value) : null;
+  } catch (error) {
+    console.warn(JSON.stringify({ event: "private-cache-read-failed", key, error: String(error) }));
+    return null;
+  }
+}
+
+async function writePrivateJson(storage, key, value, expirationTtl = PRIVATE_STALE_SECONDS) {
+  await storage.put(key, JSON.stringify(value), { expirationTtl });
+}
+
+async function privateRateAllowed(storage, now = Date.now()) {
+  const key = `private:rate:${Math.floor(now / 60_000)}`;
+  const current = Number(await storage.get(key) ?? 0);
+  if (current >= PRIVATE_GLOBAL_REQUESTS_PER_MINUTE) return false;
+  await storage.put(key, String(current + 1), { expirationTtl: 120 });
+  return true;
+}
+
+function snapshotComparison(app) {
+  return {
+    generatedAt: validationSnapshot.generatedAt,
+    regionCount: regionData.regions.length,
+    app,
+  };
+}
+
+function comparisonRecord(comparison) {
+  const appId = String(comparison.app.id);
+  return {
+    storedAt: new Date().toISOString(),
+    data: buildPrivateComparison(comparison, {
+      curatedPlans: planDefinitions[appId] ?? [],
+      exchangeRates,
+      regions: regionData.regions,
+    }),
+  };
+}
+
+function snapshotCandidate(app, score) {
+  return {
+    appId: String(app.id),
+    appName: app.matchedName ?? app.query ?? String(app.id),
+    developer: app.developer ?? "",
+    icon: app.icon ?? null,
+    storeUrl: app.storeUrl ?? null,
+    sourceRegion: "us",
+    score,
+  };
+}
+
+function searchSnapshot(query) {
+  const directId = parseAppId(query) ?? String(query).trim();
+  const exact = validationSnapshot.apps.find((app) => String(app.id) === directId);
+  if (exact) return [snapshotCandidate(exact, 0)];
+  const normalizedQuery = normalizeSearch(query);
+  return validationSnapshot.apps
+    .map((app) => {
+      const name = normalizeSearch(app.matchedName ?? app.query);
+      const developer = normalizeSearch(app.developer);
+      const score = name === normalizedQuery
+        ? 0
+        : name.startsWith(normalizedQuery)
+          ? 1
+          : name.includes(normalizedQuery)
+            ? 2
+            : developer === normalizedQuery
+              ? 3
+              : developer.includes(normalizedQuery)
+                ? 4
+                : 9;
+      return snapshotCandidate(app, score);
+    })
+    .filter((result) => result.score < 9)
+    .sort((left, right) => left.score - right.score || left.appName.localeCompare(right.appName));
+}
+
+async function privateSearch(query, storage) {
+  const normalizedQuery = normalizeSearch(query);
+  const cacheKey = `private:search:v1:${normalizedQuery}`;
+  const cached = await readPrivateJson(storage, cacheKey);
+  if (cached) return { ...cached, cache: "hit" };
+
+  const snapshotResults = searchSnapshot(query);
+  let liveResults = [];
+  if (!snapshotResults.some((result) => result.score === 0)) {
+    liveResults = await searchAppleApps(query, fetch, AbortSignal.timeout(3_000));
+  }
+  const merged = new Map();
+  for (const result of [...snapshotResults, ...liveResults]) {
+    const appId = String(result.appId);
+    if (!merged.has(appId)) merged.set(appId, result);
+  }
+  const payload = {
+    query,
+    results: [...merged.values()].slice(0, 3).map((result) => {
+      const publicResult = { ...result };
+      delete publicResult.score;
+      return publicResult;
+    }),
+  };
+  await writePrivateJson(storage, cacheKey, payload, 6 * 60 * 60);
+  return { ...payload, cache: "miss" };
+}
+
+function recordAgeSeconds(record, now = Date.now()) {
+  const generatedAt = Date.parse(record?.data?.generatedAt ?? "");
+  return Number.isFinite(generatedAt) ? Math.max(0, Math.floor((now - generatedAt) / 1000)) : Number.POSITIVE_INFINITY;
+}
+
+async function startPrivateRefresh(context, storage, appId) {
+  const lockKey = `private:lock:v1:${appId}`;
+  if (await storage.get(lockKey)) return null;
+  await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: 60 });
+
+  const cacheKey = `private:compare:v1:${appId}`;
+  const initialPromise = compareAppleApp(appId, fetch, AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS))
+    .then(async (comparison) => {
+      const record = comparisonRecord(comparison);
+      await writePrivateJson(storage, cacheKey, record);
+      return { comparison, record };
+    });
+
+  const background = initialPromise
+    .then(async ({ comparison, record }) => {
+      if (!comparison.app.regions.some(isTransientRegionError)) return record;
+      const retried = await retryTransientRegions(comparison, fetch, AbortSignal.timeout(10_000));
+      const retriedRecord = comparisonRecord(retried);
+      await writePrivateJson(storage, cacheKey, retriedRecord);
+      return retriedRecord;
+    })
+    .catch((error) => {
+      console.error(JSON.stringify({ event: "private-compare-refresh-failed", appId, error: String(error) }));
+      return null;
+    })
+    .finally(async () => {
+      try {
+        await storage.delete(lockKey);
+      } catch (error) {
+        console.warn(JSON.stringify({ event: "private-lock-release-failed", appId, error: String(error) }));
+      }
+    });
+  context.waitUntil(background);
+  return {
+    initial: initialPromise
+      .then(({ record }) => record)
+      .catch(() => null),
+  };
+}
+
+async function privateCompare(context, storage, target, refreshMode) {
+  const snapshotApp = validationSnapshot.apps.find((app) => String(app.id) === String(target));
+  const appId = snapshotApp ? String(snapshotApp.id) : parseAppId(target);
+  if (!appId) return { status: 400, payload: { error: "invalid-app-id" } };
+  const cacheKey = `private:compare:v1:${appId}`;
+  let record = await readPrivateJson(storage, cacheKey);
+
+  if (snapshotApp) {
+    const seeded = comparisonRecord(snapshotComparison(snapshotApp));
+    const snapshotAge = recordAgeSeconds(seeded);
+    if (snapshotAge <= PRIVATE_STALE_SECONDS && (!record || Date.parse(seeded.data.generatedAt) > Date.parse(record.data?.generatedAt ?? ""))) {
+      record = seeded;
+      await writePrivateJson(storage, cacheKey, record);
+    }
+  }
+
+  let age = recordAgeSeconds(record);
+  if (record && age > PRIVATE_STALE_SECONDS) {
+    record = null;
+    age = Number.POSITIVE_INFINITY;
+  }
+  const numericAppId = /^\d{6,12}$/u.test(appId);
+  let shouldRefresh = numericAppId && age > PRIVATE_FRESH_SECONDS;
+  if (refreshMode === "hot") shouldRefresh = numericAppId && age > PRIVATE_HOT_REFRESH_SECONDS;
+  if (refreshMode === "manual") {
+    const manualKey = `private:manual:v1:${appId}`;
+    const lastManual = Number(await storage.get(manualKey) ?? 0);
+    shouldRefresh = numericAppId && Date.now() - lastManual >= PRIVATE_MANUAL_REFRESH_SECONDS * 1000;
+    if (shouldRefresh) await storage.put(manualKey, String(Date.now()), { expirationTtl: PRIVATE_MANUAL_REFRESH_SECONDS });
+  }
+
+  if (record && age <= PRIVATE_FRESH_SECONDS && refreshMode !== "hot" && refreshMode !== "manual") {
+    return { status: 200, payload: { status: "ready", cache: "fresh", data: record.data } };
+  }
+
+  if (record) {
+    if (shouldRefresh) await startPrivateRefresh(context, storage, appId);
+    return {
+      status: 200,
+      payload: {
+        status: "ready",
+        cache: age <= PRIVATE_FRESH_SECONDS ? "fresh" : "stale",
+        refreshStarted: shouldRefresh,
+        data: record.data,
+      },
+    };
+  }
+
+  if (!numericAppId) {
+    return snapshotApp
+      ? { status: 503, payload: { error: "snapshot-too-old" } }
+      : { status: 422, payload: { error: "no-comparable-plans" } };
+  }
+  const refresh = await startPrivateRefresh(context, storage, appId);
+  if (!refresh) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
+  const pending = Symbol("private-pending");
+  const result = await Promise.race([
+    refresh.initial,
+    new Promise((resolve) => setTimeout(() => resolve(pending), PRIVATE_INITIAL_WAIT_MS)),
+  ]);
+  if (result === pending || !result) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
+  return { status: 200, payload: { status: "ready", cache: "miss", data: result.data } };
+}
+
+export async function onRequestPost(context) {
+  const url = new URL(context.request.url);
+  const path = Array.isArray(context.params.path) ? context.params.path : [context.params.path].filter(Boolean);
+  if (path[0] !== "private") {
+    return jsonResponse({ error: "请求方法不受支持" }, 405, "no-store", { allow: "GET" });
+  }
+
+  let body;
+  try {
+    body = await readTextWithLimit(context.request, PRIVATE_BODY_BYTES);
+  } catch (error) {
+    return jsonResponse(
+      { error: error instanceof Error && error.message === "response-too-large" ? "request-too-large" : "invalid-request" },
+      error instanceof Error && error.message === "response-too-large" ? 413 : 400,
+    );
+  }
+  const secret = context.env?.PRICE_COMPARE_API_SECRET;
+  if (!secret) return jsonResponse({ error: "private-api-not-configured" }, 503);
+  if (!await verifyPrivateSignature(context.request, url, body, secret)) {
+    return jsonResponse({ error: "unauthorized" }, 401);
+  }
+  const storage = privateStorage(context);
+  if (!storage) return jsonResponse({ error: "private-storage-not-configured" }, 503);
+
+  let input;
+  try {
+    input = body ? JSON.parse(body) : {};
+  } catch {
+    return jsonResponse({ error: "invalid-json" }, 400);
+  }
+
+  if (path[1] === "health" && path.length === 2) {
+    return jsonResponse({ ok: true, storage: true, snapshotAt: validationSnapshot.generatedAt });
+  }
+  if (!await privateRateAllowed(storage)) {
+    return jsonResponse({ error: "rate-limited" }, 429, "no-store", { "retry-after": "60" });
+  }
+
+  try {
+    if (path[1] === "search" && path.length === 2) {
+      const query = String(input.query ?? "").trim();
+      if (query.length < 2 || query.length > 200) return jsonResponse({ error: "invalid-query" }, 400);
+      return jsonResponse(await privateSearch(query, storage));
+    }
+    if (path[1] === "compare" && path.length === 2) {
+      const result = await privateCompare(context, storage, String(input.target ?? "").trim(), input.refresh);
+      return jsonResponse(result.payload, result.status, "no-store", result.status === 202 ? { "retry-after": "30" } : {});
+    }
+    return jsonResponse({ error: "private-endpoint-not-found" }, 404);
+  } catch (error) {
+    const code = error instanceof Error ? error.message : String(error);
+    if (code === "us-anchor-unavailable" || code === "us-plans-unavailable") {
+      return jsonResponse({ error: "no-comparable-plans" }, 422);
+    }
+    console.error(JSON.stringify({ event: "private-api-failed", path: url.pathname, error: code }));
+    return jsonResponse({ error: "private-api-failed" }, 502, "no-store", { "retry-after": "30" });
+  }
 }
 
 export async function onRequestGet(context) {
