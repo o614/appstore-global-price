@@ -62,6 +62,19 @@ test("private comparison anchors duplicate plans to US occurrences", () => {
   assert.equal(payload.primaryPlanCount, 2);
 });
 
+test("private comparison can seed every numeric curated snapshot", () => {
+  for (const app of validationSnapshot.apps.filter((candidate) => /^\d{6,12}$/u.test(String(candidate.id)))) {
+    assert.doesNotThrow(() => buildPrivateComparison({
+      generatedAt: validationSnapshot.generatedAt,
+      app,
+    }, {
+      curatedPlans: planDefinitions[app.id] ?? [],
+      exchangeRates: exchangeRateSnapshot,
+      regions: regionSnapshot.regions,
+    }), `failed to seed ${app.matchedName ?? app.query ?? app.id} (${app.id})`);
+  }
+});
+
 test("private refresh distinguishes unavailable US data from transient failure", () => {
   assert.equal(classifyPrivateRefreshError(new Error("us-anchor-unavailable")), "no-comparable-plans");
   assert.equal(classifyPrivateRefreshError(new Error("us-plans-unavailable")), "no-comparable-plans");
@@ -194,4 +207,55 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   assert.equal(payload.data.app.id, "6448311069");
   assert.ok(payload.data.plans.some((plan) => plan.label === "ChatGPT Plus"));
   assert.equal(payload.data.regionCount, 20);
+});
+
+test("private compare serves stale cache when refresh startup fails", async () => {
+  const secret = "stale-cache-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = JSON.stringify({ target: "999999999" });
+  const pathname = "/api/apps/private/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
+  const values = new Map([
+    ["private:compare:v1:999999999", JSON.stringify({
+      storedAt: staleGeneratedAt,
+      data: {
+        generatedAt: staleGeneratedAt,
+        app: { id: "999999999", name: "Cached App" },
+        plans: [],
+      },
+    })],
+  ]);
+  const background = [];
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => {
+          if (key === "private:lock:v1:999999999") throw new Error("lock unavailable");
+          values.set(key, value);
+        },
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: (promise) => background.push(promise),
+  });
+  const payload = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(payload.status, "ready");
+  assert.equal(payload.cache, "stale");
+  assert.equal(payload.data.app.id, "999999999");
+  await Promise.all(background);
 });

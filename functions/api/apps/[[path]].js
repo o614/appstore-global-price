@@ -793,6 +793,14 @@ async function startPrivateRefresh(context, storage, appId) {
   };
 }
 
+function queuePrivateRefresh(context, storage, appId) {
+  const queued = startPrivateRefresh(context, storage, appId).catch((error) => {
+    console.error(JSON.stringify({ event: "private-refresh-start-failed", appId, error: String(error) }));
+    return null;
+  });
+  context.waitUntil(queued);
+}
+
 async function privateCompare(context, storage, target, refreshMode) {
   const snapshotApp = validationSnapshot.apps.find((app) => String(app.id) === String(target));
   const appId = snapshotApp ? String(snapshotApp.id) : parseAppId(target);
@@ -829,7 +837,8 @@ async function privateCompare(context, storage, target, refreshMode) {
   }
 
   if (record) {
-    if (shouldRefresh) await startPrivateRefresh(context, storage, appId);
+    // A refresh failure must never hide a usable cached snapshot from callers.
+    if (shouldRefresh) queuePrivateRefresh(context, storage, appId);
     return {
       status: 200,
       payload: {
@@ -846,8 +855,9 @@ async function privateCompare(context, storage, target, refreshMode) {
       ? { status: 503, payload: { error: "snapshot-too-old" } }
       : { status: 422, payload: { error: "no-comparable-plans" } };
   }
-  const refresh = await startPrivateRefresh(context, storage, appId);
-  if (!refresh) return { status: 202, payload: { status: "pending", retryAfter: 30 } };
+  // Cold crawls are deliberately detached: callers get a bounded response and
+  // can retry while the background job fills KV.
+  queuePrivateRefresh(context, storage, appId);
   return { status: 202, payload: { status: "pending", retryAfter: 30 } };
 }
 
