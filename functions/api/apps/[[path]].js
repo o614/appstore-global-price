@@ -39,6 +39,7 @@ const PRIVATE_FRESH_SECONDS = 12 * 60 * 60;
 const PRIVATE_STALE_SECONDS = 7 * 24 * 60 * 60;
 const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
+const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
@@ -564,7 +565,29 @@ function requestIsSameOrigin(request, url) {
 }
 
 function isTransientRegionError(region) {
-  return region.status.startsWith("error:") && region.status !== "error:HTTP 404";
+  const status = String(region?.status ?? "");
+  return (status.startsWith("error:") && status !== "error:HTTP 404")
+    || status === "marker-missing"
+    || status === "marker-unclosed";
+}
+
+async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSignal) {
+  const appId = String(comparison?.app?.id ?? "");
+  const usRow = comparison?.app?.regions?.find((region) => region.region === "us");
+  if (!/^\d{6,12}$/u.test(appId) || !isTransientRegionError(usRow)) return comparison;
+  const usRegion = REGIONS.find((region) => region.code === "us");
+  if (!usRegion) return comparison;
+  const retried = await inspectRegion(appId, usRegion, fetchImpl, deadlineSignal);
+  return {
+    ...comparison,
+    generatedAt: new Date().toISOString(),
+    app: {
+      ...comparison.app,
+      regions: comparison.app.regions.map((region) => (
+        region.region === "us" ? retried.row : region
+      )),
+    },
+  };
 }
 
 async function cachedJson(context, cacheUrl, edgeSeconds, browserSeconds, producer, shouldCache = () => true) {
@@ -765,6 +788,23 @@ export function classifyPrivateRefreshError(error) {
     : "refresh-failed";
 }
 
+export function classifyComparisonResultError(comparison, error) {
+  const fallback = classifyPrivateRefreshError(error);
+  if (fallback !== "no-comparable-plans") return fallback;
+  const rows = Array.isArray(comparison?.app?.regions) ? comparison.app.regions : [];
+  const usRow = rows.find((region) => region.region === "us");
+  const hasAnyItems = rows.some((region) => Array.isArray(region.items) && region.items.length > 0);
+  if (usRow?.status === "iap-section-missing" && !hasAnyItems) return "no-in-app-purchases";
+  if (
+    usRow?.status === "error:HTTP 404"
+    || usRow?.status === "iap-section-missing"
+    || (String(usRow?.status ?? "").startsWith("ok-") && Array.isArray(usRow.items) && usRow.items.length > 0)
+  ) {
+    return "no-comparable-plans";
+  }
+  return "refresh-failed";
+}
+
 async function startPrivateRefresh(context, storage, appId) {
   const lockKey = `private:lock:v1:${appId}`;
   if (await storage.get(lockKey)) return null;
@@ -772,10 +812,22 @@ async function startPrivateRefresh(context, storage, appId) {
 
   const cacheKey = `private:compare:v1:${appId}`;
   const initialPromise = compareAppleApp(appId, fetch, AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS))
+    .then(async (comparison) => retryUsAnchor(comparison, fetch, AbortSignal.timeout(8_000)))
     .then(async (comparison) => {
-      const record = comparisonRecord(comparison);
-      await writePrivateJson(storage, cacheKey, record);
-      return { comparison, record };
+      try {
+        const record = comparisonRecord(comparison);
+        await writePrivateJson(storage, cacheKey, record);
+        return { comparison, record };
+      } catch (error) {
+        const classified = classifyComparisonResultError(comparison, error);
+        if (classified !== "refresh-failed") {
+          await writePrivateJson(storage, cacheKey, {
+            storedAt: new Date().toISOString(),
+            error: classified,
+          }, PRIVATE_NEGATIVE_SECONDS);
+        }
+        throw error;
+      }
     });
 
   const background = initialPromise
@@ -829,6 +881,13 @@ async function privateCompare(context, storage, target, refreshMode) {
       record = seeded;
       await writePrivateJson(storage, cacheKey, record);
     }
+  }
+
+  if (record?.error) {
+    if (refreshMode !== "manual") {
+      return { status: 422, payload: { error: record.error } };
+    }
+    record = null;
   }
 
   let age = recordAgeSeconds(record);

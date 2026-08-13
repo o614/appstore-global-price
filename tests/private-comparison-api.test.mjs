@@ -7,6 +7,7 @@ import regionSnapshot from "../data/regions.json" with { type: "json" };
 import validationSnapshot from "../data/validation-snapshot.json" with { type: "json" };
 import { buildPrivateComparison } from "../functions/lib/private-comparison.js";
 import {
+  classifyComparisonResultError,
   classifyPrivateRefreshError,
   onRequestPost,
   privateSearch,
@@ -80,6 +81,27 @@ test("private refresh distinguishes unavailable US data from transient failure",
   assert.equal(classifyPrivateRefreshError(new Error("us-anchor-unavailable")), "no-comparable-plans");
   assert.equal(classifyPrivateRefreshError(new Error("us-plans-unavailable")), "no-comparable-plans");
   assert.equal(classifyPrivateRefreshError(new Error("HTTP 503")), "refresh-failed");
+});
+
+test("private refresh distinguishes a confirmed missing IAP section from a transient US failure", () => {
+  const noIap = {
+    app: {
+      regions: [
+        { region: "us", status: "iap-section-missing", items: [] },
+        { region: "jp", status: "iap-section-missing", items: [] },
+      ],
+    },
+  };
+  assert.equal(
+    classifyComparisonResultError(noIap, new Error("us-anchor-unavailable")),
+    "no-in-app-purchases",
+  );
+  assert.equal(
+    classifyComparisonResultError({
+      app: { regions: [{ region: "us", status: "error:请求 Apple 超时", items: [] }] },
+    }, new Error("us-anchor-unavailable")),
+    "refresh-failed",
+  );
 });
 
 test("private name search trusts Apple's first US result and skips candidate selection", async () => {
@@ -243,6 +265,44 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   assert.equal(payload.data.app.id, "6448311069");
   assert.ok(payload.data.plans.some((plan) => plan.label === "ChatGPT Plus"));
   assert.equal(payload.data.regionCount, 20);
+});
+
+test("private compare returns a cached no-IAP result instead of restarting forever", async () => {
+  const secret = "negative-cache-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = JSON.stringify({ target: "932747118" });
+  const pathname = "/api/apps/private/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const values = new Map([["private:compare:v1:932747118", JSON.stringify({
+    storedAt: new Date().toISOString(),
+    error: "no-in-app-purchases",
+  })]]);
+  let backgroundStarted = false;
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => values.set(key, value),
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: () => { backgroundStarted = true; },
+  });
+  assert.equal(response.status, 422);
+  assert.equal((await response.json()).error, "no-in-app-purchases");
+  assert.equal(backgroundStarted, false);
 });
 
 test("private compare serves stale cache when refresh startup fails", async () => {
