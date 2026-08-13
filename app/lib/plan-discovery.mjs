@@ -45,14 +45,14 @@ function priceRatio(app, name, numeratorOccurrence, denominatorOccurrence) {
   return ratios[Math.floor(ratios.length / 2)];
 }
 
-function inferredPeriod(name, occurrence, count, app) {
+function inferredPeriod(name, occurrence, count, app, allowPriceInference) {
   const normalized = name.toLowerCase();
   if (/annual|year|12\s*month|全年|年卡|年费|年付|包年/u.test(normalized)) return "年付";
   if (/weekly|week|7\s*day|周卡|周付|一周/u.test(normalized)) return "周付";
   if (/monthly|month|月卡|月费|月付|1个月|一个月|自動續費月/u.test(normalized)) return "月付";
   if (/credit|star|券|boost|promote|notabot|package|礼物|加油包|次卡/u.test(normalized)) return "一次性";
 
-  if (count > 1) {
+  if (allowPriceInference && count > 1) {
     if (occurrence === 0) {
       const laterIsAnnual = Array.from({ length: count - 1 }, (_, index) => priceRatio(app, name, index + 1, 0))
         .some((ratio) => ratio !== null && ratio >= 6 && ratio <= 15);
@@ -114,11 +114,12 @@ export function discoverPlans(app, curatedPlans = []) {
     for (let occurrence = 0; occurrence < count; occurrence += 1) {
       const covered = plans.some((plan) => plan.aliases.includes(name) && (plan.occurrence ?? 0) === occurrence);
       if (covered) continue;
-      const period = inferredPeriod(name, occurrence, count, app);
+      const allowPriceInference = curatedPlans.some((plan) => plan.aliases.includes(name));
+      const period = inferredPeriod(name, occurrence, count, app, allowPriceInference);
       const periodIsDistinct = count > 1 && ["月付", "年付", "周付"].includes(period);
       const discoveredPlan = {
         id: planId(name, occurrence),
-        label: count > 1 && !periodIsDistinct ? `${name} · 项目 ${occurrence + 1}` : name,
+        label: count > 1 && !periodIsDistinct && occurrence > 0 ? `${name} #${occurrence + 1}` : name,
         period,
         aliases: [name],
         occurrence,

@@ -69,3 +69,19 @@ test("global display rules keep subscriptions prominent without dropping other p
   assert.equal(plans.find((plan) => plan.label === "Sticker Pack")?.displayGroup, "other");
   assert.deepEqual(uncoveredItems(app, plans), []);
 });
+
+test("unclassified duplicate purchases keep the first name and number later occurrences", () => {
+  const app = {
+    regions: [{
+      region: "us",
+      items: [
+        { name: "SVIP", price: "$19.99" },
+        { name: "SVIP", price: "$199.99" },
+        { name: "SVIP", price: "$299.99" },
+      ],
+    }],
+  };
+  const plans = discoverPlans(app, []);
+  assert.deepEqual(plans.map((plan) => plan.label), ["SVIP", "SVIP #2", "SVIP #3"]);
+  assert.ok(plans.every((plan) => plan.displayGroup === "other"));
+});
