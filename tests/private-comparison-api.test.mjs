@@ -9,6 +9,7 @@ import { buildPrivateComparison } from "../functions/lib/private-comparison.js";
 import {
   classifyPrivateRefreshError,
   onRequestPost,
+  privateSearch,
   verifyPrivateSignature,
 } from "../functions/api/apps/[[path]].js";
 
@@ -79,6 +80,41 @@ test("private refresh distinguishes unavailable US data from transient failure",
   assert.equal(classifyPrivateRefreshError(new Error("us-anchor-unavailable")), "no-comparable-plans");
   assert.equal(classifyPrivateRefreshError(new Error("us-plans-unavailable")), "no-comparable-plans");
   assert.equal(classifyPrivateRefreshError(new Error("HTTP 503")), "refresh-failed");
+});
+
+test("private name search trusts Apple's first US result and skips candidate selection", async () => {
+  const values = new Map();
+  const storage = {
+    get: async (key) => values.get(key) ?? null,
+    put: async (key, value) => values.set(key, value),
+  };
+  const payload = await privateSearch("Sky Guide", storage, async (input) => {
+    const url = new URL(input);
+    assert.equal(url.hostname, "itunes.apple.com");
+    assert.equal(url.searchParams.get("country"), "us");
+    assert.equal(url.searchParams.get("limit"), "1");
+    return new Response(JSON.stringify({
+      results: [
+        {
+          trackId: 576588894,
+          trackName: "Sky Guide",
+          sellerName: "Fifth Star Labs LLC",
+          trackViewUrl: "https://apps.apple.com/us/app/id576588894",
+        },
+        {
+          trackId: 123456789,
+          trackName: "Unrelated result",
+          sellerName: "Other developer",
+        },
+      ],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  });
+
+  assert.equal(payload.cache, "miss");
+  assert.equal(payload.results.length, 1);
+  assert.equal(payload.results[0].appId, "576588894");
+  assert.equal(payload.results[0].appName, "Sky Guide");
+  assert.ok(values.has("private:search:v2:skyguide"));
 });
 
 test("private signature verifies the exact method, path and body", async () => {

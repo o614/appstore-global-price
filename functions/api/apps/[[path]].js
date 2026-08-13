@@ -284,13 +284,13 @@ function appSearchResult(item, sourceRegion) {
   };
 }
 
-async function searchRegion(query, region, fetchImpl, deadlineSignal) {
+async function searchRegion(query, region, fetchImpl, deadlineSignal, limit = 8) {
   const url = new URL("https://itunes.apple.com/search");
   url.searchParams.set("term", query);
   url.searchParams.set("country", region.code);
   url.searchParams.set("media", "software");
   url.searchParams.set("entity", "software");
-  url.searchParams.set("limit", "8");
+  url.searchParams.set("limit", String(limit));
   try {
     const payload = await appleJson(url, fetchImpl, deadlineSignal);
     return (payload.results ?? [])
@@ -713,25 +713,38 @@ function searchSnapshot(query) {
     .sort((left, right) => left.score - right.score || left.appName.localeCompare(right.appName));
 }
 
-async function privateSearch(query, storage) {
+export async function privateSearch(query, storage, fetchImpl = fetch) {
   const normalizedQuery = normalizeSearch(query);
-  const cacheKey = `private:search:v1:${normalizedQuery}`;
+  const cacheKey = `private:search:v2:${normalizedQuery}`;
   const cached = await readPrivateJson(storage, cacheKey);
   if (cached) return { ...cached, cache: "hit" };
 
   const snapshotResults = searchSnapshot(query);
-  let liveResults = [];
-  if (!snapshotResults.some((result) => result.score === 0)) {
-    liveResults = await searchAppleApps(query, fetch, AbortSignal.timeout(3_000));
-  }
-  const merged = new Map();
-  for (const result of [...snapshotResults, ...liveResults]) {
-    const appId = String(result.appId);
-    if (!merged.has(appId)) merged.set(appId, result);
+  let selected = snapshotResults.find((result) => result.score === 0) ?? null;
+  if (!selected) {
+    // Keep name resolution identical to the bot's existing App detail and IAP
+    // commands: use Apple's US Search API and trust its first result. The
+    // App Store web search is only a same-region fallback for a transient
+    // Search API outage; it must not turn the reply into a candidate picker.
+    const usRegion = REGIONS.find((region) => region.code === "us");
+    const searchResults = usRegion
+      ? await searchRegion(query, usRegion, fetchImpl, AbortSignal.timeout(3_000), 1)
+      : [];
+    selected = searchResults[0] ?? null;
+    if (!selected) {
+      const fallbackResults = await searchAppStorePage(
+        query,
+        "us",
+        "iphone",
+        fetchImpl,
+        AbortSignal.timeout(3_000),
+      );
+      selected = fallbackResults[0] ?? null;
+    }
   }
   const payload = {
     query,
-    results: [...merged.values()].slice(0, 3).map((result) => {
+    results: (selected ? [selected] : []).map((result) => {
       const publicResult = { ...result };
       delete publicResult.score;
       return publicResult;
