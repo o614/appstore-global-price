@@ -41,6 +41,7 @@ const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
+const PRIVATE_MATCHING_VERSION = 2;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
 
@@ -698,6 +699,19 @@ function comparisonRecord(comparison) {
   };
 }
 
+function logComparisonReview(record) {
+  const review = record?.data?.review;
+  if (!review?.excludedMatchCount) return;
+  console.warn(JSON.stringify({
+    event: "private-compare-match-review",
+    appId: record.data.app.id,
+    appName: record.data.app.name,
+    excludedMatchCount: review.excludedMatchCount,
+    affectedRegionCount: review.affectedRegionCount,
+    reasons: [...new Set(review.issues.map((issue) => issue.reason))],
+  }));
+}
+
 function snapshotCandidate(app, score) {
   return {
     appId: String(app.id),
@@ -810,12 +824,13 @@ async function startPrivateRefresh(context, storage, appId) {
   if (await storage.get(lockKey)) return null;
   await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: PRIVATE_REFRESH_LOCK_SECONDS });
 
-  const cacheKey = `private:compare:v1:${appId}`;
+  const cacheKey = `private:compare:v${PRIVATE_MATCHING_VERSION}:${appId}`;
   const initialPromise = compareAppleApp(appId, fetch, AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS))
     .then(async (comparison) => retryUsAnchor(comparison, fetch, AbortSignal.timeout(8_000)))
     .then(async (comparison) => {
       try {
         const record = comparisonRecord(comparison);
+        logComparisonReview(record);
         await writePrivateJson(storage, cacheKey, record);
         return { comparison, record };
       } catch (error) {
@@ -835,6 +850,7 @@ async function startPrivateRefresh(context, storage, appId) {
       if (!comparison.app.regions.some(isTransientRegionError)) return record;
       const retried = await retryTransientRegions(comparison, fetch, AbortSignal.timeout(10_000));
       const retriedRecord = comparisonRecord(retried);
+      logComparisonReview(retriedRecord);
       await writePrivateJson(storage, cacheKey, retriedRecord);
       return retriedRecord;
     })
@@ -871,7 +887,7 @@ async function privateCompare(context, storage, target, refreshMode) {
   const snapshotApp = validationSnapshot.apps.find((app) => String(app.id) === String(target));
   const appId = snapshotApp ? String(snapshotApp.id) : parseAppId(target);
   if (!appId) return { status: 400, payload: { error: "invalid-app-id" } };
-  const cacheKey = `private:compare:v1:${appId}`;
+  const cacheKey = `private:compare:v${PRIVATE_MATCHING_VERSION}:${appId}`;
   let record = await readPrivateJson(storage, cacheKey);
 
   if (snapshotApp) {
@@ -966,7 +982,12 @@ export async function onRequestPost(context) {
   }
 
   if (path[1] === "health" && path.length === 2) {
-    return jsonResponse({ ok: true, storage: true, snapshotAt: validationSnapshot.generatedAt });
+    return jsonResponse({
+      ok: true,
+      storage: true,
+      snapshotAt: validationSnapshot.generatedAt,
+      matchingVersion: PRIVATE_MATCHING_VERSION,
+    });
   }
   if (!await privateRateAllowed(storage)) {
     return jsonResponse({ error: "rate-limited" }, 429, "no-store", { "retry-after": "60" });

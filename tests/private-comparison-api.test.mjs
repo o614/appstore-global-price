@@ -23,7 +23,7 @@ const exchangeRates = {
   rates: { CNY: 1, USD: 0.14, PHP: 8 },
 };
 
-test("private comparison anchors duplicate plans to US occurrences", () => {
+test("private comparison matches duplicate plans by verified price rank when regional ordering changes", () => {
   const comparison = {
     generatedAt: "2026-08-12T01:00:00.000Z",
     app: {
@@ -43,8 +43,8 @@ test("private comparison anchors duplicate plans to US occurrences", () => {
           region: "ph",
           status: "ok-textPairs",
           items: [
-            { name: "Example Plus", price: "₱400.00" },
             { name: "Example Plus", price: "₱4,000.00" },
+            { name: "Example Plus", price: "₱400.00" },
           ],
         },
       ],
@@ -59,9 +59,81 @@ test("private comparison anchors duplicate plans to US occurrences", () => {
     ],
   });
   assert.equal(payload.plans.length, 2);
+  assert.equal(payload.plans[0].label, "Example Plus #1");
+  assert.equal(payload.plans[0].period, "公开项目");
   assert.equal(payload.plans[0].prices[0].code, "ph");
+  assert.equal(payload.plans[0].prices.find((price) => price.code === "ph").price, "₱400.00");
+  assert.equal(payload.plans[1].label, "Example Plus #2");
   assert.equal(payload.plans[1].prices.find((price) => price.code === "us").price, "$100.00");
+  assert.equal(payload.plans[1].prices.find((price) => price.code === "ph").price, "₱4,000.00");
+  assert.equal(payload.plans[1].matchMethod, "name-price-rank");
+  assert.equal(payload.review.excludedMatchCount, 0);
   assert.equal(payload.primaryPlanCount, 2);
+});
+
+test("private comparison excludes duplicate regional items when their price ladder cannot be verified", () => {
+  const comparison = {
+    generatedAt: "2026-08-13T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      developer: "Example Inc.",
+      regions: [
+        {
+          region: "us",
+          status: "ok-textPairs",
+          items: [
+            { name: "Example Plus", price: "$10.00" },
+            { name: "Example Plus", price: "$100.00" },
+          ],
+        },
+        {
+          region: "ph",
+          status: "ok-textPairs",
+          items: [
+            { name: "Example Plus", price: "₱800.00" },
+            { name: "Example Plus", price: "₱900.00" },
+          ],
+        },
+      ],
+    },
+  };
+  const payload = buildPrivateComparison(comparison, {
+    regions,
+    exchangeRates,
+    curatedPlans: [
+      { id: "first", label: "Example Plus", period: "月付", aliases: ["Example Plus"], occurrence: 0 },
+      { id: "second", label: "Example Plus", period: "年付", aliases: ["Example Plus"], occurrence: 1 },
+    ],
+  });
+
+  assert.deepEqual(payload.plans[0].prices.map((price) => price.code), ["us"]);
+  assert.deepEqual(payload.plans[1].prices.map((price) => price.code), ["us"]);
+  assert.equal(payload.plans[0].excludedRegionCount, 1);
+  assert.equal(payload.review.affectedRegionCount, 1);
+  assert.ok(payload.review.issues.every((issue) => issue.reason === "price-ladder-mismatch"));
+});
+
+test("private comparison does not publish a manually guessed billing period", () => {
+  const payload = buildPrivateComparison({
+    generatedAt: "2026-08-13T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      regions: [{
+        region: "us",
+        status: "ok-textPairs",
+        items: [{ name: "Example Pro", price: "$20.00" }],
+      }],
+    },
+  }, {
+    regions,
+    exchangeRates,
+    curatedPlans: [{ id: "pro", label: "Example Pro", period: "月付", aliases: ["Example Pro"] }],
+  });
+
+  assert.equal(payload.plans[0].period, "公开项目");
+  assert.equal(payload.plans[0].label, "Example Pro");
 });
 
 test("private comparison prefers product IDs across localized names and changed ordering", () => {
@@ -177,7 +249,7 @@ test("private comparison never falls back to a same-name item with a different p
   assert.deepEqual(payload.plans[0].prices.map((price) => price.code), ["us"]);
 });
 
-test("private comparison keeps the conservative name and occurrence fallback", () => {
+test("private comparison numbers and price-rank matches unclassified duplicate purchases", () => {
   const comparison = {
     generatedAt: "2026-08-13T01:00:00.000Z",
     app: {
@@ -206,7 +278,8 @@ test("private comparison keeps the conservative name and occurrence fallback", (
   };
   const payload = buildPrivateComparison(comparison, { regions, exchangeRates });
 
-  assert.equal(payload.plans[0].matchMethod, "name-occurrence");
+  assert.equal(payload.plans[0].matchMethod, "name-price-rank");
+  assert.equal(payload.plans[0].label, "SVIP #1");
   assert.equal(payload.plans[1].label, "SVIP #2");
   assert.equal(payload.plans[1].prices.find((price) => price.code === "ph").price, "₱800.00");
 });
@@ -378,7 +451,7 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
-  values.set("private:compare:v1:6448311069", JSON.stringify({
+  values.set("private:compare:v2:6448311069", JSON.stringify({
     storedAt: generatedAt,
     data: buildPrivateComparison({ generatedAt, app }, {
       curatedPlans: planDefinitions[app.id] ?? [],
@@ -410,7 +483,7 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   assert.equal(response.status, 200);
   assert.equal(payload.status, "ready");
   assert.equal(payload.data.app.id, "6448311069");
-  assert.ok(payload.data.plans.some((plan) => plan.label === "ChatGPT Plus"));
+  assert.ok(payload.data.plans.some((plan) => plan.label === "ChatGPT Plus #1"));
   assert.equal(payload.data.regionCount, 20);
 });
 
@@ -422,7 +495,7 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v1:932747118", JSON.stringify({
+  const values = new Map([["private:compare:v2:932747118", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "no-in-app-purchases",
   })]]);
@@ -462,7 +535,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
     .digest("hex");
   const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
   const values = new Map([
-    ["private:compare:v1:999999999", JSON.stringify({
+    ["private:compare:v2:999999999", JSON.stringify({
       storedAt: staleGeneratedAt,
       data: {
         generatedAt: staleGeneratedAt,
