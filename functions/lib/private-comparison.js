@@ -1,13 +1,50 @@
 import { discoverPlans } from "../../app/lib/plan-discovery.mjs";
 import { convertToBaseCurrency, parseLocalizedAmount } from "../../app/lib/price-conversion.mjs";
 
+const STRUCTURED_PERIODS = new Map([
+  ["MONTHLY", "月付"],
+  ["P1M", "月付"],
+  ["YEARLY", "年付"],
+  ["ANNUAL", "年付"],
+  ["P1Y", "年付"],
+  ["WEEKLY", "周付"],
+  ["P1W", "周付"],
+]);
+const PRIMARY_PERIODS = new Set(["月付", "年付", "周付"]);
+
+function productIdOf(value) {
+  const productId = value?.productId ?? value?.productIdentifier ?? value?.offerItemId;
+  return typeof productId === "string" && productId.trim() ? productId.trim() : null;
+}
+
+function billingPeriodOf(value) {
+  const raw = value?.billingPeriod ?? value?.billing_period ?? value?.recurringSubscriptionPeriod;
+  if (typeof raw !== "string") return null;
+  return STRUCTURED_PERIODS.get(raw.trim().toUpperCase()) ?? null;
+}
+
 function itemForPlan(region, plan) {
+  const productId = productIdOf(plan);
+  if (productId) {
+    return (region.items ?? []).find((item) => productIdOf(item) === productId) ?? null;
+  }
   const occurrence = plan.occurrence ?? 0;
   for (const alias of plan.aliases ?? []) {
     const matches = (region.items ?? []).filter((item) => item.name === alias);
     if (matches[occurrence]) return matches[occurrence];
   }
   return null;
+}
+
+function enrichAnchoredPlan(plan, usRegion) {
+  const anchorItem = itemForPlan(usRegion, plan);
+  const productId = productIdOf(plan) ?? productIdOf(anchorItem);
+  const structuredPeriod = billingPeriodOf(plan) ?? billingPeriodOf(anchorItem);
+  return {
+    ...plan,
+    ...(productId ? { productId } : {}),
+    ...(structuredPeriod ? { period: structuredPeriod } : {}),
+  };
 }
 
 function regionIsPublic(region) {
@@ -32,7 +69,8 @@ export function buildPrivateComparison(comparison, {
 
   const regionMap = new Map((regions ?? []).map((region) => [region.code, region]));
   const rates = exchangeRates?.rates ?? {};
-  const anchoredPlans = discoverPlans({ ...app, regions: [usRegion] }, curatedPlans);
+  const anchoredPlans = discoverPlans({ ...app, regions: [usRegion] }, curatedPlans)
+    .map((plan) => enrichAnchoredPlan(plan, usRegion));
   if (!anchoredPlans.length) throw new Error("us-plans-unavailable");
 
   const plans = anchoredPlans.map((plan) => {
@@ -56,11 +94,15 @@ export function buildPrivateComparison(comparison, {
       });
     }
     prices.sort((left, right) => left.cny - right.cny || left.code.localeCompare(right.code));
+    const productId = productIdOf(plan);
+    const period = billingPeriodOf(plan) ?? plan.period;
     return {
       id: plan.id,
       label: plan.label,
-      period: plan.period,
-      group: plan.displayGroup === "primary" ? "primary" : "other",
+      period,
+      group: plan.displayGroup === "primary" || PRIMARY_PERIODS.has(period) ? "primary" : "other",
+      matchMethod: productId ? "product-id" : "name-occurrence",
+      ...(productId ? { productId } : {}),
       prices,
       availableRegionCount: prices.length,
     };

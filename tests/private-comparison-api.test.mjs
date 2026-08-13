@@ -64,6 +64,153 @@ test("private comparison anchors duplicate plans to US occurrences", () => {
   assert.equal(payload.primaryPlanCount, 2);
 });
 
+test("private comparison prefers product IDs across localized names and changed ordering", () => {
+  const comparison = {
+    generatedAt: "2026-08-13T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      developer: "Example Inc.",
+      regions: [
+        {
+          region: "us",
+          status: "ok-structured",
+          items: [
+            {
+              name: "Example Plus",
+              price: "$10.00",
+              productId: "com.example.plus.monthly",
+              billingPeriod: "P1M",
+            },
+            {
+              name: "Example Plus",
+              price: "$100.00",
+              productId: "com.example.plus.annual",
+              billingPeriod: "P1Y",
+            },
+          ],
+        },
+        {
+          region: "ph",
+          status: "ok-structured",
+          items: [
+            {
+              name: "Taunang Example Plus",
+              price: "₱4,000.00",
+              productId: "com.example.plus.annual",
+              billingPeriod: "YEARLY",
+            },
+            {
+              name: "Buwanang Example Plus",
+              price: "₱400.00",
+              productId: "com.example.plus.monthly",
+              billingPeriod: "MONTHLY",
+            },
+          ],
+        },
+      ],
+    },
+  };
+  const payload = buildPrivateComparison(comparison, {
+    regions,
+    exchangeRates,
+    curatedPlans: [
+      { id: "monthly", label: "Example Plus", period: "公开项目", aliases: ["Example Plus"], occurrence: 0 },
+      { id: "annual", label: "Example Plus", period: "公开项目", aliases: ["Example Plus"], occurrence: 1 },
+    ],
+  });
+
+  const monthly = payload.plans.find((plan) => plan.id === "monthly");
+  const annual = payload.plans.find((plan) => plan.id === "annual");
+  assert.equal(monthly.productId, "com.example.plus.monthly");
+  assert.equal(monthly.period, "月付");
+  assert.equal(monthly.group, "primary");
+  assert.equal(monthly.matchMethod, "product-id");
+  assert.equal(monthly.prices.find((price) => price.code === "ph").price, "₱400.00");
+  assert.equal(annual.productId, "com.example.plus.annual");
+  assert.equal(annual.period, "年付");
+  assert.equal(annual.prices.find((price) => price.code === "ph").price, "₱4,000.00");
+});
+
+test("private comparison never falls back to a same-name item with a different product ID", () => {
+  const comparison = {
+    generatedAt: "2026-08-13T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      developer: "Example Inc.",
+      regions: [
+        {
+          region: "us",
+          status: "ok-structured",
+          items: [{
+            name: "Example Plus",
+            price: "$10.00",
+            productId: "com.example.plus.monthly",
+            billingPeriod: "MONTHLY",
+          }],
+        },
+        {
+          region: "ph",
+          status: "ok-structured",
+          items: [{
+            name: "Example Plus",
+            price: "₱400.00",
+            productId: "com.example.different.monthly",
+            billingPeriod: "MONTHLY",
+          }],
+        },
+      ],
+    },
+  };
+  const payload = buildPrivateComparison(comparison, {
+    regions,
+    exchangeRates,
+    curatedPlans: [{
+      id: "monthly",
+      label: "Example Plus",
+      period: "月付",
+      aliases: ["Example Plus"],
+    }],
+  });
+
+  assert.deepEqual(payload.plans[0].prices.map((price) => price.code), ["us"]);
+});
+
+test("private comparison keeps the conservative name and occurrence fallback", () => {
+  const comparison = {
+    generatedAt: "2026-08-13T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      developer: "Example Inc.",
+      regions: [
+        {
+          region: "us",
+          status: "ok-textPairs",
+          items: [
+            { name: "SVIP", price: "$10.00" },
+            { name: "SVIP", price: "$20.00" },
+          ],
+        },
+        {
+          region: "ph",
+          status: "ok-textPairs",
+          items: [
+            { name: "SVIP", price: "₱400.00" },
+            { name: "SVIP", price: "₱800.00" },
+          ],
+        },
+      ],
+    },
+  };
+  const payload = buildPrivateComparison(comparison, { regions, exchangeRates });
+
+  assert.equal(payload.plans[0].matchMethod, "name-occurrence");
+  assert.equal(payload.plans[1].label, "SVIP #2");
+  assert.equal(payload.plans[1].prices.find((price) => price.code === "ph").price, "₱800.00");
+});
+
 test("private comparison can seed every numeric curated snapshot", () => {
   for (const app of validationSnapshot.apps.filter((candidate) => /^\d{6,12}$/u.test(String(candidate.id)))) {
     assert.doesNotThrow(() => buildPrivateComparison({
