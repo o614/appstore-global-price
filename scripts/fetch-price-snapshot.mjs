@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { appleCatalogAppUrl, extractAppleCatalog } from "../app/lib/apple-catalog.mjs";
 import { extractAppleMusicPlans, getAppleMusicPageUrl } from "./apple-music-prices.mjs";
 import { extractAppleServicePlans, getAppleServicePageUrl } from "./apple-service-prices.mjs";
 import { inferCatalogGroup, normalizeCatalogEntries } from "./catalog-config.mjs";
@@ -56,13 +57,23 @@ function retryAfterMilliseconds(response) {
   return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
 }
 
-async function request(url, { timeoutMs = 15_000, retries = 4, acceptedStatuses = [] } = {}) {
+async function request(url, {
+  timeoutMs = 15_000,
+  retries = 4,
+  acceptedStatuses = [],
+  headers = {},
+} = {}) {
   let lastError;
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
       await throttle(url);
       const response = await fetch(url, {
-        headers: { "accept-language": "en-US,en;q=0.9", "user-agent": USER_AGENT },
+        headers: {
+          accept: "application/json,text/html;q=0.9,*/*;q=0.8",
+          "accept-language": "en-US,en;q=0.9",
+          "user-agent": USER_AGENT,
+          ...headers,
+        },
         signal: AbortSignal.timeout(timeoutMs),
       });
       if (response.ok || acceptedStatuses.includes(response.status)) return response;
@@ -201,15 +212,42 @@ function isAppleRedirectShell(html) {
 async function inspectAppStoreRegion(app, region) {
   const regionalAppId = app.regionalAppIds?.[region] ?? app.id;
   const url = `https://apps.apple.com/${region}/app/id${regionalAppId}?l=en`;
+  let identityStatus = null;
+  try {
+    const catalogUrl = appleCatalogAppUrl(regionalAppId, region);
+    const response = await request(catalogUrl, { headers: { referer: url } });
+    const extracted = extractAppleCatalog(await response.json(), regionalAppId);
+    if (extracted.status === "ok-structured") {
+      const excludedNames = new Set((app.excludeItemNames ?? []).map((name) => name.toLocaleLowerCase("en-US")));
+      const items = extracted.items.filter((item) => !excludedNames.has(item.name.toLocaleLowerCase("en-US")));
+      return { region, status: extracted.status, itemCount: items.length, items };
+    }
+    identityStatus = extracted.status;
+  } catch (error) {
+    identityStatus = `error:${error.message}`;
+  }
+
   try {
     const response = await request(url, { acceptedStatuses: [404] });
     if (response.status === 404) return { region, status: "error:HTTP 404", itemCount: 0, items: [] };
     const extracted = extractIap(await response.text());
     const excludedNames = new Set((app.excludeItemNames ?? []).map((name) => name.toLocaleLowerCase("en-US")));
     const items = extracted.items.filter((item) => !excludedNames.has(item.name.toLocaleLowerCase("en-US")));
-    return { region, status: extracted.status, itemCount: items.length, items };
+    return {
+      region,
+      status: extracted.status,
+      itemCount: items.length,
+      items,
+      ...(identityStatus ? { identityStatus } : {}),
+    };
   } catch (error) {
-    return { region, status: `error:${error.message}`, itemCount: 0, items: [] };
+    return {
+      region,
+      status: `error:${error.message}`,
+      itemCount: 0,
+      items: [],
+      ...(identityStatus ? { identityStatus } : {}),
+    };
   }
 }
 

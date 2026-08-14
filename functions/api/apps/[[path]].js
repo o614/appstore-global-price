@@ -3,6 +3,7 @@ import planDefinitions from "../../generated/plan-definitions.mjs";
 import regionData from "../../generated/regions.mjs";
 import validationSnapshot from "../../generated/validation-snapshot.mjs";
 import { buildPrivateComparison } from "../../lib/private-comparison.js";
+import { appleCatalogAppUrl, extractAppleCatalog } from "../../../app/lib/apple-catalog.mjs";
 
 export const REGIONS = [
   { code: "cn", name: "中国" },
@@ -41,7 +42,8 @@ const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_MATCHING_VERSION = 2;
+const PRIVATE_MATCHING_VERSION = 3;
+const TRANSIENT_REGION_RETRY_LIMIT = 3;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
 
@@ -94,7 +96,7 @@ async function readTextWithLimit(response, maximumBytes) {
   return output;
 }
 
-async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = [], deadlineSignal) {
+async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = [], deadlineSignal, extraHeaders = {}) {
   const signal = deadlineSignal
     ? AbortSignal.any([deadlineSignal, AbortSignal.timeout(8_000)])
     : AbortSignal.timeout(8_000);
@@ -103,6 +105,7 @@ async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = [], deadl
       accept: "application/json,text/html;q=0.9,*/*;q=0.8",
       "accept-language": "en-US,en;q=0.9",
       "user-agent": USER_AGENT,
+      ...extraHeaders,
     },
     redirect: "follow",
     signal,
@@ -113,8 +116,8 @@ async function appleRequest(url, fetchImpl = fetch, acceptedStatuses = [], deadl
   return response;
 }
 
-async function appleJson(url, fetchImpl = fetch, deadlineSignal) {
-  const response = await appleRequest(url, fetchImpl, [], deadlineSignal);
+async function appleJson(url, fetchImpl = fetch, deadlineSignal, extraHeaders = {}) {
+  const response = await appleRequest(url, fetchImpl, [], deadlineSignal, extraHeaders);
   return JSON.parse(await readTextWithLimit(response, MAX_JSON_BYTES));
 }
 
@@ -442,6 +445,29 @@ export async function searchAppleApps(query, fetchImpl = fetch, deadlineSignal) 
 
 async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
   const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
+  let identityStatus = null;
+  try {
+    const catalogUrl = appleCatalogAppUrl(appId, region.code);
+    const payload = await appleJson(catalogUrl, fetchImpl, deadlineSignal, {
+      referer: requestedUrl,
+    });
+    const extracted = extractAppleCatalog(payload, appId);
+    if (extracted.status === "ok-structured") {
+      return {
+        row: {
+          region: region.code,
+          status: extracted.status,
+          itemCount: extracted.items.length,
+          items: extracted.items,
+        },
+        metadata: extracted.metadata,
+      };
+    }
+    identityStatus = extracted.status;
+  } catch (error) {
+    identityStatus = `error:${publicError(error)}`;
+  }
+
   try {
     const response = await appleRequest(requestedUrl, fetchImpl, [404], deadlineSignal);
     const resolvedUrl = response.url || requestedUrl;
@@ -458,6 +484,7 @@ async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
         status: extracted.status,
         itemCount: extracted.items.length,
         items: extracted.items,
+        ...(identityStatus ? { identityStatus } : {}),
       },
       metadata: extracted.metadata,
     };
@@ -468,6 +495,7 @@ async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
         status: `error:${publicError(error)}`,
         itemCount: 0,
         items: [],
+        ...(identityStatus ? { identityStatus } : {}),
       },
       metadata: null,
     };
@@ -492,20 +520,31 @@ export async function compareAppleApp(appId, fetchImpl = fetch, deadlineSignal) 
     metadata: null,
   });
   const pageMetadata = completed.find((result) => result.metadata)?.metadata ?? null;
-  const lookupMetadata = pageMetadata
-    ? null
-    : (await mapLimit(
-      REGIONS.slice(0, 5),
-      5,
-      (region) => lookupRegion(appId, region, fetchImpl, deadlineSignal),
-      deadlineSignal,
-    )).find(Boolean);
-  const metadata = pageMetadata ?? (lookupMetadata ? {
-    matchedName: lookupMetadata.appName,
-    developer: lookupMetadata.developer,
-    icon: lookupMetadata.icon,
-    storeUrl: lookupMetadata.storeUrl,
-  } : null);
+  let lookupMetadata = null;
+  if (!pageMetadata?.icon) {
+    const preferredRegions = ["us", "cn", "jp", "hk", "gb"]
+      .map((code) => REGIONS.find((region) => region.code === code))
+      .filter(Boolean);
+    if (pageMetadata && preferredRegions[0]) {
+      const metadataSignal = deadlineSignal
+        ? AbortSignal.any([deadlineSignal, AbortSignal.timeout(2_500)])
+        : AbortSignal.timeout(2_500);
+      lookupMetadata = await lookupRegion(appId, preferredRegions[0], fetchImpl, metadataSignal);
+    } else if (preferredRegions.length) {
+      lookupMetadata = (await mapLimit(
+        preferredRegions,
+        5,
+        (region) => lookupRegion(appId, region, fetchImpl, deadlineSignal),
+        deadlineSignal,
+      )).find(Boolean);
+    }
+  }
+  const metadata = pageMetadata || lookupMetadata ? {
+    matchedName: pageMetadata?.matchedName ?? lookupMetadata?.appName,
+    developer: pageMetadata?.developer || lookupMetadata?.developer || "",
+    icon: pageMetadata?.icon ?? lookupMetadata?.icon ?? null,
+    storeUrl: pageMetadata?.storeUrl ?? lookupMetadata?.storeUrl ?? null,
+  } : null;
 
   return {
     generatedAt: new Date().toISOString(),
@@ -534,6 +573,7 @@ export async function retryTransientRegions(comparison, fetchImpl = fetch, deadl
   if (!failedCodes.size) return comparison;
 
   const targets = REGIONS.filter((region) => failedCodes.has(region.code));
+  if (targets.length > TRANSIENT_REGION_RETRY_LIMIT) return comparison;
   const retried = await mapLimit(
     targets,
     5,
@@ -802,6 +842,10 @@ export function classifyPrivateRefreshError(error) {
     : "refresh-failed";
 }
 
+function comparisonNeedsIdentityRefresh(record) {
+  return (record?.data?.plans ?? []).some((plan) => plan.matchMethod === "us-anchor-only");
+}
+
 export function classifyComparisonResultError(comparison, error) {
   const fallback = classifyPrivateRefreshError(error);
   if (fallback !== "no-comparable-plans") return fallback;
@@ -912,7 +956,11 @@ async function privateCompare(context, storage, target, refreshMode) {
     age = Number.POSITIVE_INFINITY;
   }
   const numericAppId = /^\d{6,12}$/u.test(appId);
-  let shouldRefresh = numericAppId && age > PRIVATE_FRESH_SECONDS;
+  const needsIdentityRefresh = comparisonNeedsIdentityRefresh(record);
+  let shouldRefresh = numericAppId && (
+    age > PRIVATE_FRESH_SECONDS
+    || (needsIdentityRefresh && age > PRIVATE_HOT_REFRESH_SECONDS)
+  );
   if (refreshMode === "hot") shouldRefresh = numericAppId && age > PRIVATE_HOT_REFRESH_SECONDS;
   if (refreshMode === "manual") {
     const manualKey = `private:manual:v1:${appId}`;
@@ -921,7 +969,13 @@ async function privateCompare(context, storage, target, refreshMode) {
     if (shouldRefresh) await storage.put(manualKey, String(Date.now()), { expirationTtl: PRIVATE_MANUAL_REFRESH_SECONDS });
   }
 
-  if (record && age <= PRIVATE_FRESH_SECONDS && refreshMode !== "hot" && refreshMode !== "manual") {
+  if (
+    record
+    && age <= PRIVATE_FRESH_SECONDS
+    && !shouldRefresh
+    && refreshMode !== "hot"
+    && refreshMode !== "manual"
+  ) {
     return { status: 200, payload: { status: "ready", cache: "fresh", data: record.data } };
   }
 

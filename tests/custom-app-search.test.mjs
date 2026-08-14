@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { extractAppleCatalog } from "../app/lib/apple-catalog.mjs";
 import {
   REGIONS,
   compareAppleApp,
@@ -51,6 +52,44 @@ function appPageHtml(name = "Example App") {
   return `<html><script type="application/json" id="serialized-server-data">${JSON.stringify(payload)}</script></html>`;
 }
 
+function catalogPayload(region = "us") {
+  const prices = {
+    us: ["$7.99", "$69.99"],
+    ph: ["₱399.00", "₱3,490.00"],
+  };
+  const [monthlyPrice, annualPrice] = prices[region] ?? ["$8.99", "$79.99"];
+  const item = (id, price, offerName, period) => ({
+    id,
+    type: "in-apps",
+    attributes: {
+      name: "Example Plus",
+      offerName,
+      isSubscription: true,
+      subscriptionFamilyId: "family-1",
+      offers: [{ type: "buy", priceFormatted: price, recurringSubscriptionPeriod: period }],
+    },
+  });
+  return {
+    data: [{
+      id: appId,
+      type: "apps",
+      attributes: {
+        name: "Example App",
+        artistName: "Example Developer",
+        url: `https://apps.apple.com/${region}/app/id${appId}`,
+      },
+      views: {
+        "top-in-app-purchasables": {
+          data: [
+            item("1363566605", monthlyPrice, "com.example.monthly", "P1M"),
+            item("1382870714", annualPrice, "com.example.annual", "P1Y"),
+          ],
+        },
+      },
+    }],
+  };
+}
+
 test("custom search remains locked to the configured 20 regions", async () => {
   const regionFile = JSON.parse(await readFile(new URL("../data/regions.json", import.meta.url), "utf8"));
   assert.equal(REGIONS.length, 20);
@@ -75,6 +114,38 @@ test("App Store page parser extracts metadata and public purchases", () => {
     { name: "Monthly", price: "$9.99" },
     { name: "Yearly", price: "$99.99" },
   ]);
+});
+
+test("Apple catalog parser preserves official product identity and billing period", () => {
+  const extracted = extractAppleCatalog(catalogPayload("us"), appId);
+  assert.equal(extracted.status, "ok-structured");
+  assert.equal(extracted.metadata.matchedName, "Example App");
+  assert.deepEqual(extracted.items[0], {
+    name: "Example Plus",
+    price: "$7.99",
+    productId: "1363566605",
+    offerName: "com.example.monthly",
+    billingPeriod: "P1M",
+    subscriptionFamilyId: "family-1",
+    isSubscription: true,
+  });
+});
+
+test("custom comparison uses Apple catalog identities in every region", async () => {
+  const fetchImpl = async (input) => {
+    const url = new URL(input);
+    if (url.pathname.includes("/api/apps/v1/catalog/")) {
+      const region = url.pathname.split("/")[5];
+      return response(JSON.stringify(catalogPayload(region)), { url: String(url) });
+    }
+    return response(JSON.stringify({ resultCount: 0, results: [] }), { url: String(url) });
+  };
+
+  const comparison = await compareAppleApp(appId, fetchImpl);
+  assert.equal(comparison.app.regions.length, 20);
+  assert.ok(comparison.app.regions.every((region) => region.status === "ok-structured"));
+  assert.ok(comparison.app.regions.every((region) => region.items[0].productId === "1363566605"));
+  assert.ok(comparison.app.regions.every((region) => region.items[0].billingPeriod === "P1M"));
 });
 
 test("App Store search page parser extracts apps and skips bundles", () => {

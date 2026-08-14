@@ -66,6 +66,15 @@ function inferredPeriod(name, occurrence, count, app, allowPriceInference) {
 }
 
 const PRIMARY_PERIODS = new Set(["月付", "年付", "周付"]);
+const STRUCTURED_PERIODS = new Map([
+  ["P1W", "周付"],
+  ["WEEKLY", "周付"],
+  ["P1M", "月付"],
+  ["MONTHLY", "月付"],
+  ["P1Y", "年付"],
+  ["ANNUAL", "年付"],
+  ["YEARLY", "年付"],
+]);
 const PRIMARY_NAME_PATTERN = /(?:monthly|month|annual|yearly|year|weekly|week|subscription|membership|premium|plus|pro\+?|family|individual|lifetime|unlimited|premiere|career|business|recruiter|navigator|classic|essential|lite|max|ultra|会员|订阅|月付|年付|周付|包月|包年|家庭方案|个人方案)/iu;
 const SECONDARY_NAME_PATTERN = /(?:credit|coin|gem|token|\bbits?\b|boost|star(?:s| bundle)?|pack|bundle|offer|gift|sticker|avatar|hat|pet|skin|ticket|item|moves?|lives?|barrel|cart|chest|pok[ée]coin|keys?|gold|unlock|worlds?|story|audio|preset|content|marketplace|snacks?|coffee|flower|meal|charged|land on the moon|金币|宝石|积分|代币|礼包|贴纸|头像|道具|解锁)/iu;
 
@@ -116,10 +125,9 @@ export function discoverPlans(app, curatedPlans = []) {
       if (covered) continue;
       const allowPriceInference = curatedPlans.some((plan) => plan.aliases.includes(name));
       const period = inferredPeriod(name, occurrence, count, app, allowPriceInference);
-      const periodIsDistinct = count > 1 && ["月付", "年付", "周付"].includes(period);
       const discoveredPlan = {
         id: planId(name, occurrence),
-        label: count > 1 && !periodIsDistinct && occurrence > 0 ? `${name} #${occurrence + 1}` : name,
+        label: name,
         period,
         aliases: [name],
         occurrence,
@@ -128,7 +136,37 @@ export function discoverPlans(app, curatedPlans = []) {
       plans.push({ ...discoveredPlan, displayGroup: displayGroupForPlan(discoveredPlan) });
     }
   }
-  return plans;
+  const anchorRegion = app.regions?.find((region) => region.region === "us") ?? app.regions?.[0];
+  const enriched = plans.map((plan) => {
+    const anchorItems = (anchorRegion?.items ?? []).filter((item) => plan.aliases.includes(item.name));
+    const anchorItem = anchorItems[plan.occurrence ?? 0] ?? null;
+    const structuredPeriod = STRUCTURED_PERIODS.get(
+      String(anchorItem?.billingPeriod ?? "").trim().toUpperCase(),
+    );
+    const next = {
+      ...plan,
+      ...(anchorItem?.productId ? { productId: String(anchorItem.productId) } : {}),
+      ...(anchorItem?.offerName ? { offerName: String(anchorItem.offerName) } : {}),
+      ...(anchorItem?.billingPeriod ? { billingPeriod: String(anchorItem.billingPeriod) } : {}),
+      ...(anchorItem?.subscriptionFamilyId
+        ? { subscriptionFamilyId: String(anchorItem.subscriptionFamilyId) }
+        : {}),
+      ...(structuredPeriod ? { period: structuredPeriod } : {}),
+    };
+    return { ...next, displayGroup: displayGroupForPlan(next) };
+  });
+
+  const keyOf = (plan) => `${plan.label}\u0000${plan.period}`;
+  const totals = new Map();
+  for (const plan of enriched) totals.set(keyOf(plan), (totals.get(keyOf(plan)) ?? 0) + 1);
+  const seen = new Map();
+  return enriched.map((plan) => {
+    const key = keyOf(plan);
+    if ((totals.get(key) ?? 0) <= 1) return plan;
+    const number = (seen.get(key) ?? 0) + 1;
+    seen.set(key, number);
+    return { ...plan, label: `${plan.label} #${number}` };
+  });
 }
 
 export function uncoveredItems(app, plans) {

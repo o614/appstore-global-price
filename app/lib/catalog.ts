@@ -5,7 +5,15 @@ import regionDefinitionData from "../../data/regions.json";
 import { discoverPlans } from "./plan-discovery.mjs";
 import { convertToBaseCurrency } from "./price-conversion.mjs";
 
-export type IapItem = { name: string; price: string };
+export type IapItem = {
+  name: string;
+  price: string;
+  productId?: string;
+  offerName?: string;
+  billingPeriod?: string;
+  subscriptionFamilyId?: string;
+  isSubscription?: boolean;
+};
 export type RegionSnapshot = {
   region: string;
   status: string;
@@ -36,6 +44,10 @@ export type PlanDefinition = {
   occurrence?: number;
   discovered?: boolean;
   displayGroup?: "primary" | "other";
+  productId?: string;
+  offerName?: string;
+  billingPeriod?: string;
+  subscriptionFamilyId?: string;
 };
 
 export type RegionEvidenceState = "verified" | "unavailable" | "not-public" | "review";
@@ -101,6 +113,18 @@ export const rateProvider = exchangeRates.provider;
 export const rateAttributionUrl = exchangeRates.attributionUrl;
 
 export function findPlanItem(region: RegionSnapshot, plan: PlanDefinition) {
+  if (plan.productId) {
+    const item = region.items.find((candidate) => candidate.productId === plan.productId) ?? null;
+    if (!item) return null;
+    if (plan.offerName && item.offerName && plan.offerName !== item.offerName) return null;
+    if (plan.billingPeriod && item.billingPeriod && plan.billingPeriod !== item.billingPeriod) return null;
+    if (
+      plan.subscriptionFamilyId
+      && item.subscriptionFamilyId
+      && plan.subscriptionFamilyId !== item.subscriptionFamilyId
+    ) return null;
+    return item;
+  }
   const matches = region.items.filter((item) => plan.aliases.includes(item.name));
   return matches[plan.occurrence ?? 0] ?? null;
 }
