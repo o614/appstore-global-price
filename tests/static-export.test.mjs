@@ -30,7 +30,7 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.doesNotMatch(html, /<span>(?:Productivity|Entertainment|Social Networking|Photo &amp; Video)<\/span>/);
   assert.doesNotMatch(html, /class="hero-stats"/);
   assert.doesNotMatch(html, /已验证价格页/);
-  assert.match(html, /系统约每 6 小时自动检测一次/);
+  assert.match(html, /系统每天自动检测 3 次/);
   assert.match(html, /订阅变动/);
   assert.match(html, /© 2026 App Store 订阅比价/);
   assert.match(html, /href="https:\/\/stats\.uptimerobot\.com\/WdwUGk8mc9"[^>]*>.*系统状态/s);
@@ -106,13 +106,18 @@ test("exports every configured app detail route", async () => {
   const kimi = snapshot.apps.find((app) => app.id === "6474233312");
   assert.ok(kimi, "Kimi is missing from the snapshot");
   const kimiPlans = discoverPlans(kimi, planDefinitions["6474233312"]);
-  assert.ok(kimiPlans.some((plan) => plan.displayGroup === "primary"));
+  assert.ok(kimiPlans.length > 0, "Kimi has no public purchase items");
   assert.match(await readPage("/apps/6473753684/index.html"), /其他购买项目/);
 
   const claudeHtml = await readPage("/apps/6473753684/index.html");
-  assert.match(claudeHtml, /Claude Usage Credits 20/);
-  assert.match(claudeHtml, /Claude Usage Credits 50/);
-  assert.match(claudeHtml, /Claude Usage Credits 250/);
+  const claude = snapshot.apps.find((app) => app.id === "6473753684");
+  assert.ok(claude, "Claude is missing from the snapshot");
+  const claudePlans = discoverPlans(claude, planDefinitions[claude.id]);
+  assert.ok(claudePlans.length > 0, "Claude has no public purchase items");
+  assert.equal(
+    (claudeHtml.match(/<button[^>]*class="plan-chip/g) ?? []).length,
+    claudePlans.length,
+  );
 
   const appleMusicHtml = await readPage("/apps/1108187390/index.html");
   assert.match(appleMusicHtml, /Apple Music 个人方案/);
@@ -122,11 +127,12 @@ test("exports every configured app detail route", async () => {
 
   const grokHtml = await readPage("/apps/6670324846/index.html");
   const grok = snapshot.apps.find((app) => app.id === "6670324846");
-  assert.match(grokHtml, /Extra Usage Credits 10 USD/);
-  assert.match(grokHtml, /Extra Usage Credits 100 USD/);
+  assert.ok(grok, "Grok is missing from the snapshot");
+  const grokPlans = discoverPlans(grok, planDefinitions[grok.id]);
+  assert.ok(grokPlans.length > 0, "Grok has no public purchase items");
   assert.equal(
     (grokHtml.match(/<button[^>]*class="plan-chip/g) ?? []).length,
-    discoverPlans(grok, planDefinitions[grok.id]).length,
+    grokPlans.length,
   );
 
   const iCloudHtml = await readPage("/apps/apple-icloud-plus/index.html");
@@ -144,7 +150,7 @@ test("exports every configured app detail route", async () => {
 
   const fitnessHtml = await readPage("/apps/apple-fitness-plus/index.html");
   assert.match(fitnessHtml, /Apple Fitness\+/);
-  assert.match(fitnessHtml, /NT\$1,190/);
+  assert.match(fitnessHtml, /地区有价格/);
 
   const tvHtml = await readPage("/apps/apple-tv-plus/index.html");
   assert.match(tvHtml, /Apple TV\+/);

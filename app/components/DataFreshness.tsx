@@ -49,14 +49,14 @@ export function DataFreshness({
   let view: FreshnessView = {
     tone: "snapshot",
     label: `价格快照 ${displayDate}`,
-    description: `最近一次通过校验并发布的价格快照：${displayDate}。系统约每 6 小时自动检测一次。`,
+    description: `最近一次通过校验并发布的价格快照：${displayDate}。系统每天自动检测 3 次。`,
   };
 
   if (ageMs !== null) {
     view = {
       tone: ageMs > 7 * DAY_IN_MS ? "stale" : "snapshot",
       label: `价格快照 · ${relativeAge(ageMs)}`,
-      description: `最近一次通过校验并发布的价格快照：${displayDate}。系统约每 6 小时自动检测一次。`,
+      description: `最近一次通过校验并发布的价格快照：${displayDate}。系统每天自动检测 3 次。`,
     };
   }
 

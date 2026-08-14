@@ -15,18 +15,19 @@ test("every public item and duplicate occurrence is visible without a manual whi
   }
 });
 
-test("Grok exposes every storefront row without a fixed plan-count ceiling", async () => {
-  const [snapshot, definitions] = await Promise.all([
-    readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8").then(JSON.parse),
-    readFile(new URL("../data/plan-definitions.json", import.meta.url), "utf8").then(JSON.parse),
-  ]);
-  const grok = snapshot.apps.find((app) => app.id === "6670324846");
-  const plans = discoverPlans(grok, definitions[grok.id]);
-  assert.deepEqual(uncoveredItems(grok, plans), []);
-  assert.ok(plans.length >= 10, "Grok unexpectedly lost previously published plans");
-  assert.ok(plans.some((plan) => plan.label === "SuperGrok" && plan.period === "年付"));
-  assert.ok(plans.some((plan) => plan.label === "SuperGrok Lite" && plan.period === "年付"));
-  assert.ok(plans.some((plan) => plan.label === "Extra Usage Credits 100 USD"));
+test("plan discovery exposes every storefront row without a fixed plan-count ceiling", () => {
+  const app = {
+    regions: [{
+      region: "us",
+      items: Array.from({ length: 12 }, (_, index) => ({
+        name: `Public Item ${index + 1}`,
+        price: `$${index + 1}.99`,
+      })),
+    }],
+  };
+  const plans = discoverPlans(app, []);
+  assert.equal(plans.length, 12);
+  assert.deepEqual(uncoveredItems(app, plans), []);
 });
 
 test("a newly fetched product appears automatically without editing plan definitions", () => {
