@@ -485,7 +485,7 @@ test("private endpoints reject unsigned and oversized requests before doing work
   assert.equal(oversized.status, 413);
 });
 
-test("private compare serves a signed curated snapshot without starting a crawl", async () => {
+test("private compare refreshes a curated snapshot that lacks product identities", async () => {
   const secret = "compare-secret";
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = JSON.stringify({ target: "6448311069" });
@@ -496,14 +496,87 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
-  values.set("private:compare:v3:6448311069", JSON.stringify({
+  values.set("private:compare:v4:6448311069", JSON.stringify({
     storedAt: generatedAt,
+    source: "snapshot",
     data: buildPrivateComparison({ generatedAt, app }, {
       curatedPlans: planDefinitions[app.id] ?? [],
       exchangeRates: exchangeRateSnapshot,
       regions: regionSnapshot.regions,
     }),
   }));
+  values.set("private:lock:v1:6448311069", "already-refreshing");
+  let backgroundStarted = false;
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => values.set(key, value),
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: () => { backgroundStarted = true; },
+  });
+  const payload = await response.json();
+  assert.equal(response.status, 202);
+  assert.equal(payload.status, "pending");
+  assert.equal(payload.retryAfter, 30);
+  assert.equal(backgroundStarted, true);
+});
+
+test("private compare serves structured monthly and annual identities immediately", async () => {
+  const secret = "structured-compare-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = JSON.stringify({ target: "6448311069" });
+  const pathname = "/api/apps/private/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const generatedAt = new Date().toISOString();
+  const structuredComparison = {
+    generatedAt,
+    app: {
+      id: "6448311069",
+      matchedName: "ChatGPT",
+      regions: [
+        {
+          region: "us",
+          status: "ok-structured",
+          items: [
+            { name: "ChatGPT Plus", price: "$19.99", productId: "6448311597", billingPeriod: "P1M" },
+            { name: "ChatGPT Plus", price: "$200.00", productId: "6745416289", billingPeriod: "P1Y" },
+          ],
+        },
+        {
+          region: "ph",
+          status: "ok-structured",
+          items: [
+            { name: "ChatGPT Plus", price: "₱999.00", productId: "6448311597", billingPeriod: "P1M" },
+            { name: "ChatGPT Plus", price: "₱9,990.00", productId: "6745416289", billingPeriod: "P1Y" },
+          ],
+        },
+      ],
+    },
+  };
+  const values = new Map([["private:compare:v4:6448311069", JSON.stringify({
+    storedAt: generatedAt,
+    source: "live",
+    data: buildPrivateComparison(structuredComparison, {
+      curatedPlans: planDefinitions["6448311069"],
+      exchangeRates,
+      regions,
+    }),
+  })]]);
   const response = await onRequestPost({
     request: new Request(`https://price.example${pathname}`, {
       method: "POST",
@@ -526,10 +599,10 @@ test("private compare serves a signed curated snapshot without starting a crawl"
   });
   const payload = await response.json();
   assert.equal(response.status, 200);
-  assert.equal(payload.status, "ready");
-  assert.equal(payload.data.app.id, "6448311069");
-  assert.ok(payload.data.plans.some((plan) => plan.label === "ChatGPT Plus #1"));
-  assert.equal(payload.data.regionCount, 20);
+  assert.deepEqual(payload.data.plans.map((plan) => [plan.label, plan.period]), [
+    ["ChatGPT Plus", "月付"],
+    ["ChatGPT Plus", "年付"],
+  ]);
 });
 
 test("private compare returns a cached no-IAP result instead of restarting forever", async () => {
@@ -540,7 +613,7 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v3:932747118", JSON.stringify({
+  const values = new Map([["private:compare:v4:932747118", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "no-in-app-purchases",
   })]]);
@@ -580,7 +653,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
     .digest("hex");
   const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
   const values = new Map([
-    ["private:compare:v3:999999999", JSON.stringify({
+    ["private:compare:v4:999999999", JSON.stringify({
       storedAt: staleGeneratedAt,
       data: {
         generatedAt: staleGeneratedAt,

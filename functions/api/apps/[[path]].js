@@ -42,7 +42,7 @@ const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_MATCHING_VERSION = 3;
+const PRIVATE_MATCHING_VERSION = 4;
 const TRANSIENT_REGION_RETRY_LIMIT = 3;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
@@ -727,10 +727,11 @@ function snapshotComparison(app) {
   };
 }
 
-function comparisonRecord(comparison) {
+function comparisonRecord(comparison, { source = "live" } = {}) {
   const appId = String(comparison.app.id);
   return {
     storedAt: new Date().toISOString(),
+    source,
     data: buildPrivateComparison(comparison, {
       curatedPlans: planDefinitions[appId] ?? [],
       exchangeRates,
@@ -843,7 +844,15 @@ export function classifyPrivateRefreshError(error) {
 }
 
 function comparisonNeedsIdentityRefresh(record) {
-  return (record?.data?.plans ?? []).some((plan) => plan.matchMethod === "us-anchor-only");
+  return (record?.data?.plans ?? []).some((plan) => (
+    plan.matchMethod === "us-anchor-only"
+    || (record?.source === "snapshot" && !plan.productId)
+  ));
+}
+
+function comparisonSnapshotIsIncomplete(record) {
+  return record?.source === "snapshot"
+    && (record?.data?.plans ?? []).some((plan) => !plan.productId);
 }
 
 export function classifyComparisonResultError(comparison, error) {
@@ -935,7 +944,7 @@ async function privateCompare(context, storage, target, refreshMode) {
   let record = await readPrivateJson(storage, cacheKey);
 
   if (snapshotApp) {
-    const seeded = comparisonRecord(snapshotComparison(snapshotApp));
+    const seeded = comparisonRecord(snapshotComparison(snapshotApp), { source: "snapshot" });
     const snapshotAge = recordAgeSeconds(seeded);
     if (snapshotAge <= PRIVATE_STALE_SECONDS && (!record || Date.parse(seeded.data.generatedAt) > Date.parse(record.data?.generatedAt ?? ""))) {
       record = seeded;
@@ -957,8 +966,10 @@ async function privateCompare(context, storage, target, refreshMode) {
   }
   const numericAppId = /^\d{6,12}$/u.test(appId);
   const needsIdentityRefresh = comparisonNeedsIdentityRefresh(record);
+  const incompleteSnapshot = comparisonSnapshotIsIncomplete(record);
   let shouldRefresh = numericAppId && (
     age > PRIVATE_FRESH_SECONDS
+    || incompleteSnapshot
     || (needsIdentityRefresh && age > PRIVATE_HOT_REFRESH_SECONDS)
   );
   if (refreshMode === "hot") shouldRefresh = numericAppId && age > PRIVATE_HOT_REFRESH_SECONDS;
@@ -967,6 +978,14 @@ async function privateCompare(context, storage, target, refreshMode) {
     const lastManual = Number(await storage.get(manualKey) ?? 0);
     shouldRefresh = numericAppId && Date.now() - lastManual >= PRIVATE_MANUAL_REFRESH_SECONDS * 1000;
     if (shouldRefresh) await storage.put(manualKey, String(Date.now()), { expirationTtl: PRIVATE_MANUAL_REFRESH_SECONDS });
+  }
+
+  if (record && incompleteSnapshot) {
+    // A legacy HTML snapshot has useful prices but no stable product identity.
+    // Never expose it as a completed comparison: refresh the Apple catalog in
+    // the background and let the caller retry with a bounded pending response.
+    if (numericAppId) queuePrivateRefresh(context, storage, appId);
+    return { status: 202, payload: { status: "pending", retryAfter: 30 } };
   }
 
   if (
