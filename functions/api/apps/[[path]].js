@@ -36,11 +36,14 @@ const MAX_JSON_BYTES = 1_000_000;
 const TOTAL_REQUEST_TIMEOUT_MS = 18_000;
 const PRIVATE_BODY_BYTES = 4_096;
 const PRIVATE_CLOCK_SKEW_SECONDS = 300;
+const PRIVATE_API_VERSION = 1;
+const PRIVATE_SEARCH_TIMEOUT_MS = 2_500;
 const PRIVATE_FRESH_SECONDS = 12 * 60 * 60;
 const PRIVATE_STALE_SECONDS = 7 * 24 * 60 * 60;
 const PRIVATE_HOT_REFRESH_SECONDS = 3 * 60 * 60;
 const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
+const PRIVATE_FAILED_SECONDS = 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
 const PRIVATE_MATCHING_VERSION = 4;
 const TRANSIENT_REGION_RETRY_LIMIT = 3;
@@ -612,6 +615,10 @@ function isTransientRegionError(region) {
     || status === "marker-unclosed";
 }
 
+function privateApiPayload(payload) {
+  return { ...payload, apiVersion: PRIVATE_API_VERSION };
+}
+
 async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSignal) {
   const appId = String(comparison?.app?.id ?? "");
   const usRow = comparison?.app?.regions?.find((region) => region.region === "us");
@@ -805,20 +812,12 @@ export async function privateSearch(query, storage, fetchImpl = fetch) {
     // App Store web search is only a same-region fallback for a transient
     // Search API outage; it must not turn the reply into a candidate picker.
     const usRegion = REGIONS.find((region) => region.code === "us");
-    const searchResults = usRegion
-      ? await searchRegion(query, usRegion, fetchImpl, AbortSignal.timeout(3_000), 1)
-      : [];
-    selected = searchResults[0] ?? null;
-    if (!selected) {
-      const fallbackResults = await searchAppStorePage(
-        query,
-        "us",
-        "iphone",
-        fetchImpl,
-        AbortSignal.timeout(3_000),
-      );
-      selected = fallbackResults[0] ?? null;
-    }
+    const searchSignal = AbortSignal.timeout(PRIVATE_SEARCH_TIMEOUT_MS);
+    const [searchResults, fallbackResults] = await Promise.all([
+      usRegion ? searchRegion(query, usRegion, fetchImpl, searchSignal, 1) : [],
+      searchAppStorePage(query, "us", "iphone", fetchImpl, searchSignal),
+    ]);
+    selected = searchResults[0] ?? fallbackResults[0] ?? null;
   }
   const payload = {
     query,
@@ -828,7 +827,8 @@ export async function privateSearch(query, storage, fetchImpl = fetch) {
       return publicResult;
     }),
   };
-  await writePrivateJson(storage, cacheKey, payload, 6 * 60 * 60);
+  // Do not preserve a transient Apple outage as a six-hour "not found" result.
+  await writePrivateJson(storage, cacheKey, payload, selected ? 6 * 60 * 60 : 60);
   return { ...payload, cache: "miss" };
 }
 
@@ -888,6 +888,7 @@ async function startPrivateRefresh(context, storage, appId) {
         return { comparison, record };
       } catch (error) {
         const classified = classifyComparisonResultError(comparison, error);
+        if (error && typeof error === "object") error.privateComparisonError = classified;
         if (classified !== "refresh-failed") {
           await writePrivateJson(storage, cacheKey, {
             storedAt: new Date().toISOString(),
@@ -907,7 +908,24 @@ async function startPrivateRefresh(context, storage, appId) {
       await writePrivateJson(storage, cacheKey, retriedRecord);
       return retriedRecord;
     })
-    .catch((error) => {
+    .catch(async (error) => {
+      const classified = error?.privateComparisonError ?? classifyPrivateRefreshError(error);
+      if (classified === "refresh-failed") {
+        // A failed detached crawl must reach a terminal state. Otherwise every
+        // retry starts another crawl and the user remains in an endless pending loop.
+        try {
+          await writePrivateJson(storage, cacheKey, {
+            storedAt: new Date().toISOString(),
+            error: classified,
+          }, PRIVATE_FAILED_SECONDS);
+        } catch (storageError) {
+          console.warn(JSON.stringify({
+            event: "private-refresh-error-cache-failed",
+            appId,
+            error: String(storageError),
+          }));
+        }
+      }
       console.error(JSON.stringify({ event: "private-compare-refresh-failed", appId, error: String(error) }));
       return null;
     })
@@ -954,7 +972,10 @@ async function privateCompare(context, storage, target, refreshMode) {
 
   if (record?.error) {
     if (refreshMode !== "manual") {
-      return { status: 422, payload: { error: record.error } };
+      return {
+        status: record.error === "refresh-failed" ? 503 : 422,
+        payload: { error: record.error },
+      };
     }
     record = null;
   }
@@ -1047,6 +1068,8 @@ export async function onRequestPost(context) {
   const storage = privateStorage(context);
   if (!storage) return jsonResponse({ error: "private-storage-not-configured" }, 503);
 
+  const endpointPath = path[1] === `v${PRIVATE_API_VERSION}` ? path.slice(2) : path.slice(1);
+
   let input;
   try {
     input = body ? JSON.parse(body) : {};
@@ -1054,27 +1077,32 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: "invalid-json" }, 400);
   }
 
-  if (path[1] === "health" && path.length === 2) {
-    return jsonResponse({
+  if (endpointPath[0] === "health" && endpointPath.length === 1) {
+    return jsonResponse(privateApiPayload({
       ok: true,
       storage: true,
       snapshotAt: validationSnapshot.generatedAt,
       matchingVersion: PRIVATE_MATCHING_VERSION,
-    });
+    }));
   }
   if (!await privateRateAllowed(storage)) {
     return jsonResponse({ error: "rate-limited" }, 429, "no-store", { "retry-after": "60" });
   }
 
   try {
-    if (path[1] === "search" && path.length === 2) {
+    if (endpointPath[0] === "search" && endpointPath.length === 1) {
       const query = String(input.query ?? "").trim();
       if (query.length < 2 || query.length > 200) return jsonResponse({ error: "invalid-query" }, 400);
-      return jsonResponse(await privateSearch(query, storage));
+      return jsonResponse(privateApiPayload(await privateSearch(query, storage)));
     }
-    if (path[1] === "compare" && path.length === 2) {
+    if (endpointPath[0] === "compare" && endpointPath.length === 1) {
       const result = await privateCompare(context, storage, String(input.target ?? "").trim(), input.refresh);
-      return jsonResponse(result.payload, result.status, "no-store", result.status === 202 ? { "retry-after": "30" } : {});
+      return jsonResponse(
+        privateApiPayload(result.payload),
+        result.status,
+        "no-store",
+        result.status === 202 ? { "retry-after": "30" } : {},
+      );
     }
     return jsonResponse({ error: "private-endpoint-not-found" }, 404);
   } catch (error) {

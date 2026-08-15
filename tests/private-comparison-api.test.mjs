@@ -371,12 +371,15 @@ test("private refresh distinguishes a confirmed missing IAP section from a trans
 
 test("private name search trusts Apple's first US result and skips candidate selection", async () => {
   const values = new Map();
+  const requestedHosts = [];
   const storage = {
     get: async (key) => values.get(key) ?? null,
     put: async (key, value) => values.set(key, value),
   };
   const payload = await privateSearch("Sky Guide", storage, async (input) => {
     const url = new URL(input);
+    requestedHosts.push(url.hostname);
+    if (url.hostname === "apps.apple.com") return new Response("", { status: 200 });
     assert.equal(url.hostname, "itunes.apple.com");
     assert.equal(url.searchParams.get("country"), "us");
     assert.equal(url.searchParams.get("limit"), "1");
@@ -401,7 +404,22 @@ test("private name search trusts Apple's first US result and skips candidate sel
   assert.equal(payload.results.length, 1);
   assert.equal(payload.results[0].appId, "576588894");
   assert.equal(payload.results[0].appName, "Sky Guide");
+  assert.deepEqual(requestedHosts.sort(), ["apps.apple.com", "itunes.apple.com"]);
   assert.ok(values.has("private:search:v2:skyguide"));
+});
+
+test("private name search only caches an empty transient result for one minute", async () => {
+  const writes = [];
+  const storage = {
+    get: async () => null,
+    put: async (key, value, options) => writes.push({ key, value, options }),
+  };
+  const payload = await privateSearch("Temporary Missing App", storage, async () => (
+    new Response("", { status: 503 })
+  ));
+
+  assert.deepEqual(payload.results, []);
+  assert.equal(writes[0].options.expirationTtl, 60);
 });
 
 test("private signature verifies the exact method, path and body", async () => {
@@ -431,8 +449,42 @@ test("private signature verifies the exact method, path and body", async () => {
   );
 });
 
-test("private health endpoint requires signing and configured storage", async () => {
+test("private v1 health endpoint requires signing and configured storage", async () => {
   const secret = "health-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = "{}";
+  const pathname = "/api/apps/private/v1/health";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "v1", "health"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async () => null,
+        put: async () => undefined,
+        delete: async () => undefined,
+      },
+    },
+    waitUntil: () => undefined,
+  });
+  assert.equal(response.status, 200);
+  const payload = await response.json();
+  assert.equal(payload.ok, true);
+  assert.equal(payload.apiVersion, 1);
+});
+
+test("private legacy health route remains available during v1 migration", async () => {
+  const secret = "legacy-health-secret";
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = "{}";
   const pathname = "/api/apps/private/health";
@@ -454,13 +506,11 @@ test("private health endpoint requires signing and configured storage", async ()
       PRICE_COMPARE_KV: {
         get: async () => null,
         put: async () => undefined,
-        delete: async () => undefined,
       },
     },
-    waitUntil: () => undefined,
   });
   assert.equal(response.status, 200);
-  assert.equal((await response.json()).ok, true);
+  assert.equal((await response.json()).apiVersion, 1);
 });
 
 test("private endpoints reject unsigned and oversized requests before doing work", async () => {
@@ -534,11 +584,11 @@ test("private compare refreshes a curated snapshot that lacks product identities
   assert.equal(backgroundStarted, true);
 });
 
-test("private compare serves structured monthly and annual identities immediately", async () => {
+test("private v1 compare serves structured monthly and annual identities immediately", async () => {
   const secret = "structured-compare-secret";
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = JSON.stringify({ target: "6448311069" });
-  const pathname = "/api/apps/private/compare";
+  const pathname = "/api/apps/private/v1/compare";
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
@@ -586,7 +636,7 @@ test("private compare serves structured monthly and annual identities immediatel
         "x-price-signature": signature,
       },
     }),
-    params: { path: ["private", "compare"] },
+    params: { path: ["private", "v1", "compare"] },
     env: {
       PRICE_COMPARE_API_SECRET: secret,
       PRICE_COMPARE_KV: {
@@ -599,6 +649,7 @@ test("private compare serves structured monthly and annual identities immediatel
   });
   const payload = await response.json();
   assert.equal(response.status, 200);
+  assert.equal(payload.apiVersion, 1);
   assert.deepEqual(payload.data.plans.map((plan) => [plan.label, plan.period]), [
     ["ChatGPT Plus", "月付"],
     ["ChatGPT Plus", "年付"],
@@ -640,6 +691,46 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   });
   assert.equal(response.status, 422);
   assert.equal((await response.json()).error, "no-in-app-purchases");
+  assert.equal(backgroundStarted, false);
+});
+
+test("private v1 compare returns a terminal transient error instead of endless pending", async () => {
+  const secret = "failed-cache-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = JSON.stringify({ target: "123456789" });
+  const pathname = "/api/apps/private/v1/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const values = new Map([["private:compare:v4:123456789", JSON.stringify({
+    storedAt: new Date().toISOString(),
+    error: "refresh-failed",
+  })]]);
+  let backgroundStarted = false;
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "v1", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => values.set(key, value),
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: () => { backgroundStarted = true; },
+  });
+  const payload = await response.json();
+  assert.equal(response.status, 503);
+  assert.equal(payload.error, "refresh-failed");
+  assert.equal(payload.apiVersion, 1);
   assert.equal(backgroundStarted, false);
 });
 
