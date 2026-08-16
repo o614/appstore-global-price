@@ -615,14 +615,21 @@ function isTransientRegionError(region) {
     || status === "marker-unclosed";
 }
 
+function isIdentityDegradedRegion(region) {
+  return region?.status !== "ok-structured" && Boolean(region?.identityStatus);
+}
+
 function privateApiPayload(payload) {
   return { ...payload, apiVersion: PRIVATE_API_VERSION };
 }
 
-async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSignal) {
+export async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSignal) {
   const appId = String(comparison?.app?.id ?? "");
   const usRow = comparison?.app?.regions?.find((region) => region.region === "us");
-  if (!/^\d{6,12}$/u.test(appId) || !isTransientRegionError(usRow)) return comparison;
+  if (
+    !/^\d{6,12}$/u.test(appId)
+    || (!isTransientRegionError(usRow) && !isIdentityDegradedRegion(usRow))
+  ) return comparison;
   const usRegion = REGIONS.find((region) => region.code === "us");
   if (!usRegion) return comparison;
   const retried = await inspectRegion(appId, usRegion, fetchImpl, deadlineSignal);
@@ -736,9 +743,16 @@ function snapshotComparison(app) {
 
 function comparisonRecord(comparison, { source = "live" } = {}) {
   const appId = String(comparison.app.id);
+  const regions = Array.isArray(comparison.app.regions) ? comparison.app.regions : [];
+  const usRow = regions.find((region) => region.region === "us");
   return {
     storedAt: new Date().toISOString(),
     source,
+    diagnostics: {
+      usStatus: usRow?.status ?? "missing",
+      usIdentityStatus: usRow?.identityStatus ?? null,
+      structuredRegionCount: regions.filter((region) => region.status === "ok-structured").length,
+    },
     data: buildPrivateComparison(comparison, {
       curatedPlans: planDefinitions[appId] ?? [],
       exchangeRates,
@@ -758,6 +772,112 @@ function logComparisonReview(record) {
     affectedRegionCount: review.affectedRegionCount,
     reasons: [...new Set(review.issues.map((issue) => issue.reason))],
   }));
+}
+
+function curatedDuplicatePlanIds(appId) {
+  const definitions = planDefinitions[String(appId)] ?? [];
+  const aliases = new Map();
+  for (const definition of definitions) {
+    for (const alias of definition.aliases ?? []) {
+      aliases.set(alias, (aliases.get(alias) ?? 0) + 1);
+    }
+  }
+  return new Set(definitions
+    .filter((definition) => (definition.aliases ?? []).some((alias) => (aliases.get(alias) ?? 0) > 1))
+    .map((definition) => definition.id));
+}
+
+export function comparisonIdentitySummary(record, appId = record?.data?.app?.id) {
+  const plans = Array.isArray(record?.data?.plans) ? record.data.plans : [];
+  const duplicatePlanIds = curatedDuplicatePlanIds(appId);
+  const unresolvedCuratedPlans = plans.filter((plan) => (
+    duplicatePlanIds.has(plan.id)
+    && (
+      !plan.productId
+      || plan.period === "公开项目"
+      || plan.matchMethod === "us-anchor-only"
+      || plan.matchMethod === "unmatched"
+    )
+  ));
+  return {
+    planCount: plans.length,
+    structuredPlanCount: plans.filter((plan) => Boolean(plan.productId)).length,
+    unresolvedCuratedPlanCount: unresolvedCuratedPlans.length,
+    unresolvedCuratedPlanIds: unresolvedCuratedPlans.map((plan) => plan.id),
+    source: record?.source ?? "unknown",
+    usStatus: record?.diagnostics?.usStatus ?? "unknown",
+    usIdentityStatus: record?.diagnostics?.usIdentityStatus ?? null,
+  };
+}
+
+function comparisonRecordUsable(record, appId) {
+  if (!record?.data || comparisonSnapshotIsIncomplete(record)) return false;
+  return comparisonIdentitySummary(record, appId).unresolvedCuratedPlanCount === 0;
+}
+
+export function selectPrivateRefreshRecord(previousRecord, candidateRecord, appId) {
+  const previous = comparisonIdentitySummary(previousRecord, appId);
+  const candidate = comparisonIdentitySummary(candidateRecord, appId);
+  const previousUsable = comparisonRecordUsable(previousRecord, appId);
+
+  if (candidate.unresolvedCuratedPlanCount > 0) {
+    return {
+      action: previousUsable ? "retain" : "reject",
+      reason: "curated-identity-degraded",
+      record: previousUsable ? previousRecord : null,
+      previous,
+      candidate,
+    };
+  }
+  if (
+    previousUsable
+    && previous.structuredPlanCount > 0
+    && candidate.structuredPlanCount === 0
+  ) {
+    return {
+      action: "retain",
+      reason: "structured-identity-regressed",
+      record: previousRecord,
+      previous,
+      candidate,
+    };
+  }
+  return {
+    action: "accept",
+    reason: "identity-quality-accepted",
+    record: candidateRecord,
+    previous,
+    candidate,
+  };
+}
+
+function logPrivateRefreshDecision(appId, phase, decision) {
+  const payload = {
+    event: decision.action === "accept"
+      ? "private-compare-refresh-accepted"
+      : "private-compare-refresh-degraded",
+    appId,
+    phase,
+    action: decision.action,
+    reason: decision.reason,
+    previous: decision.previous,
+    candidate: decision.candidate,
+  };
+  const output = JSON.stringify(payload);
+  if (decision.action === "accept") console.log(output);
+  else console.warn(output);
+}
+
+async function persistPrivateRefreshRecord(storage, cacheKey, previousRecord, candidateRecord, appId, phase) {
+  const decision = selectPrivateRefreshRecord(previousRecord, candidateRecord, appId);
+  logPrivateRefreshDecision(appId, phase, decision);
+  if (decision.action === "reject") {
+    const error = new Error("identity-degraded");
+    error.privateComparisonError = "refresh-failed";
+    throw error;
+  }
+  if (decision.action === "accept") await writePrivateJson(storage, cacheKey, candidateRecord);
+  return { record: decision.record, retained: decision.action === "retain" };
 }
 
 function snapshotCandidate(app, score) {
@@ -878,17 +998,35 @@ async function startPrivateRefresh(context, storage, appId) {
   await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: PRIVATE_REFRESH_LOCK_SECONDS });
 
   const cacheKey = `private:compare:v${PRIVATE_MATCHING_VERSION}:${appId}`;
+  const previousRecord = await readPrivateJson(storage, cacheKey);
   const initialPromise = compareAppleApp(appId, fetch, AbortSignal.timeout(TOTAL_REQUEST_TIMEOUT_MS))
     .then(async (comparison) => retryUsAnchor(comparison, fetch, AbortSignal.timeout(8_000)))
     .then(async (comparison) => {
       try {
-        const record = comparisonRecord(comparison);
-        logComparisonReview(record);
-        await writePrivateJson(storage, cacheKey, record);
-        return { comparison, record };
+        const candidateRecord = comparisonRecord(comparison);
+        logComparisonReview(candidateRecord);
+        const persisted = await persistPrivateRefreshRecord(
+          storage,
+          cacheKey,
+          previousRecord,
+          candidateRecord,
+          appId,
+          "initial",
+        );
+        return { comparison, ...persisted };
       } catch (error) {
         const classified = classifyComparisonResultError(comparison, error);
         if (error && typeof error === "object") error.privateComparisonError = classified;
+        if (comparisonRecordUsable(previousRecord, appId)) {
+          console.warn(JSON.stringify({
+            event: "private-compare-refresh-failure-retained",
+            appId,
+            phase: "initial",
+            error: classified,
+            previous: comparisonIdentitySummary(previousRecord, appId),
+          }));
+          return { comparison, record: previousRecord, retained: true };
+        }
         if (classified !== "refresh-failed") {
           await writePrivateJson(storage, cacheKey, {
             storedAt: new Date().toISOString(),
@@ -900,17 +1038,23 @@ async function startPrivateRefresh(context, storage, appId) {
     });
 
   const background = initialPromise
-    .then(async ({ comparison, record }) => {
-      if (!comparison.app.regions.some(isTransientRegionError)) return record;
+    .then(async ({ comparison, record, retained }) => {
+      if (retained || !comparison.app.regions.some(isTransientRegionError)) return record;
       const retried = await retryTransientRegions(comparison, fetch, AbortSignal.timeout(10_000));
-      const retriedRecord = comparisonRecord(retried);
-      logComparisonReview(retriedRecord);
-      await writePrivateJson(storage, cacheKey, retriedRecord);
-      return retriedRecord;
+      const candidateRecord = comparisonRecord(retried);
+      logComparisonReview(candidateRecord);
+      return (await persistPrivateRefreshRecord(
+        storage,
+        cacheKey,
+        record,
+        candidateRecord,
+        appId,
+        "transient-region-retry",
+      )).record;
     })
     .catch(async (error) => {
       const classified = error?.privateComparisonError ?? classifyPrivateRefreshError(error);
-      if (classified === "refresh-failed") {
+      if (classified === "refresh-failed" && !comparisonRecordUsable(previousRecord, appId)) {
         // A failed detached crawl must reach a terminal state. Otherwise every
         // retry starts another crawl and the user remains in an endless pending loop.
         try {
@@ -925,6 +1069,14 @@ async function startPrivateRefresh(context, storage, appId) {
             error: String(storageError),
           }));
         }
+      } else if (comparisonRecordUsable(previousRecord, appId)) {
+        console.warn(JSON.stringify({
+          event: "private-compare-refresh-failure-retained",
+          appId,
+          phase: "background",
+          error: classified,
+          previous: comparisonIdentitySummary(previousRecord, appId),
+        }));
       }
       console.error(JSON.stringify({ event: "private-compare-refresh-failed", appId, error: String(error) }));
       return null;
@@ -968,6 +1120,15 @@ async function privateCompare(context, storage, target, refreshMode) {
       record = seeded;
       await writePrivateJson(storage, cacheKey, record);
     }
+  }
+
+  if (record?.data && !comparisonRecordUsable(record, appId)) {
+    console.warn(JSON.stringify({
+      event: "private-compare-cache-degraded",
+      appId,
+      cached: comparisonIdentitySummary(record, appId),
+    }));
+    record = null;
   }
 
   if (record?.error) {

@@ -9,8 +9,11 @@ import { buildPrivateComparison } from "../functions/lib/private-comparison.js";
 import {
   classifyComparisonResultError,
   classifyPrivateRefreshError,
+  comparisonIdentitySummary,
   onRequestPost,
   privateSearch,
+  retryUsAnchor,
+  selectPrivateRefreshRecord,
   verifyPrivateSignature,
 } from "../functions/api/apps/[[path]].js";
 
@@ -201,6 +204,145 @@ test("private comparison prefers product IDs across localized names and changed 
   assert.equal(annual.productId, "com.example.plus.annual");
   assert.equal(annual.period, "年付");
   assert.equal(annual.prices.find((price) => price.code === "ph").price, "₱4,000.00");
+});
+
+test("private refresh retains a reliable curated identity when Apple falls back to duplicate text labels", () => {
+  const structuredComparison = {
+    generatedAt: "2026-08-16T01:00:00.000Z",
+    app: {
+      id: "6448311069",
+      matchedName: "ChatGPT",
+      regions: [{
+        region: "us",
+        status: "ok-structured",
+        items: [
+          { name: "ChatGPT Plus", price: "$19.99", productId: "6448311597", billingPeriod: "P1M" },
+          { name: "ChatGPT Plus", price: "$200.00", productId: "6745416289", billingPeriod: "P1Y" },
+        ],
+      }],
+    },
+  };
+  const degradedComparison = {
+    generatedAt: "2026-08-16T02:00:00.000Z",
+    app: {
+      id: "6448311069",
+      matchedName: "ChatGPT",
+      regions: [{
+        region: "us",
+        status: "ok-textPairs",
+        identityStatus: "catalog-iap-view-missing",
+        items: [
+          { name: "ChatGPT Plus", price: "$19.99" },
+          { name: "ChatGPT Plus", price: "$200.00" },
+        ],
+      }],
+    },
+  };
+  const record = (comparison, diagnostics) => ({
+    source: "live",
+    diagnostics,
+    data: buildPrivateComparison(comparison, {
+      curatedPlans: planDefinitions["6448311069"],
+      exchangeRates,
+      regions,
+    }),
+  });
+  const previous = record(structuredComparison, {
+    usStatus: "ok-structured",
+    usIdentityStatus: null,
+    structuredRegionCount: 1,
+  });
+  const candidate = record(degradedComparison, {
+    usStatus: "ok-textPairs",
+    usIdentityStatus: "catalog-iap-view-missing",
+    structuredRegionCount: 0,
+  });
+
+  assert.equal(comparisonIdentitySummary(candidate, "6448311069").unresolvedCuratedPlanCount, 2);
+  const retained = selectPrivateRefreshRecord(previous, candidate, "6448311069");
+  assert.equal(retained.action, "retain");
+  assert.equal(retained.reason, "curated-identity-degraded");
+  assert.equal(retained.record, previous);
+
+  const rejected = selectPrivateRefreshRecord(null, candidate, "6448311069");
+  assert.equal(rejected.action, "reject");
+  assert.equal(rejected.record, null);
+});
+
+test("private refresh keeps numbered fallback projects for an uncurated app", () => {
+  const comparison = {
+    generatedAt: "2026-08-16T02:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Uncurated App",
+      regions: [{
+        region: "us",
+        status: "ok-textPairs",
+        identityStatus: "catalog-iap-view-missing",
+        items: [
+          { name: "SVIP", price: "$10.00" },
+          { name: "SVIP", price: "$20.00" },
+        ],
+      }],
+    },
+  };
+  const candidate = {
+    source: "live",
+    data: buildPrivateComparison(comparison, { regions, exchangeRates }),
+  };
+  const decision = selectPrivateRefreshRecord(null, candidate, "123456789");
+  assert.equal(decision.action, "accept");
+  assert.deepEqual(candidate.data.plans.map((plan) => plan.label), ["SVIP #1", "SVIP #2"]);
+});
+
+test("private refresh retries a US fallback when the structured identity endpoint degraded", async () => {
+  const comparison = {
+    generatedAt: "2026-08-16T02:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      regions: [{
+        region: "us",
+        status: "ok-textPairs",
+        identityStatus: "catalog-iap-view-missing",
+        items: [{ name: "Example Plus", price: "$9.99" }],
+      }],
+    },
+  };
+  let requests = 0;
+  const retried = await retryUsAnchor(comparison, async (input) => {
+    requests += 1;
+    const url = new URL(input);
+    assert.equal(url.hostname, "apps.apple.com");
+    assert.match(url.pathname, /\/api\/apps\/v1\/catalog\/us\/apps\/123456789/u);
+    return new Response(JSON.stringify({
+      data: [{
+        id: "123456789",
+        attributes: { name: "Example", artistName: "Example Inc." },
+        views: {
+          "top-in-app-purchasables": {
+            data: [{
+              id: "com.example.plus.monthly",
+              attributes: {
+                name: "Example Plus",
+                offers: [{
+                  type: "buy",
+                  priceFormatted: "$9.99",
+                  recurringSubscriptionPeriod: "P1M",
+                }],
+              },
+            }],
+          },
+        },
+      }],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  }, AbortSignal.timeout(1_000));
+
+  const us = retried.app.regions.find((region) => region.region === "us");
+  assert.equal(requests, 1);
+  assert.equal(us.status, "ok-structured");
+  assert.equal(us.items[0].productId, "com.example.plus.monthly");
+  assert.equal(us.items[0].billingPeriod, "P1M");
 });
 
 test("private comparison never falls back to a same-name item with a different product ID", () => {
@@ -654,6 +796,71 @@ test("private v1 compare serves structured monthly and annual identities immedia
     ["ChatGPT Plus", "月付"],
     ["ChatGPT Plus", "年付"],
   ]);
+});
+
+test("private compare stops serving an existing degraded curated cache", async () => {
+  const secret = "degraded-cache-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const body = JSON.stringify({ target: "6448311069" });
+  const pathname = "/api/apps/private/v1/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const generatedAt = new Date().toISOString();
+  const degradedComparison = {
+    generatedAt,
+    app: {
+      id: "6448311069",
+      matchedName: "ChatGPT",
+      regions: [{
+        region: "us",
+        status: "ok-textPairs",
+        identityStatus: "catalog-iap-view-missing",
+        items: [
+          { name: "ChatGPT Plus", price: "$19.99" },
+          { name: "ChatGPT Plus", price: "$200.00" },
+        ],
+      }],
+    },
+  };
+  const values = new Map([
+    ["private:compare:v4:6448311069", JSON.stringify({
+      storedAt: generatedAt,
+      source: "live",
+      data: buildPrivateComparison(degradedComparison, {
+        curatedPlans: planDefinitions["6448311069"],
+        exchangeRates,
+        regions,
+      }),
+    })],
+    ["private:lock:v1:6448311069", "already-refreshing"],
+  ]);
+  let backgroundStarted = false;
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "v1", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => values.set(key, value),
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: () => { backgroundStarted = true; },
+  });
+  const payload = await response.json();
+  assert.equal(response.status, 202);
+  assert.equal(payload.status, "pending");
+  assert.equal(payload.retryAfter, 30);
+  assert.equal(backgroundStarted, true);
 });
 
 test("private compare returns a cached no-IAP result instead of restarting forever", async () => {
