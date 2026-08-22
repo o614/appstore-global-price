@@ -5,28 +5,7 @@ import validationSnapshot from "../../generated/validation-snapshot.mjs";
 import { buildPrivateComparison } from "../../lib/private-comparison.js";
 import { appleCatalogAppUrl, extractAppleCatalog } from "../../../app/lib/apple-catalog.mjs";
 
-export const REGIONS = [
-  { code: "cn", name: "中国" },
-  { code: "us", name: "美国" },
-  { code: "hk", name: "香港" },
-  { code: "tw", name: "台湾" },
-  { code: "vn", name: "越南" },
-  { code: "sg", name: "新加坡" },
-  { code: "jp", name: "日本" },
-  { code: "kr", name: "韩国" },
-  { code: "th", name: "泰国" },
-  { code: "gb", name: "英国" },
-  { code: "de", name: "德国" },
-  { code: "fr", name: "法国" },
-  { code: "ca", name: "加拿大" },
-  { code: "tr", name: "土耳其" },
-  { code: "au", name: "澳大利亚" },
-  { code: "ph", name: "菲律宾" },
-  { code: "ng", name: "尼日利亚" },
-  { code: "in", name: "印度" },
-  { code: "br", name: "巴西" },
-  { code: "id", name: "印度尼西亚" },
-];
+export const REGIONS = regionData.regions.map(({ code, name }) => ({ code, name }));
 
 const START_MARKER = '<script type="application/json" id="serialized-server-data">';
 const END_MARKER = "</script>";
@@ -45,7 +24,7 @@ const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_FAILED_SECONDS = 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_MATCHING_VERSION = 4;
+const PRIVATE_MATCHING_VERSION = 5;
 const TRANSIENT_REGION_RETRY_LIMIT = 3;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
@@ -1300,7 +1279,7 @@ export async function onRequestGet(context) {
       }
       const cacheUrl = new URL("/api/apps/search", url.origin);
       cacheUrl.searchParams.set("q", normalizeSearch(query));
-      cacheUrl.searchParams.set("v", "4");
+      cacheUrl.searchParams.set("v", "5");
       return cachedJson(context, cacheUrl, 21_600, 300, async () => ({
         query,
         regions: REGIONS.map(({ code, name }) => ({ code, name })),
@@ -1312,6 +1291,7 @@ export async function onRequestGet(context) {
       const appId = String(path[1] ?? "");
       if (!/^\d{6,12}$/u.test(appId)) return jsonResponse({ error: "App ID 格式不正确" }, 400);
       const cacheUrl = new URL(`/api/apps/compare/${appId}`, url.origin);
+      cacheUrl.searchParams.set("v", "5");
       return cachedJson(context, cacheUrl, 43_200, 600, async () => {
         const comparison = await compareAppleApp(appId, fetch, deadlineSignal);
         const degradedRegions = comparison.app.regions.filter(isTransientRegionError);

@@ -42,7 +42,7 @@ const expectedPublishedIds = expectedIds.filter((id) => !deferredIds.has(id));
 if (JSON.stringify(expectedPublishedIds) !== JSON.stringify(actualIds)) {
   errors.push(`Published App IDs do not match configuration after deferrals: expected ${expectedPublishedIds.join(", ")}`);
 }
-if (expectedRegions.length !== 20) errors.push(`Expected exactly 20 fixed regions, received ${expectedRegions.length}`);
+if (!expectedRegions.length) errors.push("Expected at least one fixed region");
 if (new Set(expectedRegions).size !== expectedRegions.length) errors.push("Region codes are not unique");
 if (JSON.stringify(expectedRegions) !== JSON.stringify(snapshot.regions)) errors.push("Top-level regions do not match configuration");
 

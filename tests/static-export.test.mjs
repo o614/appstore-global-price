@@ -22,7 +22,7 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.match(html, /ChatGPT Plus/);
   assert.match(html, /应用与订阅服务/);
   assert.match(html, /浏览应用/);
-  assert.match(html, /为什么固定这 20 个地区/);
+  assert.match(html, /为什么固定这 18 个地区/);
   assert.match(html, /覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场/);
   assert.match(html, /找出低价不是目的，能够优惠订阅才是王道/);
   assert.doesNotMatch(html, /固定同一组地区，才能让不同应用和不同时间的结果保持可比/);
@@ -37,16 +37,16 @@ test("exports the price comparison homepage as static HTML", async () => {
   assert.doesNotMatch(html, /class="footer-directory"/);
   assert.doesNotMatch(html, /价格服务|文章教程|联系作者|注册教程|改区教程|充值教程|更多教程|联系客服|LINUX DO/);
   assert.doesNotMatch(html, /购买服务|微信：ehpass|分享网站|快捷入口/);
-  assert.match(html, /比较任意 App 与 Apple 订阅服务在固定 20 个地区的官方价格/);
+  assert.match(html, /比较任意 App 与 Apple 订阅服务在固定 18 个地区的官方价格/);
   assert.doesNotMatch(html, /组地区价格已验证/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
 });
 
-test("exports the fixed-20-region custom app search entry", async () => {
+test("exports the fixed-region custom app search entry", async () => {
   const html = await readPage("/search/index.html");
   assert.match(html, /查找 App/);
   assert.match(html, /输入应用名称、App ID 或 App Store 链接/);
-  assert.doesNotMatch(html, /仍只比较固定 20 个地区|不会加入精选目录或订阅变动日志/);
+  assert.doesNotMatch(html, /仍只比较固定 \d+ 个地区|不会加入精选目录或订阅变动日志/);
   const routes = JSON.parse(await readFile(new URL("../out/_routes.json", import.meta.url), "utf8"));
   assert.deepEqual(routes.include, ["/api/*"]);
 });
@@ -138,7 +138,7 @@ test("exports every configured app detail route", async () => {
   const iCloudHtml = await readPage("/apps/apple-icloud-plus/index.html");
   assert.match(iCloudHtml, /iCloud\+ 50 GB/);
   assert.match(iCloudHtml, /iCloud\+ 12 TB/);
-  assert.match(iCloudHtml, /20\/20 地区/);
+  assert.match(iCloudHtml, /18\/18 地区/);
 
   const oneHtml = await readPage("/apps/apple-one/index.html");
   assert.match(oneHtml, /Apple One 个人方案/);
@@ -288,7 +288,7 @@ test("exports machine-readable structured data", async () => {
   assert.ok(detailJsonLd.some((entry) =>
     entry["@type"] === "SoftwareApplication"
     && entry.name === "ChatGPT"
-    && entry.additionalProperty.some((property) => property.name === "比价地区数量" && property.value === 20)
+    && entry.additionalProperty.some((property) => property.name === "比价地区数量" && property.value === 18)
   ));
   assert.match(detail, /<meta property="og:url" content="https:\/\/price\.290935\.xyz\/apps\/6448311069\/"/);
 

@@ -90,9 +90,9 @@ function catalogPayload(region = "us") {
   };
 }
 
-test("custom search remains locked to the configured 20 regions", async () => {
+test("custom search remains locked to the configured 18 regions", async () => {
   const regionFile = JSON.parse(await readFile(new URL("../data/regions.json", import.meta.url), "utf8"));
-  assert.equal(REGIONS.length, 20);
+  assert.equal(REGIONS.length, 18);
   assert.deepEqual(
     REGIONS.map((region) => region.code),
     regionFile.regions.map((region) => region.code),
@@ -142,7 +142,7 @@ test("custom comparison uses Apple catalog identities in every region", async ()
   };
 
   const comparison = await compareAppleApp(appId, fetchImpl);
-  assert.equal(comparison.app.regions.length, 20);
+  assert.equal(comparison.app.regions.length, REGIONS.length);
   assert.ok(comparison.app.regions.every((region) => region.status === "ok-structured"));
   assert.ok(comparison.app.regions.every((region) => region.items[0].productId === "1363566605"));
   assert.ok(comparison.app.regions.every((region) => region.items[0].billingPeriod === "P1M"));
@@ -330,9 +330,9 @@ test("one regional failure does not stop the remaining comparison", async () => 
   };
 
   const comparison = await compareAppleApp(appId, fetchImpl);
-  assert.equal(comparison.regionCount, 20);
-  assert.equal(comparison.app.regions.length, 20);
-  assert.equal(comparison.app.regions.filter((region) => region.status === "ok-textPairs").length, 19);
+  assert.equal(comparison.regionCount, REGIONS.length);
+  assert.equal(comparison.app.regions.length, REGIONS.length);
+  assert.equal(comparison.app.regions.filter((region) => region.status === "ok-textPairs").length, REGIONS.length - 1);
   assert.match(
     comparison.app.regions.find((region) => region.region === "tr").status,
     /^error:/u,
@@ -341,10 +341,10 @@ test("one regional failure does not stop the remaining comparison", async () => 
 
 test("an exhausted total request budget returns a complete degraded region list", async () => {
   const comparison = await compareAppleApp(appId, fetch, AbortSignal.abort());
-  assert.equal(comparison.app.regions.length, 20);
+  assert.equal(comparison.app.regions.length, REGIONS.length);
   assert.equal(
     comparison.app.regions.filter((region) => region.status === "error:request-budget-exhausted").length,
-    20,
+    REGIONS.length,
   );
 });
 

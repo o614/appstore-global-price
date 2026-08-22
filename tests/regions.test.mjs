@@ -3,11 +3,11 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const expectedCodes = [
-  "cn", "us", "hk", "tw", "vn", "sg", "jp", "kr", "th", "gb",
-  "de", "fr", "ca", "tr", "au", "ph", "ng", "in", "br", "id",
+  "cn", "us", "hk", "tw", "vn", "jp", "gb", "de", "ca",
+  "tr", "au", "in", "br", "id", "mx", "nz", "ae", "sa",
 ];
 
-test("uses the agreed fixed set of 20 regions everywhere", async () => {
+test("uses the agreed fixed set of 18 regions everywhere", async () => {
   const [regionData, snapshot, rates] = await Promise.all([
     readFile(new URL("../data/regions.json", import.meta.url), "utf8").then(JSON.parse),
     readFile(new URL("../data/validation-snapshot.json", import.meta.url), "utf8").then(JSON.parse),
@@ -15,7 +15,7 @@ test("uses the agreed fixed set of 20 regions everywhere", async () => {
   ]);
   const codes = regionData.regions.map((region) => region.code);
   assert.deepEqual(codes, expectedCodes);
-  assert.equal(new Set(codes).size, 20);
+  assert.equal(new Set(codes).size, expectedCodes.length);
   assert.ok(regionData.regions.every((region) => region.name && region.currency && region.storefrontId && region.appleHost));
   await Promise.all(expectedCodes.map((code) => access(new URL(`../public/flags/${code}.png`, import.meta.url))));
   assert.deepEqual(snapshot.regions, expectedCodes);

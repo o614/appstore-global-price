@@ -27,7 +27,7 @@ export function GET() {
 ## 主要页面
 
 - [首页与应用目录](${siteUrl}/): 浏览全部已收录应用与 Apple 订阅服务。
-- [搜索任意应用](${siteUrl}/search/): 输入应用名称、App ID 或 App Store 链接，临时比较同一组固定 20 个地区；查询不会加入目录或变动日志。
+- [搜索任意应用](${siteUrl}/search/): 输入应用名称、App ID 或 App Store 链接，临时比较同一组固定 ${Object.keys(regionMeta).length} 个地区；查询不会加入目录或变动日志。
 - [订阅变动日志](${siteUrl}/changes/): 查看已经校验并发布的套餐调价、新增、移除和可用状态变化。
 - [XML Sitemap](${siteUrl}/sitemap.xml): 机器可读的完整公开页面清单。
 

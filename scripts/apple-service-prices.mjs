@@ -9,8 +9,8 @@ const SERVICE_PATHS = {
 };
 
 const CADENCE_PATTERNS = {
-  monthly: /per\s+month|\/\s*month|\/\s*mo\.?|monthly|month|月額|每月|月費|\/月|ayda|aylık|tháng|매월|\/월|เดือน|monat|mois|mês|mensal|bulan/giu,
-  annual: /per\s+year|annually|annual|year|年間|年額|每年|年費|yıllık|senelik|năm|연간|\/년|ปี|jahr|jährlich|annuel|par\s+an|ano|anual|tahun/giu,
+  monthly: /per\s+month|\/\s*month|\/\s*mo\.?|monthly|month|(?:por|al)\s+mes|mensual|月額|每月|月費|\/月|ayda|aylık|tháng|매월|\/월|เดือน|monat|mois|mês|mensal|bulan/giu,
+  annual: /per\s+year|annually|annual|year|年間|年額|每年|年費|yıllık|senelik|năm|연간|\/년|ปี|jahr|jährlich|annuel|par\s+an|al\s+año|ano|anual|tahun/giu,
 };
 
 function decodeHtml(text) {

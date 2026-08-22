@@ -62,21 +62,21 @@ test("extracts Indian recurring prices without mistaking subscribers punctuation
 
 test("does not invent a student plan when a non-China page omits it", () => {
   const html = [
-    planCard("individual", "신규 구독자는 1,100원에 3개월 이용 후 월 8,900원의 요금 결제."),
-    planCard("family", "신규 구독자는 3,300원에 3개월 이용 후 월 13,500원의 요금 결제."),
+    planCard("individual", "£11.99/month"),
+    planCard("family", "£19.99/month"),
   ].join("");
-  assert.deepEqual(extractAppleMusicPlans(html, "kr"), [
-    { name: "Apple Music Individual", price: "₩8,900" },
-    { name: "Apple Music Family", price: "₩13,500" },
+  assert.deepEqual(extractAppleMusicPlans(html, "gb"), [
+    { name: "Apple Music Individual", price: "£11.99" },
+    { name: "Apple Music Family", price: "£19.99" },
   ]);
 });
 
 test("keeps recurring prices when the normal card also mentions a free first month", () => {
   const locales = [
     {
-      region: "sg",
-      prices: ["S$11.98", "S$20.98", "S$6.48"],
-      expected: ["S$11.98", "S$20.98", "S$6.48"],
+      region: "nz",
+      prices: ["NZ$16.99", "NZ$27.99", "NZ$8.99"],
+      expected: ["$16.99", "$27.99", "$8.99"],
       suffix: "/month, first month free for new subscribers.",
     },
     {
@@ -86,10 +86,10 @@ test("keeps recurring prices when the normal card also mentions a free first mon
       suffix: "/month, first month free for new subscribers.",
     },
     {
-      region: "fr",
-      prices: ["11,99 €", "19,99 €", "6,99 €"],
-      expected: ["€11,99", "€19,99", "€6,99"],
-      suffix: "/mois, premier mois gratuit pour les nouveaux abonnements.",
+      region: "mx",
+      prices: ["MX$129", "MX$199", "MX$69"],
+      expected: ["$129", "$199", "$69"],
+      suffix: "/mes, primer mes gratis para nuevos suscriptores.",
     },
     {
       region: "au",

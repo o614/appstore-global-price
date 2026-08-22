@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { ShareForwardLine } from "@mingcute/react";
+import { comparisonRegionCount } from "../lib/region-config";
 
 const shareTitle = "App Store 订阅比价";
-const shareText = "比较热门 App 与 Apple 订阅服务在 20 个地区的官方价格，查看同一套餐在哪个地区更便宜。";
+const shareText = `比较热门 App 与 Apple 订阅服务在 ${comparisonRegionCount} 个地区的官方价格，查看同一套餐在哪个地区更便宜。`;
 
 export function SiteShareButton() {
   const [feedback, setFeedback] = useState("");

@@ -26,6 +26,13 @@ const CURRENCY_FORMATS = {
   INR: { prefix: "₹", patterns: [/₹\s*([\d.,]+)/gu, /\bRs\.?\s*([\d.,]+)/giu] },
   BRL: { prefix: "R$", patterns: [/R\$\s*([\d.,]+)/giu] },
   IDR: { prefix: "Rp", patterns: [/Rp\s*([\d.,]+)/giu] },
+  MXN: { prefix: "$", patterns: [/(?:MX)?\$\s*([\d.,]+)/giu] },
+  NZD: { prefix: "$", patterns: [/(?:NZ)?\$\s*([\d.,]+)/giu] },
+  AED: { prefix: "AED ", patterns: [/(?:AED|د\.?إ\.?)\s*([\d.,]+)/giu] },
+  SAR: {
+    prefix: "SAR ",
+    patterns: [/(?:SAR|ر\.?س\.?)\s*([\d.,]+)/giu, /([\d.,]+)\s*﷼/gu],
+  },
 };
 
 export function getRegionDefinition(regionCode) {

@@ -4,7 +4,7 @@
 
 公开地址：<https://price.290935.xyz>
 
-精选目录维护常用应用与 Apple 服务；自定义搜索不限制 App，但所有入口都只比较固定的 20 个地区：中国、美国、香港、台湾、越南、新加坡、日本、韩国、泰国、英国、德国、法国、加拿大、土耳其、澳大利亚、菲律宾、尼日利亚、印度、巴西和印度尼西亚。普通 App 读取公开内购项目；Apple Music、iCloud+、Apple One、Apple TV+、Apple Arcade、Apple Fitness+ 和 Apple News+ 读取各地区 Apple 官方价格页。页面区分月付、年付和一次性购买，并提供对应国家的官方来源链接。人民币金额仅使用公开汇率进行参考折算。
+精选目录维护常用应用与 Apple 服务；自定义搜索不限制 App，但所有入口都只比较固定的 18 个地区：中国、美国、香港、台湾、越南、日本、英国、德国、加拿大、土耳其、澳大利亚、印度、巴西、印度尼西亚、墨西哥、新西兰、阿联酋和沙特阿拉伯。普通 App 读取公开内购项目；Apple Music、iCloud+、Apple One、Apple TV+、Apple Arcade、Apple Fitness+ 和 Apple News+ 读取各地区 Apple 官方价格页。页面区分月付、年付和一次性购买，并提供对应国家的官方来源链接。人民币金额仅使用公开汇率进行参考折算。
 
 ## 本地运行
 
@@ -61,6 +61,6 @@ npm run data:check
 
 ## 自定义应用查询
 
-`/search/` 接受应用名称、App ID 或 App Store 链接。`/api/apps/search` 只负责在 Apple 公开接口中定位应用，`/api/apps/compare/{id}` 再逐区读取固定 20 个地区的公开内购。单个 Apple 请求和整次查询均有时间与响应体积上限；某个地区超时、限流或解析失败只会标记该地区，不会中止其余地区，也不会把降级响应写入边缘缓存。
+`/search/` 接受应用名称、App ID 或 App Store 链接。`/api/apps/search` 只负责在 Apple 公开接口中定位应用，`/api/apps/compare/{id}` 再逐区读取固定 18 个地区的公开内购。单个 Apple 请求和整次查询均有时间与响应体积上限；某个地区超时、限流或解析失败只会标记该地区，不会中止其余地区，也不会把降级响应写入边缘缓存。
 
 临时查询使用 Cloudflare Cache API 限时缓存搜索和比价响应，不写入 KV、精选目录或订阅变动日志。`public/_routes.json` 将 Pages Function 严格限制在 `/api/*`，其余页面继续按静态文件提供。Pages Function 只接受 GET，并为全部 API 响应添加安全响应头；生产环境还应按 [`docs/maintenance.md`](docs/maintenance.md) 的规则在 Cloudflare WAF 启用接口限流。

@@ -14,6 +14,7 @@ import {
   regionMeta,
   toCny,
 } from "./lib/catalog";
+import { comparisonRegionCount } from "./lib/region-config";
 
 const cardApps = apps.map((app) => ({
   ...app,
@@ -95,7 +96,7 @@ export default function Home() {
       <section className="coverage-note" aria-label="地区选择说明">
         <div>
           <span className="eyebrow">比较范围</span>
-          <strong>为什么固定这 20 个地区</strong>
+          <strong>为什么固定这 {comparisonRegionCount} 个地区</strong>
         </div>
         <p>覆盖常用 Apple ID 地区、主要币种与价格差异明显的市场；找出低价不是目的，能够优惠订阅才是王道。</p>
       </section>

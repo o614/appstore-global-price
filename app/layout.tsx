@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./apple-design.css";
+import { comparisonRegionCount } from "./lib/region-config";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
 const title = "App Store 订阅比价";
-const description = "比较任意 App 与 Apple 订阅服务在固定 20 个地区的官方价格，按月付、年付和一次性购买分别查看。";
+const description = `比较任意 App 与 Apple 订阅服务在固定 ${comparisonRegionCount} 个地区的官方价格，按月付、年付和一次性购买分别查看。`;
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",

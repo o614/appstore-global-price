@@ -52,6 +52,8 @@ test("uses official locale-specific service URLs", () => {
   assert.equal(getAppleServicePageUrl("jp", "apple-one"), "https://www.apple.com/jp/apple-one/");
   assert.equal(getAppleServicePageUrl("us", "apple-tv-plus"), "https://www.apple.com/apple-tv/");
   assert.equal(getAppleServicePageUrl("gb", "apple-one"), "https://www.apple.com/uk/apple-one/");
+  assert.equal(getAppleServicePageUrl("ae", "apple-one"), "https://www.apple.com/ae/apple-one/");
+  assert.equal(getAppleServicePageUrl("sa", "apple-one"), "https://www.apple.com/sa/apple-one/");
 });
 
 test("recognizes localized monthly and annual cadence around expanded-region prices", () => {
@@ -69,5 +71,54 @@ test("recognizes localized monthly and annual cadence around expanded-region pri
   assert.deepEqual(extractAppleServicePlans(brazilFitness, "br", "apple-fitness-plus"), [
     { name: "Apple Fitness+ Monthly", price: "R$29,90" },
     { name: "Apple Fitness+ Annual", price: "R$149,90" },
+  ]);
+});
+
+test("parses prices for the newly selected regions", () => {
+  const mexico = "Apple Fitness+ MX$199 por mes";
+  assert.deepEqual(extractAppleServicePlans(mexico, "mx", "apple-fitness-plus"), [
+    { name: "Apple Fitness+ Monthly", price: "$199" },
+  ]);
+  const newZealand = "Apple Fitness+ NZ$16.99 per month";
+  assert.deepEqual(extractAppleServicePlans(newZealand, "nz", "apple-fitness-plus"), [
+    { name: "Apple Fitness+ Monthly", price: "$16.99" },
+  ]);
+  const uae = "Apple Fitness+ AED 36.99 per month";
+  assert.deepEqual(extractAppleServicePlans(uae, "ae", "apple-fitness-plus"), [
+    { name: "Apple Fitness+ Monthly", price: "AED 36.99" },
+  ]);
+  const saudi = "Apple Fitness+ SAR 36.99 per month";
+  assert.deepEqual(extractAppleServicePlans(saudi, "sa", "apple-fitness-plus"), [
+    { name: "Apple Fitness+ Monthly", price: "SAR 36.99" },
+  ]);
+});
+
+test("parses Saudi iCloud+ prices written with the riyal symbol after the amount", () => {
+  const html = `
+    <h4>Saudi Arabia (SAR)</h4>
+    <ul>
+      <li><b>50 GB</b>: 3.99﷼</li>
+      <li><b>200 GB</b>: 12.99﷼</li>
+      <li><b>2 TB</b>: 44.99﷼</li>
+      <li><b>6 TB</b>: 129.99﷼</li>
+      <li><b>12 TB</b>: 269.99﷼</li>
+    </ul>
+  `;
+
+  assert.deepEqual(extractAppleServicePlans(html, "sa", "icloud-plus"), [
+    { name: "iCloud+ 50 GB", price: "SAR 3.99" },
+    { name: "iCloud+ 200 GB", price: "SAR 12.99" },
+    { name: "iCloud+ 2 TB", price: "SAR 44.99" },
+    { name: "iCloud+ 6 TB", price: "SAR 129.99" },
+    { name: "iCloud+ 12 TB", price: "SAR 269.99" },
+  ]);
+});
+
+test("parses Spanish monthly and annual Fitness+ prices", () => {
+  const html = `<p>1 mes gratis y luego $149 al mes u $899 al año.</p>`;
+
+  assert.deepEqual(extractAppleServicePlans(html, "mx", "apple-fitness-plus"), [
+    { name: "Apple Fitness+ Monthly", price: "$149" },
+    { name: "Apple Fitness+ Annual", price: "$899" },
   ]);
 });

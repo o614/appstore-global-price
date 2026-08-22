@@ -5,20 +5,18 @@
     { "code": "hk", "name": "香港", "currency": "HKD", "storefrontId": 143463, "appleHost": "https://www.apple.com/hk", "icloudCountry": "Hong Kong" },
     { "code": "tw", "name": "台湾", "currency": "TWD", "storefrontId": 143470, "appleHost": "https://www.apple.com/tw", "icloudCountry": "Taiwan" },
     { "code": "vn", "name": "越南", "currency": "VND", "storefrontId": 143471, "appleHost": "https://www.apple.com/vn", "icloudCountry": "Vietnam" },
-    { "code": "sg", "name": "新加坡", "currency": "SGD", "storefrontId": 143464, "appleHost": "https://www.apple.com/sg", "icloudCountry": "Singapore" },
     { "code": "jp", "name": "日本", "currency": "JPY", "storefrontId": 143462, "appleHost": "https://www.apple.com/jp", "icloudCountry": "Japan" },
-    { "code": "kr", "name": "韩国", "currency": "KRW", "storefrontId": 143466, "appleHost": "https://www.apple.com/kr", "icloudCountry": "Republic of Korea" },
-    { "code": "th", "name": "泰国", "currency": "THB", "storefrontId": 143475, "appleHost": "https://www.apple.com/th", "icloudCountry": "Thailand" },
     { "code": "gb", "name": "英国", "currency": "GBP", "storefrontId": 143444, "appleHost": "https://www.apple.com/uk", "icloudCountry": "United Kingdom" },
     { "code": "de", "name": "德国", "currency": "EUR", "storefrontId": 143443, "appleHost": "https://www.apple.com/de", "icloudCountry": "Euro 3 (Euro)" },
-    { "code": "fr", "name": "法国", "currency": "EUR", "storefrontId": 143442, "appleHost": "https://www.apple.com/fr", "icloudCountry": "Euro 3 (Euro)" },
     { "code": "ca", "name": "加拿大", "currency": "CAD", "storefrontId": 143455, "appleHost": "https://www.apple.com/ca", "icloudCountry": "Canada" },
     { "code": "tr", "name": "土耳其", "currency": "TRY", "storefrontId": 143480, "appleHost": "https://www.apple.com/tr", "icloudCountry": "Türkiye" },
     { "code": "au", "name": "澳大利亚", "currency": "AUD", "storefrontId": 143460, "appleHost": "https://www.apple.com/au", "icloudCountry": "Australia" },
-    { "code": "ph", "name": "菲律宾", "currency": "PHP", "storefrontId": 143474, "appleHost": "https://www.apple.com/ph", "icloudCountry": "Philippines" },
-    { "code": "ng", "name": "尼日利亚", "currency": "NGN", "storefrontId": 143561, "appleHost": "https://www.apple.com/ng", "icloudCountry": "Nigeria" },
     { "code": "in", "name": "印度", "currency": "INR", "storefrontId": 143467, "appleHost": "https://www.apple.com/in", "icloudCountry": "India" },
     { "code": "br", "name": "巴西", "currency": "BRL", "storefrontId": 143503, "appleHost": "https://www.apple.com/br", "icloudCountry": "Brazil" },
-    { "code": "id", "name": "印度尼西亚", "currency": "IDR", "storefrontId": 143476, "appleHost": "https://www.apple.com/id", "icloudCountry": "Indonesia" }
+    { "code": "id", "name": "印度尼西亚", "currency": "IDR", "storefrontId": 143476, "appleHost": "https://www.apple.com/id", "icloudCountry": "Indonesia" },
+    { "code": "mx", "name": "墨西哥", "currency": "MXN", "storefrontId": 143468, "appleHost": "https://www.apple.com/mx", "icloudCountry": "Mexico" },
+    { "code": "nz", "name": "新西兰", "currency": "NZD", "storefrontId": 143461, "appleHost": "https://www.apple.com/nz", "icloudCountry": "New Zealand" },
+    { "code": "ae", "name": "阿联酋", "currency": "AED", "storefrontId": 143481, "appleHost": "https://www.apple.com/ae", "icloudCountry": "United Arab Emirates" },
+    { "code": "sa", "name": "沙特阿拉伯", "currency": "SAR", "storefrontId": 143479, "appleHost": "https://www.apple.com/sa", "icloudCountry": "Saudi Arabia" }
   ]
 }

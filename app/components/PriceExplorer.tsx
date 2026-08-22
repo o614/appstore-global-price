@@ -224,7 +224,7 @@ export function PriceExplorer({ app, plans }: { app: AppSnapshot; plans: PlanDef
       context.fillText("App Store 订阅比价", 228, 157);
       context.fillStyle = "#77777d";
       context.font = `400 24px ${CANVAS_FONT_STACK}`;
-      context.fillText("比较 20 个地区的 Apple 官方价格", 228, 195);
+      context.fillText(`比较 ${app.regions.length} 个地区的 Apple 官方价格`, 228, 195);
 
       context.strokeStyle = "#e7e7eb";
       context.lineWidth = 2;

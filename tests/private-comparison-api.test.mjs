@@ -688,7 +688,7 @@ test("private compare refreshes a curated snapshot that lacks product identities
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
-  values.set("private:compare:v4:6448311069", JSON.stringify({
+  values.set("private:compare:v5:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "snapshot",
     data: buildPrivateComparison({ generatedAt, app }, {
@@ -760,7 +760,7 @@ test("private v1 compare serves structured monthly and annual identities immedia
       ],
     },
   };
-  const values = new Map([["private:compare:v4:6448311069", JSON.stringify({
+  const values = new Map([["private:compare:v5:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "live",
     data: buildPrivateComparison(structuredComparison, {
@@ -824,7 +824,7 @@ test("private compare stops serving an existing degraded curated cache", async (
     },
   };
   const values = new Map([
-    ["private:compare:v4:6448311069", JSON.stringify({
+    ["private:compare:v5:6448311069", JSON.stringify({
       storedAt: generatedAt,
       source: "live",
       data: buildPrivateComparison(degradedComparison, {
@@ -871,7 +871,7 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v4:932747118", JSON.stringify({
+  const values = new Map([["private:compare:v5:932747118", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "no-in-app-purchases",
   })]]);
@@ -909,7 +909,7 @@ test("private v1 compare returns a terminal transient error instead of endless p
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v4:123456789", JSON.stringify({
+  const values = new Map([["private:compare:v5:123456789", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "refresh-failed",
   })]]);
@@ -951,7 +951,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
     .digest("hex");
   const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
   const values = new Map([
-    ["private:compare:v4:999999999", JSON.stringify({
+    ["private:compare:v5:999999999", JSON.stringify({
       storedAt: staleGeneratedAt,
       data: {
         generatedAt: staleGeneratedAt,
