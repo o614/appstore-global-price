@@ -24,8 +24,8 @@ const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_FAILED_SECONDS = 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_MATCHING_VERSION = 5;
-const TRANSIENT_REGION_RETRY_LIMIT = 3;
+const PRIVATE_MATCHING_VERSION = 6;
+const TRANSIENT_REGION_RETRY_LIMIT = 6;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
 
@@ -488,7 +488,7 @@ export async function compareAppleApp(appId, fetchImpl = fetch, deadlineSignal) 
   if (!/^\d{6,12}$/u.test(appId)) throw new Error("invalid-app-id");
   const inspected = await mapLimit(
     REGIONS,
-    5,
+    3,
     (region) => inspectRegion(appId, region, fetchImpl, deadlineSignal),
     deadlineSignal,
   );
@@ -549,16 +549,20 @@ export async function retryTransientRegions(comparison, fetchImpl = fetch, deadl
   if (!/^\d{6,12}$/u.test(appId)) return comparison;
   const failedCodes = new Set(
     (comparison.app.regions ?? [])
-      .filter(isTransientRegionError)
+      .filter(regionNeedsRetry)
       .map((region) => region.region),
   );
   if (!failedCodes.size) return comparison;
 
-  const targets = REGIONS.filter((region) => failedCodes.has(region.code));
-  if (targets.length > TRANSIENT_REGION_RETRY_LIMIT) return comparison;
+  // Retry a bounded subset instead of abandoning every retry when several
+  // storefronts degrade together. Identity-only failures still have public
+  // prices, but cannot safely participate in cross-region plan matching.
+  const targets = REGIONS
+    .filter((region) => failedCodes.has(region.code))
+    .slice(0, TRANSIENT_REGION_RETRY_LIMIT);
   const retried = await mapLimit(
     targets,
-    5,
+    3,
     (region) => inspectRegion(appId, region, fetchImpl, deadlineSignal),
     deadlineSignal,
   );
@@ -596,6 +600,10 @@ function isTransientRegionError(region) {
 
 function isIdentityDegradedRegion(region) {
   return region?.status !== "ok-structured" && Boolean(region?.identityStatus);
+}
+
+function regionNeedsRetry(region) {
+  return isTransientRegionError(region) || isIdentityDegradedRegion(region);
 }
 
 function privateApiPayload(payload) {
@@ -731,6 +739,7 @@ function comparisonRecord(comparison, { source = "live" } = {}) {
       usStatus: usRow?.status ?? "missing",
       usIdentityStatus: usRow?.identityStatus ?? null,
       structuredRegionCount: regions.filter((region) => region.status === "ok-structured").length,
+      identityDegradedRegionCount: regions.filter(isIdentityDegradedRegion).length,
     },
     data: buildPrivateComparison(comparison, {
       curatedPlans: planDefinitions[appId] ?? [],
@@ -786,6 +795,7 @@ export function comparisonIdentitySummary(record, appId = record?.data?.app?.id)
     source: record?.source ?? "unknown",
     usStatus: record?.diagnostics?.usStatus ?? "unknown",
     usIdentityStatus: record?.diagnostics?.usIdentityStatus ?? null,
+    identityDegradedRegionCount: Number(record?.diagnostics?.identityDegradedRegionCount ?? 0),
   };
 }
 
@@ -816,6 +826,18 @@ export function selectPrivateRefreshRecord(previousRecord, candidateRecord, appI
     return {
       action: "retain",
       reason: "structured-identity-regressed",
+      record: previousRecord,
+      previous,
+      candidate,
+    };
+  }
+  if (
+    previousUsable
+    && candidate.identityDegradedRegionCount > previous.identityDegradedRegionCount
+  ) {
+    return {
+      action: "retain",
+      reason: "regional-identity-degraded",
       record: previousRecord,
       previous,
       candidate,
@@ -943,7 +965,8 @@ export function classifyPrivateRefreshError(error) {
 }
 
 function comparisonNeedsIdentityRefresh(record) {
-  return (record?.data?.plans ?? []).some((plan) => (
+  return Number(record?.diagnostics?.identityDegradedRegionCount ?? 0) > 0
+    || (record?.data?.plans ?? []).some((plan) => (
     plan.matchMethod === "us-anchor-only"
     || (record?.source === "snapshot" && !plan.productId)
   ));
@@ -1017,8 +1040,8 @@ async function startPrivateRefresh(context, storage, appId) {
     });
 
   const background = initialPromise
-    .then(async ({ comparison, record, retained }) => {
-      if (retained || !comparison.app.regions.some(isTransientRegionError)) return record;
+    .then(async ({ comparison, record }) => {
+      if (!comparison.app.regions.some(regionNeedsRetry)) return record;
       const retried = await retryTransientRegions(comparison, fetch, AbortSignal.timeout(10_000));
       const candidateRecord = comparisonRecord(retried);
       logComparisonReview(candidateRecord);

@@ -12,6 +12,7 @@ import {
   comparisonIdentitySummary,
   onRequestPost,
   privateSearch,
+  retryTransientRegions,
   retryUsAnchor,
   selectPrivateRefreshRecord,
   verifyPrivateSignature,
@@ -345,6 +346,53 @@ test("private refresh retries a US fallback when the structured identity endpoin
   assert.equal(us.items[0].billingPeriod, "P1M");
 });
 
+test("private refresh retries several identity-only storefront degradations", async () => {
+  const degradedRegions = ["mx", "nz", "ae", "sa"];
+  const comparison = {
+    generatedAt: "2026-08-24T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      regions: degradedRegions.map((region) => ({
+        region,
+        status: "ok-textPairs",
+        identityStatus: "error:HTTP 429",
+        itemCount: 1,
+        items: [{ name: "Example Plus", price: "$9.99" }],
+      })),
+    },
+  };
+  let requests = 0;
+  const retried = await retryTransientRegions(comparison, async () => {
+    requests += 1;
+    return new Response(JSON.stringify({
+      data: [{
+        id: "123456789",
+        attributes: { name: "Example", artistName: "Example Inc." },
+        views: {
+          "top-in-app-purchasables": {
+            data: [{
+              id: "com.example.plus.monthly",
+              attributes: {
+                name: "Example Plus",
+                offers: [{
+                  type: "buy",
+                  priceFormatted: "$9.99",
+                  recurringSubscriptionPeriod: "P1M",
+                }],
+              },
+            }],
+          },
+        },
+      }],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  }, AbortSignal.timeout(1_000));
+
+  assert.equal(requests, degradedRegions.length);
+  assert.ok(retried.app.regions.every((region) => region.status === "ok-structured"));
+  assert.ok(retried.app.regions.every((region) => region.items[0].productId === "com.example.plus.monthly"));
+});
+
 test("private comparison never falls back to a same-name item with a different product ID", () => {
   const comparison = {
     generatedAt: "2026-08-13T01:00:00.000Z",
@@ -388,6 +436,42 @@ test("private comparison never falls back to a same-name item with a different p
   });
 
   assert.deepEqual(payload.plans[0].prices.map((price) => price.code), ["us"]);
+  assert.equal(payload.plans[0].notListedRegionCount, 1);
+  assert.equal(payload.plans[0].excludedRegionCount, 0);
+  assert.equal(payload.review.excludedMatchCount, 0);
+});
+
+test("private comparison still excludes an unstructured row that cannot prove the product identity", () => {
+  const payload = buildPrivateComparison({
+    generatedAt: "2026-08-24T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      regions: [
+        {
+          region: "us",
+          status: "ok-structured",
+          items: [{
+            name: "Example Plus",
+            price: "$9.99",
+            productId: "com.example.plus.monthly",
+            billingPeriod: "P1M",
+          }],
+        },
+        {
+          region: "ph",
+          status: "ok-textPairs",
+          identityStatus: "error:HTTP 429",
+          items: [{ name: "Example Plus", price: "₱499.00" }],
+        },
+      ],
+    },
+  }, { regions, exchangeRates });
+
+  assert.deepEqual(payload.plans[0].prices.map((price) => price.code), ["us"]);
+  assert.equal(payload.plans[0].notListedRegionCount, 0);
+  assert.equal(payload.plans[0].excludedRegionCount, 1);
+  assert.equal(payload.review.issues[0].reason, "product-id-not-listed");
 });
 
 test("private comparison rejects conflicting metadata even when the numeric product ID matches", () => {
@@ -433,6 +517,58 @@ test("private comparison rejects conflicting metadata even when the numeric prod
     "billing-period",
     "subscription-family",
   ]);
+});
+
+test("private refresh retains the last verified record when regional identity quality regresses", () => {
+  const structuredItem = {
+    name: "Example Plus",
+    price: "$9.99",
+    productId: "com.example.plus.monthly",
+    billingPeriod: "P1M",
+  };
+  const previousComparison = {
+    generatedAt: "2026-08-24T01:00:00.000Z",
+    app: {
+      id: "123456789",
+      matchedName: "Example",
+      regions: [
+        { region: "us", status: "ok-structured", items: [structuredItem] },
+        { region: "ph", status: "ok-structured", items: [{ ...structuredItem, price: "₱499.00" }] },
+      ],
+    },
+  };
+  const degradedComparison = {
+    generatedAt: "2026-08-24T02:00:00.000Z",
+    app: {
+      ...previousComparison.app,
+      regions: [
+        { region: "us", status: "ok-structured", items: [structuredItem] },
+        {
+          region: "ph",
+          status: "ok-textPairs",
+          identityStatus: "error:HTTP 429",
+          items: [{ name: "Example Plus", price: "₱499.00" }],
+        },
+      ],
+    },
+  };
+  const makeRecord = (comparison, identityDegradedRegionCount) => ({
+    source: "live",
+    diagnostics: {
+      usStatus: "ok-structured",
+      usIdentityStatus: null,
+      structuredRegionCount: 2 - identityDegradedRegionCount,
+      identityDegradedRegionCount,
+    },
+    data: buildPrivateComparison(comparison, { regions, exchangeRates }),
+  });
+  const previous = makeRecord(previousComparison, 0);
+  const candidate = makeRecord(degradedComparison, 1);
+  const decision = selectPrivateRefreshRecord(previous, candidate, "123456789");
+
+  assert.equal(decision.action, "retain");
+  assert.equal(decision.reason, "regional-identity-degraded");
+  assert.equal(decision.record, previous);
 });
 
 test("private comparison numbers but does not cross-match unclassified duplicate purchases", () => {
@@ -688,7 +824,7 @@ test("private compare refreshes a curated snapshot that lacks product identities
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
-  values.set("private:compare:v5:6448311069", JSON.stringify({
+  values.set("private:compare:v6:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "snapshot",
     data: buildPrivateComparison({ generatedAt, app }, {
@@ -760,7 +896,7 @@ test("private v1 compare serves structured monthly and annual identities immedia
       ],
     },
   };
-  const values = new Map([["private:compare:v5:6448311069", JSON.stringify({
+  const values = new Map([["private:compare:v6:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "live",
     data: buildPrivateComparison(structuredComparison, {
@@ -824,7 +960,7 @@ test("private compare stops serving an existing degraded curated cache", async (
     },
   };
   const values = new Map([
-    ["private:compare:v5:6448311069", JSON.stringify({
+    ["private:compare:v6:6448311069", JSON.stringify({
       storedAt: generatedAt,
       source: "live",
       data: buildPrivateComparison(degradedComparison, {
@@ -871,7 +1007,7 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v5:932747118", JSON.stringify({
+  const values = new Map([["private:compare:v6:932747118", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "no-in-app-purchases",
   })]]);
@@ -909,7 +1045,7 @@ test("private v1 compare returns a terminal transient error instead of endless p
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v5:123456789", JSON.stringify({
+  const values = new Map([["private:compare:v6:123456789", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "refresh-failed",
   })]]);
@@ -951,7 +1087,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
     .digest("hex");
   const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
   const values = new Map([
-    ["private:compare:v5:999999999", JSON.stringify({
+    ["private:compare:v6:999999999", JSON.stringify({
       storedAt: staleGeneratedAt,
       data: {
         generatedAt: staleGeneratedAt,

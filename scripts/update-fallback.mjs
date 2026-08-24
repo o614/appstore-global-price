@@ -13,9 +13,25 @@ export function findPreviousRegion(snapshot, appId, regionCode) {
   return isPublishableRegion(region) ? region : null;
 }
 
+export function hasDegradedIdentity(region) {
+  return region?.status !== "ok-structured" && Boolean(region?.identityStatus);
+}
+
 export function resolveRegionWithFallback({ appId, regionCode, candidate, fallbackSnapshot }) {
-  if (isPublishableRegion(candidate)) return { region: candidate, fallback: null };
   const previous = findPreviousRegion(fallbackSnapshot, appId, regionCode);
+  if (isPublishableRegion(candidate)) {
+    if (hasDegradedIdentity(candidate) && previous?.status === "ok-structured") {
+      return {
+        region: previous,
+        fallback: {
+          appId,
+          region: regionCode,
+          reason: `identity:${candidate.identityStatus}`,
+        },
+      };
+    }
+    return { region: candidate, fallback: null };
+  }
   if (!previous) return { region: null, fallback: null };
   return {
     region: previous,

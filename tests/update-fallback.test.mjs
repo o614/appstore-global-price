@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isPublishableRegion, resolveRegionWithFallback } from "../scripts/update-fallback.mjs";
+import { hasDegradedIdentity, isPublishableRegion, resolveRegionWithFallback } from "../scripts/update-fallback.mjs";
 
 const verified = {
   region: "us",
@@ -34,5 +34,54 @@ test("defers a new app when no verified fallback exists", () => {
     fallbackSnapshot: { apps: [] },
   });
   assert.equal(result.region, null);
+  assert.equal(result.fallback, null);
+});
+
+test("keeps the previous structured identity when only the identity endpoint is rate limited", () => {
+  const previous = {
+    region: "us",
+    status: "ok-structured",
+    itemCount: 1,
+    items: [{ name: "Monthly", price: "$9.99", productId: "com.example.monthly" }],
+  };
+  const candidate = {
+    region: "us",
+    status: "ok-textPairs",
+    identityStatus: "error:HTTP 429",
+    itemCount: 1,
+    items: [{ name: "Monthly", price: "$10.99" }],
+  };
+  const result = resolveRegionWithFallback({
+    appId: "123",
+    regionCode: "us",
+    candidate,
+    fallbackSnapshot: { apps: [{ id: "123", regions: [previous] }] },
+  });
+
+  assert.equal(hasDegradedIdentity(candidate), true);
+  assert.equal(result.region, previous);
+  assert.deepEqual(result.fallback, {
+    appId: "123",
+    region: "us",
+    reason: "identity:error:HTTP 429",
+  });
+});
+
+test("publishes identity-degraded prices when no verified structured fallback exists", () => {
+  const candidate = {
+    region: "ph",
+    status: "ok-textPairs",
+    identityStatus: "catalog-iap-view-missing",
+    itemCount: 1,
+    items: [{ name: "Monthly", price: "₱499.00" }],
+  };
+  const result = resolveRegionWithFallback({
+    appId: "456",
+    regionCode: "ph",
+    candidate,
+    fallbackSnapshot: { apps: [] },
+  });
+
+  assert.equal(result.region, candidate);
   assert.equal(result.fallback, null);
 });

@@ -105,6 +105,7 @@ function itemForPlan(region, plan, usRegion) {
     const anchorItem = (usRegion.items ?? []).find((item) => productIdOf(item) === productId) ?? null;
     const item = (region.items ?? []).find((candidate) => productIdOf(candidate) === productId) ?? null;
     if (!item) {
+      if (region.status === "ok-structured") return { item: null, notListed: true };
       return { item: null, issue: matchIssue(plan, region, "product-id-not-listed") };
     }
     const mismatches = [
@@ -203,6 +204,7 @@ export function buildPrivateComparison(comparison, {
   const plans = anchoredPlans.map((plan) => {
     const prices = [];
     const planIssues = [];
+    const notListedRegions = [];
     const methods = new Set();
     for (const row of regionRows) {
       if (!regionIsPublic(row)) continue;
@@ -212,6 +214,10 @@ export function buildPrivateComparison(comparison, {
       if (matched.issue) {
         planIssues.push(matched.issue);
         reviewIssues.push(matched.issue);
+        continue;
+      }
+      if (matched.notListed) {
+        notListedRegions.push(row.region);
         continue;
       }
       if (!matched.item) continue;
@@ -245,6 +251,7 @@ export function buildPrivateComparison(comparison, {
       ...(productId ? { productId } : {}),
       prices,
       availableRegionCount: prices.length,
+      notListedRegionCount: new Set(notListedRegions).size,
       excludedRegionCount: new Set(planIssues.map((issue) => issue.region)).size,
     };
   });
