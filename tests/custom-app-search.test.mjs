@@ -7,6 +7,7 @@ import {
   compareAppleApp,
   extractAppSearchPage,
   extractAppStorePage,
+  inspectRegion,
   onRequest,
   parseAppId,
   searchAppleApps,
@@ -129,6 +130,32 @@ test("Apple catalog parser preserves official product identity and billing perio
     subscriptionFamilyId: "family-1",
     isSubscription: true,
   });
+});
+
+test("US comparison stops on a definite missing public IAP section before catalog lookup", async () => {
+  const requestedUrls = [];
+  const payload = [{
+    data: [{
+      data: {
+        title: "Example App",
+        developerAction: { title: "Example Developer" },
+        lockup: { icon: { template: "https://example.test/icon/{w}x{h}.{f}" } },
+        shelves: [],
+      },
+    }],
+  }];
+  const html = `<html><script type="application/json" id="serialized-server-data">${JSON.stringify(payload)}</script></html>`;
+  const inspected = await inspectRegion(appId, { code: "us", name: "美国" }, async (input) => {
+    const url = new URL(input);
+    requestedUrls.push(String(url));
+    assert.doesNotMatch(url.pathname, /\/api\/apps\/v1\/catalog\//u);
+    return response(html, { url: String(url) });
+  }, AbortSignal.timeout(1_000));
+
+  assert.equal(inspected.row.status, "iap-section-missing");
+  assert.equal(inspected.row.itemCount, 0);
+  assert.equal(inspected.metadata.matchedName, "Example App");
+  assert.equal(requestedUrls.length, 1);
 });
 
 test("custom comparison uses Apple catalog identities in every region", async () => {

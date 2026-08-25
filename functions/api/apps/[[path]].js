@@ -425,31 +425,8 @@ export async function searchAppleApps(query, fetchImpl = fetch, deadlineSignal) 
     }));
 }
 
-async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
+async function inspectWebRegion(appId, region, fetchImpl, deadlineSignal, identityStatus = null) {
   const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
-  let identityStatus = null;
-  try {
-    const catalogUrl = appleCatalogAppUrl(appId, region.code);
-    const payload = await appleJson(catalogUrl, fetchImpl, deadlineSignal, {
-      referer: requestedUrl,
-    });
-    const extracted = extractAppleCatalog(payload, appId);
-    if (extracted.status === "ok-structured") {
-      return {
-        row: {
-          region: region.code,
-          status: extracted.status,
-          itemCount: extracted.items.length,
-          items: extracted.items,
-        },
-        metadata: extracted.metadata,
-      };
-    }
-    identityStatus = extracted.status;
-  } catch (error) {
-    identityStatus = `error:${publicError(error)}`;
-  }
-
   try {
     const response = await appleRequest(requestedUrl, fetchImpl, [404], deadlineSignal);
     const resolvedUrl = response.url || requestedUrl;
@@ -482,6 +459,57 @@ async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
       metadata: null,
     };
   }
+}
+
+export async function inspectRegion(appId, region, fetchImpl, deadlineSignal) {
+  const requestedUrl = `https://apps.apple.com/${region.code}/app/id${appId}?l=en`;
+  let identityStatus = null;
+  let usWebResult = null;
+
+  // The US storefront is the comparison anchor. Read its public page first so
+  // a definite missing IAP section becomes a terminal product result instead
+  // of being hidden by a slow/failed structured-catalog request.
+  if (region.code === "us") {
+    usWebResult = await inspectWebRegion(appId, region, fetchImpl, deadlineSignal);
+    if (
+      usWebResult.row.status === "iap-section-missing"
+      || usWebResult.row.status === "error:HTTP 404"
+    ) return usWebResult;
+  }
+
+  try {
+    const catalogUrl = appleCatalogAppUrl(appId, region.code);
+    const payload = await appleJson(catalogUrl, fetchImpl, deadlineSignal, {
+      referer: requestedUrl,
+    });
+    const extracted = extractAppleCatalog(payload, appId);
+    if (extracted.status === "ok-structured") {
+      return {
+        row: {
+          region: region.code,
+          status: extracted.status,
+          itemCount: extracted.items.length,
+          items: extracted.items,
+        },
+        metadata: extracted.metadata,
+      };
+    }
+    identityStatus = extracted.status;
+  } catch (error) {
+    identityStatus = `error:${publicError(error)}`;
+  }
+
+  if (usWebResult && !isTransientRegionError(usWebResult.row)) {
+    return {
+      ...usWebResult,
+      row: {
+        ...usWebResult.row,
+        ...(identityStatus ? { identityStatus } : {}),
+      },
+    };
+  }
+
+  return inspectWebRegion(appId, region, fetchImpl, deadlineSignal, identityStatus);
 }
 
 export async function compareAppleApp(appId, fetchImpl = fetch, deadlineSignal) {
@@ -619,14 +647,34 @@ export async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSigna
   ) return comparison;
   const usRegion = REGIONS.find((region) => region.code === "us");
   if (!usRegion) return comparison;
-  const retried = await inspectRegion(appId, usRegion, fetchImpl, deadlineSignal);
+  let retriedRow = usRow;
+  try {
+    const requestedUrl = `https://apps.apple.com/${usRegion.code}/app/id${appId}?l=en`;
+    const payload = await appleJson(
+      appleCatalogAppUrl(appId, usRegion.code),
+      fetchImpl,
+      deadlineSignal,
+      { referer: requestedUrl },
+    );
+    const extracted = extractAppleCatalog(payload, appId);
+    retriedRow = extracted.status === "ok-structured"
+      ? {
+          region: usRegion.code,
+          status: extracted.status,
+          itemCount: extracted.items.length,
+          items: extracted.items,
+        }
+      : { ...usRow, identityStatus: extracted.status };
+  } catch (error) {
+    retriedRow = { ...usRow, identityStatus: `error:${publicError(error)}` };
+  }
   return {
     ...comparison,
     generatedAt: new Date().toISOString(),
     app: {
       ...comparison.app,
       regions: comparison.app.regions.map((region) => (
-        region.region === "us" ? retried.row : region
+        region.region === "us" ? retriedRow : region
       )),
     },
   };
