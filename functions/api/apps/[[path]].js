@@ -24,7 +24,7 @@ const PRIVATE_MANUAL_REFRESH_SECONDS = 30 * 60;
 const PRIVATE_NEGATIVE_SECONDS = 6 * 60 * 60;
 const PRIVATE_FAILED_SECONDS = 60;
 const PRIVATE_GLOBAL_REQUESTS_PER_MINUTE = 60;
-const PRIVATE_MATCHING_VERSION = 6;
+const PRIVATE_MATCHING_VERSION = 7;
 const TRANSIENT_REGION_RETRY_LIMIT = 6;
 // Cloudflare KV rejects expirationTtl values below 60 seconds.
 const PRIVATE_REFRESH_LOCK_SECONDS = 60;
@@ -982,11 +982,9 @@ export function classifyComparisonResultError(comparison, error) {
   if (fallback !== "no-comparable-plans") return fallback;
   const rows = Array.isArray(comparison?.app?.regions) ? comparison.app.regions : [];
   const usRow = rows.find((region) => region.region === "us");
-  const hasAnyItems = rows.some((region) => Array.isArray(region.items) && region.items.length > 0);
-  if (usRow?.status === "iap-section-missing" && !hasAnyItems) return "no-in-app-purchases";
+  if (usRow?.status === "iap-section-missing") return "web-iap-not-public";
   if (
     usRow?.status === "error:HTTP 404"
-    || usRow?.status === "iap-section-missing"
     || (String(usRow?.status ?? "").startsWith("ok-") && Array.isArray(usRow.items) && usRow.items.length > 0)
   ) {
     return "no-comparable-plans";

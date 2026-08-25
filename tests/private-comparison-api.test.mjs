@@ -626,18 +626,18 @@ test("private refresh distinguishes unavailable US data from transient failure",
   assert.equal(classifyPrivateRefreshError(new Error("HTTP 503")), "refresh-failed");
 });
 
-test("private refresh distinguishes a confirmed missing IAP section from a transient US failure", () => {
-  const noIap = {
+test("private refresh treats a missing US web IAP section as a terminal public-data limitation", () => {
+  const missingUsWebIap = {
     app: {
       regions: [
         { region: "us", status: "iap-section-missing", items: [] },
-        { region: "jp", status: "iap-section-missing", items: [] },
+        { region: "jp", status: "ok-1", items: [{ id: "example", name: "Example" }] },
       ],
     },
   };
   assert.equal(
-    classifyComparisonResultError(noIap, new Error("us-anchor-unavailable")),
-    "no-in-app-purchases",
+    classifyComparisonResultError(missingUsWebIap, new Error("us-anchor-unavailable")),
+    "web-iap-not-public",
   );
   assert.equal(
     classifyComparisonResultError({
@@ -824,7 +824,7 @@ test("private compare refreshes a curated snapshot that lacks product identities
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
-  values.set("private:compare:v6:6448311069", JSON.stringify({
+  values.set("private:compare:v7:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "snapshot",
     data: buildPrivateComparison({ generatedAt, app }, {
@@ -896,7 +896,7 @@ test("private v1 compare serves structured monthly and annual identities immedia
       ],
     },
   };
-  const values = new Map([["private:compare:v6:6448311069", JSON.stringify({
+  const values = new Map([["private:compare:v7:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "live",
     data: buildPrivateComparison(structuredComparison, {
@@ -960,7 +960,7 @@ test("private compare stops serving an existing degraded curated cache", async (
     },
   };
   const values = new Map([
-    ["private:compare:v6:6448311069", JSON.stringify({
+    ["private:compare:v7:6448311069", JSON.stringify({
       storedAt: generatedAt,
       source: "live",
       data: buildPrivateComparison(degradedComparison, {
@@ -999,7 +999,7 @@ test("private compare stops serving an existing degraded curated cache", async (
   assert.equal(backgroundStarted, true);
 });
 
-test("private compare returns a cached no-IAP result instead of restarting forever", async () => {
+test("private compare returns a cached web-IAP limitation instead of restarting forever", async () => {
   const secret = "negative-cache-secret";
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const body = JSON.stringify({ target: "932747118" });
@@ -1007,9 +1007,9 @@ test("private compare returns a cached no-IAP result instead of restarting forev
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v6:932747118", JSON.stringify({
+  const values = new Map([["private:compare:v7:932747118", JSON.stringify({
     storedAt: new Date().toISOString(),
-    error: "no-in-app-purchases",
+    error: "web-iap-not-public",
   })]]);
   let backgroundStarted = false;
   const response = await onRequestPost({
@@ -1033,7 +1033,7 @@ test("private compare returns a cached no-IAP result instead of restarting forev
     waitUntil: () => { backgroundStarted = true; },
   });
   assert.equal(response.status, 422);
-  assert.equal((await response.json()).error, "no-in-app-purchases");
+  assert.equal((await response.json()).error, "web-iap-not-public");
   assert.equal(backgroundStarted, false);
 });
 
@@ -1045,7 +1045,7 @@ test("private v1 compare returns a terminal transient error instead of endless p
   const signature = createHmac("sha256", secret)
     .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
     .digest("hex");
-  const values = new Map([["private:compare:v6:123456789", JSON.stringify({
+  const values = new Map([["private:compare:v7:123456789", JSON.stringify({
     storedAt: new Date().toISOString(),
     error: "refresh-failed",
   })]]);
@@ -1087,7 +1087,7 @@ test("private compare serves stale cache when refresh startup fails", async () =
     .digest("hex");
   const staleGeneratedAt = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
   const values = new Map([
-    ["private:compare:v6:999999999", JSON.stringify({
+    ["private:compare:v7:999999999", JSON.stringify({
       storedAt: staleGeneratedAt,
       data: {
         generatedAt: staleGeneratedAt,
