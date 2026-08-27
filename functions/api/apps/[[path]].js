@@ -648,6 +648,27 @@ export async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSigna
   const usRegion = REGIONS.find((region) => region.code === "us");
   if (!usRegion) return comparison;
   let retriedRow = usRow;
+
+  if (isTransientRegionError(usRow)) {
+    const webRetry = await inspectWebRegion(appId, usRegion, fetchImpl, deadlineSignal);
+    retriedRow = webRetry.row;
+    if (
+      retriedRow.status === "iap-section-missing"
+      || retriedRow.status === "error:HTTP 404"
+    ) {
+      return {
+        ...comparison,
+        generatedAt: new Date().toISOString(),
+        app: {
+          ...comparison.app,
+          regions: comparison.app.regions.map((region) => (
+            region.region === "us" ? retriedRow : region
+          )),
+        },
+      };
+    }
+  }
+
   try {
     const requestedUrl = `https://apps.apple.com/${usRegion.code}/app/id${appId}?l=en`;
     const payload = await appleJson(
@@ -666,7 +687,7 @@ export async function retryUsAnchor(comparison, fetchImpl = fetch, deadlineSigna
         }
       : { ...usRow, identityStatus: extracted.status };
   } catch (error) {
-    retriedRow = { ...usRow, identityStatus: `error:${publicError(error)}` };
+    retriedRow = { ...retriedRow, identityStatus: `error:${publicError(error)}` };
   }
   return {
     ...comparison,
@@ -941,6 +962,44 @@ function snapshotCandidate(app, score) {
   };
 }
 
+function privateCandidateScore(query, result) {
+  const normalizedQuery = normalizeSearch(query);
+  const normalizedName = normalizeSearch(result?.appName);
+  if (!normalizedQuery || !normalizedName) return Number.POSITIVE_INFINITY;
+  if (normalizedName === normalizedQuery) return 0;
+  const meaningfulQuery = normalizedQuery.length >= 3 || /\p{Script=Han}{2,}/u.test(normalizedQuery);
+  const meaningfulName = normalizedName.length >= 3 || /\p{Script=Han}{2,}/u.test(normalizedName);
+  if (
+    (meaningfulQuery && normalizedName.startsWith(normalizedQuery))
+    || (meaningfulName && normalizedQuery.startsWith(normalizedName))
+  ) return 1;
+  if (
+    (meaningfulQuery && normalizedName.includes(normalizedQuery))
+    || (meaningfulName && normalizedQuery.includes(normalizedName))
+  ) return 2;
+
+  const queryTokens = String(query ?? "")
+    .normalize("NFKC")
+    .toLocaleLowerCase("en-US")
+    .split(/[\s\p{P}\p{S}]+/gu)
+    .map((token) => normalizeSearch(token))
+    .filter((token) => token.length >= 3 || /\p{Script=Han}/u.test(token));
+  if (queryTokens.length && queryTokens.every((token) => normalizedName.includes(token))) return 3;
+  return Number.POSITIVE_INFINITY;
+}
+
+function bestPrivateSearchResult(query, results) {
+  const deduplicated = new Map();
+  for (const [index, result] of results.filter(Boolean).entries()) {
+    const score = privateCandidateScore(query, result);
+    if (!Number.isFinite(score)) continue;
+    const previous = deduplicated.get(result.appId);
+    if (!previous || score < previous.score) deduplicated.set(result.appId, { result, score, index });
+  }
+  return [...deduplicated.values()]
+    .sort((left, right) => left.score - right.score || left.index - right.index)[0]?.result ?? null;
+}
+
 function searchSnapshot(query) {
   const directId = parseAppId(query) ?? String(query).trim();
   const exact = validationSnapshot.apps.find((app) => String(app.id) === directId);
@@ -969,24 +1028,23 @@ function searchSnapshot(query) {
 
 export async function privateSearch(query, storage, fetchImpl = fetch) {
   const normalizedQuery = normalizeSearch(query);
-  const cacheKey = `private:search:v2:${normalizedQuery}`;
+  const cacheKey = `private:search:v3:${normalizedQuery}`;
   const cached = await readPrivateJson(storage, cacheKey);
   if (cached) return { ...cached, cache: "hit" };
 
   const snapshotResults = searchSnapshot(query);
   let selected = snapshotResults.find((result) => result.score === 0) ?? null;
   if (!selected) {
-    // Keep name resolution identical to the bot's existing App detail and IAP
-    // commands: use Apple's US Search API and trust its first result. The
-    // App Store web search is only a same-region fallback for a transient
-    // Search API outage; it must not turn the reply into a candidate picker.
+    // Resolve one app internally, but never expose a candidate picker or trust
+    // an unrelated Apple suggestion. A false negative is safer than comparing
+    // prices for the wrong product.
     const usRegion = REGIONS.find((region) => region.code === "us");
     const searchSignal = AbortSignal.timeout(PRIVATE_SEARCH_TIMEOUT_MS);
     const [searchResults, fallbackResults] = await Promise.all([
-      usRegion ? searchRegion(query, usRegion, fetchImpl, searchSignal, 1) : [],
+      usRegion ? searchRegion(query, usRegion, fetchImpl, searchSignal, 5) : [],
       searchAppStorePage(query, "us", "iphone", fetchImpl, searchSignal),
     ]);
-    selected = searchResults[0] ?? fallbackResults[0] ?? null;
+    selected = bestPrivateSearchResult(query, [...searchResults, ...fallbackResults]);
   }
   const payload = {
     query,

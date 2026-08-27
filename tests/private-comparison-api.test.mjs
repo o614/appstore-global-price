@@ -346,6 +346,47 @@ test("private refresh retries a US fallback when the structured identity endpoin
   assert.equal(us.items[0].billingPeriod, "P1M");
 });
 
+test("private refresh rechecks the US public page before classifying a transient anchor failure", async () => {
+  const comparison = {
+    generatedAt: "2026-08-16T02:00:00.000Z",
+    app: {
+      id: "932747118",
+      matchedName: "Shadowrocket",
+      regions: [{
+        region: "us",
+        status: "error:请求 Apple 超时",
+        itemCount: 0,
+        items: [],
+      }],
+    },
+  };
+  const payload = [{
+    data: [{
+      data: {
+        title: "Shadowrocket",
+        developerAction: { title: "Shadow Launch Technology Limited" },
+        lockup: { icon: { template: "https://example.test/icon/{w}x{h}.{f}" } },
+        shelves: [],
+      },
+    }],
+  }];
+  let requests = 0;
+  const retried = await retryUsAnchor(comparison, async (input) => {
+    requests += 1;
+    const url = new URL(input);
+    assert.equal(url.pathname, "/us/app/id932747118");
+    return new Response(
+      `<html><script type="application/json" id="serialized-server-data">${JSON.stringify(payload)}</script></html>`,
+      { status: 200, headers: { "content-type": "text/html" } },
+    );
+  }, AbortSignal.timeout(1_000));
+
+  const us = retried.app.regions.find((region) => region.region === "us");
+  assert.equal(requests, 1);
+  assert.equal(us.status, "iap-section-missing");
+  assert.equal(classifyComparisonResultError(retried, new Error("us-anchor-unavailable")), "web-iap-not-public");
+});
+
 test("private refresh retries several identity-only storefront degradations", async () => {
   const degradedRegions = ["mx", "nz", "ae", "sa"];
   const comparison = {
@@ -647,7 +688,7 @@ test("private refresh treats a missing US web IAP section as a terminal public-d
   );
 });
 
-test("private name search trusts Apple's first US result and skips candidate selection", async () => {
+test("private name search returns one related US result and skips unrelated suggestions", async () => {
   const values = new Map();
   const requestedHosts = [];
   const storage = {
@@ -660,19 +701,19 @@ test("private name search trusts Apple's first US result and skips candidate sel
     if (url.hostname === "apps.apple.com") return new Response("", { status: 200 });
     assert.equal(url.hostname, "itunes.apple.com");
     assert.equal(url.searchParams.get("country"), "us");
-    assert.equal(url.searchParams.get("limit"), "1");
+    assert.equal(url.searchParams.get("limit"), "5");
     return new Response(JSON.stringify({
       results: [
+        {
+          trackId: 123456789,
+          trackName: "Unrelated result",
+          sellerName: "Other developer",
+        },
         {
           trackId: 576588894,
           trackName: "Sky Guide",
           sellerName: "Fifth Star Labs LLC",
           trackViewUrl: "https://apps.apple.com/us/app/id576588894",
-        },
-        {
-          trackId: 123456789,
-          trackName: "Unrelated result",
-          sellerName: "Other developer",
         },
       ],
     }), { status: 200, headers: { "content-type": "application/json" } });
@@ -683,7 +724,30 @@ test("private name search trusts Apple's first US result and skips candidate sel
   assert.equal(payload.results[0].appId, "576588894");
   assert.equal(payload.results[0].appName, "Sky Guide");
   assert.deepEqual(requestedHosts.sort(), ["apps.apple.com", "itunes.apple.com"]);
-  assert.ok(values.has("private:search:v2:skyguide"));
+  assert.ok(values.has("private:search:v3:skyguide"));
+});
+
+test("private name search rejects an unrelated first Apple suggestion", async () => {
+  const writes = [];
+  const storage = {
+    get: async () => null,
+    put: async (key, value, options) => writes.push({ key, value, options }),
+  };
+  const payload = await privateSearch("qwertyuiopasdfghjklzxcvbnm", storage, async (input) => {
+    const url = new URL(input);
+    if (url.hostname === "apps.apple.com") return new Response("", { status: 200 });
+    return new Response(JSON.stringify({
+      results: [{
+        trackId: 1091700242,
+        trackName: "Gboard – the Google Keyboard",
+        sellerName: "Google LLC",
+      }],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  });
+
+  assert.deepEqual(payload.results, []);
+  assert.equal(writes[0].key, "private:search:v3:qwertyuiopasdfghjklzxcvbnm");
+  assert.equal(writes[0].options.expirationTtl, 60);
 });
 
 test("private name search only caches an empty transient result for one minute", async () => {
