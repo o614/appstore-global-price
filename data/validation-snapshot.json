@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T10:11:01.394Z",
+  "generatedAt": "2026-08-30T12:22:04.722Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1300,6 +1300,15 @@
           "itemCount": 10,
           "items": [
             {
+              "name": "Apple Developer Program",
+              "price": "Rp 1,599juta",
+              "productId": "1473505534",
+              "offerName": "ADP_1year_001",
+              "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "20537122",
+              "isSubscription": true
+            },
+            {
               "name": "Xcode Cloud 10000 Hours",
               "price": "Rp 64,999juta",
               "productId": "6737360175",
@@ -1376,15 +1385,6 @@
               "price": "Rp 809ribu",
               "productId": "1630465420",
               "offerName": "com.apple.weatherkit.monthly.1Mcalls",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "20967321",
-              "isSubscription": true
-            },
-            {
-              "name": "WeatherKit 2 million calls",
-              "price": "Rp 1,599juta",
-              "productId": "1630465230",
-              "offerName": "com.apple.weatherkit.monthly.2Mcalls",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "20967321",
               "isSubscription": true
@@ -11986,8 +11986,134 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 0,
-    "fallbacks": [],
+    "fallbackCount": 25,
+    "fallbacks": [
+      {
+        "appId": "6474233312",
+        "region": "au",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "in",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "br",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "id",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "mx",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "nz",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "ae",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "sa",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "us",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "hk",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "tw",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "vn",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "jp",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "gb",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "de",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "tr",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "au",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "in",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "br",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "id",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "mx",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "nz",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "ae",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "sa",
+        "reason": "identity:error:HTTP 429"
+      }
+    ],
     "deferredApps": [],
     "batches": [
       {
@@ -12004,7 +12130,7 @@
           "apple-tv-plus",
           "apple-arcade"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
@@ -12012,7 +12138,7 @@
           "apple-news-plus",
           "6448311069"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
@@ -12020,14 +12146,14 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
           "6474233312",
           "1668000334"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       }
     ]
   }
