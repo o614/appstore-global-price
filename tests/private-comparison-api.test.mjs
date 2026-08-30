@@ -888,10 +888,21 @@ test("private compare refreshes a curated snapshot that lacks product identities
   const values = new Map();
   const generatedAt = new Date().toISOString();
   const app = validationSnapshot.apps.find((candidate) => candidate.id === "6448311069");
+  const legacyApp = {
+    ...app,
+    regions: app.regions.map((region) => ({
+      ...region,
+      status: region.itemCount > 0 ? "ok-textPairs" : region.status,
+      identityStatus: undefined,
+      items: region.items.map((item) => Object.fromEntries(
+        Object.entries(item).filter(([key]) => key !== "productId"),
+      )),
+    })),
+  };
   values.set("private:compare:v7:6448311069", JSON.stringify({
     storedAt: generatedAt,
     source: "snapshot",
-    data: buildPrivateComparison({ generatedAt, app }, {
+    data: buildPrivateComparison({ generatedAt, app: legacyApp }, {
       curatedPlans: planDefinitions[app.id] ?? [],
       exchangeRates: exchangeRateSnapshot,
       regions: regionSnapshot.regions,
