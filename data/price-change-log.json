@@ -2,6 +2,1712 @@
   "version": 1,
   "entries": [
     {
+      "id": "7d9af1c3d20e83918060",
+      "publishedAt": "2026-08-30T10:11:01.573Z",
+      "changeCount": 63,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple Developer Program",
+              "beforePrice": "NT$3,390.00",
+              "afterPrice": "$3,390.00"
+            },
+            {
+              "name": "Xcode Cloud 10000 Hours",
+              "beforePrice": "NT$130,000.00",
+              "afterPrice": "$130,000.00"
+            },
+            {
+              "name": "WeatherKit 150 million calls",
+              "beforePrice": "NT$225,000.00",
+              "afterPrice": "$225,000.00"
+            },
+            {
+              "name": "WeatherKit 100 million calls",
+              "beforePrice": "NT$150,000.00",
+              "afterPrice": "$150,000.00"
+            },
+            {
+              "name": "WeatherKit 50 million calls",
+              "beforePrice": "NT$75,000.00",
+              "afterPrice": "$75,000.00"
+            },
+            {
+              "name": "WeatherKit 200 million calls",
+              "beforePrice": "NT$300,000.00",
+              "afterPrice": "$300,000.00"
+            },
+            {
+              "name": "Xcode Cloud 250 Hours",
+              "beforePrice": "NT$3,250.00",
+              "afterPrice": "$3,250.00"
+            },
+            {
+              "name": "Xcode Cloud 100 Hours",
+              "beforePrice": "NT$1,630.00",
+              "afterPrice": "$1,630.00"
+            },
+            {
+              "name": "Xcode Cloud 1000 Hours",
+              "beforePrice": "NT$13,000.00",
+              "afterPrice": "$13,000.00"
+            },
+            {
+              "name": "WeatherKit 1 million calls",
+              "beforePrice": "NT$1,630.00",
+              "afterPrice": "$1,630.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "id",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "Rp 1,599juta"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Apple Developer Program",
+              "price": "Rp 1,599juta"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "apple-one",
+          "appName": "Apple One",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple One Individual",
+              "beforePrice": "$19.95",
+              "afterPrice": "$21.95"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "apple-one",
+          "appName": "Apple One",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple One Individual",
+              "beforePrice": "R$42,90",
+              "afterPrice": "R$47,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "apple-one",
+          "appName": "Apple One",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple One Individual",
+              "beforePrice": "$249",
+              "afterPrice": "$279"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "apple-tv-plus",
+          "appName": "Apple TV+",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple TV+ Monthly",
+              "beforePrice": "R$29,90",
+              "afterPrice": "R$34,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "apple-tv-plus",
+          "appName": "Apple TV+",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Apple TV+ Monthly",
+              "beforePrice": "$169",
+              "afterPrice": "$199"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6448311069",
+          "appName": "ChatGPT",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "ChatGPT Plus",
+              "beforePrice": "NT$690.00",
+              "afterPrice": "$690.00"
+            },
+            {
+              "name": "ChatGPT Go",
+              "beforePrice": "NT$270.00",
+              "afterPrice": "$270.00"
+            },
+            {
+              "name": "ChatGPT Pro 5x",
+              "beforePrice": "NT$3,300.00",
+              "afterPrice": "$3,300.00"
+            },
+            {
+              "name": "ChatGPT Pro 20x",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            },
+            {
+              "name": "ChatGPT Plus",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6473753684",
+          "appName": "Claude by Anthropic",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Claude Pro - Monthly",
+              "beforePrice": "NT$690.00",
+              "afterPrice": "$690.00"
+            },
+            {
+              "name": "Claude Max 5x - Monthly",
+              "beforePrice": "NT$3,990.00",
+              "afterPrice": "$3,990.00"
+            },
+            {
+              "name": "Claude Pro - Annual",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            },
+            {
+              "name": "Claude Max 20x - Monthly",
+              "beforePrice": "NT$7,990.00",
+              "afterPrice": "$7,990.00"
+            },
+            {
+              "name": "Usage Credits (250)",
+              "beforePrice": "NT$9,990.00",
+              "afterPrice": "$9,990.00"
+            },
+            {
+              "name": "Usage Credits (50)",
+              "beforePrice": "NT$1,990.00",
+              "afterPrice": "$1,990.00"
+            },
+            {
+              "name": "Usage Credits (20)",
+              "beforePrice": "NT$990.00",
+              "afterPrice": "$990.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$19.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$19.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$19.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$4.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$19.99"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$199.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "HK$ 158.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "HK$ 38.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "HK$ 158.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "HK$ 388.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "HK$ 38.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "HK$ 78.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "beforePrice": "NT$650.00",
+              "afterPrice": "$650.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "NT$165.00",
+              "afterPrice": "$165.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "NT$1,650.00",
+              "afterPrice": "$165.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "beforePrice": "NT$6,500.00",
+              "afterPrice": "$650.00"
+            },
+            {
+              "name": "100 GB",
+              "beforePrice": "NT$60.00",
+              "afterPrice": "$60.00"
+            }
+          ],
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$650.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$650.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$1,650.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$165.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$6,500.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "132.000đ"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "132.000đ"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "489.000đ"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "489.000đ"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "489.000đ"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "132.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "¥2,900"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "¥2,900"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "¥2,900"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "¥720"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "¥720"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "£18.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "£18.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "£18.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "£4.49"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "£18.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "£4.49"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "4,99 €"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "4,99 €"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "21,99 €"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "21,99 €"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "21,99 €"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "4,99 €"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "21,99 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "9,99 €"
+            },
+            {
+              "name": "100 GB",
+              "price": "1,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$26.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$26.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$26.99"
+            },
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$6.99"
+            },
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$6.99"
+            },
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$69.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$13.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₺199,99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₺199,99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₺869,99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₺869,99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₺869,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$7.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 399"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 399"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "R$ 24,99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "R$ 24,99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "R$ 96,90"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "R$ 96,90"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "R$ 96,90"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "R$ 24,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "id",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "Rp 75ribu"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "Rp 75ribu"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "Rp 309ribu"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "Rp 309ribu"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "Rp 309ribu"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "Rp 75ribu"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$99.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$99.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$395.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$395.00"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$395.00"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$99.00"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$3,949.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$199.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$36.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$36.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$36.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$8.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$8.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$36.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "AED 76.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "AED 76.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "AED 76.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "AED 18.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "AED 76.99"
+            },
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "AED 769.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "sa",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "SAR 85.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "SAR 85.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "SAR 18.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "SAR 85.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "SAR 85.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$30.00"
+            },
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "$100.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "$100.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "HK$ 228.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "SuperGrok",
+              "beforePrice": "NT$990.00",
+              "afterPrice": "$990.00"
+            },
+            {
+              "name": "Extra Usage Credits 5 USD",
+              "beforePrice": "NT$150.00",
+              "afterPrice": "$150.00"
+            },
+            {
+              "name": "SuperGrok Lite",
+              "beforePrice": "NT$320.00",
+              "afterPrice": "$320.00"
+            },
+            {
+              "name": "Extra Usage Credits 20 USD",
+              "beforePrice": "NT$690.00",
+              "afterPrice": "$690.00"
+            },
+            {
+              "name": "SuperGrok Heavy",
+              "beforePrice": "NT$9,990.00",
+              "afterPrice": "$9,990.00"
+            },
+            {
+              "name": "Extra Usage Credits 50 USD",
+              "beforePrice": "NT$1,490.00",
+              "afterPrice": "$1,490.00"
+            },
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "beforePrice": "NT$2,990.00",
+              "afterPrice": "$2,990.00"
+            },
+            {
+              "name": "SuperGrok Plus",
+              "beforePrice": "NT$2,990.00",
+              "afterPrice": "$2,990.00"
+            },
+            {
+              "name": "SuperGrok",
+              "beforePrice": "NT$9,990.00",
+              "afterPrice": "$990.00"
+            }
+          ],
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$9,990.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "799.000đ"
+            },
+            {
+              "name": "SuperGrok Lite",
+              "price": "2.999.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "2.999.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "¥5,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "£30.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "35,00 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$40.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "₺1.299,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$50.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "₹ 2,900"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "R$ 149,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "id",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "Rp 499ribu"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$599.00"
+            },
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "$1,999.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Plus",
+              "price": "$19,999.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "$50.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "AED 119.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "sa",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "SuperGrok",
+              "price": "SAR 129.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "cn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "给 Kimi 加鸡腿",
+              "price": "¥10.00"
+            },
+            {
+              "name": "送 Kimi 一朵花",
+              "price": "¥5.50"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "¥10.00"
+            },
+            {
+              "name": "Send Kimi a flower !",
+              "price": "¥5.50"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Vivace Annual Pass",
+              "price": "HK$ 14,888.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "HK$ 32.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Moderato",
+              "beforePrice": "NT$590.00",
+              "afterPrice": "$590.00"
+            },
+            {
+              "name": "Allegretto",
+              "beforePrice": "NT$1,290.00",
+              "afterPrice": "$1,290.00"
+            },
+            {
+              "name": "Allegro",
+              "beforePrice": "NT$2,990.00",
+              "afterPrice": "$2,990.00"
+            },
+            {
+              "name": "Moderato Annual Pass",
+              "beforePrice": "NT$5,990.00",
+              "afterPrice": "$5,990.00"
+            },
+            {
+              "name": "Vivace",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            },
+            {
+              "name": "Allegro Annual Pass",
+              "beforePrice": "NT$30,000.00",
+              "afterPrice": "$30,000.00"
+            },
+            {
+              "name": "Give Kimi some snacks !",
+              "beforePrice": "NT$30.00",
+              "afterPrice": "$30.00"
+            },
+            {
+              "name": "Allegretto Annual Pass",
+              "beforePrice": "NT$12,000.00",
+              "afterPrice": "$12,000.00"
+            },
+            {
+              "name": "Grab a coffee with Kimi !",
+              "beforePrice": "NT$120.00",
+              "afterPrice": "$120.00"
+            }
+          ],
+          "added": [
+            {
+              "name": "Vivace Annual Pass",
+              "price": "$70,000.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Send Kimi a flower !",
+              "price": "NT$30.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$20.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$20.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "HK$ 148.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "HK$ 148.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "25,000 Credits",
+              "price": "HK$ 1,888.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Perplexity Pro",
+              "beforePrice": "NT$690.00",
+              "afterPrice": "$690.00"
+            },
+            {
+              "name": "500 Credits",
+              "beforePrice": "NT$150.00",
+              "afterPrice": "$150.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            },
+            {
+              "name": "1,000 Credits",
+              "beforePrice": "NT$320.00",
+              "afterPrice": "$320.00"
+            },
+            {
+              "name": "Perplexity Max",
+              "beforePrice": "NT$6,990.00",
+              "afterPrice": "$6,990.00"
+            },
+            {
+              "name": "2,500 Credits",
+              "beforePrice": "NT$790.00",
+              "afterPrice": "$790.00"
+            }
+          ],
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$690.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$6,990.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$690.00"
+            },
+            {
+              "name": "10,000 Credits",
+              "price": "$2,990.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "5,000 Credits",
+              "price": "NT$1,490.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "599.000đ"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "5.999.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "25,000 Credits",
+              "price": "7.999.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "¥3,000"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "¥30,000"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "¥3,000"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "¥3,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "5,000 Credits",
+              "price": "¥8,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "£20.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "£200.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "£20.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "10,000 Credits",
+              "price": "£100.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "22,00 €"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "22,00 €"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "229,00 €"
+            },
+            {
+              "name": "Perplexity Max",
+              "price": "229,00 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "5,000 Credits",
+              "price": "60,00 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$25.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$25.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$249.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Perplexity Pro",
+              "beforePrice": "₺899,99",
+              "afterPrice": "₺999,99"
+            }
+          ],
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "₺9.999,99"
+            },
+            {
+              "name": "10,000 Credits",
+              "price": "₺4.999,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$30.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$300.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "₹ 1,999"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "₹ 1,999"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "br",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "R$ 99,90"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "id",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "Rp 349ribu"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "Rp 3,499juta"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$399.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$399.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$399.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$40.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$400.00"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "$40.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "AED 79.99"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "AED 799.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "sa",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "SAR 89.99"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "SAR 899.99"
+            },
+            {
+              "name": "Perplexity Pro",
+              "price": "SAR 89.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "6352979f09a50d17eac5",
       "publishedAt": "2026-08-04T23:47:02.803Z",
       "changeCount": 4,
