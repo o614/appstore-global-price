@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { retainVerifiedSnapshot, stampVerifiedApps } from "./snapshot-verification.mjs";
 
 function option(name, fallback = null) {
   const index = process.argv.indexOf(name);
@@ -40,15 +41,6 @@ function delay(milliseconds) {
   return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
 }
 
-function partialSnapshot(snapshot, ids) {
-  const allowed = new Set(ids);
-  return {
-    ...snapshot,
-    apps: (snapshot.apps ?? []).filter((app) => allowed.has(String(app.id))),
-    updateReport: { fallbackCount: 0, fallbacks: [], deferredApps: [] },
-  };
-}
-
 function reportFrom(snapshot) {
   return snapshot?.updateReport ?? { fallbackCount: 0, fallbacks: [], deferredApps: [] };
 }
@@ -69,7 +61,7 @@ async function fetchBatch({ directory, batch, previous, suffix }) {
   const diff = resolve(directory, `diff-${suffix}.json`);
   const markdown = resolve(directory, `diff-${suffix}.md`);
   await writeJson(config, { apps: batch });
-  await writeJson(fallback, partialSnapshot(previous, ids));
+  await writeJson(fallback, retainVerifiedSnapshot(previous, ids));
   await run("scripts/fetch-price-snapshot.mjs", [
     "--config", config,
     "--regions", regionsPath,
@@ -117,10 +109,20 @@ try {
         previous,
         suffix: `first-${index + 1}`,
       });
-      states.push({ batch, index, first, accepted: first.diff.changed === true ? null : first.snapshot });
+      states.push({
+        batch,
+        index,
+        first,
+        accepted: first.diff.changed === true ? null : stampVerifiedApps(first.snapshot, previous),
+      });
     } catch (error) {
       console.warn(`Batch ${index + 1} failed; retaining its previous verified data: ${error.message}`);
-      states.push({ batch, index, error, accepted: partialSnapshot(previous, batch.map((entry) => String(entry.id))) });
+      states.push({
+        batch,
+        index,
+        error,
+        accepted: retainVerifiedSnapshot(previous, batch.map((entry) => String(entry.id))),
+      });
     }
   }
 
@@ -143,16 +145,16 @@ try {
         && state.first.diff.fingerprint !== "none"
         && state.first.diff.fingerprint === second.diff.fingerprint;
       if (confirmed) {
-        state.accepted = second.snapshot;
+        state.accepted = stampVerifiedApps(second.snapshot, previous);
         state.confirmed = true;
       } else {
         console.warn(`Batch ${state.index + 1} did not reproduce the same change; retaining previous verified data.`);
-        state.accepted = partialSnapshot(previous, state.batch.map((entry) => String(entry.id)));
+        state.accepted = retainVerifiedSnapshot(previous, state.batch.map((entry) => String(entry.id)));
         state.confirmationMismatch = true;
       }
     } catch (error) {
       console.warn(`Batch ${state.index + 1} confirmation failed; retaining previous verified data: ${error.message}`);
-      state.accepted = partialSnapshot(previous, state.batch.map((entry) => String(entry.id)));
+      state.accepted = retainVerifiedSnapshot(previous, state.batch.map((entry) => String(entry.id)));
       state.error = error;
     }
   }

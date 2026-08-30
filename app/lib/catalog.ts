@@ -33,6 +33,7 @@ export type AppSnapshot = {
   storeUrl?: string;
   priceSource?: "app-store" | "apple-music" | "apple-service";
   service?: string;
+  verifiedAt?: string;
   regions: RegionSnapshot[];
 };
 
@@ -96,7 +97,7 @@ export function getPlansForApp(app: AppSnapshot) {
   return discoverPlans(app, planDefinitions[app.id] ?? []);
 }
 
-export const dataUpdatedAt = new Intl.DateTimeFormat("zh-CN", {
+const dataDateFormatter = new Intl.DateTimeFormat("zh-CN", {
   timeZone: "Asia/Shanghai",
   year: "numeric",
   month: "2-digit",
@@ -104,7 +105,17 @@ export const dataUpdatedAt = new Intl.DateTimeFormat("zh-CN", {
   hour: "2-digit",
   minute: "2-digit",
   hour12: false,
-}).format(new Date(validationSnapshot.generatedAt));
+});
+
+export function formatDataUpdatedAt(value: string) {
+  return dataDateFormatter.format(new Date(value));
+}
+
+export function getAppGeneratedAt(app: AppSnapshot) {
+  return app.verifiedAt ?? validationSnapshot.generatedAt;
+}
+
+export const dataUpdatedAt = formatDataUpdatedAt(validationSnapshot.generatedAt);
 export const dataGeneratedAt = validationSnapshot.generatedAt;
 export const dataSource = validationSnapshot.source;
 export const dataSourceUrl = "https://www.apple.com";

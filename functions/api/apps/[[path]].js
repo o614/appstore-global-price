@@ -791,7 +791,7 @@ async function privateRateAllowed(storage, now = Date.now()) {
 
 function snapshotComparison(app) {
   return {
-    generatedAt: validationSnapshot.generatedAt,
+    generatedAt: app.verifiedAt ?? validationSnapshot.generatedAt,
     regionCount: regionData.regions.length,
     app,
   };
@@ -1064,6 +1064,15 @@ function recordAgeSeconds(record, now = Date.now()) {
   return Number.isFinite(generatedAt) ? Math.max(0, Math.floor((now - generatedAt) / 1000)) : Number.POSITIVE_INFINITY;
 }
 
+export function shouldSeedSnapshotRecord(record, seeded, now = Date.now()) {
+  if (recordAgeSeconds(seeded, now) > PRIVATE_STALE_SECONDS) return false;
+  if (!record?.data) return true;
+  const seededAt = Date.parse(seeded?.data?.generatedAt ?? "");
+  const recordAt = Date.parse(record.data.generatedAt ?? "");
+  if (!Number.isFinite(seededAt)) return false;
+  return !Number.isFinite(recordAt) || seededAt > recordAt;
+}
+
 export function classifyPrivateRefreshError(error) {
   return ["us-anchor-unavailable", "us-plans-unavailable"].includes(String(error?.message))
     ? "no-comparable-plans"
@@ -1221,8 +1230,7 @@ async function privateCompare(context, storage, target, refreshMode) {
 
   if (snapshotApp) {
     const seeded = comparisonRecord(snapshotComparison(snapshotApp), { source: "snapshot" });
-    const snapshotAge = recordAgeSeconds(seeded);
-    if (snapshotAge <= PRIVATE_STALE_SECONDS && (!record || Date.parse(seeded.data.generatedAt) > Date.parse(record.data?.generatedAt ?? ""))) {
+    if (shouldSeedSnapshotRecord(record, seeded)) {
       record = seeded;
       await writePrivateJson(storage, cacheKey, record);
     }

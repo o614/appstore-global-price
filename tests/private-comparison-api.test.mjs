@@ -15,6 +15,7 @@ import {
   retryTransientRegions,
   retryUsAnchor,
   selectPrivateRefreshRecord,
+  shouldSeedSnapshotRecord,
   verifyPrivateSignature,
 } from "../functions/api/apps/[[path]].js";
 
@@ -26,6 +27,23 @@ const exchangeRates = {
   updatedAt: "2026-08-12T00:00:00.000Z",
   rates: { CNY: 1, USD: 0.14, PHP: 8 },
 };
+
+test("a valid curated snapshot replaces a cached error but never overwrites newer data", () => {
+  const now = Date.parse("2026-08-30T12:00:00.000Z");
+  const seeded = { data: { generatedAt: "2026-08-30T10:00:00.000Z" } };
+  assert.equal(
+    shouldSeedSnapshotRecord({ storedAt: "2026-08-30T11:00:00.000Z", error: "refresh-failed" }, seeded, now),
+    true,
+  );
+  assert.equal(
+    shouldSeedSnapshotRecord({ data: { generatedAt: "2026-08-30T11:00:00.000Z" } }, seeded, now),
+    false,
+  );
+  assert.equal(
+    shouldSeedSnapshotRecord({ data: { generatedAt: "2026-08-30T09:00:00.000Z" } }, seeded, now),
+    true,
+  );
+});
 
 test("private comparison excludes duplicate names when Apple provides no structured identity", () => {
   const comparison = {

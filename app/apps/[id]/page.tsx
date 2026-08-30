@@ -5,9 +5,9 @@ import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
 import {
   apps,
-  dataGeneratedAt,
-  dataUpdatedAt,
+  formatDataUpdatedAt,
   getApp,
+  getAppGeneratedAt,
   getPlansForApp,
 } from "../../lib/catalog";
 
@@ -50,6 +50,7 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
   const app = getApp(id);
   if (!app) notFound();
   const plans = getPlansForApp(app);
+  const appGeneratedAt = getAppGeneratedAt(app);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://price.290935.xyz";
   const pageUrl = `${siteUrl}/apps/${app.id}/`;
   const isAppleService = app.priceSource === "apple-service" || app.priceSource === "apple-music";
@@ -120,8 +121,8 @@ export default async function AppPricePage({ params }: { params: Promise<{ id: s
       <AppComparisonView
         app={app}
         plans={plans}
-        generatedAt={dataGeneratedAt}
-        displayDate={dataUpdatedAt}
+        generatedAt={appGeneratedAt}
+        displayDate={formatDataUpdatedAt(appGeneratedAt)}
         priority
       />
       <SiteFooter />
