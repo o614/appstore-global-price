@@ -73,31 +73,18 @@ test("exports every configured app detail route", async () => {
   assert.doesNotMatch(html, /查看跳转方式|查看官方方案/);
   assert.doesNotMatch(html, /当前设备不直接切换 App Store|已识别为 iPhone|系统分享|扫码查看完整地区价格/);
 
-  const netflixHtml = await readPage("/apps/363590051/index.html");
-  const netflix = snapshot.apps.find((app) => app.id === "363590051");
-  assert.ok(netflix, "Netflix is missing from the snapshot");
-  assert.ok(netflix.regions.some((region) => region.itemCount > 0), "Netflix has no public regional prices");
-  assert.match(netflixHtml, /Netflix/);
-  assert.match(netflixHtml, /363590051/);
-
   for (const [id, name] of [
     ["640199958", "Apple Developer"],
     ["6474233312", "Kimi"],
-    ["835599320", "TikTok"],
     ["1668000334", "Perplexity"],
-    ["570060128", "Duolingo"],
-    ["1500855883", "CapCut"],
-    ["985746746", "Discord"],
-    ["1451784328", "Google One"],
-    ["6767085653", "Cursor"],
-    ["426826309", "Strava"],
   ]) {
     const app = snapshot.apps.find((candidate) => candidate.id === id);
     assert.ok(app?.matchedName.includes(name), `${name} is missing from the snapshot`);
     await stat(new URL(`../out/apps/${id}/index.html`, import.meta.url));
   }
-  for (const id of ["1666653815", "1446075923", "376510438", "317469184"]) {
+  for (const id of ["686449807", "570060128", "1451784328", "1477376905", "363590051", "426826309"]) {
     assert.equal(snapshot.apps.some((app) => app.id === id), false);
+    await assert.rejects(stat(new URL(`../out/apps/${id}/index.html`, import.meta.url)));
   }
   assert.equal(snapshot.apps.some((app) => app.id === "547166701"), false);
   assert.equal(snapshot.apps.some((app) => app.id === "6737597349"), false);

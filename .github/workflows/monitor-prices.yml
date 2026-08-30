@@ -16,7 +16,7 @@ concurrency:
 jobs:
   detect-confirm-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: 读取当前数据
         uses: actions/checkout@v6
@@ -64,20 +64,31 @@ jobs:
         id: confirm
         run: node scripts/confirm-price-change.mjs --first .tmp/price-diff-first.json --second .tmp/price-diff-confirmed.json --github-output "$GITHUB_OUTPUT"
 
-      - name: 更新价格、汇率与公开日志
-        if: steps.confirm.outputs.confirmed == 'true'
+      - name: 准备已验证数据
+        if: steps.first-compare.outputs.changed == 'false' || steps.confirm.outputs.confirmed == 'true'
+        id: publish-data
+        env:
+          FIRST_CHANGED: ${{ steps.first-compare.outputs.changed }}
+          CONFIRMED: ${{ steps.confirm.outputs.confirmed }}
         run: |
-          cp .tmp/price-snapshot-confirmed.json data/validation-snapshot.json
+          if [ "$CONFIRMED" = "true" ]; then
+            cp .tmp/price-snapshot-confirmed.json data/validation-snapshot.json
+            node scripts/update-price-change-log.mjs --diff .tmp/price-diff-confirmed.json --log data/price-change-log.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            cp .tmp/price-snapshot-first.json data/validation-snapshot.json
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
           node scripts/fetch-exchange-rates.mjs --output data/exchange-rates.json
-          node scripts/update-price-change-log.mjs --diff .tmp/price-diff-confirmed.json --log data/price-change-log.json
           node scripts/write-deployment-marker.mjs
+          echo "ready=true" >> "$GITHUB_OUTPUT"
 
       - name: 安装构建依赖
-        if: steps.confirm.outputs.confirmed == 'true'
+        if: steps.publish-data.outputs.ready == 'true'
         run: npm ci
 
       - name: 验证数据与静态网站
-        if: steps.confirm.outputs.confirmed == 'true'
+        if: steps.publish-data.outputs.ready == 'true'
         run: |
           npm run lint
           npm test
@@ -89,7 +100,7 @@ jobs:
           cat .tmp/price-diff-confirmed.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: 提交已确认数据
-        if: steps.confirm.outputs.confirmed == 'true'
+        if: steps.publish-data.outputs.ready == 'true'
         id: commit
         run: |
           git diff --check
@@ -100,7 +111,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update confirmed App Store price snapshot"
+          git commit -m "Refresh verified App Store price snapshot"
           git push
           echo "published=true" >> "$GITHUB_OUTPUT"
 
@@ -111,7 +122,7 @@ jobs:
         run: node scripts/verify-public-deployment.mjs --url "$SITE_URL" --timeout-seconds 600
 
       - name: 发送 Bark 上线结果
-        if: steps.commit.outputs.published == 'true' && success()
+        if: steps.commit.outputs.published == 'true' && steps.publish-data.outputs.changed == 'true' && success()
         continue-on-error: true
         env:
           BARK_PUSH_URL: ${{ secrets.BARK_PUSH_URL }}

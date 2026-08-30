@@ -37,48 +37,31 @@ test("catalog validates regional App IDs and excluded item names", () => {
   );
 });
 
-test("catalog contains the requested apps and excludes removed entries", async () => {
+test("catalog contains only Apple services and selected AI tools", async () => {
   const config = JSON.parse(await readFile(new URL("../data/catalog-config.json", import.meta.url), "utf8"));
   const entries = normalizeCatalogEntries(config.apps);
   const ids = entries.map((entry) => entry.id);
-  for (const id of [
-    "6474233312",
-    "835599320",
-    "1668000334",
-    "570060128",
-    "1500855883",
-    "288429040",
-    "1636235979",
-    "447188370",
-    "6445905219",
-    "1232780281",
-    "985746746",
-    "1442620678",
-    "1451784328",
-    "1136220934",
-    "1511601750",
-    "1444383602",
-    "360593530",
-    "541164041",
-    "1477376905",
-    "1630403500",
-    "1423538627",
-    "6767085653",
-    "327630330",
-    "992180193",
-    "426826309",
-    "626144601",
+  assert.deepEqual(ids, [
     "640199958",
-  ]) {
-    assert.ok(ids.includes(id), `missing App ID ${id}`);
-  }
-  for (const id of ["1666653815", "1446075923", "376510438", "317469184"]) {
+    "1108187390",
+    "apple-icloud-plus",
+    "apple-one",
+    "apple-tv-plus",
+    "apple-arcade",
+    "apple-fitness-plus",
+    "apple-news-plus",
+    "6448311069",
+    "6473753684",
+    "6477489729",
+    "6670324846",
+    "6474233312",
+    "1668000334",
+  ]);
+  for (const id of ["686449807", "570060128", "1451784328", "1477376905", "363590051", "426826309"]) {
     assert.equal(ids.includes(id), false, `removed App ID ${id} should stay out of the catalog`);
   }
-  assert.equal(ids.includes("547166701"), false, "百度网盘 should be removed");
-  assert.equal(ids.includes("6737597349"), false, "DeepSeek should be removed");
-  assert.equal(ids.includes("530168168"), false, "Paramount+ should be removed");
-  assert.equal(ids.length, 42);
+  assert.ok(entries.every((entry) => entry.group === "Apple 服务" || entry.group === "AI 助手"));
+  assert.equal(ids.length, 14);
   assert.equal(ids[0], "640199958", "Apple services should be listed before AI tools");
   assert.ok(ids.indexOf("1108187390") < ids.indexOf("6448311069"), "Apple services should precede AI tools");
   assert.equal(entries.some((entry) => entry.excludeItemNames?.length), false, "catalog items should use the global display rules");

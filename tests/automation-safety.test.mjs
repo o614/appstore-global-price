@@ -13,6 +13,9 @@ test("scheduled price updates require two matching snapshots before publishing",
   assert.match(workflow, /timezone: "Asia\/Shanghai"/u);
   assert.match(workflow, /sleep 480/u);
   assert.match(workflow, /confirm-price-change\.mjs/u);
+  assert.match(workflow, /steps\.first-compare\.outputs\.changed == 'false' \|\| steps\.confirm\.outputs\.confirmed == 'true'/u);
+  assert.match(workflow, /cp \.tmp\/price-snapshot-first\.json data\/validation-snapshot\.json/u);
+  assert.match(workflow, /steps\.publish-data\.outputs\.changed == 'true'/u);
   assert.match(workflow, /verify-public-deployment\.mjs/u);
   assert.ok(
     workflow.indexOf("验证 Cloudflare 线上部署") < workflow.indexOf("发送 Bark 上线结果"),
