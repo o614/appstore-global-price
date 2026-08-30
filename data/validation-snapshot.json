@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T12:22:04.722Z",
+  "generatedAt": "2026-08-30T18:13:59.735Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1779,7 +1779,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:18.465Z"
     },
     {
       "query": "Apple Music",
@@ -2134,7 +2135,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:18.465Z"
     },
     {
       "query": "iCloud+",
@@ -2634,7 +2636,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:18.465Z"
     },
     {
       "query": "Apple One",
@@ -2935,7 +2938,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:21.119Z"
     },
     {
       "query": "Apple TV+",
@@ -3142,7 +3146,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:21.119Z"
     },
     {
       "query": "Apple Arcade",
@@ -3396,7 +3401,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:21.119Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3662,7 +3668,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:39.158Z"
     },
     {
       "query": "Apple News+",
@@ -3804,7 +3811,8 @@
           "itemCount": 0,
           "items": []
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:39.158Z"
     },
     {
       "query": "ChatGPT",
@@ -4682,14 +4690,15 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:10:39.158Z"
     },
     {
       "query": "Claude by Anthropic",
       "id": "6473753684",
       "matchedName": "Claude by Anthropic",
       "developer": "Anthropic PBC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d3/79/a5/d379a502-068f-3a4b-e5be-35df4b37de4a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5b/8b/ef/5b8befaa-b149-2bbd-d68e-104d0d88dd91/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/claude-by-anthropic/id6473753684?uo=4",
@@ -5710,7 +5719,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:11:06.852Z"
     },
     {
       "query": "Google Gemini",
@@ -6865,19 +6875,19 @@
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "R$ 49,99",
-              "productId": "6736381194",
-              "offerName": "com.google.gemini.2tb.m.iog",
+              "name": "100 GB",
+              "price": "R$ 9,99",
+              "productId": "6736380942",
+              "offerName": "com.google.gemini.100gb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "100 GB",
-              "price": "R$ 9,99",
-              "productId": "6736380942",
-              "offerName": "com.google.gemini.100gb.m.iog",
+              "name": "Google AI Plus (2 TB)",
+              "price": "R$ 49,99",
+              "productId": "6736381194",
+              "offerName": "com.google.gemini.2tb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7378,7 +7388,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:11:06.852Z"
     },
     {
       "query": "Grok AI",
@@ -7453,6 +7464,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "$50.00",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok",
               "price": "$300.00",
               "productId": "6741437697",
@@ -7460,13 +7478,6 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "$50.00",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok",
@@ -8914,7 +8925,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T18:11:06.852Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -10464,7 +10476,8 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T12:22:04.722Z"
     },
     {
       "query": "Perplexity - AI Search & Chat",
@@ -11982,12 +11995,23 @@
             }
           ]
         }
-      ]
+      ],
+      "verifiedAt": "2026-08-30T12:22:04.722Z"
     }
   ],
   "updateReport": {
-    "fallbackCount": 25,
+    "fallbackCount": 27,
     "fallbacks": [
+      {
+        "appId": "6474233312",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "tr",
+        "reason": "identity:error:HTTP 429"
+      },
       {
         "appId": "6474233312",
         "region": "au",
@@ -12122,7 +12146,7 @@
           "1108187390",
           "apple-icloud-plus"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
