@@ -27,56 +27,29 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: 第一次抓取候选快照
-        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot-first.json --fallback data/validation-snapshot.json
+      - name: 分组抓取并确认价格
+        run: node scripts/fetch-confirmed-price-batches.mjs --output .tmp/price-snapshot-confirmed.json --fallback data/validation-snapshot.json --batch-size 3 --confirmation-delay-seconds 480
 
-      - name: 校验第一次候选快照
-        run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot-first.json --previous data/validation-snapshot.json
-
-      - name: 比较第一次订阅变动
-        id: first-compare
-        run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot-first.json --json .tmp/price-diff-first.json --markdown .tmp/price-diff-first.md --github-output "$GITHUB_OUTPUT"
-
-      - name: 写入第一次检测摘要
-        run: |
-          node scripts/render-update-report.mjs .tmp/price-snapshot-first.json >> "$GITHUB_STEP_SUMMARY"
-          cat .tmp/price-diff-first.md >> "$GITHUB_STEP_SUMMARY"
-
-      - name: 等待 Apple 页面稳定
-        if: steps.first-compare.outputs.changed == 'true'
-        run: sleep 480
-
-      - name: 第二次抓取确认快照
-        if: steps.first-compare.outputs.changed == 'true'
-        run: node scripts/fetch-price-snapshot.mjs --output .tmp/price-snapshot-confirmed.json --fallback data/validation-snapshot.json
-
-      - name: 校验第二次确认快照
-        if: steps.first-compare.outputs.changed == 'true'
+      - name: 校验合并快照
         run: node scripts/validate-price-snapshot.mjs --snapshot .tmp/price-snapshot-confirmed.json --previous data/validation-snapshot.json
 
-      - name: 比较第二次订阅变动
-        if: steps.first-compare.outputs.changed == 'true'
-        id: second-compare
+      - name: 比较已确认订阅变动
+        id: compare
         run: node scripts/compare-price-snapshots.mjs --before data/validation-snapshot.json --after .tmp/price-snapshot-confirmed.json --json .tmp/price-diff-confirmed.json --markdown .tmp/price-diff-confirmed.md --github-output "$GITHUB_OUTPUT"
 
-      - name: 确认两次变化完全一致
-        if: steps.first-compare.outputs.changed == 'true'
-        id: confirm
-        run: node scripts/confirm-price-change.mjs --first .tmp/price-diff-first.json --second .tmp/price-diff-confirmed.json --github-output "$GITHUB_OUTPUT"
+      - name: 写入分组检测摘要
+        run: |
+          node scripts/render-update-report.mjs .tmp/price-snapshot-confirmed.json >> "$GITHUB_STEP_SUMMARY"
+          cat .tmp/price-diff-confirmed.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: 准备已验证数据
-        if: steps.first-compare.outputs.changed == 'false' || steps.confirm.outputs.confirmed == 'true'
         id: publish-data
-        env:
-          FIRST_CHANGED: ${{ steps.first-compare.outputs.changed }}
-          CONFIRMED: ${{ steps.confirm.outputs.confirmed }}
         run: |
-          if [ "$CONFIRMED" = "true" ]; then
-            cp .tmp/price-snapshot-confirmed.json data/validation-snapshot.json
+          cp .tmp/price-snapshot-confirmed.json data/validation-snapshot.json
+          if [ "${{ steps.compare.outputs.changed }}" = "true" ]; then
             node scripts/update-price-change-log.mjs --diff .tmp/price-diff-confirmed.json --log data/price-change-log.json
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            cp .tmp/price-snapshot-first.json data/validation-snapshot.json
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
           node scripts/fetch-exchange-rates.mjs --output data/exchange-rates.json
@@ -94,7 +67,7 @@ jobs:
           npm test
 
       - name: 写入确认结果摘要
-        if: steps.confirm.outputs.confirmed == 'true'
+        if: steps.compare.outputs.changed == 'true'
         run: |
           printf '\n## 二次确认结果\n\n' >> "$GITHUB_STEP_SUMMARY"
           cat .tmp/price-diff-confirmed.md >> "$GITHUB_STEP_SUMMARY"
@@ -130,14 +103,11 @@ jobs:
         run: node scripts/notify-bark.mjs --event published --summary .tmp/price-diff-confirmed.json --url "${SITE_URL%/}/changes/"
 
       - name: 保存检测与确认详情
-        if: always() && steps.first-compare.outputs.changed == 'true'
+        if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: price-confirmation-${{ steps.first-compare.outputs.fingerprint }}
+          name: price-batches-${{ github.run_id }}
           path: |
-            .tmp/price-diff-first.md
-            .tmp/price-diff-first.json
-            .tmp/price-snapshot-first.json
             .tmp/price-diff-confirmed.md
             .tmp/price-diff-confirmed.json
             .tmp/price-snapshot-confirmed.json

@@ -8,13 +8,15 @@ import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 
-test("scheduled price updates require two matching snapshots before publishing", async () => {
+test("scheduled price updates isolate apps into confirmed batches before publishing", async () => {
   const workflow = await readFile(resolve(".github/workflows/monitor-prices.yml"), "utf8");
+  const batchScript = await readFile(resolve("scripts/fetch-confirmed-price-batches.mjs"), "utf8");
   assert.match(workflow, /timezone: "Asia\/Shanghai"/u);
-  assert.match(workflow, /sleep 480/u);
-  assert.match(workflow, /confirm-price-change\.mjs/u);
-  assert.match(workflow, /steps\.first-compare\.outputs\.changed == 'false' \|\| steps\.confirm\.outputs\.confirmed == 'true'/u);
-  assert.match(workflow, /cp \.tmp\/price-snapshot-first\.json data\/validation-snapshot\.json/u);
+  assert.match(workflow, /fetch-confirmed-price-batches\.mjs/u);
+  assert.match(workflow, /--batch-size 3/u);
+  assert.match(workflow, /--confirmation-delay-seconds 480/u);
+  assert.match(batchScript, /state\.first\.diff\.fingerprint === second\.diff\.fingerprint/u);
+  assert.match(batchScript, /retaining its previous verified data/u);
   assert.match(workflow, /steps\.publish-data\.outputs\.changed == 'true'/u);
   assert.match(workflow, /verify-public-deployment\.mjs/u);
   assert.ok(
