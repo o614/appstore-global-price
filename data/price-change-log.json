@@ -2,6 +2,93 @@
   "version": 1,
   "entries": [
     {
+      "id": "ce6bde85d8bfa9dc375f",
+      "publishedAt": "2026-08-31T00:58:01.016Z",
+      "changeCount": 4,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$13.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$69.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "10,000 Credits",
+              "price": "£100.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "£20.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Max",
+              "price": "$400.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$40.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "sa",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "10,000 Credits",
+              "price": "SAR 399.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "SAR 89.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ce470b90d4901ab4a21e",
       "publishedAt": "2026-08-30T12:22:04.885Z",
       "changeCount": 1,
