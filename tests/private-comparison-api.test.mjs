@@ -7,6 +7,8 @@ import regionSnapshot from "../data/regions.json" with { type: "json" };
 import validationSnapshot from "../data/validation-snapshot.json" with { type: "json" };
 import { buildPrivateComparison } from "../functions/lib/private-comparison.js";
 import {
+  bestCuratedSearchResult,
+  bestPrivateSearchResult,
   classifyComparisonResultError,
   classifyPrivateRefreshError,
   comparisonIdentitySummary,
@@ -762,7 +764,45 @@ test("private name search returns one related US result and skips unrelated sugg
   assert.equal(payload.results[0].appId, "576588894");
   assert.equal(payload.results[0].appName, "Sky Guide");
   assert.deepEqual(requestedHosts.sort(), ["apps.apple.com", "itunes.apple.com"]);
-  assert.ok(values.has("private:search:v3:skyguide"));
+  assert.ok(values.has("private:search:v4:skyguide"));
+});
+
+test("private name search prefers the curated Google Gemini identity over an exact-name clone", async () => {
+  const values = new Map();
+  let liveSearchCalls = 0;
+  const storage = {
+    get: async (key) => values.get(key) ?? null,
+    put: async (key, value) => values.set(key, value),
+  };
+
+  const payload = await privateSearch("Gemini", storage, async () => {
+    liveSearchCalls += 1;
+    return new Response(JSON.stringify({
+      results: [{
+        trackId: 6751261340,
+        trackName: "Gemini Markets & Credit Card",
+        sellerName: "Unrelated developer",
+      }],
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  });
+
+  assert.equal(payload.results.length, 1);
+  assert.equal(payload.results[0].appId, "6477489729");
+  assert.equal(payload.results[0].appName, "Google Gemini");
+  assert.equal(payload.results[0].developer, "Google LLC");
+  assert.equal(liveSearchCalls, 0);
+  assert.ok(values.has("private:search:v4:gemini"));
+});
+
+test("private search rejects equally ranked live identities instead of trusting Apple order", () => {
+  assert.equal(bestPrivateSearchResult("Example", [
+    { appId: "123456789", appName: "Example", developer: "First Inc." },
+    { appId: "987654321", appName: "Example", developer: "Second Inc." },
+  ]), null);
+  assert.equal(bestCuratedSearchResult([
+    { appId: "123456789", appName: "Example One", score: 1 },
+    { appId: "987654321", appName: "Example Two", score: 1 },
+  ]), null);
 });
 
 test("private name search rejects an unrelated first Apple suggestion", async () => {
@@ -784,7 +824,7 @@ test("private name search rejects an unrelated first Apple suggestion", async ()
   });
 
   assert.deepEqual(payload.results, []);
-  assert.equal(writes[0].key, "private:search:v3:qwertyuiopasdfghjklzxcvbnm");
+  assert.equal(writes[0].key, "private:search:v4:qwertyuiopasdfghjklzxcvbnm");
   assert.equal(writes[0].options.expirationTtl, 60);
 });
 

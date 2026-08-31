@@ -1026,7 +1026,7 @@ function privateCandidateScore(query, result) {
   return Number.POSITIVE_INFINITY;
 }
 
-function bestPrivateSearchResult(query, results) {
+export function bestPrivateSearchResult(query, results) {
   const deduplicated = new Map();
   for (const [index, result] of results.filter(Boolean).entries()) {
     const score = privateCandidateScore(query, result);
@@ -1034,8 +1034,21 @@ function bestPrivateSearchResult(query, results) {
     const previous = deduplicated.get(result.appId);
     if (!previous || score < previous.score) deduplicated.set(result.appId, { result, score, index });
   }
-  return [...deduplicated.values()]
-    .sort((left, right) => left.score - right.score || left.index - right.index)[0]?.result ?? null;
+  const ranked = [...deduplicated.values()]
+    .sort((left, right) => left.score - right.score || left.index - right.index);
+  if (!ranked.length) return null;
+  // Apple can return several unrelated apps whose names match the same short
+  // query. Never let response order silently decide which product is priced.
+  if (ranked[1]?.score === ranked[0].score) return null;
+  return ranked[0].result;
+}
+
+export function bestCuratedSearchResult(results) {
+  const ranked = results.filter((result) => Number.isFinite(result?.score));
+  if (!ranked.length) return null;
+  const bestScore = Math.min(...ranked.map((result) => result.score));
+  const best = ranked.filter((result) => result.score === bestScore);
+  return best.length === 1 ? best[0] : null;
 }
 
 function searchSnapshot(query) {
@@ -1066,13 +1079,17 @@ function searchSnapshot(query) {
 
 export async function privateSearch(query, storage, fetchImpl = fetch) {
   const normalizedQuery = normalizeSearch(query);
-  const cacheKey = `private:search:v3:${normalizedQuery}`;
+  const cacheKey = `private:search:v4:${normalizedQuery}`;
   const cached = await readPrivateJson(storage, cacheKey);
   if (cached) return { ...cached, cache: "hit" };
 
   const snapshotResults = searchSnapshot(query);
-  let selected = snapshotResults.find((result) => result.score === 0) ?? null;
-  if (!selected) {
+  // The maintained catalog is an identity allow-list. A unique partial match
+  // (for example "Gemini" -> "Google Gemini") is safer than an exact-name
+  // clone returned by Apple's live search. Ambiguous catalog matches fail
+  // closed instead of falling through to an arbitrary live suggestion.
+  let selected = bestCuratedSearchResult(snapshotResults);
+  if (!selected && snapshotResults.length === 0) {
     // Resolve one app internally, but never expose a candidate picker or trust
     // an unrelated Apple suggestion. A false negative is safer than comparing
     // prices for the wrong product.
