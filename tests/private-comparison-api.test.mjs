@@ -12,6 +12,7 @@ import {
   comparisonIdentitySummary,
   onRequestPost,
   privateSearch,
+  releasePrivateRefreshLock,
   retryTransientRegions,
   retryUsAnchor,
   selectPrivateRefreshRecord,
@@ -43,6 +44,25 @@ test("a valid curated snapshot replaces a cached error but never overwrites newe
     shouldSeedSnapshotRecord({ data: { generatedAt: "2026-08-30T09:00:00.000Z" } }, seeded, now),
     true,
   );
+});
+
+test("private refresh only releases the lock it owns", async () => {
+  const values = new Map([["private:lock:v1:123456789", "newer-owner"]]);
+  const storage = {
+    get: async (key) => values.get(key) ?? null,
+    delete: async (key) => values.delete(key),
+  };
+
+  assert.equal(
+    await releasePrivateRefreshLock(storage, "private:lock:v1:123456789", "older-owner"),
+    false,
+  );
+  assert.equal(values.get("private:lock:v1:123456789"), "newer-owner");
+  assert.equal(
+    await releasePrivateRefreshLock(storage, "private:lock:v1:123456789", "newer-owner"),
+    true,
+  );
+  assert.equal(values.has("private:lock:v1:123456789"), false);
 });
 
 test("private comparison excludes duplicate names when Apple provides no structured identity", () => {
@@ -1225,4 +1245,57 @@ test("private compare serves stale cache when refresh startup fails", async () =
   assert.equal(payload.data.app.id, "999999999");
   await Promise.all(background);
   assert.ok(observedLockTtl >= 60);
+});
+
+test("private failure markers stay separate from successful comparison data", async () => {
+  const secret = "separate-error-secret";
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const appId = "888888888";
+  const body = JSON.stringify({ target: appId });
+  const pathname = "/api/apps/private/v1/compare";
+  const signature = createHmac("sha256", secret)
+    .update(`${timestamp}\nPOST\n${pathname}\n${body}`)
+    .digest("hex");
+  const generatedAt = new Date().toISOString();
+  const values = new Map([
+    [`private:compare:v7:${appId}`, JSON.stringify({
+      storedAt: generatedAt,
+      source: "live",
+      data: {
+        generatedAt,
+        app: { id: appId, name: "Verified App" },
+        plans: [],
+      },
+    })],
+    [`private:error:v1:${appId}`, JSON.stringify({
+      storedAt: generatedAt,
+      error: "refresh-failed",
+    })],
+  ]);
+  const background = [];
+  const response = await onRequestPost({
+    request: new Request(`https://price.example${pathname}`, {
+      method: "POST",
+      body,
+      headers: {
+        "x-price-timestamp": timestamp,
+        "x-price-signature": signature,
+      },
+    }),
+    params: { path: ["private", "v1", "compare"] },
+    env: {
+      PRICE_COMPARE_API_SECRET: secret,
+      PRICE_COMPARE_KV: {
+        get: async (key) => values.get(key) ?? null,
+        put: async (key, value) => values.set(key, value),
+        delete: async (key) => values.delete(key),
+      },
+    },
+    waitUntil: (promise) => background.push(promise),
+  });
+  const payload = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(payload.status, "ready");
+  assert.equal(payload.data.app.name, "Verified App");
+  assert.equal(background.length, 0);
 });

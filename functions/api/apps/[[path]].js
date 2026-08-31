@@ -781,6 +781,18 @@ async function writePrivateJson(storage, key, value, expirationTtl = PRIVATE_STA
   await storage.put(key, JSON.stringify(value), { expirationTtl });
 }
 
+function privateErrorKey(appId) {
+  return `private:error:v1:${appId}`;
+}
+
+async function clearPrivateError(storage, appId) {
+  try {
+    await storage.delete(privateErrorKey(appId));
+  } catch (error) {
+    console.warn(JSON.stringify({ event: "private-error-marker-delete-failed", appId, error: String(error) }));
+  }
+}
+
 async function privateRateAllowed(storage, now = Date.now()) {
   const key = `private:rate:${Math.floor(now / 60_000)}`;
   const current = Number(await storage.get(key) ?? 0);
@@ -939,7 +951,12 @@ function logPrivateRefreshDecision(appId, phase, decision) {
 }
 
 async function persistPrivateRefreshRecord(storage, cacheKey, previousRecord, candidateRecord, appId, phase) {
-  const decision = selectPrivateRefreshRecord(previousRecord, candidateRecord, appId);
+  // Another request may have completed while this crawl was running. Always
+  // compare against the latest successful record so a slower/degraded crawl
+  // cannot overwrite a better result captured by a concurrent request.
+  const latestRecord = await readPrivateJson(storage, cacheKey);
+  const baselineRecord = latestRecord?.data ? latestRecord : previousRecord;
+  const decision = selectPrivateRefreshRecord(baselineRecord, candidateRecord, appId);
   logPrivateRefreshDecision(appId, phase, decision);
   if (decision.action === "reject") {
     const error = new Error("identity-degraded");
@@ -947,7 +964,28 @@ async function persistPrivateRefreshRecord(storage, cacheKey, previousRecord, ca
     throw error;
   }
   if (decision.action === "accept") await writePrivateJson(storage, cacheKey, candidateRecord);
+  if (comparisonRecordUsable(decision.record, appId)) await clearPrivateError(storage, appId);
   return { record: decision.record, retained: decision.action === "retain" };
+}
+
+async function latestUsablePrivateRecord(storage, cacheKey, appId, fallbackRecord = null) {
+  const latestRecord = await readPrivateJson(storage, cacheKey);
+  if (comparisonRecordUsable(latestRecord, appId)) return latestRecord;
+  return comparisonRecordUsable(fallbackRecord, appId) ? fallbackRecord : null;
+}
+
+async function writePrivateError(storage, appId, error, expirationTtl) {
+  await writePrivateJson(storage, privateErrorKey(appId), {
+    storedAt: new Date().toISOString(),
+    error,
+  }, expirationTtl);
+}
+
+export async function releasePrivateRefreshLock(storage, lockKey, lockToken) {
+  const currentToken = await storage.get(lockKey);
+  if (currentToken !== lockToken) return false;
+  await storage.delete(lockKey);
+  return true;
 }
 
 function snapshotCandidate(app, score) {
@@ -1110,7 +1148,8 @@ export function classifyComparisonResultError(comparison, error) {
 async function startPrivateRefresh(context, storage, appId) {
   const lockKey = `private:lock:v1:${appId}`;
   if (await storage.get(lockKey)) return null;
-  await storage.put(lockKey, crypto.randomUUID(), { expirationTtl: PRIVATE_REFRESH_LOCK_SECONDS });
+  const lockToken = crypto.randomUUID();
+  await storage.put(lockKey, lockToken, { expirationTtl: PRIVATE_REFRESH_LOCK_SECONDS });
 
   const cacheKey = `private:compare:v${PRIVATE_MATCHING_VERSION}:${appId}`;
   const previousRecord = await readPrivateJson(storage, cacheKey);
@@ -1132,21 +1171,19 @@ async function startPrivateRefresh(context, storage, appId) {
       } catch (error) {
         const classified = classifyComparisonResultError(comparison, error);
         if (error && typeof error === "object") error.privateComparisonError = classified;
-        if (comparisonRecordUsable(previousRecord, appId)) {
+        const retainedRecord = await latestUsablePrivateRecord(storage, cacheKey, appId, previousRecord);
+        if (retainedRecord) {
           console.warn(JSON.stringify({
             event: "private-compare-refresh-failure-retained",
             appId,
             phase: "initial",
             error: classified,
-            previous: comparisonIdentitySummary(previousRecord, appId),
+            previous: comparisonIdentitySummary(retainedRecord, appId),
           }));
-          return { comparison, record: previousRecord, retained: true };
+          return { comparison, record: retainedRecord, retained: true };
         }
         if (classified !== "refresh-failed") {
-          await writePrivateJson(storage, cacheKey, {
-            storedAt: new Date().toISOString(),
-            error: classified,
-          }, PRIVATE_NEGATIVE_SECONDS);
+          await writePrivateError(storage, appId, classified, PRIVATE_NEGATIVE_SECONDS);
         }
         throw error;
       }
@@ -1169,14 +1206,12 @@ async function startPrivateRefresh(context, storage, appId) {
     })
     .catch(async (error) => {
       const classified = error?.privateComparisonError ?? classifyPrivateRefreshError(error);
-      if (classified === "refresh-failed" && !comparisonRecordUsable(previousRecord, appId)) {
+      const retainedRecord = await latestUsablePrivateRecord(storage, cacheKey, appId, previousRecord);
+      if (classified === "refresh-failed" && !retainedRecord) {
         // A failed detached crawl must reach a terminal state. Otherwise every
         // retry starts another crawl and the user remains in an endless pending loop.
         try {
-          await writePrivateJson(storage, cacheKey, {
-            storedAt: new Date().toISOString(),
-            error: classified,
-          }, PRIVATE_FAILED_SECONDS);
+          await writePrivateError(storage, appId, classified, PRIVATE_FAILED_SECONDS);
         } catch (storageError) {
           console.warn(JSON.stringify({
             event: "private-refresh-error-cache-failed",
@@ -1184,13 +1219,13 @@ async function startPrivateRefresh(context, storage, appId) {
             error: String(storageError),
           }));
         }
-      } else if (comparisonRecordUsable(previousRecord, appId)) {
+      } else if (retainedRecord) {
         console.warn(JSON.stringify({
           event: "private-compare-refresh-failure-retained",
           appId,
           phase: "background",
           error: classified,
-          previous: comparisonIdentitySummary(previousRecord, appId),
+          previous: comparisonIdentitySummary(retainedRecord, appId),
         }));
       }
       console.error(JSON.stringify({ event: "private-compare-refresh-failed", appId, error: String(error) }));
@@ -1198,7 +1233,7 @@ async function startPrivateRefresh(context, storage, appId) {
     })
     .finally(async () => {
       try {
-        await storage.delete(lockKey);
+        await releasePrivateRefreshLock(storage, lockKey, lockToken);
       } catch (error) {
         console.warn(JSON.stringify({ event: "private-lock-release-failed", appId, error: String(error) }));
       }
@@ -1227,12 +1262,15 @@ async function privateCompare(context, storage, target, refreshMode) {
   if (!appId) return { status: 400, payload: { error: "invalid-app-id" } };
   const cacheKey = `private:compare:v${PRIVATE_MATCHING_VERSION}:${appId}`;
   let record = await readPrivateJson(storage, cacheKey);
+  let errorRecord = record?.error ? record : null;
+  if (errorRecord) record = null;
 
   if (snapshotApp) {
     const seeded = comparisonRecord(snapshotComparison(snapshotApp), { source: "snapshot" });
     if (shouldSeedSnapshotRecord(record, seeded)) {
       record = seeded;
       await writePrivateJson(storage, cacheKey, record);
+      await clearPrivateError(storage, appId);
     }
   }
 
@@ -1245,14 +1283,15 @@ async function privateCompare(context, storage, target, refreshMode) {
     record = null;
   }
 
-  if (record?.error) {
+  if (!record) errorRecord = errorRecord ?? await readPrivateJson(storage, privateErrorKey(appId));
+  if (errorRecord?.error) {
     if (refreshMode !== "manual") {
       return {
-        status: record.error === "refresh-failed" ? 503 : 422,
-        payload: { error: record.error },
+        status: errorRecord.error === "refresh-failed" ? 503 : 422,
+        payload: { error: errorRecord.error },
       };
     }
-    record = null;
+    errorRecord = null;
   }
 
   let age = recordAgeSeconds(record);
