@@ -2,6 +2,33 @@
   "version": 1,
   "entries": [
     {
+      "id": "a2342f2a977a8d7a7618",
+      "publishedAt": "2026-08-31T20:32:48.105Z",
+      "changeCount": 1,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "10,000 Credits",
+              "price": "AED 399.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "AED 79.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "2011a776a89449dd641d",
       "publishedAt": "2026-08-31T14:31:18.913Z",
       "changeCount": 3,

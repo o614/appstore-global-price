@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T14:31:18.682Z",
+  "generatedAt": "2026-08-31T20:32:47.878Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:18.497Z"
+      "verifiedAt": "2026-08-31T20:20:03.656Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:18.497Z"
+      "verifiedAt": "2026-08-31T20:20:03.656Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:18.497Z"
+      "verifiedAt": "2026-08-31T20:20:03.656Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:21.422Z"
+      "verifiedAt": "2026-08-31T20:20:06.801Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:21.422Z"
+      "verifiedAt": "2026-08-31T20:20:06.801Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:21.422Z"
+      "verifiedAt": "2026-08-31T20:20:06.801Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:40.373Z"
+      "verifiedAt": "2026-08-31T20:20:25.332Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:40.373Z"
+      "verifiedAt": "2026-08-31T20:20:25.332Z"
     },
     {
       "query": "ChatGPT",
@@ -4194,19 +4194,19 @@
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "$249.00",
-              "productId": "6657954405",
-              "offerName": "oai_chatgpt_pro_20000_1m",
+              "name": "ChatGPT Pro 5x",
+              "price": "$152.99",
+              "productId": "6759817441",
+              "offerName": "oai_chatgpt_pro_10000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "$152.99",
-              "productId": "6759817441",
-              "offerName": "oai_chatgpt_pro_10000_1m",
+              "name": "ChatGPT Pro 20x",
+              "price": "$249.00",
+              "productId": "6657954405",
+              "offerName": "oai_chatgpt_pro_20000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
@@ -4610,19 +4610,19 @@
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "AED 799.99",
-              "productId": "6657954405",
-              "offerName": "oai_chatgpt_pro_20000_1m",
+              "name": "ChatGPT Pro 5x",
+              "price": "AED 384.99",
+              "productId": "6759817441",
+              "offerName": "oai_chatgpt_pro_10000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "AED 384.99",
-              "productId": "6759817441",
-              "offerName": "oai_chatgpt_pro_10000_1m",
+              "name": "ChatGPT Pro 20x",
+              "price": "AED 799.99",
+              "productId": "6657954405",
+              "offerName": "oai_chatgpt_pro_20000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:21:40.373Z"
+      "verifiedAt": "2026-08-31T20:20:25.332Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -9516,19 +9516,19 @@
               "isSubscription": true
             },
             {
-              "name": "Vivace Annual Pass",
-              "price": "£1,999.00",
-              "productId": "6757693466",
-              "offerName": "vivace_oversea_year_v3_0",
+              "name": "Allegretto Annual Pass",
+              "price": "£399.99",
+              "productId": "6757530846",
+              "offerName": "allegretto_oversea_year_v3_0",
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21807222",
               "isSubscription": true
             },
             {
-              "name": "Allegretto Annual Pass",
-              "price": "£399.99",
-              "productId": "6757530846",
-              "offerName": "allegretto_oversea_year_v3_0",
+              "name": "Vivace Annual Pass",
+              "price": "£1,999.00",
+              "productId": "6757693466",
+              "offerName": "vivace_oversea_year_v3_0",
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21807222",
               "isSubscription": true
@@ -10477,7 +10477,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:31:18.595Z"
+      "verifiedAt": "2026-08-31T20:32:47.788Z"
     },
     {
       "query": "Perplexity - AI Search & Chat",
@@ -10605,6 +10605,13 @@
               "isSubscription": false
             },
             {
+              "name": "2,500 Credits",
+              "price": "HK$ 188.00",
+              "productId": "6761280761",
+              "offerName": "pplx_usage_based_billing_25",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Pro",
               "price": "HK$ 1,488.00",
               "productId": "6468027705",
@@ -10612,13 +10619,6 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21390756",
               "isSubscription": true
-            },
-            {
-              "name": "2,500 Credits",
-              "price": "HK$ 188.00",
-              "productId": "6761280761",
-              "offerName": "pplx_usage_based_billing_25",
-              "isSubscription": false
             },
             {
               "name": "1,000 Credits",
@@ -10646,8 +10646,8 @@
             {
               "name": "Perplexity Pro",
               "price": "HK$ 148.00",
-              "productId": "6758528808",
-              "offerName": "pro_1_week_trial",
+              "productId": "6739310964",
+              "offerName": "pro_0_m_20_m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21586778",
               "isSubscription": true
@@ -10655,8 +10655,8 @@
             {
               "name": "Perplexity Pro",
               "price": "HK$ 148.00",
-              "productId": "6739310964",
-              "offerName": "pro_0_m_20_m",
+              "productId": "6758528808",
+              "offerName": "pro_1_week_trial",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21586778",
               "isSubscription": true
@@ -11356,6 +11356,13 @@
               "isSubscription": true
             },
             {
+              "name": "10,000 Credits",
+              "price": "$150.00",
+              "productId": "6761281259",
+              "offerName": "pplx_usage_based_billing_100",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Pro",
               "price": "$300.00",
               "productId": "6758529146",
@@ -11363,13 +11370,6 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21586778",
               "isSubscription": true
-            },
-            {
-              "name": "10,000 Credits",
-              "price": "$150.00",
-              "productId": "6761281259",
-              "offerName": "pplx_usage_based_billing_100",
-              "isSubscription": false
             },
             {
               "name": "5,000 Credits",
@@ -11425,6 +11425,13 @@
               "isSubscription": true
             },
             {
+              "name": "5,000 Credits",
+              "price": "₹ 4,999",
+              "productId": "6761280252",
+              "offerName": "pplx_usage_based_billing_50",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Pro",
               "price": "₹ 19,900",
               "productId": "6468027705",
@@ -11441,13 +11448,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21586778",
               "isSubscription": true
-            },
-            {
-              "name": "5,000 Credits",
-              "price": "₹ 4,999",
-              "productId": "6761280252",
-              "offerName": "pplx_usage_based_billing_50",
-              "isSubscription": false
             },
             {
               "name": "10,000 Credits",
@@ -11583,6 +11583,13 @@
               "isSubscription": false
             },
             {
+              "name": "1,000 Credits",
+              "price": "Rp 169ribu",
+              "productId": "6761281258",
+              "offerName": "pplx_usage_based_billing_10",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Pro",
               "price": "Rp 3,499juta",
               "productId": "6468027705",
@@ -11590,13 +11597,6 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21390756",
               "isSubscription": true
-            },
-            {
-              "name": "1,000 Credits",
-              "price": "Rp 169ribu",
-              "productId": "6761281258",
-              "offerName": "pplx_usage_based_billing_10",
-              "isSubscription": false
             },
             {
               "name": "Perplexity Pro",
@@ -11608,6 +11608,13 @@
               "isSubscription": true
             },
             {
+              "name": "5,000 Credits",
+              "price": "Rp 799ribu",
+              "productId": "6761280252",
+              "offerName": "pplx_usage_based_billing_50",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Max",
               "price": "Rp 3,499juta",
               "productId": "6744974422",
@@ -11615,13 +11622,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21390756",
               "isSubscription": true
-            },
-            {
-              "name": "5,000 Credits",
-              "price": "Rp 799ribu",
-              "productId": "6761280252",
-              "offerName": "pplx_usage_based_billing_50",
-              "isSubscription": false
             },
             {
               "name": "Perplexity Pro",
@@ -11882,6 +11882,13 @@
               "isSubscription": true
             },
             {
+              "name": "5,000 Credits",
+              "price": "AED 199.99",
+              "productId": "6761280252",
+              "offerName": "pplx_usage_based_billing_50",
+              "isSubscription": false
+            },
+            {
               "name": "Perplexity Pro",
               "price": "AED 799.99",
               "productId": "6758529146",
@@ -11891,20 +11898,11 @@
               "isSubscription": true
             },
             {
-              "name": "5,000 Credits",
-              "price": "AED 199.99",
-              "productId": "6761280252",
-              "offerName": "pplx_usage_based_billing_50",
+              "name": "10,000 Credits",
+              "price": "AED 399.99",
+              "productId": "6761281259",
+              "offerName": "pplx_usage_based_billing_100",
               "isSubscription": false
-            },
-            {
-              "name": "Perplexity Pro",
-              "price": "AED 79.99",
-              "productId": "6739310964",
-              "offerName": "pro_0_m_20_m",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21586778",
-              "isSubscription": true
             }
           ]
         },
@@ -11996,12 +11994,25 @@
           ]
         }
       ],
-      "verifiedAt": "2026-08-31T14:31:18.595Z"
+      "verifiedAt": "2026-08-31T20:32:47.788Z"
     }
   ],
   "updateReport": {
-    "fallbackCount": 0,
-    "fallbacks": [],
+    "fallbackCount": 3,
+    "fallbacks": [
+      {
+        "appId": "6473753684",
+        "reason": "batch-confirmation-mismatch"
+      },
+      {
+        "appId": "6477489729",
+        "reason": "batch-confirmation-mismatch"
+      },
+      {
+        "appId": "6670324846",
+        "reason": "batch-confirmation-mismatch"
+      }
+    ],
     "deferredApps": [],
     "batches": [
       {
@@ -12034,7 +12045,7 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "confirmed-change"
+        "status": "unconfirmed"
       },
       {
         "appIds": [
