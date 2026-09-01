@@ -2,6 +2,148 @@
   "version": 1,
   "entries": [
     {
+      "id": "322f17b9fb8eb10ddc6b",
+      "publishedAt": "2026-09-01T12:08:16.450Z",
+      "changeCount": 7,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "¥32,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "¥7,200"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "9,99 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "49,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$69.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$13.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "$200.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "$200.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Perplexity Pro",
+              "beforePrice": "£200.00",
+              "afterPrice": "£20.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$40.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Max",
+              "price": "$400.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "sa",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "SAR 89.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "10,000 Credits",
+              "price": "SAR 399.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "a2342f2a977a8d7a7618",
       "publishedAt": "2026-08-31T20:32:48.105Z",
       "changeCount": 1,
