@@ -2,6 +2,68 @@
   "version": 1,
   "entries": [
     {
+      "id": "7c4228c3000c016d13d2",
+      "publishedAt": "2026-09-02T00:37:50.290Z",
+      "changeCount": 3,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "10,000 Credits",
+              "price": "2.999.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "599.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "gb",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Perplexity Pro",
+              "beforePrice": "£20.00",
+              "afterPrice": "£200.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "22,00 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Max",
+              "price": "229,00 €"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "322f17b9fb8eb10ddc6b",
       "publishedAt": "2026-09-01T12:08:16.450Z",
       "changeCount": 7,
