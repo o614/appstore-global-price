@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T00:37:50.102Z",
+  "generatedAt": "2026-09-02T11:56:16.942Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:14.298Z"
+      "verifiedAt": "2026-09-02T11:39:48.613Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:14.298Z"
+      "verifiedAt": "2026-09-02T11:39:48.613Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:14.298Z"
+      "verifiedAt": "2026-09-02T11:39:48.613Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:17.435Z"
+      "verifiedAt": "2026-09-02T11:39:50.569Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:17.435Z"
+      "verifiedAt": "2026-09-02T11:39:50.569Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:17.435Z"
+      "verifiedAt": "2026-09-02T11:39:50.569Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:35.133Z"
+      "verifiedAt": "2026-09-02T11:40:08.105Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:35.133Z"
+      "verifiedAt": "2026-09-02T11:40:08.105Z"
     },
     {
       "query": "ChatGPT",
@@ -4194,19 +4194,19 @@
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 5x",
-              "price": "$152.99",
-              "productId": "6759817441",
-              "offerName": "oai_chatgpt_pro_10000_1m",
+              "name": "ChatGPT Pro 20x",
+              "price": "$249.00",
+              "productId": "6657954405",
+              "offerName": "oai_chatgpt_pro_20000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
             },
             {
-              "name": "ChatGPT Pro 20x",
-              "price": "$249.00",
-              "productId": "6657954405",
-              "offerName": "oai_chatgpt_pro_20000_1m",
+              "name": "ChatGPT Pro 5x",
+              "price": "$152.99",
+              "productId": "6759817441",
+              "offerName": "oai_chatgpt_pro_10000_1m",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21329191",
               "isSubscription": true
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:28:35.133Z"
+      "verifiedAt": "2026-09-02T11:40:08.105Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5720,7 +5720,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:29:07.166Z"
+      "verifiedAt": "2026-09-02T11:52:54.343Z"
     },
     {
       "query": "Google Gemini",
@@ -6753,19 +6753,19 @@
             {
               "name": "Google AI Pro (5 TB)",
               "price": "₹ 1,950",
-              "productId": "6736380623",
-              "offerName": "com.google.gemini.2tb.ai.m.iog",
+              "productId": "6736380395",
+              "offerName": "com.google.gemini.2tb.ai.m",
               "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549475",
+              "subscriptionFamilyId": "21549392",
               "isSubscription": true
             },
             {
               "name": "Google AI Pro (5 TB)",
               "price": "₹ 1,950",
-              "productId": "6736380395",
-              "offerName": "com.google.gemini.2tb.ai.m",
+              "productId": "6736380623",
+              "offerName": "com.google.gemini.2tb.ai.m.iog",
               "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549392",
+              "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
@@ -6796,12 +6796,12 @@
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (400 GB)",
-              "price": "₹ 4,000",
-              "productId": "6757688940",
-              "offerName": "com.google.gemini.helium.a",
-              "billingPeriod": "P1Y",
-              "subscriptionFamilyId": "21549392",
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,649",
+              "productId": "6736381057",
+              "offerName": "com.google.gemini.5tb.m.iog",
+              "billingPeriod": "P1M",
+              "subscriptionFamilyId": "21549475",
               "isSubscription": true
             }
           ]
@@ -7351,19 +7351,19 @@
               "isSubscription": true
             },
             {
-              "name": "100 GB",
-              "price": "SAR 6.99",
-              "productId": "6736380942",
-              "offerName": "com.google.gemini.100gb.m.iog",
+              "name": "Google AI Pro (5 TB)",
+              "price": "SAR 85.99",
+              "productId": "6736381057",
+              "offerName": "com.google.gemini.5tb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "SAR 85.99",
-              "productId": "6736381057",
-              "offerName": "com.google.gemini.5tb.m.iog",
+              "name": "100 GB",
+              "price": "SAR 6.99",
+              "productId": "6736380942",
+              "offerName": "com.google.gemini.100gb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7389,7 +7389,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:29:07.166Z"
+      "verifiedAt": "2026-09-02T11:52:54.343Z"
     },
     {
       "query": "Grok AI",
@@ -7553,6 +7553,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "HK$ 388.00",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Plus",
               "price": "HK$ 788.00",
               "productId": "6794461918",
@@ -7560,13 +7567,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "HK$ 388.00",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok",
@@ -7749,20 +7749,18 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "2.999.000đ",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
+            },
+            {
               "name": "Extra Usage Credits 50 USD",
               "price": "1.499.000đ",
               "productId": "6785980281",
               "offerName": "grok.credits.50",
               "isSubscription": false
-            },
-            {
-              "name": "SuperGrok Lite",
-              "price": "2.999.000đ",
-              "productId": "6760920387",
-              "offerName": "grok.lite.yearly.100",
-              "billingPeriod": "P1Y",
-              "subscriptionFamilyId": "21630009",
-              "isSubscription": true
             }
           ]
         },
@@ -8169,6 +8167,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "₺4.999,99",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Plus",
               "price": "₺4.999,99",
               "productId": "6794461918",
@@ -8176,13 +8181,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "₺4.999,99",
-              "productId": "6785994993",
-              "offerName": "grok.credits.100",
-              "isSubscription": false
             },
             {
               "name": "Extra Usage Credits 50 USD",
@@ -8193,19 +8191,19 @@
             },
             {
               "name": "SuperGrok",
-              "price": "₺12.999,99",
-              "productId": "6741437697",
-              "offerName": "grok.pro.yearly.300.v2",
-              "billingPeriod": "P1Y",
+              "price": "₺1.299,99",
+              "productId": "6744708035",
+              "offerName": "grok.pro.monthly.30.legacy",
+              "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
               "name": "SuperGrok",
-              "price": "₺1.299,99",
-              "productId": "6744708035",
-              "offerName": "grok.pro.monthly.30.legacy",
-              "billingPeriod": "P1M",
+              "price": "₺12.999,99",
+              "productId": "6741437697",
+              "offerName": "grok.pro.yearly.300.v2",
+              "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             }
@@ -8888,6 +8886,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "SAR 399.99",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Plus",
               "price": "SAR 399.99",
               "productId": "6794461918",
@@ -8895,13 +8900,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "SAR 399.99",
-              "productId": "6785994993",
-              "offerName": "grok.credits.100",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok",
@@ -8924,7 +8922,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T00:29:07.166Z"
+      "verifiedAt": "2026-09-02T11:52:54.343Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -11996,8 +11994,17 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 0,
-    "fallbacks": [],
+    "fallbackCount": 2,
+    "fallbacks": [
+      {
+        "appId": "6474233312",
+        "reason": "batch-confirmation-mismatch"
+      },
+      {
+        "appId": "1668000334",
+        "reason": "batch-confirmation-mismatch"
+      }
+    ],
     "deferredApps": [],
     "batches": [
       {
@@ -12030,14 +12037,14 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "verified-unchanged"
+        "status": "confirmed-change"
       },
       {
         "appIds": [
           "6474233312",
           "1668000334"
         ],
-        "status": "confirmed-change"
+        "status": "unconfirmed"
       }
     ]
   }

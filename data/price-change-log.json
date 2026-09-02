@@ -2,6 +2,53 @@
   "version": 1,
   "entries": [
     {
+      "id": "6c52bac771f711400b6f",
+      "publishedAt": "2026-09-02T11:56:17.173Z",
+      "changeCount": 2,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,649"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 4,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6670324846",
+          "appName": "Grok AI",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "2.999.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "SuperGrok Lite",
+              "price": "2.999.000đ"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "7c4228c3000c016d13d2",
       "publishedAt": "2026-09-02T00:37:50.290Z",
       "changeCount": 3,
