@@ -2,6 +2,33 @@
   "version": 1,
   "entries": [
     {
+      "id": "075c415356e040ef3158",
+      "publishedAt": "2026-09-02T18:16:48.540Z",
+      "changeCount": 1,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "AED 384.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Apple Developer Program",
+              "price": "AED 374.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "6c52bac771f711400b6f",
       "publishedAt": "2026-09-02T11:56:17.173Z",
       "changeCount": 2,

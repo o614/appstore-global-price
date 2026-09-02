@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T11:56:16.942Z",
+  "generatedAt": "2026-09-02T18:16:48.323Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1591,15 +1591,6 @@
           "itemCount": 10,
           "items": [
             {
-              "name": "Apple Developer Program",
-              "price": "AED 374.99",
-              "productId": "1473505534",
-              "offerName": "ADP_1year_001",
-              "billingPeriod": "P1Y",
-              "subscriptionFamilyId": "20537122",
-              "isSubscription": true
-            },
-            {
               "name": "Xcode Cloud 10000 Hours",
               "price": "AED 15,499.99",
               "productId": "6737360175",
@@ -1676,6 +1667,15 @@
               "price": "AED 192.99",
               "productId": "1630465420",
               "offerName": "com.apple.weatherkit.monthly.1Mcalls",
+              "billingPeriod": "P1M",
+              "subscriptionFamilyId": "20967321",
+              "isSubscription": true
+            },
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "AED 384.99",
+              "productId": "1630465230",
+              "offerName": "com.apple.weatherkit.monthly.2Mcalls",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "20967321",
               "isSubscription": true
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:39:48.613Z"
+      "verifiedAt": "2026-09-02T18:13:26.985Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:39:48.613Z"
+      "verifiedAt": "2026-09-02T18:13:26.985Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:39:50.569Z"
+      "verifiedAt": "2026-09-02T18:00:41.110Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:39:50.569Z"
+      "verifiedAt": "2026-09-02T18:00:41.110Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:39:50.569Z"
+      "verifiedAt": "2026-09-02T18:00:41.110Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:40:08.105Z"
+      "verifiedAt": "2026-09-02T18:00:58.594Z"
     },
     {
       "query": "Apple News+",
@@ -3812,14 +3812,14 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-02T11:40:08.105Z"
+      "verifiedAt": "2026-09-02T18:00:58.594Z"
     },
     {
       "query": "ChatGPT",
       "id": "6448311069",
       "matchedName": "ChatGPT",
       "developer": "OpenAI OpCo, LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4e/de/22/4ede22cd-d4cb-1de3-66b5-9931e4c20008/AppIcon-0-0-1x_U007epad-0-0-0-1-0-P3-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/33/ae/7b/33ae7b77-258b-f4ae-1056-fce248dca3a0/AppIcon-0-0-1x_U007epad-0-0-0-1-0-P3-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/chatgpt/id6448311069?uo=4",
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:40:08.105Z"
+      "verifiedAt": "2026-09-02T18:00:58.594Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5720,7 +5720,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:52:54.343Z"
+      "verifiedAt": "2026-09-02T18:01:26.385Z"
     },
     {
       "query": "Google Gemini",
@@ -7389,14 +7389,14 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:52:54.343Z"
+      "verifiedAt": "2026-09-02T18:01:26.385Z"
     },
     {
       "query": "Grok AI",
       "id": "6670324846",
       "matchedName": "Grok AI",
       "developer": "X Corp.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/68/bc/d5/68bcd5a6-719f-af5c-6f03-e0d3c04c4ac1/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b1/6c/fb/b16cfbf5-0983-faa1-09de-ac850833c7c1/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-0-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/grok-ai/id6670324846?uo=4",
@@ -8922,7 +8922,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-02T11:52:54.343Z"
+      "verifiedAt": "2026-09-02T18:01:26.385Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -11994,8 +11994,38 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 2,
+    "fallbackCount": 8,
     "fallbacks": [
+      {
+        "appId": "640199958",
+        "region": "cn",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "640199958",
+        "region": "us",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "640199958",
+        "region": "hk",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "640199958",
+        "region": "tw",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "640199958",
+        "region": "vn",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "640199958",
+        "region": "jp",
+        "reason": "identity:error:HTTP 429"
+      },
       {
         "appId": "6474233312",
         "reason": "batch-confirmation-mismatch"
@@ -12013,7 +12043,7 @@
           "1108187390",
           "apple-icloud-plus"
         ],
-        "status": "verified-unchanged"
+        "status": "confirmed-change"
       },
       {
         "appIds": [
@@ -12037,7 +12067,7 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
