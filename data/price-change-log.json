@@ -2,6 +2,153 @@
   "version": 1,
   "entries": [
     {
+      "id": "ee4934f0ceb1ef5038c2",
+      "publishedAt": "2026-09-03T18:09:38.704Z",
+      "changeCount": 7,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "tw",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "5,000 Credits",
+              "price": "$1,490.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$690.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "599.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "10,000 Credits",
+              "price": "2.999.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "5,000 Credits",
+              "price": "¥8,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "¥3,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Max",
+              "price": "229,00 €"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "22,00 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$3,999.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "5,000 Credits",
+              "price": "$999.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "nz",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Perplexity Max",
+              "price": "$400.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Perplexity Pro",
+              "price": "$40.00"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "1668000334",
+          "appName": "Perplexity - AI Search & Chat",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "25,000 Credits",
+              "price": "AED 999.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "10,000 Credits",
+              "price": "AED 399.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "3703ad40459b1bfafe11",
       "publishedAt": "2026-09-03T11:51:31.496Z",
       "changeCount": 3,
@@ -5012,460 +5159,6 @@
           "type": "app-added",
           "appId": "317469184",
           "appName": "ESPN: Live Sports & Scores"
-        }
-      ]
-    },
-    {
-      "id": "c78ef99fe074a51df653",
-      "publishedAt": "2026-07-26T02:39:16.266Z",
-      "changeCount": 21,
-      "changes": [
-        {
-          "type": "region-items-changed",
-          "appId": "6473753684",
-          "appName": "Claude by Anthropic",
-          "region": "jp",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Usage Credits (250)",
-              "price": "¥45,000"
-            },
-            {
-              "name": "Usage Credits (50)",
-              "price": "¥10,000"
-            },
-            {
-              "name": "Usage Credits (20)",
-              "price": "¥4,500"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6473753684",
-          "appName": "Claude by Anthropic",
-          "region": "ng",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Claude Pro - Monthly",
-              "price": "₦ 29,900.00"
-            },
-            {
-              "name": "Claude Pro - Annual",
-              "price": "₦ 349,900.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6473753684",
-          "appName": "Claude by Anthropic",
-          "region": "br",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Claude Pro - Annual",
-              "price": "R$ 1.299,90"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "sg",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Pro (5 TB)",
-              "price": "S$ 289.98"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "jp",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "¥7,200"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "kr",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "￦300,000"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "in",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Plus (2 TB)",
-              "price": "₹ 749"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "₹ 4,000"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "br",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "100 GB",
-              "price": "R$ 9,99"
-            },
-            {
-              "name": "Google AI Plus (2 TB)",
-              "price": "R$ 49,99"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "R$ 244,90"
-            },
-            {
-              "name": "Google AI Pro (5 TB)",
-              "price": "R$ 969,90"
-            },
-            {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "R$ 999,90"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6670324846",
-          "appName": "Grok AI",
-          "region": "in",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "updated": [
-            {
-              "name": "SuperGrok",
-              "beforePrice": "₹ 6,500",
-              "afterPrice": "₹ 2,900"
-            }
-          ],
-          "added": [
-            {
-              "name": "SuperGrok",
-              "price": "₹ 29,000"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "686449807",
-          "appName": "Telegram Messenger",
-          "region": "hk",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "1x Telegram Premium (Three Days)",
-              "price": "HK$ 2.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "500 Telegram Stars",
-              "price": "HK$ 78.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "686449807",
-          "appName": "Telegram Messenger",
-          "region": "ca",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "1x Telegram Premium (Three Days)",
-              "price": "$0.29"
-            }
-          ],
-          "removed": [
-            {
-              "name": "150 Telegram Stars",
-              "price": "$4.49"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "hk",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Super Chat",
-              "price": "HK$ 78.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "白卡英雄",
-              "price": "HK$ 128.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "kr",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Premium Lite",
-              "price": "￦10,900"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Super Chat",
-              "price": "￦15,000"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "in",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Movies & Shows",
-              "price": "₹ 179"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "333903271",
-          "appName": "X",
-          "region": "tw",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "@SawyerMerritt Subscription",
-              "price": "NT$120.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Promote Post",
-              "price": "NT$35,000.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "547166701",
-          "appName": "百度网盘",
-          "region": "vn",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "SVIP1年特惠",
-              "price": "999.000đ"
-            }
-          ],
-          "removed": [
-            {
-              "name": "网盘SVIP月卡（40元）",
-              "price": "199.000đ"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "547166701",
-          "appName": "百度网盘",
-          "region": "sg",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "百度网盘自动续费超级会员（1个月）",
-              "price": "S$ 5.98"
-            },
-            {
-              "name": "百度网盘超级会员(1个月-自动续费)(首充)",
-              "price": "S$ 3.98"
-            },
-            {
-              "name": "百度网盘超级会员(1个月-自动续费)",
-              "price": "S$ 5.98"
-            },
-            {
-              "name": "百度网盘超级会员(1个月)",
-              "price": "S$ 8.98"
-            },
-            {
-              "name": "百度网盘会员(3个月)",
-              "price": "S$ 5.98"
-            },
-            {
-              "name": "百度网盘超级会员（1个月）",
-              "price": "S$ 8.98"
-            },
-            {
-              "name": "百度网盘自动续费超级会员（3个月）",
-              "price": "S$ 14.48"
-            },
-            {
-              "name": "百度网盘自动续费超级会员（12个月）",
-              "price": "S$ 55.98"
-            }
-          ],
-          "removed": [
-            {
-              "name": "SVIP1年特惠",
-              "price": "S$ 45.48"
-            },
-            {
-              "name": "百度网盘扫描会员(3个月-自动续费)(首月1元试用)",
-              "price": "S$ 14.98"
-            },
-            {
-              "name": "教师活动VIP月卡9.9售卖",
-              "price": "S$ 0.98"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "547166701",
-          "appName": "百度网盘",
-          "region": "ph",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "百度网盘会员（1个月）",
-              "price": "₱ 249.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "网盘SVIP月卡（40元）",
-              "price": "₱ 399.00"
-            },
-            {
-              "name": "百度网盘自动续费超级会员（3个月）",
-              "price": "₱ 499.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "547166701",
-          "appName": "百度网盘",
-          "region": "br",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "百度网盘自动续费超级会员（3个月）",
-              "price": "R$ 55,90"
-            },
-            {
-              "name": "百度网盘超级会员(12个月-自动续费)",
-              "price": "R$ 249,90"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "547166701",
-          "appName": "百度网盘",
-          "region": "id",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "百度网盘小说自动续费月卡商品",
-              "price": "Rp 29ribu"
-            },
-            {
-              "name": "百度网盘超级会员(3个月-自动续费)",
-              "price": "Rp 229ribu"
-            }
-          ],
-          "removed": [
-            {
-              "name": "百度网盘自动续费超级会员（3个月）",
-              "price": "Rp 159ribu"
-            },
-            {
-              "name": "百度网盘会员(1个月-自动续费)",
-              "price": "Rp 49ribu"
-            },
-            {
-              "name": "网盘SVIP月卡（40元）",
-              "price": "Rp 99ribu"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "363590051",
-          "appName": "Netflix",
-          "region": "vn",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Netflix 2S Streaming",
-              "price": "230.000đ"
-            }
-          ]
         }
       ]
     }
