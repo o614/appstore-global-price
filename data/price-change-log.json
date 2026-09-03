@@ -2,6 +2,68 @@
   "version": 1,
   "entries": [
     {
+      "id": "3703ad40459b1bfafe11",
+      "publishedAt": "2026-09-03T11:51:31.496Z",
+      "changeCount": 3,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$4.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$199.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "4,99 €",
+              "afterPrice": "49,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,649"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₹ 749"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "b6cd62233f933a9198cc",
       "publishedAt": "2026-09-03T00:50:03.614Z",
       "changeCount": 3,
