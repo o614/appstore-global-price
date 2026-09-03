@@ -2,6 +2,73 @@
   "version": 1,
   "entries": [
     {
+      "id": "b6cd62233f933a9198cc",
+      "publishedAt": "2026-09-03T00:50:03.614Z",
+      "changeCount": 3,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Apple Developer Program",
+              "price": "AED 374.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "AED 384.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "₹ 749"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,649"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6474233312",
+          "appName": "Kimi - Kimi K3 is Live",
+          "region": "hk",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Grab a coffee with Kimi !",
+              "price": "HK$ 32.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Vivace Annual Pass",
+              "price": "HK$ 14,888.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "075c415356e040ef3158",
       "publishedAt": "2026-09-02T18:16:48.540Z",
       "changeCount": 1,
