@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T18:09:38.512Z",
+  "generatedAt": "2026-09-04T00:22:49.025Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:00.634Z"
+      "verifiedAt": "2026-09-04T00:18:40.459Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:00.634Z"
+      "verifiedAt": "2026-09-04T00:18:40.459Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:00.634Z"
+      "verifiedAt": "2026-09-04T00:18:40.459Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:07.392Z"
+      "verifiedAt": "2026-09-04T00:18:42.865Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:07.392Z"
+      "verifiedAt": "2026-09-04T00:18:42.865Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:07.392Z"
+      "verifiedAt": "2026-09-04T00:18:42.865Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:25.163Z"
+      "verifiedAt": "2026-09-04T00:19:00.614Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:25.163Z"
+      "verifiedAt": "2026-09-04T00:19:00.614Z"
     },
     {
       "query": "ChatGPT",
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:25.163Z"
+      "verifiedAt": "2026-09-04T00:19:00.614Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5720,7 +5720,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:58.233Z"
+      "verifiedAt": "2026-09-04T00:19:28.618Z"
     },
     {
       "query": "Google Gemini",
@@ -6390,19 +6390,19 @@
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "9,99 €",
-              "productId": "6736381194",
-              "offerName": "com.google.gemini.2tb.m.iog",
+              "name": "Google AI Ultra (30 TB)",
+              "price": "219,99 €",
+              "productId": "6745001872",
+              "offerName": "com.google.gemini.30tb.ai.pro.m.3months_ip_50p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "219,99 €",
-              "productId": "6745001872",
-              "offerName": "com.google.gemini.30tb.ai.pro.m.3months_ip_50p",
+              "name": "Google AI Plus (2 TB)",
+              "price": "9,99 €",
+              "productId": "6736381194",
+              "offerName": "com.google.gemini.2tb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7351,6 +7351,15 @@
               "isSubscription": true
             },
             {
+              "name": "Google AI Plus (2 TB)",
+              "price": "SAR 34.99",
+              "productId": "6736381194",
+              "offerName": "com.google.gemini.2tb.m.iog",
+              "billingPeriod": "P1M",
+              "subscriptionFamilyId": "21549475",
+              "isSubscription": true
+            },
+            {
               "name": "Google AI Pro (5 TB)",
               "price": "SAR 85.99",
               "productId": "6736381057",
@@ -7369,15 +7378,6 @@
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "SAR 34.99",
-              "productId": "6736381194",
-              "offerName": "com.google.gemini.2tb.m.iog",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549475",
-              "isSubscription": true
-            },
-            {
               "name": "200 GB",
               "price": "SAR 10.99",
               "productId": "6736381159",
@@ -7389,7 +7389,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:58.233Z"
+      "verifiedAt": "2026-09-04T00:19:28.618Z"
     },
     {
       "query": "Grok AI",
@@ -7657,19 +7657,19 @@
             },
             {
               "name": "SuperGrok",
-              "price": "$9,990.00",
-              "productId": "6741437697",
-              "offerName": "grok.pro.yearly.300.v2",
-              "billingPeriod": "P1Y",
+              "price": "$990.00",
+              "productId": "6744708035",
+              "offerName": "grok.pro.monthly.30.legacy",
+              "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
               "name": "SuperGrok",
-              "price": "$990.00",
-              "productId": "6744708035",
-              "offerName": "grok.pro.monthly.30.legacy",
-              "billingPeriod": "P1M",
+              "price": "$9,990.00",
+              "productId": "6741437697",
+              "offerName": "grok.pro.yearly.300.v2",
+              "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             }
@@ -7980,6 +7980,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "60,00 €",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Heavy",
               "price": "349,00 €",
               "productId": "6748365662",
@@ -7987,13 +7994,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "60,00 €",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok Plus",
@@ -8345,13 +8345,6 @@
               "isSubscription": true
             },
             {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "₹ 4,999",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
-            },
-            {
               "name": "SuperGrok Plus",
               "price": "₹ 9,900",
               "productId": "6794461918",
@@ -8359,6 +8352,13 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
+            },
+            {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "₹ 4,999",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
             },
             {
               "name": "SuperGrok Heavy",
@@ -8425,19 +8425,19 @@
               "isSubscription": false
             },
             {
-              "name": "SuperGrok Heavy",
-              "price": "R$ 1.999,90",
-              "productId": "6748365662",
-              "offerName": "supergrok.pro.monthly.300",
+              "name": "SuperGrok Plus",
+              "price": "R$ 599,90",
+              "productId": "6794461918",
+              "offerName": "grok.plus.monthly.100",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
-              "name": "SuperGrok Plus",
-              "price": "R$ 599,90",
-              "productId": "6794461918",
-              "offerName": "grok.plus.monthly.100",
+              "name": "SuperGrok Heavy",
+              "price": "R$ 1.999,90",
+              "productId": "6748365662",
+              "offerName": "supergrok.pro.monthly.300",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
@@ -8676,6 +8676,13 @@
               "isSubscription": false
             },
             {
+              "name": "Extra Usage Credits 20 USD",
+              "price": "$40.00",
+              "productId": "6785994496",
+              "offerName": "grok.credits.20",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Lite",
               "price": "$20.00",
               "productId": "6760920468",
@@ -8683,13 +8690,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 20 USD",
-              "price": "$40.00",
-              "productId": "6785994496",
-              "offerName": "grok.credits.20",
-              "isSubscription": false
             },
             {
               "name": "Extra Usage Credits 50 USD",
@@ -8922,7 +8922,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-03T18:00:58.233Z"
+      "verifiedAt": "2026-09-04T00:19:28.618Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -9097,13 +9097,6 @@
               "isSubscription": true
             },
             {
-              "name": "Give Kimi some snacks !",
-              "price": "$0.99",
-              "productId": "6503333700",
-              "offerName": "com.moonshot.kimichat.award.cny1000",
-              "isSubscription": false
-            },
-            {
               "name": "Allegro Annual Pass",
               "price": "$949.00",
               "productId": "6758774153",
@@ -9111,6 +9104,13 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21807222",
               "isSubscription": true
+            },
+            {
+              "name": "Give Kimi some snacks !",
+              "price": "$0.99",
+              "productId": "6503333700",
+              "offerName": "com.moonshot.kimichat.award.cny1000",
+              "isSubscription": false
             },
             {
               "name": "Send Kimi a flower !",
@@ -10478,7 +10478,7 @@
       "id": "1668000334",
       "matchedName": "Perplexity - AI Search & Chat",
       "developer": "Perplexity AI Inc.",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5d/5f/7f/5d5f7f30-d836-7ef0-c149-8b3c3d8985ac/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-P3-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1d/c1/1f/1dc11fe6-023d-fdf6-7bee-cc46e0c667f9/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-sRGB-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/perplexity-ai-search-chat/id1668000334?uo=4",
@@ -11992,8 +11992,164 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 0,
-    "fallbacks": [],
+    "fallbackCount": 31,
+    "fallbacks": [
+      {
+        "appId": "6474233312",
+        "region": "tw",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "jp",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "gb",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "de",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "tr",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "au",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "in",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "br",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "id",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "mx",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "nz",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "ae",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "sa",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "us",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "hk",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "tw",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "vn",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "jp",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "gb",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "de",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "tr",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "au",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "in",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "br",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "id",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "mx",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "nz",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "ae",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "1668000334",
+        "region": "sa",
+        "reason": "identity:error:HTTP 429"
+      }
+    ],
     "deferredApps": [],
     "batches": [
       {
@@ -12033,7 +12189,7 @@
           "6474233312",
           "1668000334"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       }
     ]
   }
