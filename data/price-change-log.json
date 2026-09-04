@@ -2,6 +2,66 @@
   "version": 1,
   "entries": [
     {
+      "id": "c4d1efd348954a182743",
+      "publishedAt": "2026-09-04T17:57:45.200Z",
+      "changeCount": 2,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "de",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "49,99 €",
+              "afterPrice": "4,99 €"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "beforePrice": "$32.99",
+              "afterPrice": "$329.99"
+            },
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "$7.99",
+              "afterPrice": "$79.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "100 GB",
+              "price": "$2.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "5817181b9b8552fa31ef",
       "publishedAt": "2026-09-04T11:53:04.907Z",
       "changeCount": 4,
@@ -4966,229 +5026,6 @@
           "type": "app-added",
           "appId": "640199958",
           "appName": "Apple Developer"
-        }
-      ]
-    },
-    {
-      "id": "dc46e241dbc6d95ff7dc",
-      "publishedAt": "2026-07-26T06:10:18.601Z",
-      "changeCount": 14,
-      "changes": [
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "cn",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "¥10.00"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "¥5.50"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "us",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "$0.99"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "$0.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "hk",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "HK$ 8.00"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "HK$ 8.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "tw",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "NT$30.00"
-            },
-            {
-              "name": "Grab a coffee with Kimi !",
-              "price": "NT$120.00"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "NT$30.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "sg",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "S$ 0.98"
-            },
-            {
-              "name": "Grab a coffee with Kimi !",
-              "price": "S$ 5.98"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "jp",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "¥150"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "¥150"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "gb",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "£0.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "de",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Grab a coffee with Kimi !",
-              "price": "3,99 €"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "ca",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "$0.99"
-            },
-            {
-              "name": "Grab a coffee with Kimi !",
-              "price": "$4.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "tr",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "₺49,99"
-            },
-            {
-              "name": "Send Kimi a flower !",
-              "price": "₺39,99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live",
-          "region": "au",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Grab a coffee with Kimi !",
-              "price": "$5.99"
-            },
-            {
-              "name": "Give Kimi some snacks !",
-              "price": "$1.99"
-            },
-            {
-              "name": "Get Kimi charged !",
-              "price": "$9.99"
-            }
-          ]
-        },
-        {
-          "type": "app-removed",
-          "appId": "6737597349",
-          "appName": "DeepSeek - AI Assistant"
-        },
-        {
-          "type": "app-removed",
-          "appId": "530168168",
-          "appName": "Paramount+"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "376510438",
-          "appName": "Hulu: Stream TV shows & movies",
-          "region": "jp",
-          "beforeState": "service-unavailable",
-          "afterState": "verified"
         }
       ]
     }

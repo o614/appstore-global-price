@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T11:53:04.688Z",
+  "generatedAt": "2026-09-04T17:57:44.980Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:22.691Z"
+      "verifiedAt": "2026-09-04T17:44:51.983Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:22.691Z"
+      "verifiedAt": "2026-09-04T17:44:51.983Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:22.691Z"
+      "verifiedAt": "2026-09-04T17:44:51.983Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:24.719Z"
+      "verifiedAt": "2026-09-04T17:44:54.196Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:24.719Z"
+      "verifiedAt": "2026-09-04T17:44:54.196Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:24.719Z"
+      "verifiedAt": "2026-09-04T17:44:54.196Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:42.302Z"
+      "verifiedAt": "2026-09-04T17:45:11.263Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:42.302Z"
+      "verifiedAt": "2026-09-04T17:45:11.263Z"
     },
     {
       "query": "ChatGPT",
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:40:42.302Z"
+      "verifiedAt": "2026-09-04T17:45:11.263Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5720,14 +5720,14 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T00:19:28.618Z"
+      "verifiedAt": "2026-09-04T17:57:44.893Z"
     },
     {
       "query": "Google Gemini",
       "id": "6477489729",
       "matchedName": "Google Gemini",
       "developer": "Google LLC",
-      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/11/8c/0a/118c0af9-62cc-4198-051c-3cdcbb4c2ebb/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-sRGB-0-0-85-220.png/512x512bb.jpg",
+      "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/04/eb/fb/04ebfb38-5dcb-babe-a092-0268a25ff40a/AppIcon-0-0-1x_U007epad-0-0-0-1-0-0-sRGB-0-0-85-220.png/512x512bb.jpg",
       "category": "Productivity",
       "group": "AI 助手",
       "storeUrl": "https://apps.apple.com/us/app/google-gemini/id6477489729?uo=4",
@@ -6390,6 +6390,15 @@
               "isSubscription": true
             },
             {
+              "name": "Google AI Plus (400 GB)",
+              "price": "4,99 €",
+              "productId": "6749433284",
+              "offerName": "com.google.gemini.helium.m.iog",
+              "billingPeriod": "P1M",
+              "subscriptionFamilyId": "21549475",
+              "isSubscription": true
+            },
+            {
               "name": "Google AI Plus (2 TB)",
               "price": "9,99 €",
               "productId": "6736381194",
@@ -6405,15 +6414,6 @@
               "offerName": "com.google.gemini.30tb.ai.pro.m.3months_ip_50p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
-              "isSubscription": true
-            },
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "49,99 €",
-              "productId": "6757688940",
-              "offerName": "com.google.gemini.helium.a",
-              "billingPeriod": "P1Y",
-              "subscriptionFamilyId": "21549392",
               "isSubscription": true
             }
           ]
@@ -6615,23 +6615,23 @@
         {
           "region": "au",
           "status": "ok-structured",
-          "itemCount": 10,
+          "itemCount": 6,
           "items": [
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "$32.99",
-              "productId": "6736380797",
-              "offerName": "com.google.gemini.2tb.ai.m.1month_eft",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549475",
+              "name": "Google AI Plus (400 GB)",
+              "price": "$79.99",
+              "productId": "6757688940",
+              "offerName": "com.google.gemini.helium.a",
+              "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "21549392",
               "isSubscription": true
             },
             {
               "name": "Google AI Plus (400 GB)",
-              "price": "$7.99",
-              "productId": "6755161033",
-              "offerName": "com.google.gemini.helium.m.2months_ip_50p",
-              "billingPeriod": "P1M",
+              "price": "$79.99",
+              "productId": "6757687593",
+              "offerName": "com.google.gemini.helium.a.iog",
+              "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
@@ -6646,18 +6646,18 @@
             },
             {
               "name": "Google AI Pro (5 TB)",
-              "price": "$32.99",
-              "productId": "6736380395",
-              "offerName": "com.google.gemini.2tb.ai.m",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549392",
+              "price": "$329.99",
+              "productId": "6755646933",
+              "offerName": "com.google.gemini.ai.2tb.a.ip_1yr_50p",
+              "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "$32.99",
-              "productId": "6736380623",
-              "offerName": "com.google.gemini.2tb.ai.m.iog",
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$329.99",
+              "productId": "6755646812",
+              "offerName": "com.google.gemini.aiultra.30tb.m.ip_3mo_67p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -6665,44 +6665,8 @@
             {
               "name": "Google AI Plus (400 GB)",
               "price": "$7.99",
-              "productId": "6749432878",
-              "offerName": "com.google.gemini.helium.m",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549392",
-              "isSubscription": true
-            },
-            {
-              "name": "100 GB",
-              "price": "$2.99",
-              "productId": "6736380942",
-              "offerName": "com.google.gemini.100gb.m.iog",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549475",
-              "isSubscription": true
-            },
-            {
-              "name": "Google AI Ultra (30 TB)",
-              "price": "$329.99",
-              "productId": "6745001872",
-              "offerName": "com.google.gemini.30tb.ai.pro.m.3months_ip_50p",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21549475",
-              "isSubscription": true
-            },
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "$79.99",
-              "productId": "6757688940",
-              "offerName": "com.google.gemini.helium.a",
-              "billingPeriod": "P1Y",
-              "subscriptionFamilyId": "21549392",
-              "isSubscription": true
-            },
-            {
-              "name": "Google AI Pro (5 TB)",
-              "price": "$32.99",
-              "productId": "6736381057",
-              "offerName": "com.google.gemini.5tb.m.iog",
+              "productId": "6755161033",
+              "offerName": "com.google.gemini.helium.m.2months_ip_50p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -6715,19 +6679,19 @@
           "itemCount": 10,
           "items": [
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₹ 1,950",
-              "productId": "6736380797",
-              "offerName": "com.google.gemini.2tb.ai.m.1month_eft",
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 399",
+              "productId": "6749432874",
+              "offerName": "com.google.gemini.helium.m.6months_ip_50p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (400 GB)",
-              "price": "₹ 399",
-              "productId": "6749432874",
-              "offerName": "com.google.gemini.helium.m.6months_ip_50p",
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950",
+              "productId": "6736380797",
+              "offerName": "com.google.gemini.2tb.ai.m.1month_eft",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7078,19 +7042,19 @@
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (400 GB)",
-              "price": "$99.00",
-              "productId": "6749433284",
-              "offerName": "com.google.gemini.helium.m.iog",
+              "name": "Google AI Plus (2 TB)",
+              "price": "$199.00",
+              "productId": "6736381194",
+              "offerName": "com.google.gemini.2tb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (2 TB)",
-              "price": "$199.00",
-              "productId": "6736381194",
-              "offerName": "com.google.gemini.2tb.m.iog",
+              "name": "Google AI Plus (400 GB)",
+              "price": "$99.00",
+              "productId": "6749433284",
+              "offerName": "com.google.gemini.helium.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7389,7 +7353,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T00:19:28.618Z"
+      "verifiedAt": "2026-09-04T17:57:44.893Z"
     },
     {
       "query": "Grok AI",
@@ -7480,6 +7444,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "$100.00",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok",
               "price": "$30.00",
               "productId": "6744708035",
@@ -7487,13 +7458,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "$100.00",
-              "productId": "6785994993",
-              "offerName": "grok.credits.100",
-              "isSubscription": false
             }
           ]
         },
@@ -7732,19 +7696,19 @@
             },
             {
               "name": "SuperGrok",
-              "price": "799.000đ",
-              "productId": "6744708035",
-              "offerName": "grok.pro.monthly.30.legacy",
-              "billingPeriod": "P1M",
+              "price": "7.999.000đ",
+              "productId": "6741437697",
+              "offerName": "grok.pro.yearly.300.v2",
+              "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
               "name": "SuperGrok",
-              "price": "7.999.000đ",
-              "productId": "6741437697",
-              "offerName": "grok.pro.yearly.300.v2",
-              "billingPeriod": "P1Y",
+              "price": "799.000đ",
+              "productId": "6744708035",
+              "offerName": "grok.pro.monthly.30.legacy",
+              "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
@@ -8069,6 +8033,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "$70.00",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Heavy",
               "price": "$400.00",
               "productId": "6748365662",
@@ -8076,13 +8047,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "$70.00",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok Plus",
@@ -8361,6 +8325,13 @@
               "isSubscription": false
             },
             {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "₹ 9,900",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Heavy",
               "price": "₹ 29,900",
               "productId": "6748365662",
@@ -8368,13 +8339,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "₹ 9,900",
-              "productId": "6785994993",
-              "offerName": "grok.credits.100",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok Plus",
@@ -8676,6 +8640,13 @@
               "isSubscription": false
             },
             {
+              "name": "Extra Usage Credits 20 USD",
+              "price": "$40.00",
+              "productId": "6785994496",
+              "offerName": "grok.credits.20",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Lite",
               "price": "$20.00",
               "productId": "6760920468",
@@ -8683,13 +8654,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 20 USD",
-              "price": "$40.00",
-              "productId": "6785994496",
-              "offerName": "grok.credits.20",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok Heavy",
@@ -8922,7 +8886,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-04T11:53:04.600Z"
+      "verifiedAt": "2026-09-04T17:57:44.893Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -9011,13 +8975,6 @@
               "isSubscription": false
             },
             {
-              "name": "送 Kimi 一朵花",
-              "price": "¥5.50",
-              "productId": "6503333693",
-              "offerName": "com.moonshot.kimichat.award.cny550",
-              "isSubscription": false
-            },
-            {
               "name": "Allegro 年卡",
               "price": "¥6,788.00",
               "productId": "6758773195",
@@ -9025,6 +8982,13 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21807222",
               "isSubscription": true
+            },
+            {
+              "name": "送 Kimi 一朵花",
+              "price": "¥5.50",
+              "productId": "6503333693",
+              "offerName": "com.moonshot.kimichat.award.cny550",
+              "isSubscription": false
             }
           ]
         },
@@ -11992,21 +11956,36 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 28,
+    "fallbackCount": 31,
     "fallbacks": [
       {
-        "appId": "6473753684",
-        "region": "au",
+        "appId": "6474233312",
+        "region": "vn",
         "reason": "identity:error:HTTP 429"
       },
       {
-        "appId": "6477489729",
-        "region": "hk",
+        "appId": "6474233312",
+        "region": "jp",
         "reason": "identity:error:HTTP 429"
       },
       {
-        "appId": "6477489729",
-        "region": "ae",
+        "appId": "6474233312",
+        "region": "gb",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "de",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "tr",
         "reason": "identity:error:HTTP 429"
       },
       {
