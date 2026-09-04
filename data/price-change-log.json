@@ -2,6 +2,93 @@
   "version": 1,
   "entries": [
     {
+      "id": "5817181b9b8552fa31ef",
+      "publishedAt": "2026-09-04T11:53:04.907Z",
+      "changeCount": 4,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "229.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "200 GB",
+              "price": "69.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "jp",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "¥7,200"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "¥32,000"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "in",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 4,000"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,649"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "mx",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$199.00"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$3,949.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "ee4934f0ceb1ef5038c2",
       "publishedAt": "2026-09-03T18:09:38.704Z",
       "changeCount": 7,
@@ -5102,63 +5189,6 @@
           "region": "jp",
           "beforeState": "service-unavailable",
           "afterState": "verified"
-        }
-      ]
-    },
-    {
-      "id": "8030449622a66d3a0c2f",
-      "publishedAt": "2026-07-26T05:38:48.201Z",
-      "changeCount": 10,
-      "changes": [
-        {
-          "type": "app-removed",
-          "appId": "1451784328",
-          "appName": "Google One"
-        },
-        {
-          "type": "app-removed",
-          "appId": "547166701",
-          "appName": "百度网盘"
-        },
-        {
-          "type": "app-added",
-          "appId": "6474233312",
-          "appName": "Kimi - Kimi K3 is Live"
-        },
-        {
-          "type": "app-added",
-          "appId": "6737597349",
-          "appName": "DeepSeek - AI Assistant"
-        },
-        {
-          "type": "app-added",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE"
-        },
-        {
-          "type": "app-added",
-          "appId": "1666653815",
-          "appName": "HBO Max: Stream Movies & TV"
-        },
-        {
-          "type": "app-added",
-          "appId": "530168168",
-          "appName": "Paramount+"
-        },
-        {
-          "type": "app-added",
-          "appId": "1446075923",
-          "appName": "Disney+"
-        },
-        {
-          "type": "app-added",
-          "appId": "376510438",
-          "appName": "Hulu: Stream TV shows & movies"
-        },
-        {
-          "type": "app-added",
-          "appId": "317469184",
-          "appName": "ESPN: Live Sports & Scores"
         }
       ]
     }
