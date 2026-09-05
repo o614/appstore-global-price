@@ -2,6 +2,73 @@
   "version": 1,
   "entries": [
     {
+      "id": "a8c7cb63e1860af2bc72",
+      "publishedAt": "2026-09-05T00:35:35.278Z",
+      "changeCount": 3,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "₺2.099,99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₺649,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "AED 384.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Apple Developer Program",
+              "price": "AED 374.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "200 GB",
+              "price": "$2.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "price": "$4.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "c4d1efd348954a182743",
       "publishedAt": "2026-09-04T17:57:45.200Z",
       "changeCount": 2,
@@ -5014,18 +5081,6 @@
               "price": "S$ 18.98"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "39f277daadd8f469a655",
-      "publishedAt": "2026-07-26T08:02:21.258Z",
-      "changeCount": 1,
-      "changes": [
-        {
-          "type": "app-added",
-          "appId": "640199958",
-          "appName": "Apple Developer"
         }
       ]
     }
