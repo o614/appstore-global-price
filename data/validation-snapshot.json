@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T11:06:46.316Z",
+  "generatedAt": "2026-09-05T17:07:39.671Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -912,6 +912,15 @@
           "itemCount": 10,
           "items": [
             {
+              "name": "Apple Developer Program",
+              "price": "₺649,99",
+              "productId": "1473505534",
+              "offerName": "ADP_1year_001",
+              "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "20537122",
+              "isSubscription": true
+            },
+            {
               "name": "Xcode Cloud 10000 Hours",
               "price": "₺149.999,00",
               "productId": "6737360175",
@@ -988,15 +997,6 @@
               "price": "₺1.099,99",
               "productId": "1630465420",
               "offerName": "com.apple.weatherkit.monthly.1Mcalls",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "20967321",
-              "isSubscription": true
-            },
-            {
-              "name": "WeatherKit 2 million calls",
-              "price": "₺2.099,99",
-              "productId": "1630465230",
-              "offerName": "com.apple.weatherkit.monthly.2Mcalls",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "20967321",
               "isSubscription": true
@@ -1591,6 +1591,15 @@
           "itemCount": 10,
           "items": [
             {
+              "name": "Apple Developer Program",
+              "price": "AED 374.99",
+              "productId": "1473505534",
+              "offerName": "ADP_1year_001",
+              "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "20537122",
+              "isSubscription": true
+            },
+            {
               "name": "Xcode Cloud 10000 Hours",
               "price": "AED 15,499.99",
               "productId": "6737360175",
@@ -1667,15 +1676,6 @@
               "price": "AED 192.99",
               "productId": "1630465420",
               "offerName": "com.apple.weatherkit.monthly.1Mcalls",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "20967321",
-              "isSubscription": true
-            },
-            {
-              "name": "WeatherKit 2 million calls",
-              "price": "AED 384.99",
-              "productId": "1630465230",
-              "offerName": "com.apple.weatherkit.monthly.2Mcalls",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "20967321",
               "isSubscription": true
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T00:30:10.196Z"
+      "verifiedAt": "2026-09-05T17:07:39.588Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T00:30:10.196Z"
+      "verifiedAt": "2026-09-05T17:07:39.588Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T00:30:10.196Z"
+      "verifiedAt": "2026-09-05T17:07:39.588Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:28.346Z"
+      "verifiedAt": "2026-09-05T16:54:59.192Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:28.346Z"
+      "verifiedAt": "2026-09-05T16:54:59.192Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:28.346Z"
+      "verifiedAt": "2026-09-05T16:54:59.192Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:45.794Z"
+      "verifiedAt": "2026-09-05T16:55:16.497Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:45.794Z"
+      "verifiedAt": "2026-09-05T16:55:16.497Z"
     },
     {
       "query": "ChatGPT",
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T10:52:45.794Z"
+      "verifiedAt": "2026-09-05T16:55:16.497Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5423,20 +5423,20 @@
               "isSubscription": true
             },
             {
-              "name": "Claude Max 20x - Monthly",
-              "price": "Rp 3,999juta",
-              "productId": "6744120542",
-              "offerName": "com.anthropic.claude.max_20250402_20x.monthly.ios",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21472534",
-              "isSubscription": true
-            },
-            {
               "name": "Claude Pro - Annual",
               "price": "Rp 3,999juta",
               "productId": "6737565014",
               "offerName": "com.anthropic.claude.pro.yearly.ios",
               "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "21472534",
+              "isSubscription": true
+            },
+            {
+              "name": "Claude Max 20x - Monthly",
+              "price": "Rp 3,999juta",
+              "productId": "6744120542",
+              "offerName": "com.anthropic.claude.max_20250402_20x.monthly.ios",
+              "billingPeriod": "P1M",
               "subscriptionFamilyId": "21472534",
               "isSubscription": true
             },
@@ -5720,7 +5720,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T11:06:46.229Z"
+      "verifiedAt": "2026-09-05T16:55:44.680Z"
     },
     {
       "query": "Google Gemini",
@@ -6593,19 +6593,19 @@
               "isSubscription": true
             },
             {
-              "name": "100 GB",
-              "price": "₺84,99",
-              "productId": "6736380942",
-              "offerName": "com.google.gemini.100gb.m.iog",
+              "name": "Google AI Pro (5 TB)",
+              "price": "₺539,99",
+              "productId": "6736381057",
+              "offerName": "com.google.gemini.5tb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₺539,99",
-              "productId": "6736381057",
-              "offerName": "com.google.gemini.5tb.m.iog",
+              "name": "100 GB",
+              "price": "₺84,99",
+              "productId": "6736380942",
+              "offerName": "com.google.gemini.100gb.m.iog",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -6715,19 +6715,19 @@
           "itemCount": 10,
           "items": [
             {
-              "name": "Google AI Pro (5 TB)",
-              "price": "₹ 1,950",
-              "productId": "6736380797",
-              "offerName": "com.google.gemini.2tb.ai.m.1month_eft",
+              "name": "Google AI Plus (400 GB)",
+              "price": "₹ 399",
+              "productId": "6749432874",
+              "offerName": "com.google.gemini.helium.m.6months_ip_50p",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
             },
             {
-              "name": "Google AI Plus (400 GB)",
-              "price": "₹ 399",
-              "productId": "6749432874",
-              "offerName": "com.google.gemini.helium.m.6months_ip_50p",
+              "name": "Google AI Pro (5 TB)",
+              "price": "₹ 1,950",
+              "productId": "6736380797",
+              "offerName": "com.google.gemini.2tb.ai.m.1month_eft",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21549475",
               "isSubscription": true
@@ -7389,7 +7389,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T11:06:46.229Z"
+      "verifiedAt": "2026-09-05T16:55:44.680Z"
     },
     {
       "query": "Grok AI",
@@ -8254,19 +8254,19 @@
               "isSubscription": false
             },
             {
-              "name": "SuperGrok Heavy",
-              "price": "$500.00",
-              "productId": "6748365662",
-              "offerName": "supergrok.pro.monthly.300",
+              "name": "SuperGrok Plus",
+              "price": "$150.00",
+              "productId": "6794461918",
+              "offerName": "grok.plus.monthly.100",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
-              "name": "SuperGrok Plus",
-              "price": "$150.00",
-              "productId": "6794461918",
-              "offerName": "grok.plus.monthly.100",
+              "name": "SuperGrok Heavy",
+              "price": "$500.00",
+              "productId": "6748365662",
+              "offerName": "supergrok.pro.monthly.300",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
@@ -8345,6 +8345,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "₹ 4,999",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Plus",
               "price": "₹ 9,900",
               "productId": "6794461918",
@@ -8352,13 +8359,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "₹ 4,999",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok Heavy",
@@ -8434,6 +8434,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "R$ 299,90",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok Plus",
               "price": "R$ 599,90",
               "productId": "6794461918",
@@ -8441,13 +8448,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "R$ 299,90",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok",
@@ -8922,7 +8922,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-05T11:06:46.229Z"
+      "verifiedAt": "2026-09-05T16:55:44.680Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -9145,20 +9145,20 @@
               "isSubscription": true
             },
             {
-              "name": "Allegro",
-              "price": "HK$ 788.00",
-              "productId": "6758773964",
-              "offerName": "allegro_oversea_v3_0",
-              "billingPeriod": "P1M",
-              "subscriptionFamilyId": "21807222",
-              "isSubscription": true
-            },
-            {
               "name": "Moderato Annual Pass",
               "price": "HK$ 1,488.00",
               "productId": "6757530664",
               "offerName": "moderato_oversea_year_v3_0",
               "billingPeriod": "P1Y",
+              "subscriptionFamilyId": "21807222",
+              "isSubscription": true
+            },
+            {
+              "name": "Allegro",
+              "price": "HK$ 788.00",
+              "productId": "6758773964",
+              "offerName": "allegro_oversea_v3_0",
+              "billingPeriod": "P1M",
               "subscriptionFamilyId": "21807222",
               "isSubscription": true
             },
@@ -11992,19 +11992,37 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 28,
+    "fallbackCount": 31,
     "fallbacks": [
       {
-        "appId": "640199958",
-        "reason": "batch-confirmation-mismatch"
+        "appId": "6474233312",
+        "region": "tw",
+        "reason": "identity:error:HTTP 429"
       },
       {
-        "appId": "1108187390",
-        "reason": "batch-confirmation-mismatch"
+        "appId": "6474233312",
+        "region": "jp",
+        "reason": "identity:error:HTTP 429"
       },
       {
-        "appId": "apple-icloud-plus",
-        "reason": "batch-confirmation-mismatch"
+        "appId": "6474233312",
+        "region": "gb",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "de",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "ca",
+        "reason": "identity:error:HTTP 429"
+      },
+      {
+        "appId": "6474233312",
+        "region": "tr",
+        "reason": "identity:error:HTTP 429"
       },
       {
         "appId": "6474233312",
@@ -12140,7 +12158,7 @@
           "1108187390",
           "apple-icloud-plus"
         ],
-        "status": "unconfirmed"
+        "status": "confirmed-change"
       },
       {
         "appIds": [
@@ -12164,7 +12182,7 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [

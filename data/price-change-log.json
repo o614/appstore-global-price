@@ -2,6 +2,53 @@
   "version": 1,
   "entries": [
     {
+      "id": "aed67fb41ad64e64659b",
+      "publishedAt": "2026-09-05T17:07:39.886Z",
+      "changeCount": 2,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "tr",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Apple Developer Program",
+              "price": "₺649,99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "₺2.099,99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "640199958",
+          "appName": "Apple Developer",
+          "region": "ae",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Apple Developer Program",
+              "price": "AED 374.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "WeatherKit 2 million calls",
+              "price": "AED 384.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "f355ab60aecd89ba788e",
       "publishedAt": "2026-09-05T11:06:46.536Z",
       "changeCount": 4,
@@ -4797,238 +4844,6 @@
               "price": "¥600"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "b04cb45a12a5e4b67dd5",
-      "publishedAt": "2026-07-27T06:04:37.790Z",
-      "changeCount": 11,
-      "changes": [
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "ca",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "100 GB",
-              "price": "$2.79"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Google AI Pro (5 TB)",
-              "price": "$269.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6670324846",
-          "appName": "Grok AI",
-          "region": "tw",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Extra Usage Credits 10 USD",
-              "price": "NT$320.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "333903271",
-          "appName": "X",
-          "region": "tw",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Promote Post",
-              "price": "NT$15,000.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "@SawyerMerritt Subscription",
-              "price": "NT$120.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "333903271",
-          "appName": "X",
-          "region": "de",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "updated": [
-            {
-              "name": "Promote Post",
-              "beforePrice": "10,00 €",
-              "afterPrice": "10.999,99 €"
-            }
-          ],
-          "added": [
-            {
-              "name": "@NatHalberstadt Subscription",
-              "price": "6,00 €"
-            },
-            {
-              "name": "@zeroxjackson Subscription",
-              "price": "99,00 €"
-            },
-            {
-              "name": "@@itsJohnRocker Subscription",
-              "price": "6,00 €"
-            },
-            {
-              "name": "Promote Post",
-              "price": "5.499,99 €"
-            },
-            {
-              "name": "Enabled for Advanced Commerce",
-              "price": "9,99 €"
-            },
-            {
-              "name": "@skdh Subscription",
-              "price": "4,00 €"
-            },
-            {
-              "name": "@BrettFavre Subscription",
-              "price": "2,00 €"
-            },
-            {
-              "name": "@Vol8882 Subscription",
-              "price": "9,00 €"
-            },
-            {
-              "name": "@goingpublic Subscription",
-              "price": "1,00 €"
-            }
-          ],
-          "removed": [
-            {
-              "name": "X Premium (Monthly)",
-              "price": "11,00 €"
-            },
-            {
-              "name": "X Premium Basic (Monthly)",
-              "price": "4,00 €"
-            },
-            {
-              "name": "X Premium Plus (Monthly)",
-              "price": "57,00 €"
-            },
-            {
-              "name": "X Premium (Annual)",
-              "price": "107,99 €"
-            },
-            {
-              "name": "@elonmusk Subscription",
-              "price": "4,00 €"
-            },
-            {
-              "name": "X Premium Basic (Annual)",
-              "price": "36,00 €"
-            },
-            {
-              "name": "Promote Post for $25",
-              "price": "29,00 €"
-            },
-            {
-              "name": "Boosted Tweet package",
-              "price": "60,00 €"
-            },
-            {
-              "name": "X Premium Plus (Annual)",
-              "price": "569,00 €"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE",
-          "region": "ca",
-          "beforeState": "official-price-unpublished",
-          "afterState": "verified"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE",
-          "region": "tr",
-          "beforeState": "verified",
-          "afterState": "official-price-unpublished"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE",
-          "region": "ng",
-          "beforeState": "official-price-unpublished",
-          "afterState": "verified"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "kr",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Super Chat",
-              "price": "￦15,000"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Premium Lite",
-              "price": "￦10,900"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "au",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Movies & Shows",
-              "price": "$6.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "ph",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "YouTube Premium Family",
-              "price": "₱ 1,190.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "1666653815",
-          "appName": "HBO Max: Stream Movies & TV",
-          "region": "br",
-          "beforeState": "verified",
-          "afterState": "official-price-unpublished"
         }
       ]
     }
