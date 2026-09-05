@@ -2,6 +2,111 @@
   "version": 1,
   "entries": [
     {
+      "id": "f355ab60aecd89ba788e",
+      "publishedAt": "2026-09-05T11:06:46.536Z",
+      "changeCount": 4,
+      "changes": [
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "us",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Ultra (30 TB)",
+              "price": "$199.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "200 GB",
+              "price": "$2.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "vn",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "200 GB",
+              "price": "69.000đ"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "229.000đ"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "ca",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "added": [
+            {
+              "name": "Google AI Plus (2 TB)",
+              "price": "$13.99"
+            }
+          ],
+          "removed": [
+            {
+              "name": "Google AI Plus (200GB)",
+              "price": "$6.99"
+            }
+          ]
+        },
+        {
+          "type": "region-items-changed",
+          "appId": "6477489729",
+          "appName": "Google Gemini",
+          "region": "au",
+          "beforeState": "verified",
+          "afterState": "verified",
+          "updated": [
+            {
+              "name": "Google AI Plus (400 GB)",
+              "beforePrice": "$79.99",
+              "afterPrice": "$7.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "beforePrice": "$329.99",
+              "afterPrice": "$32.99"
+            }
+          ],
+          "added": [
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            },
+            {
+              "name": "100 GB",
+              "price": "$2.99"
+            },
+            {
+              "name": "Google AI Pro (5 TB)",
+              "price": "$32.99"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "a8c7cb63e1860af2bc72",
       "publishedAt": "2026-09-05T00:35:35.278Z",
       "changeCount": 3,
@@ -4924,163 +5029,6 @@
           "region": "br",
           "beforeState": "verified",
           "afterState": "official-price-unpublished"
-        }
-      ]
-    },
-    {
-      "id": "71cd112922d622762d74",
-      "publishedAt": "2026-07-26T10:18:06.022Z",
-      "changeCount": 10,
-      "changes": [
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "jp",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "¥7,200"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "gb",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Plus (400 GB)",
-              "price": "£44.99"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6477489729",
-          "appName": "Google Gemini",
-          "region": "ca",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Google AI Pro (5 TB)",
-              "price": "$269.99"
-            }
-          ],
-          "removed": [
-            {
-              "name": "100 GB",
-              "price": "$2.79"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "6670324846",
-          "appName": "Grok AI",
-          "region": "tw",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Extra Usage Credits 10 USD",
-              "price": "NT$320.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "333903271",
-          "appName": "X",
-          "region": "hk",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "@Jake__Wujastyk Subscription",
-              "price": "HK$ 118.00"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Boosted Tweet package",
-              "price": "HK$ 388.00"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE",
-          "region": "ca",
-          "beforeState": "verified",
-          "afterState": "official-price-unpublished"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "835599320",
-          "appName": "TikTok - Videos, Shop & LIVE",
-          "region": "ng",
-          "beforeState": "verified",
-          "afterState": "official-price-unpublished"
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "544007664",
-          "appName": "YouTube",
-          "region": "in",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Movies & Shows",
-              "price": "₹ 179"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "363590051",
-          "appName": "Netflix",
-          "region": "vn",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "removed": [
-            {
-              "name": "Netflix 2S Streaming",
-              "price": "230.000đ"
-            }
-          ]
-        },
-        {
-          "type": "region-items-changed",
-          "appId": "1446075923",
-          "appName": "Disney+",
-          "region": "sg",
-          "beforeState": "verified",
-          "afterState": "verified",
-          "added": [
-            {
-              "name": "Premier Access: Black Widow",
-              "price": "S$ 39.98"
-            }
-          ],
-          "removed": [
-            {
-              "name": "Disney+ Standard",
-              "price": "S$ 15.98"
-            },
-            {
-              "name": "Disney+ Premium",
-              "price": "S$ 18.98"
-            }
-          ]
         }
       ]
     }
