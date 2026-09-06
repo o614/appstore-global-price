@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T11:29:46.952Z",
+  "generatedAt": "2026-09-06T17:22:19.633Z",
   "source": "Apple public App Store product and service pricing pages",
   "regions": [
     "cn",
@@ -1780,7 +1780,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:25.522Z"
+      "verifiedAt": "2026-09-06T17:18:45.073Z"
     },
     {
       "query": "Apple Music",
@@ -2136,7 +2136,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:25.522Z"
+      "verifiedAt": "2026-09-06T17:18:45.073Z"
     },
     {
       "query": "iCloud+",
@@ -2637,7 +2637,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:25.522Z"
+      "verifiedAt": "2026-09-06T17:18:45.073Z"
     },
     {
       "query": "Apple One",
@@ -2939,7 +2939,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:27.514Z"
+      "verifiedAt": "2026-09-06T17:18:47.362Z"
     },
     {
       "query": "Apple TV+",
@@ -3147,7 +3147,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:27.514Z"
+      "verifiedAt": "2026-09-06T17:18:47.362Z"
     },
     {
       "query": "Apple Arcade",
@@ -3402,7 +3402,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:27.514Z"
+      "verifiedAt": "2026-09-06T17:18:47.362Z"
     },
     {
       "query": "Apple Fitness+",
@@ -3669,7 +3669,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:44.266Z"
+      "verifiedAt": "2026-09-06T17:19:04.170Z"
     },
     {
       "query": "Apple News+",
@@ -3812,7 +3812,7 @@
           "items": []
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:44.266Z"
+      "verifiedAt": "2026-09-06T17:19:04.170Z"
     },
     {
       "query": "ChatGPT",
@@ -4691,7 +4691,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:17:44.266Z"
+      "verifiedAt": "2026-09-06T17:19:04.170Z"
     },
     {
       "query": "Claude by Anthropic",
@@ -5720,7 +5720,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:29:46.864Z"
+      "verifiedAt": "2026-09-06T17:19:32.336Z"
     },
     {
       "query": "Google Gemini",
@@ -7389,7 +7389,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:29:46.864Z"
+      "verifiedAt": "2026-09-06T17:19:32.336Z"
     },
     {
       "query": "Grok AI",
@@ -7624,19 +7624,19 @@
               "isSubscription": false
             },
             {
-              "name": "SuperGrok Heavy",
-              "price": "$9,990.00",
-              "productId": "6748365662",
-              "offerName": "supergrok.pro.monthly.300",
+              "name": "SuperGrok Plus",
+              "price": "$2,990.00",
+              "productId": "6794461918",
+              "offerName": "grok.plus.monthly.100",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
             },
             {
-              "name": "SuperGrok Plus",
-              "price": "$2,990.00",
-              "productId": "6794461918",
-              "offerName": "grok.plus.monthly.100",
+              "name": "SuperGrok Heavy",
+              "price": "$9,990.00",
+              "productId": "6748365662",
+              "offerName": "supergrok.pro.monthly.300",
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
@@ -8459,13 +8459,6 @@
               "isSubscription": true
             },
             {
-              "name": "Extra Usage Credits 100 USD",
-              "price": "R$ 599,90",
-              "productId": "6785994993",
-              "offerName": "grok.credits.100",
-              "isSubscription": false
-            },
-            {
               "name": "SuperGrok",
               "price": "R$ 1.499,90",
               "productId": "6741437697",
@@ -8473,6 +8466,13 @@
               "billingPeriod": "P1Y",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
+            },
+            {
+              "name": "Extra Usage Credits 100 USD",
+              "price": "R$ 599,90",
+              "productId": "6785994993",
+              "offerName": "grok.credits.100",
+              "isSubscription": false
             }
           ]
         },
@@ -8532,6 +8532,13 @@
               "isSubscription": true
             },
             {
+              "name": "Extra Usage Credits 50 USD",
+              "price": "Rp 799ribu",
+              "productId": "6785980281",
+              "offerName": "grok.credits.50",
+              "isSubscription": false
+            },
+            {
               "name": "SuperGrok",
               "price": "Rp 499ribu",
               "productId": "6744708035",
@@ -8539,13 +8546,6 @@
               "billingPeriod": "P1M",
               "subscriptionFamilyId": "21630009",
               "isSubscription": true
-            },
-            {
-              "name": "Extra Usage Credits 50 USD",
-              "price": "Rp 799ribu",
-              "productId": "6785980281",
-              "offerName": "grok.credits.50",
-              "isSubscription": false
             },
             {
               "name": "SuperGrok",
@@ -8922,7 +8922,7 @@
           ]
         }
       ],
-      "verifiedAt": "2026-09-06T11:29:46.864Z"
+      "verifiedAt": "2026-09-06T17:19:32.336Z"
     },
     {
       "query": "Kimi - Kimi K3 is Live",
@@ -11992,21 +11992,16 @@
     }
   ],
   "updateReport": {
-    "fallbackCount": 27,
+    "fallbackCount": 26,
     "fallbacks": [
       {
         "appId": "6474233312",
-        "region": "cn",
+        "region": "tr",
         "reason": "identity:error:HTTP 429"
       },
       {
         "appId": "6474233312",
-        "region": "gb",
-        "reason": "identity:error:HTTP 429"
-      },
-      {
-        "appId": "6474233312",
-        "region": "de",
+        "region": "au",
         "reason": "identity:error:HTTP 429"
       },
       {
@@ -12162,7 +12157,7 @@
           "6477489729",
           "6670324846"
         ],
-        "status": "confirmed-change"
+        "status": "verified-unchanged"
       },
       {
         "appIds": [
